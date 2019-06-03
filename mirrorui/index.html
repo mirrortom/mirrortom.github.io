@@ -21,6 +21,9 @@
       overflow-x: hidden;
       overflow-y: auto;
     }
+    .doc-part-box{
+      margin:50px auto;
+    }
   </style>
 </head>
 <body>
@@ -39,7 +42,8 @@
             <span class="sidemenu-label">零件<i class="sidemenu-arrdown"></i></span>
           </li>
           <li><a class="sidemenu-item" href="#grid">册格</a></li>
-          <li><a class="sidemenu-item" href="#typography">标题段落</a></li>
+          <li><a class="sidemenu-item" href="#typography">大标题</a></li>
+          <li><a class="sidemenu-item" href="#hrline">hr分隔线</a></li>
           <li><a class="sidemenu-item" href="#btn">按钮</a></li>
           <li><a class="sidemenu-item" href="#table">表格</a></li>
           <li><a class="sidemenu-item" href="#form">表单</a></li>
@@ -155,7 +159,7 @@
     <div class="grid demo-grid text-center">均分</div>
   </div>
 </div>
-      <br />
+      
       <div class="doc-part-box" id="typography">
   <h2>标题段落</h2>
   <p>对h1~h6和p标签的样式</p>
@@ -176,7 +180,19 @@
   <p>第 4 段,.....</p>
   <p>第 5 段,.....</p>
 </div>
-      <br />
+      
+      <div class="doc-part-box" id="hrline">
+  <h2>hr分隔线</h2>
+  <p>class="line"</p>
+  <hr class="line" />
+  <p>class="line primary"</p>
+  <hr class="line primary" />
+  <p>class="line danger"</p>
+  <hr class="line danger" />
+  <p>class="line success"</p>
+  <hr class="line success" />
+</div>
+      
       <div class="doc-part-box" id="btn">
   <h2>按钮</h2>
   <p>标记使用a span button,添加.btn样式.有几种颜色.</p>
@@ -211,7 +227,7 @@
 &lt;a class="btn <b>block</b> blue-b cir lg"&gt;块级按钮&lt;/a&gt;
 </pre>
 </div>
-      <br />
+      
       <div class="doc-part-box" id="table">
   <h2>表格</h2>
   <p class="lead">一个简单的表格样式,有隔行颜色,鼠标hover,外边框</p>
@@ -270,7 +286,7 @@
 &lt;table class="table <b>border-all</b>"&gt;&lt;/table&gt;
 </pre>
 </div>
-      <br />
+      
       <div class="doc-part-box" id="form">
   <h2>表单元素</h2>
   <p class="lead">几种表单元素的样式.另外做了两种纸质风格的样式.</p>
@@ -545,7 +561,7 @@
 &lt;/div&gt;
 </pre>
 </div>
-      <br />
+      
       <div class="doc-part-box" id="imagedemo">
   <h2>图片</h2>
   <p>自动适应父容器大小 class="img-autosize" 圆角class="img-rounded" 圆形class="img-circle"</p>
@@ -555,7 +571,7 @@
     <div class="grid"><img class="img-circle" style="border:1px solid var(--font-color)" src="img/imgdemo.gif" /></div>
   </div>
 </div>
-      <br />
+      
       <div class="doc-part-box" id="toolclass">
   <h2>便利样式</h2>
   <p class="article-title">文本超出省略</p>
@@ -592,7 +608,7 @@
   <span class="d-none d-lg-block">lg 992px以上显示</span>
   <span class="d-none d-xl-block">lg 1200px以上显示</span>
 </div>
-      <br />
+      
       <div class="doc-part-box" id="btngroup">
   <h2>按钮组</h2>
   <p>按钮组包含多个按钮,一般用于一组性质相近的功能.</p>
@@ -696,7 +712,7 @@
     </span>
   </div>
 </div>
-      <br />
+      
       <div class="doc-part-box" id="label">
   <h2>标签</h2>
   <span class="label">默认class="label"</span>
@@ -708,7 +724,7 @@
   <span class="label success">success</span>
   <span class="label danger">danger</span>
 </div>
-      <br />
+      
       <div class="doc-part-box" id="article">
   <h2>段落标题</h2>
   <div class="grids-4">
@@ -725,7 +741,7 @@
   <pre class="code">&lt;p class="article-title"&gt;默认标题&lt;/p&gt;</pre>
 </div>
 
-      <br />
+      
       <div class="doc-part-box" id="msgpanel">
   <h1>信息面板</h1>
   <p>内容包含标题和一段文字.也可无标题.标题使用h1~h6,段落使用p.</p>
@@ -762,7 +778,7 @@
     <p>......</p>
   </div>
 </div>
-      <br />
+      
       <div class="doc-part-box" id="panel">
   <h2>面板</h2>
   <p>像广告牌,分两部分,上面是大标题,下面是简介.面板是个容器,可放入其它零件.</p>
@@ -814,7 +830,7 @@
 &lt;/div&gt;
 </pre>
 </div>
-      <br />
+      
       <div class="doc-part-box" id="tabs">
   <h2>选项卡</h2>
   <p class="lead">切换选项卡,显示相应页面.很常用的组件</p>
@@ -945,7 +961,7 @@ tabs('mytabs1',1);
     tabs('mytabs_danger',2);
   </script>
 </div>
-      <br />
+      
       <div class="doc-part-box" id="msgbox">
   <style>
     .testbtn {
@@ -1013,7 +1029,7 @@ tabs('mytabs1',1);
   </script>
 </div>
 
-      <br />
+      
       <div class="doc-part-box" id="datetime">
   <h2>日期时间</h2>
   <p>日期控件,兼容PC与手机端.js插件模式.支持日期和日期时间基本功能</p>
@@ -1033,7 +1049,7 @@ tabs('mytabs1',1);
   <p>开始参考了火狐浏览器自带日期控件的样子.实现时,将日期看做一个四行七列的表格.首行为年月日今天按钮,第二行放星期,三行为日,四行为小时区.布局后,放入对应按钮,然后绑定各自事件</p>
   <p>控件的复杂处在于事件比较多,但js和css并没有太多难度,只是代码有点多而已.在判断当天所在月的日期时,需要一个计算,最终要算出这个月1号的前几天和最后一号的后几天</p>
 </div>
-      <br />
+      
       <div class="doc-part-box" id="pagenum">
   <h2>分页导航</h2>
   <p>参考了天猫京东的分页条,最后设计成包含如下按钮.上一页,1页,当前页前几页,当前页,当前页后几页,最后页,下一页,总页数,跳转页输入框,确定</p>
@@ -1156,7 +1172,7 @@ function getdata()
     newpagenum2(3);
   </script>
 </div>
-      <br />
+      
       <div class="doc-part-box" id="sidemenu">
   <h2>侧边菜单</h2>
   <p class="article-title">html结构</p>
@@ -1231,7 +1247,7 @@ menu.activeItem(0);
 sidemenu('sidemenudemo1','方法')
 </pre>
 </div>
-      <br />
+      
       <div class="doc-part-box" id="cachepage">
   <style>
     .cachepagedemo {
@@ -1393,7 +1409,7 @@ sidemenu('sidemenudemo1','方法')
     }
   </script>
 </div>
-      <br />
+      
       <div class="doc-part-box" id="design_form">
   <h3>表单设计</h3>
   <p>表单一直是重点,应用系统中更是如此.表单填写是工作人员最不喜欢的工作之一,因为很没意思.看到一大堆要填写还可能填错的东西,马上失去耐心.</p>
@@ -1413,7 +1429,7 @@ sidemenu('sidemenudemo1','方法')
   <p>如何做到保存修改项,有的网站设计的是将表单的项分成小组,每个小组有一个编辑保存按钮.这样每次修改的就只</p>
   <p>限于这个小组的几个字段,而不是整个表单.这种做法显然好多了.</p>
 </div>
-      <br />
+      
     </div>
   </div>
   <script>
