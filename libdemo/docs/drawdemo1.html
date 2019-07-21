@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link href="/mirrorui/mirrorui.min.css" rel="stylesheet" />
+  <title>canvas-demo</title>
+</head>
+<body>
+  <style>
+  #canvas1, #canvas2, #canvas3 {
+    padding: 20px;
+    margin: 20px;
+  }
+
+  #canvas1 {
+    background-color:goldenrod;
+  }
+
+  #canvas2 {
+    background-color: burlywood;
+  }
+
+  #canvas3 {
+    background-color: coral;
+  }
+</style>
+<h3>围棋盘</h3>
+<p>围棋盘有19X19交叉点,是个正方形,有9个特殊交叉点需要标记,最中间的叫"天元".</p>
+<p>先画38条线,然后再特殊点画填充圆点.这两个用到的api主要有moveTo,lineTo,arc,retc</p>
+<p>棋盘线外围的区域是canvas元素的padding:20px,背景色是设置的css</p>
+<h4>关于画线</h4>
+<p>如果在(0,0)(10,10)点画一条厚度为3的正方形,那么会发现正方形的上边和左边比右边和底边要细,似乎是3的一半</p>
+<p>确实也是一半,还有一半跑到画布外面了.如果调整一个起点,例如(3,3)(10,10),那么可以发现canvas在画线时是以</p>
+<p>坐标点为中心线的.例如(0,0)(0,10)这条线,且厚度为3,那么以这条线为中轴,左边1.5右边1.5,就是3.那么,左边</p>
+<p>这部分已经跑到画布外面去了(坐标是[-1.5,0][-1.5,10]),显示不出来,只剩下右边的1.5了,所以看起来只有一半</p>
+<h4>特殊点,天元点</h4>
+<p>这个相对简单些,通过观察,这些点位置是3,9,15这个序列,一共9个点,后面数是前数加6.可以双层循环[1~6],3*i</p>
+<p>可以满足这个序列,但要排除i为偶数的时候.</p>
+<canvas id="canvas1">
+  <h3>围棋canvas画布</h3>
+</canvas>
+<hr class="line" />
+<h3>象棋盘</h3>
+<p>10行9列,画法上与围棋盘一样.有楚河汉界,那一行不能贯穿竖线,所以竖线分两次画了</p>
+<p>砲和兵的交叉点周围画上4个直角,这用到了变换坐标原点(translate)和旋转画布(rotate).</p>
+<p>砲交叉点左上角画一个直角计算下坐标,如果以这交叉点为新原点,然后逆90度转动画布,此时,转动前位于交叉点右上角位置,</p>
+<p>现在又到了左上角,这样可以直接再画一次左上角的直角而不必重新计算坐标.同理,转180度时,交叉点右下角位置又会出</p>
+<p>现在左上角,转270度时,左下角位置会出现在左上角.这样一样,只需要计算一次左上角的坐标,旋转3次坐标系即可在交叉</p>
+<p>点四个位置上画上直角.</p>
+<p>九宫格斜线和楚河汉界也用到坐标原点重置,这个能避免很多的坐标计算,基本想法就是只计算参照点坐标,然后以这坐标为新原点.</p>
+
+<canvas id="canvas2">
+  <h3>象棋canvas画布</h3>
+</canvas>
+<hr class="line" />
+<h3>国际象棋盘</h3>
+<p>这个更简单些,是由64个小正方形组成的,可以用fillRect直接填充矩形.没有边框线和内线</p>
+<p>黑白的方块交替,每一行起始颜色不同.第1行是黑色起,第2行是白色起.在双重循环时,每一行循环后要修改下交替变量.</p>
+<canvas id="canvas3">
+  <h3>国际象棋canvas画布</h3>
+</canvas>
+<script>
+  wq();
+  xq();
+  gjxq();
+  // 围棋盘
+  function wq() {
+    let canvas = document.querySelector('#canvas1');
+    ctx = canvas.getContext('2d');
+    let len = 450;// 棋盘边长
+    let lw = 1;// 线宽
+    let gridLen = len / 18;// 小网格边长
+    //
+    ctx.canvas.width = len;
+    ctx.canvas.height = len;
+    ctx.lineWidth = lw;
+    ctx.strokeStyle = '#333';// 线颜色
+
+    // 先画个外框,是正方形
+    ctx.save();
+    let lenWidth = 3;// 框厚度
+    ctx.lineWidth = lenWidth;
+    ctx.strokeRect(lenWidth / 2, lenWidth / 2, len - lenWidth, len - lenWidth);
+    ctx.restore();
+
+    // 横线
+    ctx.save();
+    for (var i = 1; i < 19; i++) {
+      let y = gridLen * i - lw / 2;
+      ctx.moveTo(0 + lw / 2, y);
+      ctx.lineTo(len - lw / 2, y);
+    }
+    ctx.stroke();
+    ctx.restore();
+
+    // 竖线
+    ctx.save();
+    for (var i = 1; i < 19; i++) {
+      let x = gridLen * i - lw / 2;
+      ctx.moveTo(x, 0 + lw / 2);
+      ctx.lineTo(x, len - lw / 2);
+    }
+    ctx.stroke();
+    ctx.restore();
+
+    // 9个特别点
+    ctx.save();
+    let radius = Math.ceil(gridLen / 4); // 圈半径
+    ctx.fillStyle = '#666';
+    for (var i = 1; i < 6; i++) {
+      if (i % 2 == 0) continue;
+      for (var j = 1; j < 6; j++) {
+        if (j % 2 == 0) continue;
+        let x = gridLen * j * 3 - lw / 2;
+        let y = gridLen * i * 3 - lw / 2;
+        ctx.beginPath();
+        ctx.arc(x, y, radius, 0, Math.PI * 2);
+        ctx.fill();
+      }
+    }
+    ctx.restore();
+  }
+  // 象棋
+  function xq() {
+    let canvas = document.querySelector('#canvas2');
+    ctx = canvas.getContext('2d');
+    ctx.canvas.width = 400;// 宽(横)
+    ctx.canvas.height = 450;// 长(竖)
+    let lw = 1;// 线宽
+    ctx.lineWidth = lw;
+    let gridLen = ctx.canvas.width / 8;// 小网格边长
+    ctx.strokeStyle = '#333';// 线颜色
+
+    // 先画个外框,是正方形
+    ctx.save();
+    let lenWidth = 3;// 框厚度
+    ctx.lineWidth = lenWidth;
+    ctx.strokeRect(lenWidth / 2, lenWidth / 2, ctx.canvas.width - lenWidth, ctx.canvas.height - lenWidth);
+    ctx.restore();
+
+    // 横线
+    ctx.save();
+    for (var i = 1; i < 9; i++) {
+      let y = gridLen * i - lw / 2;
+      ctx.moveTo(0 + lw / 2, y);
+      ctx.lineTo(ctx.canvas.width - lw / 2, y);
+    }
+    ctx.stroke();
+    ctx.restore();
+
+    // 竖线
+    ctx.save();
+    for (var i = 1; i < 8; i++) {
+      let x = gridLen * i - lw / 2;
+      ctx.moveTo(x, 0 + lw / 2);
+      ctx.lineTo(x, 4 * gridLen - lw / 2);
+    }
+    for (var i = 1; i < 8; i++) {
+      let x = gridLen * i - lw / 2;
+      ctx.moveTo(x, 5 * gridLen + lw / 2);
+      ctx.lineTo(x, 9 * gridLen - lw / 2);
+    }
+    ctx.stroke();
+    ctx.restore();
+
+    // 砲,兵位
+    let tagLen = 10;
+
+    // 14个砲和兵的坐标位
+    let tagxy = [];
+    tagxy.push({ x: gridLen - lw / 2, y: 2 * gridLen - lw / 2 });// 上左砲
+    tagxy.push({ x: 7 * gridLen - lw / 2, y: tagxy[0].y });// 上右砲
+    tagxy.push({ x: lw / 2, y: 3 * gridLen - lw / 2 });// 上左兵
+    tagxy.push({ x: 2 * gridLen - lw / 2, y: tagxy[2].y });// 上兵2
+    tagxy.push({ x: 4 * gridLen - lw / 2, y: tagxy[2].y });// 上兵3
+    tagxy.push({ x: 6 * gridLen - lw / 2, y: tagxy[2].y });// 上兵4
+    tagxy.push({ x: 8 * gridLen - lw / 2, y: tagxy[2].y });// 上右兵
+
+    tagxy.push({ x: gridLen - lw / 2, y: 7 * gridLen - lw / 2 });// 下左砲
+    tagxy.push({ x: 7 * gridLen - lw / 2, y: tagxy[7].y });// 下右砲
+    tagxy.push({ x: lw / 2, y: 6 * gridLen - lw / 2 });// 下左兵
+    tagxy.push({ x: 2 * gridLen - lw / 2, y: tagxy[9].y });// 下兵2
+    tagxy.push({ x: 4 * gridLen - lw / 2, y: tagxy[9].y });// 下兵3
+    tagxy.push({ x: 6 * gridLen - lw / 2, y: tagxy[9].y });// 下兵4
+    tagxy.push({ x: 8 * gridLen - lw / 2, y: tagxy[9].y });// 下右兵
+    for (var p = 0; p < 14; p++) {
+      let itemxy = tagxy[p];
+      ctx.save();
+      ctx.translate(itemxy.x, itemxy.y);
+      for (var i = 0; i < 4; i++) {
+        ctx.rotate(i / 2 * Math.PI);
+        ctx.beginPath();
+        ctx.moveTo(-tagLen * 1.5, -tagLen / 2);
+        ctx.lineTo(-tagLen / 2, -tagLen / 2);
+        ctx.lineTo(-tagLen / 2, -tagLen * 1.5);
+        ctx.strokeStyle = '#c00';// 线颜色
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+    // 9宫交叉线
+    let crossxy = [];
+    crossxy.push({ x: 3 * gridLen - lw / 2, y: lw / 2 });// 上
+    crossxy.push({ x: 3 * gridLen - lw / 2, y: 7 * gridLen + lw / 2 });// 下
+    for (var p = 0; p < 2; p++) {
+      let itemxy = crossxy[p];
+      ctx.save();
+      ctx.translate(itemxy.x, itemxy.y);
+      for (var i = 0; i < 4; i++) {
+        ctx.moveTo(lw / 2, lw / 2);
+        ctx.lineTo(2 * gridLen - lw / 2, 2 * gridLen - lw / 2);
+        ctx.moveTo(lw / 2, 2 * gridLen - lw / 2);
+        ctx.lineTo(2 * gridLen - lw / 2, lw / 2);
+        ctx.stroke();
+      }
+      ctx.restore();
+    }
+    // 左楚河,右汉界
+    ctx.save();
+    ctx.translate(ctx.canvas.width - lw / 2, lw / 2);
+    ctx.rotate(Math.PI / 2);
+    ctx.beginPath();
+    ctx.font = '32px 隶书,Microsoft YaHei';
+    ctx.fillText('漢', 4 * gridLen + 9, gridLen);
+    ctx.fillText('界', 4 * gridLen + 9, 2 * gridLen);
+    ctx.restore();
+    //
+    ctx.save();
+    ctx.translate(lw / 2, ctx.canvas.height - lw / 2);
+    ctx.rotate(-Math.PI / 2);
+    ctx.beginPath();
+    ctx.font = '32px 隶书,Microsoft YaHei';
+    ctx.fillText('楚', 4 * gridLen + 9, gridLen);
+    ctx.fillText('河', 4 * gridLen + 9, 2 * gridLen);
+    ctx.restore();
+  }
+
+  // 国际象棋
+  function gjxq() {
+    let canvas = document.querySelector('#canvas3');
+    ctx = canvas.getContext('2d');
+    ctx.canvas.width = 400;// 宽(横)
+    ctx.canvas.height = ctx.canvas.width;// 长(竖)
+    let gridLen = ctx.canvas.width / 8;// 小网格边长
+
+    // 64个小格,填充色相临变化
+    ctx.save();
+    let gridIndex = 1;
+    for (var i = 0; i < 8; i++) {
+      for (var j = 0; j < 8; j++) {
+        let x = j * gridLen
+        let y = i * gridLen;
+        ctx.fillStyle = gridIndex % 2 == 1 ? '#333' : '#eee';
+        ctx.fillRect(x, y, gridLen, gridLen);
+        gridIndex++;
+      }
+      gridIndex--;
+    }
+    ctx.restore();
+  }
+</script>
+
+</body>
+</html>
