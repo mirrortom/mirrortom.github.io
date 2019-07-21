@@ -99,6 +99,7 @@
     }
   </style>
   <p>对div使用样式 {display:grid ; grid-template-columns: repeat(12,8.3333%);} 就实现了</p>
+
   <pre>
 .demo-grids {
   display: grid;
@@ -122,6 +123,7 @@
   <br />
   <h3>册格便利类</h3>
   <p>为了方便,制做便利类, .grids-n n=(1~12)</p>
+  <p>为防止内容超出册格而撑坏,册格项添加了"overflow: hidden"样式</p>
   <p>在div册格容器上使用样式 .grids-7 其下项目会自动均分1/7宽度</p>
   <div class="grids-7">
       <span class="demo-grid text-center">1 / 7</span>
@@ -583,17 +585,27 @@
   <p>text-left text-center text-right text-justify:两端对齐</p>
 
   <p class="article-title">文本主题色</p>
-  <div class="grids-3">
-    <p class="text-primary">class="text-primary"</p>
-    <p class="text-danger">class="text-danger"</p>
-    <p class="text-success">class="text-success"</p>
+  <div class="grids-4">
+      <p class="text-primary">class="text-primary"</p>
+      <p class="text-danger">class="text-danger"</p>
+      <p class="text-success">class="text-success"</p>
+      <p class="text-gray">class="text-gray"</p>
+          <p class="text-primaryse">class="text-primaryse"</p>
+      <p class="text-dangerse">class="text-dangerse"</p>
+      <p class="text-successse">class="text-successse"</p>
+      <p class="text-grayse">class="text-grayse"</p>
   </div>
 
   <p class="article-title">背景主题色</p>
-  <div class="grids-3">
-    <p class="bg-primary pd-5">class="bg-primary"</p>
-    <p class="bg-danger pd-5">class="bg-danger"</p>
-    <p class="bg-success pd-5">class="bg-success"</p>
+  <div class="grids-4">
+      <p class="bg-primary pd-5 text-grayse">class="bg-primary"</p>
+      <p class="bg-danger pd-5 text-grayse">class="bg-danger"</p>
+      <p class="bg-success pd-5 text-grayse">class="bg-success"</p>
+      <p class="bg-gray pd-5 text-grayse">class="bg-gray"</p>
+          <p class="bg-primaryse pd-5">class="bg-primaryse"</p>
+      <p class="bg-dangerse pd-5">class="bg-dangerse"</p>
+      <p class="bg-successse pd-5">class="bg-successse"</p>
+      <p class="bg-grayse pd-5">class="bg-grayse"</p>
   </div>
 
   <p class="article-title">margin padding</p>
@@ -1191,6 +1203,7 @@ function getdata()
   <h2>侧边菜单</h2>
   <p class="article-title">html结构</p>
   <p>最外层是nav容器,包含ul列表,每个ul是一组菜单.ul里的li为菜单项容器.里面的a是菜单项,每个ul内第1个span是组标题.</p>
+
   <pre class="code">
 &lt;nav class="sidemenu-box" id="main_menubox"&gt;
   &lt;ul class="sidemenu-group"&gt;
@@ -1206,9 +1219,15 @@ function getdata()
   ...
 &lt;/nav&gt;
 </pre>
+  <p class="article-title">菜单超长</p>
+  <p>菜单内容项设置了超长显示省略号的样式,但需要给菜单容器设定一个宽度,自适应宽度可能不行</p>
+  <pre>
+&lt;nav class="sidemenu-box" style="width:220px;"&gt;
+</pre>
+  <br />
   <div class="grids" id="sidemenutestbox">
     <div class="grid">
-      <nav class="sidemenu-box" id="sidemenudemo1">
+      <nav class="sidemenu-box" id="sidemenudemo1" style="width:220px;">
         <ul class="sidemenu-group">
           <li>
             <span class="sidemenu-label">第1组<i class="sidemenu-arrdown"></i></span>
@@ -1216,7 +1235,7 @@ function getdata()
           <li><a class="sidemenu-item">菜单一</a></li>
           <li><a class="sidemenu-item">菜单二</a></li>
           <li><a class="sidemenu-item">菜单三</a></li>
-          <li><a class="sidemenu-item">菜单四</a></li>
+          <li><a class="sidemenu-item">菜单四(如果菜单内容超过宽度,显示省略号)</a></li>
         </ul>
       </nav>
     </div>
@@ -1224,7 +1243,7 @@ function getdata()
       <nav class="sidemenu-box primary" id="sidemenudemo2">
         <ul class="sidemenu-group">
           <li>
-            <span class="sidemenu-label">第1组<i class="sidemenu-arrdown"></i></span>
+            <span class="sidemenu-label">第2组<i class="sidemenu-arrdown"></i></span>
           </li>
           <li><a class="sidemenu-item">菜单一</a></li>
           <li><a class="sidemenu-item">菜单二</a></li>
@@ -1237,7 +1256,7 @@ function getdata()
       <nav class="sidemenu-box danger" id="sidemenudemo3">
         <ul class="sidemenu-group">
           <li>
-            <span class="sidemenu-label">第1组<i class="sidemenu-arrdown"></i></span>
+            <span class="sidemenu-label">第3组<i class="sidemenu-arrdown"></i></span>
           </li>
           <li><a class="sidemenu-item">菜单一</a></li>
           <li><a class="sidemenu-item">菜单二</a></li>
@@ -1252,6 +1271,7 @@ function getdata()
     sidemenu('sidemenudemo2');
     sidemenu('sidemenudemo3');
   </script>
+  <br />
   <pre class="code">
 // 实例化
 let menu=sidemenu('sidemenudemo1');
