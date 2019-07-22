@@ -15,7 +15,7 @@
   }
 
   #canvas1 {
-    background-color:goldenrod;
+    background-color: goldenrod;
   }
 
   #canvas2 {
@@ -49,7 +49,9 @@
 <p>现在又到了左上角,这样可以直接再画一次左上角的直角而不必重新计算坐标.同理,转180度时,交叉点右下角位置又会出</p>
 <p>现在左上角,转270度时,左下角位置会出现在左上角.这样一样,只需要计算一次左上角的坐标,旋转3次坐标系即可在交叉</p>
 <p>点四个位置上画上直角.</p>
-<p>九宫格斜线和楚河汉界也用到坐标原点重置,这个能避免很多的坐标计算,基本想法就是只计算参照点坐标,然后以这坐标为新原点.</p>
+<p>九宫格斜线和楚河汉界也用到坐标原点重置,这个能避免很多的坐标计算,基本想法就是只计算参照点坐标,然后以这坐标为新原</p>
+<p>点.通过坐标重置和坐标旋转,能简化很多复杂的坐标计算,由于是以参照点为原点,所以参照点将成为(0,0)点,其它坐标将基于</p>
+<p>这个原点计算简化很多,坐标系变换大概是高中时学习过的数学课程.</p>
 
 <canvas id="canvas2">
   <h3>象棋canvas画布</h3>
@@ -122,6 +124,7 @@
     }
     ctx.restore();
   }
+
   // 象棋
   function xq() {
     let canvas = document.querySelector('#canvas2');
@@ -203,18 +206,16 @@
     // 9宫交叉线
     let crossxy = [];
     crossxy.push({ x: 3 * gridLen - lw / 2, y: lw / 2 });// 上
-    crossxy.push({ x: 3 * gridLen - lw / 2, y: 7 * gridLen + lw / 2 });// 下
-    for (var p = 0; p < 2; p++) {
+    crossxy.push({ x: crossxy[0].x, y: 7 * gridLen + lw / 2 });// 下2
+    for (var p = 0; p < crossxy.length; p++) {
       let itemxy = crossxy[p];
       ctx.save();
       ctx.translate(itemxy.x, itemxy.y);
-      for (var i = 0; i < 4; i++) {
-        ctx.moveTo(lw / 2, lw / 2);
-        ctx.lineTo(2 * gridLen - lw / 2, 2 * gridLen - lw / 2);
-        ctx.moveTo(lw / 2, 2 * gridLen - lw / 2);
-        ctx.lineTo(2 * gridLen - lw / 2, lw / 2);
-        ctx.stroke();
-      }
+      ctx.moveTo(lw / 2, lw / 2);
+      ctx.lineTo(2 * gridLen - lw / 2, 2 * gridLen - lw / 2);
+      ctx.moveTo(lw / 2, 2 * gridLen - lw / 2);
+      ctx.lineTo(2 * gridLen - lw / 2, -lw / 2);
+      ctx.stroke();
       ctx.restore();
     }
     // 左楚河,右汉界
@@ -247,16 +248,16 @@
 
     // 64个小格,填充色相临变化
     ctx.save();
-    let gridIndex = 1;
     for (var i = 0; i < 8; i++) {
       for (var j = 0; j < 8; j++) {
         let x = j * gridLen
         let y = i * gridLen;
-        ctx.fillStyle = gridIndex % 2 == 1 ? '#333' : '#eee';
+        if (i % 2 == 1)
+          ctx.fillStyle = j % 2 == 1 ? '#333' : '#eee';
+        else
+          ctx.fillStyle = j % 2 == 1 ? '#eee' : '#333';
         ctx.fillRect(x, y, gridLen, gridLen);
-        gridIndex++;
       }
-      gridIndex--;
     }
     ctx.restore();
   }
