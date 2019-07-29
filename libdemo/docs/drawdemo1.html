@@ -7,8 +7,7 @@
   <link href="/mirrorui/mirrorui.min.css" rel="stylesheet" />
   <title>canvas-demo</title>
 </head>
-<body>
-  <style>
+<body><div class="mg-lr-15"><style>
   #canvas1, #canvas2, #canvas3 {
     padding: 20px;
     margin: 20px;
@@ -26,6 +25,8 @@
     background-color: coral;
   }
 </style>
+<h1>canvas练习1 棋盘</h1>
+<hr class="line">
 <h3>围棋盘</h3>
 <p>围棋盘有19X19交叉点,是个正方形,有9个特殊交叉点需要标记,最中间的叫"天元".</p>
 <p>先画38条线,然后再特殊点画填充圆点.这两个用到的api主要有moveTo,lineTo,arc,retc</p>
@@ -262,6 +263,5 @@
     ctx.restore();
   }
 </script>
-
-</body>
+</div></body>
 </html>
