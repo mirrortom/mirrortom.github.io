@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link href="/mirrorui/mirrorui.min.css" rel="stylesheet" />
+  <title>canvas文档</title>
+</head>
+<body>
+  <p>文档参考1<a href="https://www.canvasapi.cn" target="_blank">https://www.canvasapi.cn</a>&emsp;
+   文档参考2<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial" target="_blank">https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial</a></p>
+  <hr class="line" />
+  <div class="grids">
+    <div class="grid-2">
+      <nav class="sidemenu-box" id="main_menubox" style="max-width:200px">
+  <ul class="sidemenu-group">
+    <li>
+      <span class="sidemenu-label">canvas<i class="sidemenu-arrdown"></i></span>
+    </li>
+    <li><a class="sidemenu-item" href="index.html">CanvasRenderingContext2D</a></li>
+  </ul>
+  <ul class="sidemenu-group">
+    <li>
+      <span class="sidemenu-label">属性<i class="sidemenu-arrdown"></i></span>
+    </li>
+    <li><a class="sidemenu-item" href="canvas.html">canvas</a></li>
+    <li><a class="sidemenu-item" href="font.html">font</a></li>
+    <li><a class="sidemenu-item" href="fillstyle.html">fillStyle</a></li>
+    <li><a class="sidemenu-item" href="linewidth.html">lineWidth</a></li>
+    <li><a class="sidemenu-item" href="strokestyle.html">strokestyle</a></li>
+  </ul>
+  <ul class="sidemenu-group">
+    <li>
+      <span class="sidemenu-label">方法<i class="sidemenu-arrdown"></i></span>
+    </li>
+    <li><a class="sidemenu-item" href="arc.html">arc()</a></li>
+    <li><a class="sidemenu-item" href="beginpath.html">beginPath()</a></li>
+    <li><a class="sidemenu-item" href="clearrect.html">clearRect()</a></li>
+    <li><a class="sidemenu-item" href="filltext.html">fillText()</a></li>
+    <li><a class="sidemenu-item" href="rect.html">rect()</a></li>
+    <li><a class="sidemenu-item" href="rotate.html">rotate()</a></li>
+    <li><a class="sidemenu-item" href="translate.html">translate()</a></li>
+  </ul>
+</nav>
+
+    </div>
+    <div class="grid-10 pd-20"><h2>
+  rect(x,y,width,height)
+</h2>
+<p>
+  绘制矩形路径
+</p>
+<pre class="bg-gray pd-tb-10">
+  ctx.rect(x,y,width,height)
+</pre>
+<br />
+<h4>参数</h4>
+
+<p>
+  <label class="label danger">x</label> <small>Number</small>
+  矩形左上顶点x坐标
+</p>
+<p>
+  <label class="label danger">y</label> <small>Number</small>
+  矩形左上顶点y坐标
+</p>
+<p>
+  <label class="label danger">width</label> <small>Number</small>
+  矩形宽度
+</p>
+<p>
+  <label class="label danger">height</label> <small>Number</small>
+  矩形高度
+</p>
+<br />
+<h4>测验</h4>
+<p>矩形(50,20) 230 125</p>
+<canvas id="canvas1"></canvas>
+<p>矩形(50,20) 150 150,画5个,(x,y)步增10</p>
+<canvas id="canvas2"></canvas>
+<p>矩形(50,20) 150 150,画布转动30度,</p>
+<canvas id="canvas3"></canvas>
+<br />
+<script>
+  drawcanvas1();
+  drawcanvas2();
+  drawcanvas3();
+  function drawcanvas1() {
+    let ctx = getCanvas2d('canvas1');
+    ctx.rect(50, 20, 230, 125);
+    ctx.stroke();
+  }
+  function drawcanvas2() {
+    let ctx = getCanvas2d('canvas2');
+    for (var i = 0; i < 5; i++) {
+      ctx.beginPath();
+      ctx.rect(50 + i * 10, 20 + i * 10, 150, 150);
+      ctx.stroke();
+    }
+  }
+  function drawcanvas3() {
+    let ctx = getCanvas2d('canvas3');
+    ctx.rotate(Math.PI / 6);
+    ctx.rect(50, 20, 150, 150);
+    ctx.stroke();
+  }
+  function getCanvas2d(canvasId) {
+    let canv = document.querySelector('#' + canvasId);
+    //
+    canv.style.display = 'block';
+    canv.style.margin = '20px';
+    canv.style.backgroundColor = '#f0f0f0';
+    let ctx = canv.getContext('2d');
+    //
+    return ctx;
+  }
+</script>
+</div>
+  </div>
+</body>
+</html>

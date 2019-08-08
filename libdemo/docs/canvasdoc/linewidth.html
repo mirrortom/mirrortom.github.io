@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link href="/mirrorui/mirrorui.min.css" rel="stylesheet" />
+  <title>canvas文档</title>
+</head>
+<body>
+  <p>文档参考1<a href="https://www.canvasapi.cn" target="_blank">https://www.canvasapi.cn</a>&emsp;
+   文档参考2<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial" target="_blank">https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial</a></p>
+  <hr class="line" />
+  <div class="grids">
+    <div class="grid-2">
+      <nav class="sidemenu-box" id="main_menubox" style="max-width:200px">
+  <ul class="sidemenu-group">
+    <li>
+      <span class="sidemenu-label">canvas<i class="sidemenu-arrdown"></i></span>
+    </li>
+    <li><a class="sidemenu-item" href="index.html">CanvasRenderingContext2D</a></li>
+  </ul>
+  <ul class="sidemenu-group">
+    <li>
+      <span class="sidemenu-label">属性<i class="sidemenu-arrdown"></i></span>
+    </li>
+    <li><a class="sidemenu-item" href="canvas.html">canvas</a></li>
+    <li><a class="sidemenu-item" href="font.html">font</a></li>
+    <li><a class="sidemenu-item" href="fillstyle.html">fillStyle</a></li>
+    <li><a class="sidemenu-item" href="linewidth.html">lineWidth</a></li>
+    <li><a class="sidemenu-item" href="strokestyle.html">strokestyle</a></li>
+  </ul>
+  <ul class="sidemenu-group">
+    <li>
+      <span class="sidemenu-label">方法<i class="sidemenu-arrdown"></i></span>
+    </li>
+    <li><a class="sidemenu-item" href="arc.html">arc()</a></li>
+    <li><a class="sidemenu-item" href="beginpath.html">beginPath()</a></li>
+    <li><a class="sidemenu-item" href="clearrect.html">clearRect()</a></li>
+    <li><a class="sidemenu-item" href="filltext.html">fillText()</a></li>
+    <li><a class="sidemenu-item" href="rect.html">rect()</a></li>
+    <li><a class="sidemenu-item" href="rotate.html">rotate()</a></li>
+    <li><a class="sidemenu-item" href="translate.html">translate()</a></li>
+  </ul>
+</nav>
+
+    </div>
+    <div class="grid-10 pd-20"><h2>
+  linewidth = 1.0
+</h2>
+<p>
+  路径宽度/厚度,默认值1.0
+</p>
+<pre class="bg-gray pd-tb-10">
+  ctx.lineWidth = 8;
+</pre>
+<br />
+<h4>测验</h4>
+<p>随机宽度(1-10)的直线</p>
+<canvas id="canvas1"></canvas>
+<p>宽度3.5矩形</p>
+<canvas id="canvas2"></canvas>
+<p>宽度5圆</p>
+<canvas id="canvas3"></canvas>
+<h4>边缘</h4>
+<p>如果在画布的左侧画一条坚线,可以发现宽度只有一半.左边的线与右边的线宽度值都是8.但左边线看起来只有一半宽度</p>
+<p>因为还有一半在画布左侧,属于画布区域之外.不会显示了.可以认为,宽度为n时,坐标中轴均分n.</p>
+<canvas id="canvas4"></canvas>
+<script>
+  randLineWidth();
+  rect();
+  cir();
+  test1();
+  function test1() {
+    let ctx = getCanvas2d('canvas4');
+    ctx.lineWidth = 8;
+    ctx.moveTo(0, 0);
+    ctx.lineTo(0, 90);
+    ctx.moveTo(50, 0);
+    ctx.lineTo(50, 90);
+    ctx.stroke();
+  }
+  function cir() {
+    // 宽度5圆
+    let ctx = getCanvas2d('canvas3');
+    ctx.arc(60, 60, 50,0,Math.PI*2);
+    ctx.lineWidth = 5;
+    ctx.stroke();
+  }
+  function rect() {
+    // 宽度3.5矩形
+    let ctx = getCanvas2d('canvas2');
+    ctx.rect(20, 20, 150, 90);
+    ctx.lineWidth = 3.5
+    ctx.stroke();
+  }
+  function randLineWidth() {
+    // 随机宽度的直线
+    let ctx = getCanvas2d('canvas1');
+    ctx.moveTo(20, 20);
+    ctx.lineTo(150, 90);
+    ctx.lineWidth = randomNum(1, 10);
+    ctx.fillText('宽度:' + ctx.lineWidth, 10, 10);
+    ctx.stroke();
+  }
+  function getCanvas2d(canvasId) {
+    let canv = document.querySelector('#' + canvasId);
+    //
+    canv.style.display = 'block';
+    canv.style.margin = '20px';
+    canv.style.backgroundColor = '#f0f0f0';
+    let ctx = canv.getContext('2d');
+    //
+    return ctx;
+  }
+  function randomNum(minNum, maxNum) {
+    switch (arguments.length) {
+      case 1:
+        return parseInt(Math.random() * minNum + 1, 10);
+        break;
+      case 2:
+        return parseInt(Math.random() * (maxNum - minNum + 1) + minNum, 10);
+        break;
+      default:
+        return 0;
+        break;
+    }
+  }
+</script>
+</div>
+  </div>
+</body>
+</html>

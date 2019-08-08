@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link href="/mirrorui/mirrorui.min.css" rel="stylesheet" />
+  <title>canvas文档</title>
+</head>
+<body>
+  <p>文档参考1<a href="https://www.canvasapi.cn" target="_blank">https://www.canvasapi.cn</a>&emsp;
+   文档参考2<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial" target="_blank">https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial</a></p>
+  <hr class="line" />
+  <div class="grids">
+    <div class="grid-2">
+      <nav class="sidemenu-box" id="main_menubox" style="max-width:200px">
+  <ul class="sidemenu-group">
+    <li>
+      <span class="sidemenu-label">canvas<i class="sidemenu-arrdown"></i></span>
+    </li>
+    <li><a class="sidemenu-item" href="index.html">CanvasRenderingContext2D</a></li>
+  </ul>
+  <ul class="sidemenu-group">
+    <li>
+      <span class="sidemenu-label">属性<i class="sidemenu-arrdown"></i></span>
+    </li>
+    <li><a class="sidemenu-item" href="canvas.html">canvas</a></li>
+    <li><a class="sidemenu-item" href="font.html">font</a></li>
+    <li><a class="sidemenu-item" href="fillstyle.html">fillStyle</a></li>
+    <li><a class="sidemenu-item" href="linewidth.html">lineWidth</a></li>
+    <li><a class="sidemenu-item" href="strokestyle.html">strokestyle</a></li>
+  </ul>
+  <ul class="sidemenu-group">
+    <li>
+      <span class="sidemenu-label">方法<i class="sidemenu-arrdown"></i></span>
+    </li>
+    <li><a class="sidemenu-item" href="arc.html">arc()</a></li>
+    <li><a class="sidemenu-item" href="beginpath.html">beginPath()</a></li>
+    <li><a class="sidemenu-item" href="clearrect.html">clearRect()</a></li>
+    <li><a class="sidemenu-item" href="filltext.html">fillText()</a></li>
+    <li><a class="sidemenu-item" href="rect.html">rect()</a></li>
+    <li><a class="sidemenu-item" href="rotate.html">rotate()</a></li>
+    <li><a class="sidemenu-item" href="translate.html">translate()</a></li>
+  </ul>
+</nav>
+
+    </div>
+    <div class="grid-10 pd-20"><h2>
+  clearRect(x,y,width,height)
+</h2>
+<p>
+  清空矩形区域内的所有像素
+</p>
+<pre class="bg-gray pd-tb-10">
+  ctx.clearRect(x,y,width,height);
+</pre>
+<h4>参数</h4>
+<p>
+  <label class="label danger">x</label> <small>Number</small>
+  矩形左上顶点x坐标
+</p>
+<p>
+  <label class="label danger">y</label> <small>Number</small>
+  矩形左上顶点y坐标
+</p>
+<p>
+  <label class="label danger">width</label> <small>Number</small>
+  矩形宽度
+</p>
+<p>
+  <label class="label danger">height</label> <small>Number</small>
+  矩形高度
+</p>
+<br />
+<h4>测验</h4>
+<p>填充整个画布,再清除一块区域.这个区域是没有像素的,下图被清区域显示的灰色,是因为这个canvas背景设为灰色了</p>
+<canvas id="canvas1"></canvas>
+<h3>应用</h3>
+<p>做canvas动画效果时,需要用到清空画布.一个简单的小点位移动画,可以视为在一个变化的x,y坐标上绘制</p>
+<p>这个小点,每绘制之前都调用此方法清空画布,以清空之前画的小点.这样看起来,小点是在运动中.</p>
+<p>以下是一个小点,出现在随机坐标上.每一秒钟出现一次.</p>
+<canvas id="canvas2"></canvas>
+<script>
+  test1();
+  test2();
+
+  function test1() {
+    let ctx = getCanvas2d('canvas1');
+    ctx.fillStyle = 'red';
+    ctx.fillRect(0, 0, 300, 150);
+    ctx.clearRect(50, 50, 100, 60);
+  }
+  function test2() {
+    let ctx = getCanvas2d('canvas2');
+    ctx.fillStyle = 'red';
+    let ani = () => {
+      ctx.clearRect(0, 0, 300, 150);
+      ctx.beginPath();
+      let x = nextInt(1, 300);
+      let y = nextInt(1, 150);
+      ctx.arc(x, y, 5, 0, Math.PI * 2);
+      ctx.fill();
+      setTimeout(() => {
+        requestAnimationFrame(ani);
+      }, 1000)
+    }
+    requestAnimationFrame(ani);
+  }
+  function getCanvas2d(canvasId) {
+    let canv = document.querySelector('#' + canvasId);
+    //
+    canv.style.display = 'block';
+    canv.style.margin = '20px';
+    canv.style.backgroundColor = '#f0f0f0';
+    let ctx = canv.getContext('2d');
+    //
+    return ctx;
+  }
+  function nextInt(intMin, intMax) {
+    let rand = Math.random() * (intMax - intMin);
+    return Math.floor(rand) + intMin;
+  }
+</script>
+</div>
+  </div>
+</body>
+</html>

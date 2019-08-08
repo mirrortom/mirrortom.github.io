@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link href="/mirrorui/mirrorui.min.css" rel="stylesheet" />
+  <title>canvas文档</title>
+</head>
+<body>
+  <p>文档参考1<a href="https://www.canvasapi.cn" target="_blank">https://www.canvasapi.cn</a>&emsp;
+   文档参考2<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial" target="_blank">https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial</a></p>
+  <hr class="line" />
+  <div class="grids">
+    <div class="grid-2">
+      <nav class="sidemenu-box" id="main_menubox" style="max-width:200px">
+  <ul class="sidemenu-group">
+    <li>
+      <span class="sidemenu-label">canvas<i class="sidemenu-arrdown"></i></span>
+    </li>
+    <li><a class="sidemenu-item" href="index.html">CanvasRenderingContext2D</a></li>
+  </ul>
+  <ul class="sidemenu-group">
+    <li>
+      <span class="sidemenu-label">属性<i class="sidemenu-arrdown"></i></span>
+    </li>
+    <li><a class="sidemenu-item" href="canvas.html">canvas</a></li>
+    <li><a class="sidemenu-item" href="font.html">font</a></li>
+    <li><a class="sidemenu-item" href="fillstyle.html">fillStyle</a></li>
+    <li><a class="sidemenu-item" href="linewidth.html">lineWidth</a></li>
+    <li><a class="sidemenu-item" href="strokestyle.html">strokestyle</a></li>
+  </ul>
+  <ul class="sidemenu-group">
+    <li>
+      <span class="sidemenu-label">方法<i class="sidemenu-arrdown"></i></span>
+    </li>
+    <li><a class="sidemenu-item" href="arc.html">arc()</a></li>
+    <li><a class="sidemenu-item" href="beginpath.html">beginPath()</a></li>
+    <li><a class="sidemenu-item" href="clearrect.html">clearRect()</a></li>
+    <li><a class="sidemenu-item" href="filltext.html">fillText()</a></li>
+    <li><a class="sidemenu-item" href="rect.html">rect()</a></li>
+    <li><a class="sidemenu-item" href="rotate.html">rotate()</a></li>
+    <li><a class="sidemenu-item" href="translate.html">translate()</a></li>
+  </ul>
+</nav>
+
+    </div>
+    <div class="grid-10 pd-20"><h2>
+  fillStyle
+</h2>
+<p>
+  填充样式,默认是#000.它的值可以是颜色值(color),渐变对象(gradient),纹理填充对象(pattern).
+</p>
+<pre class="bg-gray pd-tb-10">
+  ctx.fillStyle = '#225588';
+</pre>
+<br />
+<h4>color</h4>
+<p>颜色值1 fillStyle = 'RGB(64,128,192)'</p>
+<p>颜色值2 fillStyle = 'RGBA(64,128,192,.6)'</p>
+<p>颜色值3 fillStyle = 'HSL(360,50%,50%)'</p>
+<p>颜色值4 fillStyle = 'HSL(360,50%,50%,.6)'</p>
+<p>颜色值5 HEX fillStyle = '#225588' </p>
+<canvas id="canvas1"></canvas>
+<h4>gradient</h4>
+<p>暂无测验</p>
+<h4>pattern</h4>
+<p>暂无测验</p>
+<script>
+  test1();
+  function test1() {
+    let ctx = getCanvas2d('canvas1');
+    // 1
+    ctx.beginPath();
+    ctx.rect(10,10,200,15); 
+    ctx.fillStyle = 'RGB(64,128,192)';
+    ctx.fill();
+    // 2
+    ctx.beginPath();
+    ctx.rect(35, 35, 200, 15);
+    ctx.fillStyle = 'RGBA(64,128,192,.6)';
+    ctx.fill();
+    // 3
+    ctx.beginPath();
+    ctx.rect(55, 55, 200, 15);
+    ctx.fillStyle = 'HSL(360,50%,50%)';
+    ctx.fill();
+    // 4
+    ctx.beginPath();
+    ctx.rect(80, 80, 200, 15);
+    ctx.fillStyle = 'HSL(360,50%,50%,.6)';
+    ctx.fill();
+    // 5
+    ctx.beginPath();
+    ctx.rect(100, 100, 200, 15);
+    ctx.fillStyle = '#225588';
+    ctx.fill();
+  }
+  function getCanvas2d(canvasId) {
+    let canv = document.querySelector('#' + canvasId);
+    //
+    canv.style.display = 'block';
+    canv.style.margin = '20px';
+    canv.style.backgroundColor = '#f0f0f0';
+    let ctx = canv.getContext('2d');
+    //
+    return ctx;
+  }
+ 
+</script>
+</div>
+  </div>
+</body>
+</html>

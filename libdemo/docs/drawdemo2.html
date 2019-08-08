@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link href="/mirrorui/mirrorui.min.css" rel="stylesheet" />
+  <title>canvas-demo</title>
+</head>
+<body><div class="mg-lr-15"><style>
+  .canva-panle {
+    padding: 20px;
+    margin: 20px;
+    border-left: 1px solid #999;
+    border-bottom: 1px solid #999;
+  }
+</style>
+<h1>常见数学公式</h1>
+<h3>费波那切序列32位</h3>
+<p>32位的数值已经是很大了.x坐标是固定间隔的.y坐标是用这个数值除x再除一个常数</p>
+<p>前一项与后一项比值趋近于0.618,黄金分割比例</p>
+<canvas id="canvas1" class="canva-panle"><h3>不支持canvas</h3></canvas>
+<hr class="line" />
+<h3>正弦余弦</h3>
+<p>弧度范围是0~16,每次画点时间隔0.1度.x坐标值与y坐标值会有放大.</p>
+<p>sinA=y/r cosA=x/r 其中r是半径,x,y为坐标值</p>
+<canvas id="canvas2" class="canva-panle"><h3>不支持canvas</h3></canvas>
+<h3>正切余切</h3>
+<p>tanA=y/x cotA=x/y 余切是正切倒数,js的Math类中有正切函数,没有余切函数</p>
+<canvas id="canvas3" class="canva-panle"><h3>不支持canvas</h3></canvas>
+<h3>抛物线</h3>
+<p>y=ax^2+bx+c a决定开口大小和方向</p>
+<canvas id="canvas4" class="canva-panle"><h3>不支持canvas</h3></canvas>
+<h3>指数对数</h3>
+<p>y=a^x y=logaX</p>
+<canvas id="canvas5" class="canva-panle"><h3>不支持canvas</h3></canvas>
+<script>
+  test1();
+  test2();
+  test3();
+  test4();
+  test5();
+  // 指数对数
+  function test5() {
+    let canvas = document.querySelector('#canvas5');
+    ctx = canvas.getContext('2d');
+    ctx.canvas.width = 800;
+    ctx.canvas.height = 300;
+    ctx.save();
+    ctx.font = '18px serial';
+    const stepX = 10;
+    //
+    ctx.beginPath();
+    let startP = { x: 10, y: 10 };// 起点
+    ctx.moveTo(startP.x + stepX, startP.y + Math.pow(2, 0.1));
+    for (var i = 0.1; i < 8; i += 0.1) {
+      let x = startP.x + i * stepX;
+      let y = startP.y + Math.pow(2, i);
+      ctx.lineTo(x, y);
+    }
+    ctx.fillText('y = 2^x', 5, 120);
+    ctx.stroke();
+    //
+    ctx.beginPath();
+    let startP1 = { x: 120, y: 10 };// 起点
+    ctx.moveTo(startP1.x + 1, startP1.y + Math.log2(1));
+    for (var i = 2; i < 300; i++) {
+      let x = startP1.x + i ;
+      let y = startP1.y + Math.log2(i)*stepX;
+      ctx.lineTo(x, y);
+    }
+    ctx.fillText('y = log2x', 140, 120);
+    ctx.stroke();
+    //
+    ctx.restore();
+  }
+  // 抛物线 y=ax^2+bx+c
+  function test4() {
+    let canvas = document.querySelector('#canvas4');
+    ctx = canvas.getContext('2d');
+    ctx.canvas.width = 800;
+    ctx.canvas.height = 300;
+    ctx.save();
+    ctx.font = '18px serial';
+    const stepX = 10;
+    //
+    ctx.beginPath();
+    let startP = { x: 120, y: 10 };// 起点
+    ctx.moveTo(startP.x - 10 * stepX, startP.y + 100);
+    for (var i = -9.9; i < 10; i += 0.1) {
+      let x = startP.x + i * stepX;
+      let y = startP.y + i * i;
+      ctx.lineTo(x, y);
+    }
+    ctx.fillText('y = x^2', 10, 20);
+    ctx.stroke();
+    //
+    ctx.beginPath();
+    ctx.strokeStyle = 'red';
+    let startP1 = { x: 250, y: 10 };// 起点
+    ctx.moveTo(startP1.x - 10 * stepX, startP1.y + 180);
+    for (var i = -9.9; i < 10; i += 0.1) {
+      let x = startP1.x + i * stepX;
+      let y = startP1.y + 1.8 * i * i;
+      ctx.lineTo(x, y);
+    }
+    ctx.fillText('y = 1.8x^2', 210, 70);
+    ctx.stroke();
+    //
+    ctx.beginPath();
+    ctx.strokeStyle = 'green';
+    let startP2 = { x: 450, y: 120 };// 起点
+    ctx.moveTo(startP2.x - 10 * stepX, startP2.y - 100);
+    for (var i = -9.9; i < 10; i += 0.1) {
+      let x = startP2.x + i * stepX;
+      let y = startP2.y + -(i * i);
+      ctx.lineTo(x, y);
+    }
+    ctx.fillText('y = -x^2', 410, 65);
+    ctx.stroke();
+    //
+    ctx.beginPath();
+    ctx.strokeStyle = 'blue';
+    let startP3 = { x: 650, y: 120 };// 起点
+    ctx.moveTo(startP3.x - 13 * stepX, startP3.y + 169 - 39 + 30);
+    for (var i = -12.9; i < 10; i += 0.1) {
+      let x = startP3.x + i * stepX;
+      let y = startP3.y + (i * i) + 3 * i + 30;
+      ctx.lineTo(x, y);
+    }
+    ctx.fillText('y = x^2 + 3x+30', 610, 125);
+    ctx.stroke();
+    //
+    ctx.restore();
+  }
+  // 前32个斐波那契数
+  function test1() {
+    let canvas = document.querySelector('#canvas1');
+    ctx = canvas.getContext('2d');
+    ctx.canvas.width = 800;
+    ctx.canvas.height = 300;
+    //
+    let count = 32;// 前32位数序列
+    let stepX = Math.floor(canvas.width / count);
+    let startP = { x: 5, y: 10 };// 起点
+    // draw
+    ctx.save();
+    ctx.moveTo(startP.x, startP.y + 5);
+    for (var i = 0; i < count; i++) {
+      const itemNum = getFBN(i + 1);
+      const itemZ = 12;
+      const itemX = startP.x + stepX * i - i;
+      const itemY = startP.y + itemNum / itemX / itemZ;
+      ctx.lineTo(itemX, itemY + 5);
+      ctx.fillText(itemNum, itemX, itemY);
+    }
+    ctx.strokeStyle = 'red';
+    ctx.stroke();
+    ctx.restore();
+  }
+  // 正弦余弦函数
+  function test2() {
+    let canvas = document.querySelector('#canvas2');
+    ctx = canvas.getContext('2d');
+    ctx.canvas.width = 800;
+    ctx.canvas.height = 300;
+    //
+    let count = 16;// 弧度上限[0,0.1,..3.13.,3.14]
+    const stepX = 25;
+    // sin
+    ctx.save();
+    ctx.beginPath();
+    ctx.strokeStyle = 'blue';
+    let startP = { x: 10, y: 50 };// 起点
+    ctx.moveTo(startP.x, startP.y + Math.sin(0) * 30);
+    ctx.font = '18px serial';
+    ctx.fillText(`y=sin(a) [0 ~ ${count}]弧度`, startP.x, 20);
+    for (var i = 0; i <= count; i += 0.1) {
+      ctx.lineTo(startP.x + stepX * i, startP.y + Math.sin(i) * 30);
+    }
+    ctx.stroke();
+    ctx.restore();
+    // cos
+    ctx.save();
+    ctx.beginPath();
+    ctx.strokeStyle = 'green';
+    let startP1 = { x: 10, y: 180 };// 起点
+    ctx.moveTo(startP1.x, startP1.y + Math.cos(0) * 30);
+    ctx.font = '18px serial';
+    ctx.fillText(`y=cos(a) [0 ~ ${count}]弧度`, startP1.x, 140);
+    for (var i = 0; i <= count; i += 0.1) {
+      ctx.lineTo(startP1.x + stepX * i, startP1.y + Math.cos(i) * 30);
+    }
+    ctx.stroke();
+    ctx.restore();
+
+    // 画一个坐标系,
+    ctx.save();
+    ctx.font = '18px serial';
+    // x轴
+    ctx.beginPath();
+    ctx.moveTo(500, 140);
+    ctx.lineTo(760, 140);
+    ctx.moveTo(755, 135);
+    ctx.lineTo(760, 140);
+    ctx.lineTo(755, 145);
+    ctx.fillText('x', 770, 140);
+    ctx.stroke();
+    // y轴
+    ctx.beginPath();
+    ctx.moveTo(630, 260);
+    ctx.lineTo(630, 30);
+    ctx.moveTo(625, 35);
+    ctx.lineTo(630, 30);
+    ctx.lineTo(635, 35);
+    ctx.fillText('y', 630, 20);
+    ctx.stroke();
+    // 半径和A角
+    ctx.moveTo(630, 140);
+    ctx.lineTo(680, 60);
+    ctx.lineTo(680, 140);
+    ctx.stroke();
+    ctx.beginPath();
+    ctx.arc(630, 140, 20, -Math.PI / 3, 0);
+    ctx.fillText('(r)', 640, 90);
+    ctx.fillText('A', 655, 130);
+    ctx.fillText('(y)', 685, 110);
+    ctx.fillText('(x)', 650, 160);
+    //
+    ctx.stroke();
+    ctx.restore();
+  }
+  // 正切余切函数
+  function test3() {
+    let canvas = document.querySelector('#canvas3');
+    ctx = canvas.getContext('2d');
+    ctx.canvas.width = 800;
+    ctx.canvas.height = 300;
+    //
+    const stepX = 25;
+    // tan
+    ctx.save();
+    ctx.beginPath();
+    ctx.strokeStyle = 'brown';
+    let startAagle = -Math.PI / 2 + 0.1;
+    let startP = { x: 40, y: 150 };// 起点
+    ctx.moveTo(startP.x + stepX * startAagle, startP.y - Math.tan(startAagle) * 20);
+    ctx.font = '18px serial';
+    ctx.fillText(`y=tan(a) (-π/2 ~ π/2)弧度`, startP.x + 50, 105);
+    for (var i = startAagle + 0.1; i < -startAagle; i += 0.1) {
+      ctx.lineTo(startP.x + stepX * i, startP.y - Math.tan(i) * 20);
+    }
+    ctx.stroke();
+    ctx.restore();
+    // cos
+    ctx.save();
+    ctx.beginPath();
+    ctx.strokeStyle = 'orange';
+    let startAagle1 = 0.1;
+    let startP1 = { x: 400, y: 150 };// 起点
+    ctx.moveTo(startP1.x + stepX * startAagle1, startP1.y - 20 / Math.tan(startAagle1));
+    ctx.font = '18px serial';
+    ctx.fillText(`y=cot(a) (0 ~ π)弧度`, startP1.x + 100, 105);
+    for (var i = startAagle1 + 0.1; i < Math.PI; i += 0.1) {
+      ctx.lineTo(startP1.x + stepX * i, startP1.y - 20 / Math.tan(i));
+    }
+    ctx.stroke();
+    //
+    ctx.restore();
+  }
+  // 第n位斐波那契数
+  function getFBN(index) {
+    if (index == 1 || index == 2) return 1;
+    let a1 = 1;
+    let a2 = 1;
+    let an = a1 + a2;
+    for (var i = 2; i < index; i++) {
+      an = a1 + a2;
+      a1 = a2;
+      a2 = an;
+    }
+    return an;
+  }
+
+
+
+</script>
+</div></body>
+</html>

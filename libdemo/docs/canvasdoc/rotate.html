@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <link href="/mirrorui/mirrorui.min.css" rel="stylesheet" />
+  <title>canvas文档</title>
+</head>
+<body>
+  <p>文档参考1<a href="https://www.canvasapi.cn" target="_blank">https://www.canvasapi.cn</a>&emsp;
+   文档参考2<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial" target="_blank">https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial</a></p>
+  <hr class="line" />
+  <div class="grids">
+    <div class="grid-2">
+      <nav class="sidemenu-box" id="main_menubox" style="max-width:200px">
+  <ul class="sidemenu-group">
+    <li>
+      <span class="sidemenu-label">canvas<i class="sidemenu-arrdown"></i></span>
+    </li>
+    <li><a class="sidemenu-item" href="index.html">CanvasRenderingContext2D</a></li>
+  </ul>
+  <ul class="sidemenu-group">
+    <li>
+      <span class="sidemenu-label">属性<i class="sidemenu-arrdown"></i></span>
+    </li>
+    <li><a class="sidemenu-item" href="canvas.html">canvas</a></li>
+    <li><a class="sidemenu-item" href="font.html">font</a></li>
+    <li><a class="sidemenu-item" href="fillstyle.html">fillStyle</a></li>
+    <li><a class="sidemenu-item" href="linewidth.html">lineWidth</a></li>
+    <li><a class="sidemenu-item" href="strokestyle.html">strokestyle</a></li>
+  </ul>
+  <ul class="sidemenu-group">
+    <li>
+      <span class="sidemenu-label">方法<i class="sidemenu-arrdown"></i></span>
+    </li>
+    <li><a class="sidemenu-item" href="arc.html">arc()</a></li>
+    <li><a class="sidemenu-item" href="beginpath.html">beginPath()</a></li>
+    <li><a class="sidemenu-item" href="clearrect.html">clearRect()</a></li>
+    <li><a class="sidemenu-item" href="filltext.html">fillText()</a></li>
+    <li><a class="sidemenu-item" href="rect.html">rect()</a></li>
+    <li><a class="sidemenu-item" href="rotate.html">rotate()</a></li>
+    <li><a class="sidemenu-item" href="translate.html">translate()</a></li>
+  </ul>
+</nav>
+
+    </div>
+    <div class="grid-10 pd-20"><h2>
+  rotate(angle)
+</h2>
+<p>
+  旋转坐标系angle弧度
+</p>
+<pre class="bg-gray pd-tb-10">
+  ctx.rotate(angle)
+</pre>
+<br />
+<h4>参数</h4>
+
+<p>
+  <label class="label danger">angle</label> <small>Number</small>
+  要旋转的弧度值,正值顺时针旋转,负值逆时针旋转
+</p>
+
+<br />
+<h4>测验</h4>
+<p>画一条水平线,(50,25)(130,25)</p>
+<canvas id="canvas1"></canvas>
+<p>旋转坐标45度(Math.PI/4)后,再画这条线.继续再转30度,再画(红色线)</p>
+<canvas id="canvas2"></canvas>
+<p>可以看到,每次调用rotate(angle),都是基于之前旋转后叠加的.这个例子,先转45度,画线后,对于未转前,有45度的倾斜</p>
+<p>再转30度后,相到于原画布转了45+30=75度,发现线(红色线)再度倾斜了,但线未完全画出,只有一部分</p>
+<p>画布顺时针转动了75度,并且是以原点为心转动的,此时画布的一部分已经转到左侧去了,不在canvas元素范围内了.</p>
+<p>所以只看到一部分的红色线</p>
+<p>参数为负值时,逆时针转动</p>
+<canvas id="canvas3"></canvas>
+<br />
+<h3>简化坐标</h3>
+<p>活用这个功能,可以大幅减少复杂的坐标计算.主要是基于角度变化时坐标需要重新计算.</p>
+<p>默认是绕(0,0)点转动,可以配合<a href="translate.html">translate()</a>一起使用达到简化坐标计算目的</p>
+<script>
+  drawcanvas1();
+  drawcanvas2();
+  drawcanvas3();
+  function drawcanvas1() {
+    let ctx = getCanvas2d('canvas1');
+    ctx.moveTo(50, 25);
+    ctx.lineTo(130, 25);
+    ctx.stroke();
+  }
+  function drawcanvas2() {
+    let ctx = getCanvas2d('canvas2');
+    ctx.beginPath();
+    ctx.rotate(Math.PI / 4);
+    ctx.moveTo(50, 25);
+    ctx.lineTo(130, 25);
+    ctx.stroke();
+    //
+    ctx.beginPath();
+    ctx.rotate(Math.PI / 6);
+    ctx.moveTo(50, 25);
+    ctx.lineTo(130, 25);
+    ctx.strokeStyle = 'red';
+    ctx.stroke();
+  }
+  function drawcanvas3() {
+    let ctx = getCanvas2d('canvas3');
+    ctx.moveTo(50, 125);
+    ctx.lineTo(130, 125);
+    ctx.stroke();
+    ctx.rotate(-Math.PI / 4);
+    ctx.moveTo(50, 125);
+    ctx.lineTo(130, 125);
+    ctx.stroke();
+  }
+  function getCanvas2d(canvasId) {
+    let canv = document.querySelector('#' + canvasId);
+    //
+    canv.style.display = 'block';
+    canv.style.margin = '20px';
+    canv.style.backgroundColor = '#f0f0f0';
+    let ctx = canv.getContext('2d');
+    //
+    return ctx;
+  }
+</script>
+</div>
+  </div>
+</body>
+</html>
