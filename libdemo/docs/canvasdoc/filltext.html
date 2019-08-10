@@ -83,20 +83,20 @@
 <canvas id="canvas3"></canvas>
 <br />
 <script>
-  drawcanvas1();
-  drawcanvas2();
-  drawcanvas3();
-  function drawcanvas1() {
+  test1();
+  test2();
+  test3();
+  function test1() {
     let ctx = getCanvas2d('canvas1');
     ctx.font = '24px 宋体';
     ctx.fillText('hello world',50, 75);
   }
-  function drawcanvas2() {
+  function test2() {
     let ctx = getCanvas2d('canvas2');
     ctx.font = '24px 宋体';
     ctx.fillText('hello world', 50, 75,75);
   }
-  function drawcanvas3() {
+  function test3() {
     let ctx = getCanvas2d('canvas3');
     for (var i = 0; i < 6; i++) {
       ctx.font = `${12 + 2 * i}px 宋体`;

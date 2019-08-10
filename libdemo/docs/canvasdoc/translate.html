@@ -65,6 +65,7 @@
   <label class="label danger">y</label> <small>Number</small>
   基于原始Y坐标移动的距离
 </p>
+<canvas id="canvas3"></canvas>
 <br />
 <h4>测验</h4>
 <p>画一条线,(10,15)(80,100) 坐标原点未修改</p>
@@ -83,16 +84,40 @@
 <p>数学里的平面直角坐标系的原点位于左下角,东面是x轴正方向北面是y轴正方向,如果要用canvas画出坐标系,并且按此原点位置习惯.</p>
 <p>用translate()方法转换左下角为原点,x坐标不变,但y坐标要取负值.当然,可以做个自动转换.</p>
 <script>
-  drawcanvas1();
-  drawcanvas2();
-
-  function drawcanvas1() {
+  test1();
+  test2();
+  test3();
+  function test3() {
+    let ctx = getCanvas2d('canvas3');
+    ctx.font = '18px serial';
+    ctx.arc(2, 2, 4, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.moveTo(300, 0);
+    ctx.lineTo(0, 0);
+    ctx.lineTo(0, 150);
+    ctx.stroke();
+    //
+    ctx.beginPath();
+    ctx.translate(21, 51);
+    ctx.arc(2, 2, 4, 0, Math.PI * 2);
+    ctx.strokeStyle = 'green';
+    ctx.fillStyle = 'red';
+    ctx.fill();
+    ctx.moveTo(0, -50);
+    ctx.lineTo(0, 0);
+    ctx.lineTo(-20, 0);
+    ctx.fillText('x', -13, 14);
+    ctx.fillText('y', 5, -30);
+    ctx.fillText('新原点(21,51)', 10, 20);
+    ctx.stroke();
+  }
+  function test1() {
     let ctx = getCanvas2d('canvas1');
     ctx.moveTo(10, 15);
     ctx.lineTo(80, 100);
     ctx.stroke();
   }
-  function drawcanvas2() {
+  function test2() {
     let ctx = getCanvas2d('canvas2');
     ctx.beginPath();
     ctx.translate(30, 20);

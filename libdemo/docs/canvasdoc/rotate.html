@@ -61,7 +61,7 @@
   <label class="label danger">angle</label> <small>Number</small>
   要旋转的弧度值,正值顺时针旋转,负值逆时针旋转
 </p>
-
+<canvas id="canvas4"></canvas>
 <br />
 <h4>测验</h4>
 <p>画一条水平线,(50,25)(130,25)</p>
@@ -78,17 +78,54 @@
 <h3>简化坐标</h3>
 <p>活用这个功能,可以大幅减少复杂的坐标计算.主要是基于角度变化时坐标需要重新计算.</p>
 <p>默认是绕(0,0)点转动,可以配合<a href="translate.html">translate()</a>一起使用达到简化坐标计算目的</p>
+<p>车轮辐辏可以用旋转坐标简化画法,将原点置于车轮圆心,每画一轴旋转一次.画轴线固定为(0,0)(70,0)</p>
+<p>如果不用此法,需要计算每轴点坐标.需要使用三角函数,这个代码就多一些了</p>
+<canvas id="canvas5"></canvas>
 <script>
-  drawcanvas1();
-  drawcanvas2();
-  drawcanvas3();
-  function drawcanvas1() {
+  test4();
+  test1();
+  test2();
+  test3();
+  test5();
+  function test5() {
+    let ctx = getCanvas2d('canvas5');
+    ctx.translate(150, 75);
+    ctx.arc(0, 0, 71, 0, Math.PI * 2);
+    for (var i = 0; i < 8; i++) {
+      ctx.moveTo(0, 0);
+      ctx.lineTo(70, 0);
+      ctx.rotate(Math.PI / 4);
+    }
+    ctx.stroke();
+  }
+  function test4() {
+    let ctx = getCanvas2d('canvas4');
+    ctx.arc(0, 0, 60, 0, Math.PI / 4);
+    ctx.font = '18px serial';
+    ctx.fillText('45⁰', 60, 30);
+    ctx.fillText('x', 280,20);
+    ctx.moveTo(300, 0);
+    ctx.lineTo(0, 0);
+    ctx.lineTo(0, 150);
+    ctx.stroke();
+    //
+    ctx.beginPath();
+    ctx.rotate(Math.PI / 4);
+    ctx.fillStyle = 'lightgreen';
+    ctx.strokeStyle = 'red';
+    ctx.fillRect(0, 0, 300, 150);
+    ctx.fillText('x', 200, -10);
+    ctx.moveTo(0, 0);
+    ctx.lineTo(300, 0);
+    ctx.stroke();
+  }
+  function test1() {
     let ctx = getCanvas2d('canvas1');
     ctx.moveTo(50, 25);
     ctx.lineTo(130, 25);
     ctx.stroke();
   }
-  function drawcanvas2() {
+  function test2() {
     let ctx = getCanvas2d('canvas2');
     ctx.beginPath();
     ctx.rotate(Math.PI / 4);
@@ -103,7 +140,7 @@
     ctx.strokeStyle = 'red';
     ctx.stroke();
   }
-  function drawcanvas3() {
+  function test3() {
     let ctx = getCanvas2d('canvas3');
     ctx.moveTo(50, 125);
     ctx.lineTo(130, 125);

@@ -65,29 +65,31 @@
     ctx.save();
     ctx.rotate(currHour * Math.PI / 6 + currMin * Math.PI / 30/12);
     ctx.beginPath();
-    ctx.lineWidth = 3;
+    ctx.lineWidth = 4;
     ctx.arc(0, 90 - cirlen, 5, 0, Math.PI * 2);
-    ctx.moveTo(0, 0);
+    ctx.moveTo(0, 12);
     ctx.lineTo(0, 95 - cirlen);
     ctx.stroke();
     ctx.restore();
     // 分针
     ctx.save();
+    ctx.strokeStyle = 'orange';
     ctx.rotate(currMin * Math.PI / 30);
     ctx.beginPath();
-    ctx.lineWidth = 2;
+    ctx.lineWidth = 3;
     ctx.arc(0, 72 - cirlen, 4, 0, Math.PI * 2);
-    ctx.moveTo(0, 0);
+    ctx.moveTo(0, 14);
     ctx.lineTo(0, 76 - cirlen);
     ctx.stroke();
     ctx.restore();
     // 秒针
     ctx.save();
+    ctx.strokeStyle = 'red';
     ctx.rotate(currSec * Math.PI / 30);
     ctx.beginPath();
     ctx.lineWidth = 1;
     ctx.arc(0, 56 - cirlen, 3, 0, Math.PI * 2);
-    ctx.moveTo(0, 0);
+    ctx.moveTo(0, 16);
     ctx.lineTo(0, 60 - cirlen);
     ctx.stroke();
     ctx.restore();
@@ -101,12 +103,25 @@
     ctx.canvas.width = 400;
     ctx.canvas.height = 400;
     //
-    let cirxy = { x: 200, y: 200 };
-    let cirlen = 160;
-    // draw
+    let cirxy = { x: 200, y: 200 };// 圆心坐标
+    let cirlen = 160;// 圆环大小
+    // 圆环(大)
     ctx.save();
     ctx.beginPath();
+    ctx.lineWidth = 4;
+    ctx.strokeStyle = '#325FA2';
     ctx.arc(cirxy.x, cirxy.y, cirlen, 0, Math.PI * 2);
+    ctx.stroke();
+    // 圆环(中)
+    ctx.beginPath();
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = 'gray';
+    ctx.arc(cirxy.x, cirxy.y, cirlen*0.74, 0, Math.PI * 2);
+    ctx.stroke();
+    // 圆环(内)
+    ctx.beginPath();
+    ctx.lineWidth = 1;
+    ctx.arc(cirxy.x, cirxy.y, cirlen /8, 0, Math.PI * 2);
     ctx.stroke();
     // 圆心
     ctx.beginPath();

@@ -55,24 +55,60 @@
   ctx.fillStyle = '#225588';
 </pre>
 <br />
-<h4>color</h4>
+<h3>color</h3>
 <p>颜色值1 fillStyle = 'RGB(64,128,192)'</p>
 <p>颜色值2 fillStyle = 'RGBA(64,128,192,.6)'</p>
 <p>颜色值3 fillStyle = 'HSL(360,50%,50%)'</p>
 <p>颜色值4 fillStyle = 'HSL(360,50%,50%,.6)'</p>
 <p>颜色值5 HEX fillStyle = '#225588' </p>
 <canvas id="canvas1"></canvas>
-<h4>gradient</h4>
+<p>双重循环画颜色方格,颜色值随机变化</p>
+<canvas id="canvas2"></canvas>
+<h4>透明度</h4>
+<p>rgba最后一个数表示透明度,范围0.0~1.0,默认是1.0.</p>
+<p>循环逐渐变化的透明度,0.0~1.0</p>
+<canvas id="canvas3"></canvas>
+<h3>gradient</h3>
 <p>暂无测验</p>
-<h4>pattern</h4>
+<h3>pattern</h3>
 <p>暂无测验</p>
 <script>
   test1();
+  test2();
+  test3();
+  function test3() {
+    let ctx = getCanvas2d('canvas3');
+    let opac = 0;
+    let ani = () => {
+      opac++;
+      if (opac > 10)
+        opac = 0;
+      ctx.clearRect(0, 0, 300, 150);
+      ctx.beginPath();
+      ctx.fillStyle = `rgb(0,0,0,${opac / 10})`;
+      ctx.fillRect(0, 0, 300, 150);
+      setTimeout(() => { ani() }, 1500);
+    }
+    ani();
+  }
+  function test2() {
+    let ctx = getCanvas2d('canvas2');
+    for (var i = 0; i < 6; i++) {
+      for (var j = 0; j < 12; j++) {
+        let r = randInt(0, 256);
+        let g = randInt(0, 256);
+        let b = randInt(0, 256);
+        ctx.fillStyle = `rgb(${r},${g},${b})`;
+        ctx.fillRect(j * 25, i * 25, 25, 25);
+      }
+    }
+    setTimeout(test2, 2000);
+  }
   function test1() {
     let ctx = getCanvas2d('canvas1');
     // 1
     ctx.beginPath();
-    ctx.rect(10,10,200,15); 
+    ctx.rect(10, 10, 200, 15);
     ctx.fillStyle = 'RGB(64,128,192)';
     ctx.fill();
     // 2
@@ -106,7 +142,10 @@
     //
     return ctx;
   }
- 
+  function randInt(intMin, intMax) {
+    let rand = Math.random() * (intMax - intMin);
+    return Math.floor(rand) + intMin;
+  }
 </script>
 </div>
   </div>
