@@ -146,88 +146,52 @@
 </script>
     </div>
     <div class="grid-10 pd-20"><h2>
-  arc(x, y, radius, startAngle, endAngle [, anticlockwise])
+  moveTo(x, y)
 </h2>
 <p>
-  arc()用来绘制圆弧。由于圆本质上就是个封闭圆弧，因此，此方法也可以用来绘制正圆。
+  将"画笔"移动到坐标x,y.
 </p>
 <pre class="bg-gray pd-tb-10">
-  ctx.arc(x, y, radius, startAngle, endAngle [, anticlockwise])
+  ctx.moveTo(x, y)
 </pre>
-<br />
 <h4>参数</h4>
 <p>
   <label class="label danger">x</label> <small>Number</small>
-  圆弧对应的圆心横坐标。
+  新起点的 x 轴坐标
 </p>
 <p>
   <label class="label danger">y</label> <small>Number</small>
-  圆弧对应的圆心纵坐标。
+  新起点的 y 轴坐标
 </p>
-<p>
-  <label class="label danger">radius</label> <small>Number</small>
-  圆弧的半径大小。
-</p>
-<p>
-  <label class="label danger">startAngle</label> <small>Number</small>
-  圆弧开始的角度，单位是弧度。
-</p>
-<p>
-  <label class="label danger">endAngle</label> <small>Number</small>
-  圆弧结束的角度，单位是弧度。
-</p>
-<p><label class="label danger">anticlockwise</label><em>（可选）</em><small>Boolean</small></p>
-<p>弧度的开始到结束的绘制是按照顺时针来算，还是按时逆时针来算。如何设置为<code>true</code>，则表示按照逆时针方向从<code>startAngle</code>绘制到<code>endAngle</code>。</p>
 <br />
 <h4>测验</h4>
-<table>
-  <tr><th></th><th></th><th></th><th></th><th></th><th></th><th></th></tr>
-  <tr>
-    <td>
-      <label>X</label>
-      <input value="120" type="text" id="xcoor" class="input-text" />
-    </td>
-    <td>
-      <label>Y</label><input value="80" type="text" id="ycoor" class="input-text" />
-    </td>
-    <td><label>radius</label><input value="45" type="text" id="radius" class="input-text" /></td>
-    <td><label>startAngle</label><input value="0" type="text" id="startAngle" class="input-text" /></td>
-    <td><label>endAngle</label><input value="3.14" type="text" id="endAngle" class="input-text" /></td>
-    <td>
-      <input class="input-check" type="checkbox" id="anticlockwise" />
-      <label class="input-check-label" for="anticlockwise"><b class="check"></b>e到s</label>
-    </td>
-    <td><button onclick="refresh()" class="btn">刷新</button></td>
-  </tr>
-</table>
-<div id="canvbox" style="margin:20px auto;text-align:center;height:400px"></div>
+<p>moveTo()在移动画笔,如果将canvas想象成打印机,则moveTo()是在移动打印头.</p>
+<p>切换moveTo()和<a href="lineto.html">lineTo()</a>画虚线</p>
+<canvas id="canvas1"></canvas>
 <script>
-  function refresh() {
-    let xcoor = document.querySelector('#xcoor').value;
-    let ycoor = document.querySelector('#ycoor').value;
-    let radius = document.querySelector('#radius').value;
-    let startAngle = document.querySelector('#startAngle').value;
-    let endAngle = document.querySelector('#endAngle').value;
-    let anticlockwise = document.querySelector('#anticlockwise').checked;
-    //console.log(anticlockwise)
+  test1();
+
+  function test1() {
+    let ctx = getCanvas2d('canvas1');
     //
-    ctx = newCanvas2d();
-    ctx.save();
-    ctx.arc(xcoor, ycoor, radius, startAngle, endAngle, anticlockwise)
+    ctx.rotate(Math.PI / 6);
+    for (var i = 0; i < 28; i++) {
+      if (i % 2 == 0) {
+        ctx.moveTo(10 * i, 0);
+      } else {
+        ctx.lineTo(10* i, 0);
+      }
+    }
     ctx.stroke();
-    ctx.restore();
   }
-  function newCanvas2d() {
-    let box = document.querySelector('#canvbox');
-    box.innerHTML = '';
+  function getCanvas2d(canvasId) {
+    let canv = document.querySelector('#' + canvasId);
     //
-    let canv = document.createElement('canvas');
     canv.style.display = 'block';
-    canv.style.margin = '20px auto';
+    canv.style.margin = '20px';
     canv.style.backgroundColor = '#f0f0f0';
     let ctx = canv.getContext('2d');
     //
-    box.appendChild(canv);
     return ctx;
   }
 </script>

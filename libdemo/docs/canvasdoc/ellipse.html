@@ -146,88 +146,124 @@
 </script>
     </div>
     <div class="grid-10 pd-20"><h2>
-  arc(x, y, radius, startAngle, endAngle [, anticlockwise])
+  ellipse(x, y, radiusX, radiusY, rotation, startAngle, endAngle, anticlockwise)
 </h2>
 <p>
-  arc()用来绘制圆弧。由于圆本质上就是个封闭圆弧，因此，此方法也可以用来绘制正圆。
+  椭圆的圆心在（x,y）位置,半径分别是radiusX 和 radiusY ,按照anticlockwise（默认顺时针）指定的方向,从 startAngle  开始绘制,到 endAngle 结束.
 </p>
 <pre class="bg-gray pd-tb-10">
-  ctx.arc(x, y, radius, startAngle, endAngle [, anticlockwise])
+  ctx.ellipse(x, y, radiusX, radiusY, rotation, startAngle, endAngle, anticlockwise)
 </pre>
 <br />
 <h4>参数</h4>
 <p>
   <label class="label danger">x</label> <small>Number</small>
-  圆弧对应的圆心横坐标。
+  椭圆圆心的 x 轴坐标
 </p>
 <p>
   <label class="label danger">y</label> <small>Number</small>
-  圆弧对应的圆心纵坐标。
+  椭圆圆心的 y 轴坐标
 </p>
 <p>
-  <label class="label danger">radius</label> <small>Number</small>
-  圆弧的半径大小。
+  <label class="label danger">radiusX</label> <small>Number</small>
+  椭圆长轴的半径
+</p>
+<p>
+  <label class="label danger">radiusY</label> <small>Number</small>
+  椭圆短轴的半径
+</p>
+<p>
+  <label class="label danger">rotation</label> <small>Number</small>
+  椭圆的旋转角度,以弧度表示
 </p>
 <p>
   <label class="label danger">startAngle</label> <small>Number</small>
-  圆弧开始的角度，单位是弧度。
+  将要绘制的起始点角度,从 x 轴测量,以弧度表示
 </p>
 <p>
   <label class="label danger">endAngle</label> <small>Number</small>
-  圆弧结束的角度，单位是弧度。
+  椭圆将要绘制的结束点角度,以弧度表示(非角度度数)
 </p>
-<p><label class="label danger">anticlockwise</label><em>（可选）</em><small>Boolean</small></p>
-<p>弧度的开始到结束的绘制是按照顺时针来算，还是按时逆时针来算。如何设置为<code>true</code>，则表示按照逆时针方向从<code>startAngle</code>绘制到<code>endAngle</code>。</p>
+<p>
+  <label class="label danger">anticlockwise </label> <small>Number</small>
+  Boolean 选项,如果为 true,逆时针方向绘制椭圆 （逆时针）, 反之顺时针方向绘制
+</p>
 <br />
 <h4>测验</h4>
-<table>
-  <tr><th></th><th></th><th></th><th></th><th></th><th></th><th></th></tr>
-  <tr>
-    <td>
-      <label>X</label>
-      <input value="120" type="text" id="xcoor" class="input-text" />
-    </td>
-    <td>
-      <label>Y</label><input value="80" type="text" id="ycoor" class="input-text" />
-    </td>
-    <td><label>radius</label><input value="45" type="text" id="radius" class="input-text" /></td>
-    <td><label>startAngle</label><input value="0" type="text" id="startAngle" class="input-text" /></td>
-    <td><label>endAngle</label><input value="3.14" type="text" id="endAngle" class="input-text" /></td>
-    <td>
-      <input class="input-check" type="checkbox" id="anticlockwise" />
-      <label class="input-check-label" for="anticlockwise"><b class="check"></b>e到s</label>
-    </td>
-    <td><button onclick="refresh()" class="btn">刷新</button></td>
-  </tr>
-</table>
-<div id="canvbox" style="margin:20px auto;text-align:center;height:400px"></div>
+<p>圆心,长轴,短轴.三个参数与几何上椭圆定义不同,几何上椭圆有两个焦点,长轴,短轴是椭圆内最长和最短的线段</p>
+<p>这三个参数与几何定义的关系可能是,圆心是两焦点的中点,长轴与短轴同几何中长轴和短轴的一半</p>
+<canvas id="canvas1"></canvas>
+<p>旋转角度,下图为30度旋转效果.可见顺时针旋转30度后,长轴与X轴有夹角30度.</p>
+<p>开始角度与结束角度和<a href="arc.html">arc()</a>方法一样,0到360时是整个椭圆,否则只有椭圆的一部分</p>
+<canvas id="canvas2"></canvas>
 <script>
-  function refresh() {
-    let xcoor = document.querySelector('#xcoor').value;
-    let ycoor = document.querySelector('#ycoor').value;
-    let radius = document.querySelector('#radius').value;
-    let startAngle = document.querySelector('#startAngle').value;
-    let endAngle = document.querySelector('#endAngle').value;
-    let anticlockwise = document.querySelector('#anticlockwise').checked;
-    //console.log(anticlockwise)
+  test1();
+  test2();
+  function test2() {
+    let ctx = getCanvas2d('canvas2');
+    let cirxy = { x: 120, y: 72 };
+    let rdX = 85;
+    let rdY = 60;
+    ctx.translate(cirxy.x, cirxy.y);
+    ctx.ellipse(0, 0, rdX, rdY, Math.PI / 6, 0, Math.PI * 2);
+    ctx.stroke();
     //
-    ctx = newCanvas2d();
+    ctx.beginPath();
+    ctx.strokeStyle = 'green';
+    ctx.moveTo(0, 0);
+    ctx.lineTo(150, 0);
+    ctx.moveTo(0, 0);
+    ctx.lineTo(0, 75);
+    ctx.stroke();
+    //
     ctx.save();
-    ctx.arc(xcoor, ycoor, radius, startAngle, endAngle, anticlockwise)
+    ctx.beginPath();
+    ctx.rotate(Math.PI / 6);
+    ctx.moveTo(0, 0);
+    ctx.lineTo(rdX, 0);
     ctx.stroke();
     ctx.restore();
-  }
-  function newCanvas2d() {
-    let box = document.querySelector('#canvbox');
-    box.innerHTML = '';
     //
-    let canv = document.createElement('canvas');
+    ctx.beginPath();
+    ctx.arc(0, 0, 30, 0, Math.PI / 6);
+    ctx.stroke();
+    ctx.fillText('30度', rdX / 2, 20);
+  }
+  function test1() {
+    let ctx = getCanvas2d('canvas1');
+    let cirxy = { x: 120, y: 72 };
+    let rdX = 85;
+    let rdY = 60;
+    ctx.translate(cirxy.x, cirxy.y);
+    ctx.ellipse(0, 0, rdX, rdY, 0, 0, Math.PI * 2); 
+    ctx.stroke();
+    //
+    ctx.font = '18px serial';
+    ctx.fillStyle = 'red';
+    ctx.beginPath();
+    // 圆心
+    ctx.arc(0, 0, 3, 0, Math.PI * 2);
+    ctx.fill();
+    ctx.fillText('x,y', -rdX/3, -8);
+    // 长轴
+    ctx.moveTo(0, 0);
+    ctx.lineTo(rdX, 0);
+    ctx.fillText('长轴', rdX/3, -5);
+    // 短轴
+    ctx.moveTo(0, 0);
+    ctx.lineTo(0, rdY);
+    ctx.fillText('短轴', 5, rdY / 2);
+    ctx.stroke();
+  }
+
+  function getCanvas2d(canvasId) {
+    let canv = document.querySelector('#' + canvasId);
+    //
     canv.style.display = 'block';
-    canv.style.margin = '20px auto';
+    canv.style.margin = '20px';
     canv.style.backgroundColor = '#f0f0f0';
     let ctx = canv.getContext('2d');
     //
-    box.appendChild(canv);
     return ctx;
   }
 </script>

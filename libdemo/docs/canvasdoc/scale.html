@@ -146,88 +146,94 @@
 </script>
     </div>
     <div class="grid-10 pd-20"><h2>
-  arc(x, y, radius, startAngle, endAngle [, anticlockwise])
+  scale(x, y)
 </h2>
 <p>
-  arc()用来绘制圆弧。由于圆本质上就是个封闭圆弧，因此，此方法也可以用来绘制正圆。
+  根据 x 水平方向和 y 垂直方向,为canvas 单位添加缩放变换的方法.
+  默认的, 在 canvas 中一个单位实际上就是一个像素.例如,如果我们将0.5作为缩放因子,最终的单位会变成0.5像素,并且形状的尺寸会变成原来的一半.相似的方式,我们将2.0作为缩放因子,将会增大单位尺寸变成两个像素.形状的尺寸将会变成原来的两倍
 </p>
 <pre class="bg-gray pd-tb-10">
-  ctx.arc(x, y, radius, startAngle, endAngle [, anticlockwise])
+  scale(x, y)
 </pre>
 <br />
 <h4>参数</h4>
 <p>
   <label class="label danger">x</label> <small>Number</small>
-  圆弧对应的圆心横坐标。
+  水平方向的缩放因子
 </p>
 <p>
   <label class="label danger">y</label> <small>Number</small>
-  圆弧对应的圆心纵坐标。
+  垂直方向的缩放因子
 </p>
-<p>
-  <label class="label danger">radius</label> <small>Number</small>
-  圆弧的半径大小。
-</p>
-<p>
-  <label class="label danger">startAngle</label> <small>Number</small>
-  圆弧开始的角度，单位是弧度。
-</p>
-<p>
-  <label class="label danger">endAngle</label> <small>Number</small>
-  圆弧结束的角度，单位是弧度。
-</p>
-<p><label class="label danger">anticlockwise</label><em>（可选）</em><small>Boolean</small></p>
-<p>弧度的开始到结束的绘制是按照顺时针来算，还是按时逆时针来算。如何设置为<code>true</code>，则表示按照逆时针方向从<code>startAngle</code>绘制到<code>endAngle</code>。</p>
 <br />
 <h4>测验</h4>
-<table>
-  <tr><th></th><th></th><th></th><th></th><th></th><th></th><th></th></tr>
-  <tr>
-    <td>
-      <label>X</label>
-      <input value="120" type="text" id="xcoor" class="input-text" />
-    </td>
-    <td>
-      <label>Y</label><input value="80" type="text" id="ycoor" class="input-text" />
-    </td>
-    <td><label>radius</label><input value="45" type="text" id="radius" class="input-text" /></td>
-    <td><label>startAngle</label><input value="0" type="text" id="startAngle" class="input-text" /></td>
-    <td><label>endAngle</label><input value="3.14" type="text" id="endAngle" class="input-text" /></td>
-    <td>
-      <input class="input-check" type="checkbox" id="anticlockwise" />
-      <label class="input-check-label" for="anticlockwise"><b class="check"></b>e到s</label>
-    </td>
-    <td><button onclick="refresh()" class="btn">刷新</button></td>
-  </tr>
-</table>
-<div id="canvbox" style="margin:20px auto;text-align:center;height:400px"></div>
+<p>画一个填充正方形,然后调用scale(2,1),即x坐标缩放为原来的两倍,然后再画同样大小的一个正方形.</p>
+<p>由于x坐标扩大到2倍了,所以看起来是一个长方形</p>
+<p>画布默认的比例是1,单位是1px,1个单位就是1px.调整比例因子为(x,y)后,每个单位就会乘以x,y.</p>
+<p>这个例子调整了x轴比例为2,画边长为80的正方形时,x轴平行的边长度会变成,80*2=160</p>
+<canvas id="canvas1"></canvas>
+<p>x轴缩小到0.5,y轴放大1.5倍</p>
+<canvas id="canvas2"></canvas>
+<p>如果参数 x = -1 ,先将原点移动到(150,0),画一个正方形,然后调用scale(-1,1),再画这正方形</p>
+<p>两个图形对Y轴是对称的.利用这个特点,如果要画一个图形的Y对称图形,只需调整画布scale(-1,1)再画一次即可</p>
+<canvas id="canvas3"></canvas>
+<p>如果参数 y = -1 ,先将原点移动到(0,70),画一个正方形,然后调用scale(1,-1),再画这正方形</p>
+<p>两个图形对X轴是对称的.利用这个特点,如果要画一个图形的X对称图形,只需调整画布scale(1,-1)再画一次即可</p>
+<canvas id="canvas4"></canvas>
+<br />
 <script>
-  function refresh() {
-    let xcoor = document.querySelector('#xcoor').value;
-    let ycoor = document.querySelector('#ycoor').value;
-    let radius = document.querySelector('#radius').value;
-    let startAngle = document.querySelector('#startAngle').value;
-    let endAngle = document.querySelector('#endAngle').value;
-    let anticlockwise = document.querySelector('#anticlockwise').checked;
-    //console.log(anticlockwise)
-    //
-    ctx = newCanvas2d();
-    ctx.save();
-    ctx.arc(xcoor, ycoor, radius, startAngle, endAngle, anticlockwise)
+  test1();
+  test2();
+  test3();
+  test4();
+  function test4() {
+    let ctx = getCanvas2d('canvas4');
+    ctx.fillStyle = 'red';
+    ctx.translate(0, 70);
+    ctx.fillRect(100, 10, 40, 40);
+    ctx.scale(1, -1);
+    ctx.fillRect(100, 10, 40, 40);
+    ctx.moveTo(0, 0);
+    ctx.lineTo(300, 0);
     ctx.stroke();
+  }
+  function test3() {
+    let ctx = getCanvas2d('canvas3');
+    ctx.fillStyle = 'green';
+    ctx.translate(150, 0);
+    ctx.fillRect(10, 10, 80, 80);
+    ctx.scale(-1, 1);
+    ctx.fillRect(10, 10, 80, 80);
+    ctx.moveTo(0, 0);
+    ctx.lineTo(0, 150);
+    ctx.stroke();
+  }
+  function test1() {
+    let ctx = getCanvas2d('canvas1');
+    ctx.fillStyle = 'red';
+    ctx.fillRect(10, 10, 80, 80);
+    //
+    ctx.save();
+    ctx.fillStyle = 'green';
+    ctx.scale(2, 1);
+    ctx.fillRect(50, 10, 80, 80);
     ctx.restore();
   }
-  function newCanvas2d() {
-    let box = document.querySelector('#canvbox');
-    box.innerHTML = '';
+  function test2() {
+    let ctx = getCanvas2d('canvas2');
+    ctx.scale(0.5, 1.5);
+    ctx.fillRect(50, 10, 80, 80);
+    ctx.font = '24px serial';
+    ctx.fillText("ctx.fillRect(50, 10, 80, 80);", 150, 50);
+  }
+  function getCanvas2d(canvasId) {
+    let canv = document.querySelector('#' + canvasId);
     //
-    let canv = document.createElement('canvas');
     canv.style.display = 'block';
-    canv.style.margin = '20px auto';
+    canv.style.margin = '20px';
     canv.style.backgroundColor = '#f0f0f0';
     let ctx = canv.getContext('2d');
     //
-    box.appendChild(canv);
     return ctx;
   }
 </script>

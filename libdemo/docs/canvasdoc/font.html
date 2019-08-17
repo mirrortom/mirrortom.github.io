@@ -6,14 +6,23 @@
   <meta name="viewport" content="width=device-width,initial-scale=1.0">
   <link href="/mirrorui/mirrorui.min.css" rel="stylesheet" />
   <title>canvas文档</title>
+  <style>
+    .mainmenubox{
+      position:sticky;
+      top:0;
+      max-height:90vh;
+      overflow:hidden;
+      overflow-y:auto;
+    }
+  </style>
 </head>
 <body>
   <p>文档参考1<a href="https://www.canvasapi.cn" target="_blank">https://www.canvasapi.cn</a>&emsp;
    文档参考2<a href="https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial" target="_blank">https://developer.mozilla.org/zh-CN/docs/Web/API/Canvas_API/Tutorial</a></p>
   <hr class="line" />
   <div class="grids">
-    <div class="grid-2">
-      <nav class="sidemenu-box" id="main_menubox" style="max-width:200px">
+    <div class="grid-2 mainmenubox">
+      <nav class="sidemenu-box" id="main_menubox" style="max-width: 200px">
   <ul class="sidemenu-group">
     <li>
       <span class="sidemenu-label">canvas<i class="sidemenu-arrdown"></i></span>
@@ -24,26 +33,117 @@
     <li>
       <span class="sidemenu-label">属性<i class="sidemenu-arrdown"></i></span>
     </li>
-    <li><a class="sidemenu-item" href="canvas.html">canvas</a></li>
-    <li><a class="sidemenu-item" href="font.html">font</a></li>
-    <li><a class="sidemenu-item" href="fillstyle.html">fillStyle</a></li>
-    <li><a class="sidemenu-item" href="linewidth.html">lineWidth</a></li>
-    <li><a class="sidemenu-item" href="strokestyle.html">strokestyle</a></li>
+      <li><a class="sidemenu-item" href="canvas.html">canvas</a></li>
+      <li><a class="sidemenu-item" href="currentTransform.html">currentTransform</a></li>
+      <li><a class="sidemenu-item" href="direction.html">direction</a></li>
+      <li><a class="sidemenu-item" href="fillStyle.html">fillStyle</a></li>
+      <li><a class="sidemenu-item" href="filter.html">filter</a></li>
+      <li><a class="sidemenu-item" href="font.html">font</a></li>
+      <li><a class="sidemenu-item" href="globalAlpha.html">globalAlpha</a></li>
+      <li><a class="sidemenu-item" href="globalCompositeOperation.html">globalCompositeOperation</a></li>
+      <li><a class="sidemenu-item" href="imageSmoothingEnabled.html">imageSmoothingEnabled</a></li>
+      <li><a class="sidemenu-item" href="imageSmoothingQuality.html">imageSmoothingQuality</a></li>
+      <li><a class="sidemenu-item" href="lineCap.html">lineCap</a></li>
+      <li><a class="sidemenu-item" href="lineDashOffset.html">lineDashOffset</a></li>
+      <li><a class="sidemenu-item" href="lineJoin.html">lineJoin</a></li>
+      <li><a class="sidemenu-item" href="lineWidth.html">lineWidth</a></li>
+      <li><a class="sidemenu-item" href="miterLimit.html">miterLimit</a></li>
+      <li><a class="sidemenu-item" href="shadowBlur.html">shadowBlur</a></li>
+      <li><a class="sidemenu-item" href="shadowColor.html">shadowColor</a></li>
+      <li><a class="sidemenu-item" href="shadowOffsetX.html">shadowOffsetX</a></li>
+      <li><a class="sidemenu-item" href="shadowOffsetY.html">shadowOffsetY</a></li>
+      <li><a class="sidemenu-item" href="strokeStyle.html">strokeStyle</a></li>
+      <li><a class="sidemenu-item" href="textAlign.html">textAlign</a></li>
+      <li><a class="sidemenu-item" href="textBaseline.html">textBaseline</a></li>
   </ul>
   <ul class="sidemenu-group">
     <li>
       <span class="sidemenu-label">方法<i class="sidemenu-arrdown"></i></span>
     </li>
-    <li><a class="sidemenu-item" href="arc.html">arc()</a></li>
-    <li><a class="sidemenu-item" href="beginpath.html">beginPath()</a></li>
-    <li><a class="sidemenu-item" href="clearrect.html">clearRect()</a></li>
-    <li><a class="sidemenu-item" href="filltext.html">fillText()</a></li>
-    <li><a class="sidemenu-item" href="rect.html">rect()</a></li>
-    <li><a class="sidemenu-item" href="rotate.html">rotate()</a></li>
-    <li><a class="sidemenu-item" href="translate.html">translate()</a></li>
+      <li><a class="sidemenu-item" href="addHitRegion.html">addHitRegion()</a></li>
+      <li><a class="sidemenu-item" href="arc.html">arc()</a></li>
+      <li><a class="sidemenu-item" href="arcTo.html">arcTo()</a></li>
+      <li><a class="sidemenu-item" href="beginPath.html">beginPath()</a></li>
+      <li><a class="sidemenu-item" href="bezierCurveTo.html">bezierCurveTo()</a></li>
+      <li><a class="sidemenu-item" href="clearHitRegions.html">clearHitRegions()</a></li>
+      <li><a class="sidemenu-item" href="clearRect.html">clearRect()</a></li>
+      <li><a class="sidemenu-item" href="clip.html">clip()</a></li>
+      <li><a class="sidemenu-item" href="closePath.html">closePath()</a></li>
+      <li><a class="sidemenu-item" href="createImageData.html">createImageData()</a></li>
+      <li><a class="sidemenu-item" href="createLinearGradient.html">createLinearGradient()</a></li>
+      <li><a class="sidemenu-item" href="createPattern.html">createPattern()</a></li>
+      <li><a class="sidemenu-item" href="createRadialGradient.html">createRadialGradient()</a></li>
+      <li><a class="sidemenu-item" href="drawFocusIfNeeded.html">drawFocusIfNeeded()</a></li>
+      <li><a class="sidemenu-item" href="drawImage.html">drawImage()</a></li>
+      <li><a class="sidemenu-item" href="drawWidgetAsOnScreen.html">drawWidgetAsOnScreen()</a></li>
+      <li><a class="sidemenu-item" href="drawWindow.html">drawWindow()</a></li>
+      <li><a class="sidemenu-item" href="ellipse.html">ellipse()</a></li>
+      <li><a class="sidemenu-item" href="fill.html">fill()</a></li>
+      <li><a class="sidemenu-item" href="fillRect.html">fillRect()</a></li>
+      <li><a class="sidemenu-item" href="fillText.html">fillText()</a></li>
+      <li><a class="sidemenu-item" href="getImageData.html">getImageData()</a></li>
+      <li><a class="sidemenu-item" href="getLineDash.html">getLineDash()</a></li>
+      <li><a class="sidemenu-item" href="isPointInPath.html">isPointInPath()</a></li>
+      <li><a class="sidemenu-item" href="isPointInStroke.html">isPointInStroke()</a></li>
+      <li><a class="sidemenu-item" href="lineTo.html">lineTo()</a></li>
+      <li><a class="sidemenu-item" href="measureText.html">measureText()</a></li>
+      <li><a class="sidemenu-item" href="moveTo.html">moveTo()</a></li>
+      <li><a class="sidemenu-item" href="putImageData.html">putImageData()</a></li>
+      <li><a class="sidemenu-item" href="quadraticCurveTo.html">quadraticCurveTo()</a></li>
+      <li><a class="sidemenu-item" href="rect.html">rect()</a></li>
+      <li><a class="sidemenu-item" href="removeHitRegion.html">removeHitRegion()</a></li>
+      <li><a class="sidemenu-item" href="resetTransform.html">resetTransform()</a></li>
+      <li><a class="sidemenu-item" href="restore.html">restore()</a></li>
+      <li><a class="sidemenu-item" href="rotate.html">rotate()</a></li>
+      <li><a class="sidemenu-item" href="save.html">save()</a></li>
+      <li><a class="sidemenu-item" href="scale.html">scale()</a></li>
+      <li><a class="sidemenu-item" href="scrollPathIntoView.html">scrollPathIntoView()</a></li>
+      <li><a class="sidemenu-item" href="setLineDash.html">setLineDash()</a></li>
+      <li><a class="sidemenu-item" href="setTransform.html">setTransform()</a></li>
+      <li><a class="sidemenu-item" href="stroke.html">stroke()</a></li>
+      <li><a class="sidemenu-item" href="strokeRect.html">strokeRect()</a></li>
+      <li><a class="sidemenu-item" href="strokeText.html">strokeText()</a></li>
+      <li><a class="sidemenu-item" href="transform.html">transform()</a></li>
+      <li><a class="sidemenu-item" href="translate.html">translate()</a></li>
   </ul>
 </nav>
-
+<script>
+  menuinit();
+  currentMenu();
+  function menuinit() {
+    let menuDom = document.getElementById('main_menubox');
+    let showClsN = 'sidemenu-arrdown',
+      hideClsN = 'sidemenu-arrleft';
+    menuDom.querySelectorAll('.sidemenu-label').forEach((item) => {
+      item.onclick = () => {
+        let arrowDom = item.parentNode.querySelector(`.${showClsN},.${hideClsN}`);
+        if (arrowDom.classList.contains(showClsN)) {
+          arrowDom.classList.remove(showClsN);
+          arrowDom.classList.add(hideClsN);
+          // 找到ul
+          item.parentNode.parentNode.classList.add('sidemenu-group-close');
+        } else {
+          arrowDom.classList.add(showClsN);
+          arrowDom.classList.remove(hideClsN);
+          item.parentNode.parentNode.classList.remove('sidemenu-group-close');
+        }
+      }
+    });
+  }
+  // 定位当前菜单
+  function currentMenu() {
+    // 取URL上地址
+    let url = window.location.pathname;
+    let fn = url.substr(url.lastIndexOf('/') + 1);
+    //console.log(fn);
+    let queryStr = "#main_menubox [href='" + fn + "']";
+    let menuitem = document.querySelector(queryStr);
+    menuitem.classList.add('active');
+    let menuParent = document.querySelector('#main_menubox').parentElement;
+    // 定位到当前菜单offsetTop处
+    menuParent.scrollTo(0, menuitem.offsetTop-50);
+  }
+</script>
     </div>
     <div class="grid-10 pd-20"><h2>
   font
