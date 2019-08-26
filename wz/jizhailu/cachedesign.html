@@ -1,0 +1,22 @@
+<!DOCTYPE html><html lang=en><head><meta charset=utf-8 /><meta http-equiv=X-UA-Compatible content="IE=edge" /><meta name=viewport content="width=device-width,initial-scale=1.0" /><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png /><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png /><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png /><link rel=manifest href=/site.webmanifest /><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5 /><meta name=msapplication-TileColor content=#da532c /><meta name=theme-color content=#ffffff /><title>文章 | Mirror Space</title><link href=/mirrorui/mirrorui.min.css rel=stylesheet /><style scoped>.layout{display:grid;grid-template-columns:210px auto;min-height:100vh}.layout-right{padding:30px}</style></head><body><div class=layout><div class=layout-left><style>.mainmenu{position:sticky;top:122px;text-align:center}.mainmenu a{color:var(--graybackse);text-decoration:none}.mainmenu a:hover,.mainmenu a.active{color:var(--fontcolor);text-decoration:underline}.logobox{width:144px;height:144px;overflow:hidden;border-radius:50%;margin:22px auto}.logoimg{margin-left:-56px;animation:circleRoate 6s infinite linear}@keyframes circleRoate{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}</style><div class=mainmenu><div class=logobox><img src=/asset/img/logo.jpg class=logoimg /></div><h3>Mirror Space</h3><hr class=line /><a href=/index.html><h4>Home</h4></a> <a href=/about.html><h4>About</h4></a></div></div><div class=layout-right><div class=wz-page><div><div id=article_headerbox></div><a onclick=window.history.back() class="btn link">返回上页</a><hr class=line /></div><script src=/asset/js/article.js></script><script>(()=>{let f=window.location.pathname,u=f.split("/"),e="article_"+u[2],t=JSON.parse(window.sessionStorage.getItem(e)),i=u[3].replace(".html","");console.log(t);let n={};n.t=t[i][0];n.d=t[i][1];n.a=t[i][2];let r=`<h1 class="text-center">${n.t}</h1>`;r+=`<h5>作者:&emsp;<span></span>${n.a}</h5>`;r+=`<h5>日期:&emsp;<span></span>${n.d}</h5>`;let o=window.document.querySelector("#article_headerbox");o.innerHTML=r})()</script><p>关于缓存的看法,我在CSDN发问,看到回复后发现缓存其实一直没搞懂过.下文是sp1234的回复</p><p>1.对你自己的系统设计来说，缓存跟进程中的 Dictionary&lt;string, .....> 有什么区别呢？</p><p>2.照你这个逻辑来看，你认为的缓存就是</p>
+  <pre>
+public static DataTable 用户表;
+public static DataTable 角色表;
+public static DataTable 权限表;
+public static DataTable 部门表;
+之类的了？！
+</pre><p>3.缓存，本质上都是 key-value 形式。不论你说的那一种，都是 k-v 形式，而不是什么“把数据库里的数据读到内存的 DataTable 对象里边”的概念。 比如说这个 csdn 论坛，可能会缓存每一个板块的目录列表第一页，那么当有10000 个访问来查询的时候，直接取出这个有着50个帖子标题的查询结果列表，这就是缓存。而当帖子有改变（比如说回帖）的时候，缓存被自动清理掉，那么第 10001个请求时就会自动重建缓存。因此这个查询类似于</p>
+  <pre>
+public List&lt;帖子标题> 查询页面(string 论坛, int 页号)
+{
+    var key = $"查询{论坛}板块第{页号}的帖子标题列表";
+    var cache = HttpRuntime.Cache;
+    var result = (List&lt;帖子标题>)cache[key];
+    if (result == null)
+    {
+        result = 查询数据库查询页面(论坛, 页号);
+        cache.Insert(key, result);  //这里的第三个 Dependency 参数其实才是 Cache 技术的核心技术。这里为了举例编程入门知识，暂时忽略。
+    }
+    return result;
+}
+</pre><p>缓存里的存储的，是针对一次查询（例如一个 sql 语句，或者一个业务参数描述）为 key而得到的结果，而并不是什么把整个数据库拷贝出来作为 DataTable。比如说 csdn 有10亿个帖子，那么“.net 论坛的第1页”为 key 的缓存结果中就只有第一页的这几十个帖子的标题。这才叫做缓存。 有的人把数据库里边所有数据copy出来叫做缓存，那么缓存里几乎所有数据都是垃圾数据了，缓存命中率几乎为0。这样的根本不是缓存技术，而是滥用缓存概念。</p><p>4.而使用什么 Redis 之类的外部数据库，那不过就是拿一个免费的内存 k-v 数据库来共享使用，并没有什么特别的技术。显然要付出网络 I/O 和数据序列化/反序列化的代价，这是其问题。但是不论那采用 .net 框架中高效率功能强大的 Cache，还是采用一种外部的内存 k-v 数据库，本质上你都是 k-v 方式的。 如果你认为缓存就是把整个数据库内容拷贝来拷贝去地，那么应该说，这样的设计离缓存的距离还很远。</p><p>5.如果说一个公司的技术主管嫌员工不愿意学习、不去真正设计和编写缓存程序，所以才用 memcached 或者 redis 之类的 key-value 数据库来强迫这些人来改变自己的思维方式，那么我可以理解。否则当然是要先学会用 .net 框架现成的、本地的东西设计为好。 不论用什么，搞懂缓存的技术机制而不是纠结具体的工具。那样即使你不去强迫自己用什么时髦的框架，你也能理解缓存技术。</p><p>6.缓存是从业务出发，使用业务命令为key参数，把查询结果放到 key-value 形式内存数据库中（我们把本地进程内 Cache 数据结构也叫做一个数据库）。缓存系统有着极高的命中率，命中率是个核心概念。 一旦基础数据改变，那么缓存中的响应结果就是垃圾了。缓存系统就要一整套 CacheDepency 设计机制来自动化地清理缓存垃圾。所以缓存技术的核心在于缓存依赖项的设计，而并不是把数据存一下。缓存的核心技术在于及时准确地清理缓存，不懂如何清理缓存就不懂缓存技术。 如过你说缓存是整个数据库都读取到一个内存数据结构中（不管是进程内的组件还是一个免费的第三方内存数据库产品），那么你得到的大量脏数据来回拷贝的结果本身就不值得缓存了。缓存概念就成了标题党，技术的危害反而更大。</p><p>7.比如说，我们写一个程序要进行1千人的考试结果的判卷，那么前几个判卷工作进行中可能进行的一些查询工作的结果其实在后边的9百多个判卷中也很有可能重复使用，那么其实基于缓存来设计算法就能“自然而然地、无心插柳地”提高整体算法的效率。这就是先理解了缓存设计，然后使用相关的工具软件。 缓存设计的核心在于缓存数据的命中率。如果缓存中的数据都是垃圾，那就是极端失败的设计了。</p><p>8.缓存设计首先要要求你用 key-value 方式来设计，改变了你的模式。 有些大公司有钱，能用128G内存来承载一个内存数据库。但是一般的公司没有这个费用，而且其实也不必如此设计缓存的底层存储机制。 .net 的 Cache 机制可以自动根据内存物理使用情况而自动“遗忘”不常用的数据，CacheDependency 机制可以让你设置为你根据“时间、文件被变动、SqlCacheDepdency 通知、其它的 Cache 单元被写入数据”等事件来自动清理缓存垃圾。 这样你使用缓存的核心，就是从业务逻辑出发来研究各种查询的重复概率，然后使用好 k-v 形式的缓存机制。尽量提高提高缓存命中率，少用内存，才是真地用缓存。</p></div></div></div></body></html>

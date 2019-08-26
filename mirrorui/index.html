@@ -1,1110 +1,197 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-  <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-  <link href="mirrorui.min.css" rel="stylesheet" />
-  <script src="mirrorui.min.js"></script>
-  <title>mirrorui-doc</title>
-  <style>
-    .page {
-      display: grid;
-      grid-template-columns: 210px auto;
-    }
-
-    .menu-box {
-      position: sticky;
-      top: 0;
-      width: 94%;
-      max-height: 100vh;
-      overflow-x: hidden;
-      overflow-y: auto;
-    }
-    .doc-part-box{
-      margin:50px auto;
-    }
-  </style>
-</head>
-<body>
-  <div class="page">
-    <div class="menu-box">
-      <nav class="sidemenu-box primary" id="main_menubox">
-        <div class="grids-5">
-            <span onclick="chgprimary('690,578200')" style="width:24px;height:24px;background-color:#690"></span>
-            <span onclick="chgprimary('3366ff,0544ff')" style="width:24px;height:24px;background-color:#3366ff"></span>
-            <span onclick="chgprimary('ff6600,d95700')" style="width:24px;height:24px;background-color:#ff6600"></span>
-            <span onclick="chgprimary('ff33cc,ff05c1')" style="width:24px;height:24px;background-color:#ff33cc"></span>
-            <span onclick="chgprimary('ccccff,8787ff')" style="width:24px;height:24px;background-color:#ccccff"></span>
-        </div>
-        <ul class="sidemenu-group">
-          <li>
-            <span class="sidemenu-label">零件<i class="sidemenu-arrdown"></i></span>
-          </li>
-          <li><a class="sidemenu-item" href="#grid">册格</a></li>
-          <li><a class="sidemenu-item" href="#typography">大标题</a></li>
-          <li><a class="sidemenu-item" href="#hrline">hr分隔线</a></li>
-          <li><a class="sidemenu-item" href="#btn">按钮</a></li>
-          <li><a class="sidemenu-item" href="#table">表格</a></li>
-          <li><a class="sidemenu-item" href="#form">表单</a></li>
-          <li><a class="sidemenu-item" href="#imagedemo">图片</a></li>
-          <li><a class="sidemenu-item" href="#toolclass">便利样式</a></li>
-        </ul>
-        <ul class="sidemenu-group">
-          <li>
-            <span class="sidemenu-label">组件<i class="sidemenu-arrdown"></i></span>
-          </li>
-          <li><a class="sidemenu-item" href="#btngroup">按钮组</a></li>
-          <li><a class="sidemenu-item" href="#label">标签</a></li>
-          <li><a class="sidemenu-item" href="#article">段落标题</a></li>
-          <li><a class="sidemenu-item" href="#msgpanel">信息面板</a></li>
-          <li><a class="sidemenu-item" href="#panel">面板</a></li>
-          <li><a class="sidemenu-item" href="#tabs">选项卡</a></li>
-          <li><a class="sidemenu-item" href="#msgbox">弹出框</a></li>
-          <li><a class="sidemenu-item" href="#datetime">日期时间</a></li>
-          <li><a class="sidemenu-item" href="#pagenum">分页导航</a></li>
-          <li><a class="sidemenu-item" href="#sidemenu">侧边菜单</a></li>
-          <li><a class="sidemenu-item" href="#cachepage">缓存页</a></li>
-        </ul>
-
-        <ul class="sidemenu-group">
-          <li><span class="sidemenu-label">设计<i class="sidemenu-arrdown"></i></span></li>
-          <li><a class="sidemenu-item" href="#design_form">表单设计</a></li>
-        </ul>
-      </nav>
-    </div>
-    <div class="content pd-15">
-      <div>
-        <h1>关于ui</h1>
-        <p>将html,js,css做成组件,使用web开发更方便.这种思路在桌面程序中早就有了,比如winfrom.较早些时候,当前后端还没有分离,还是以服务端编程时,惯用的是JQUERY,还有各用基于JQUERY的UI.</p>
-        <p>后来,有了Bootstrap.学习它的scss后,认为这是一种先进的思想.于是模仿练习.它是OOP的,使用scss编写生成css.生成各种组件,布局,工具的css样式.</p>
-        <p>一套webui是一些组件的集合,一个组件就是html模板加css显示加js功能的组合.按bootstrap的思路,编写这种组合就得到了一套UI.</p>
-        <p>看过一些其它的ui框架,都是bootstrap的形式,或者直接基于它开发的.看起来,这更是一种web前端编程思路突破,真正的将web前端工程化了,就像服务端工程化那样.</p>
-        <p>所以,使用造组件的思路,可以造出各种各样的ui来.</p>
-      </div>
-      <div class="doc-part-box" id="grid">
-  <h2>册格系统</h2>
-  <p>册格布局是bootstrap的经典,现在css已经自带了.可以直接使用自带的.</p>
-
-  <style>
-    .demo-grids {
-      display: grid;
-      grid-template-columns: repeat(12,8.3333%);
-    }
-
-    .demo-grid {
-      background-color: var(--primary);
-      padding: 5px;
-      border: 1px solid #ffffff;
-    }
-  </style>
-  <p>对div使用样式 {display:grid ; grid-template-columns: repeat(12,8.3333%);} 就实现了</p>
+<!DOCTYPE html><html><head><meta charset=utf-8 /><meta http-equiv=X-UA-Compatible content="IE=edge,chrome=1" /><meta name=viewport content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" /><link href=mirrorui.min.css rel=stylesheet /><script src=mirrorui.min.js></script><title>mirrorui-doc</title><style>.page{display:grid;grid-template-columns:210px auto}.menu-box{position:sticky;top:0;width:94%;max-height:100vh;overflow-x:hidden;overflow-y:auto}.doc-part-box{margin:50px auto}</style></head><body><div class=page><div class=menu-box><nav class="sidemenu-box primary" id=main_menubox><div class=grids-5><span onclick="chgprimary('690,578200')" style=width:24px;height:24px;background-color:#690></span> <span onclick="chgprimary('3366ff,0544ff')" style=width:24px;height:24px;background-color:#36f></span> <span onclick="chgprimary('ff6600,d95700')" style=width:24px;height:24px;background-color:#f60></span> <span onclick="chgprimary('ff33cc,ff05c1')" style=width:24px;height:24px;background-color:#f3c></span> <span onclick="chgprimary('ccccff,8787ff')" style=width:24px;height:24px;background-color:#ccf></span></div><ul class=sidemenu-group><li><span class=sidemenu-label>零件<i class=sidemenu-arrdown></i></span></li><li><a class=sidemenu-item href=#grid>册格</a></li><li><a class=sidemenu-item href=#typography>大标题</a></li><li><a class=sidemenu-item href=#hrline>hr分隔线</a></li><li><a class=sidemenu-item href=#btn>按钮</a></li><li><a class=sidemenu-item href=#table>表格</a></li><li><a class=sidemenu-item href=#form>表单</a></li><li><a class=sidemenu-item href=#imagedemo>图片</a></li><li><a class=sidemenu-item href=#toolclass>便利样式</a></li></ul><ul class=sidemenu-group><li><span class=sidemenu-label>组件<i class=sidemenu-arrdown></i></span></li><li><a class=sidemenu-item href=#btngroup>按钮组</a></li><li><a class=sidemenu-item href=#label>标签</a></li><li><a class=sidemenu-item href=#article>段落标题</a></li><li><a class=sidemenu-item href=#msgpanel>信息面板</a></li><li><a class=sidemenu-item href=#panel>面板</a></li><li><a class=sidemenu-item href=#tabs>选项卡</a></li><li><a class=sidemenu-item href=#msgbox>弹出框</a></li><li><a class=sidemenu-item href=#datetime>日期时间</a></li><li><a class=sidemenu-item href=#pagenum>分页导航</a></li><li><a class=sidemenu-item href=#sidemenu>侧边菜单</a></li><li><a class=sidemenu-item href=#cachepage>缓存页</a></li></ul><ul class=sidemenu-group><li><span class=sidemenu-label>设计<i class=sidemenu-arrdown></i></span></li><li><a class=sidemenu-item href=#design_form>表单设计</a></li></ul></nav></div><div class="content pd-15"><div><h1>关于ui</h1><p>将html,js,css做成组件,使用web开发更方便.这种思路在桌面程序中早就有了,比如winfrom.较早些时候,当前后端还没有分离,还是以服务端编程时,惯用的是JQUERY,还有各用基于JQUERY的UI.</p><p>后来,有了Bootstrap.学习它的scss后,认为这是一种先进的思想.于是模仿练习.它是OOP的,使用scss编写生成css.生成各种组件,布局,工具的css样式.</p><p>一套webui是一些组件的集合,一个组件就是html模板加css显示加js功能的组合.按bootstrap的思路,编写这种组合就得到了一套UI.</p><p>看过一些其它的ui框架,都是bootstrap的形式,或者直接基于它开发的.看起来,这更是一种web前端编程思路突破,真正的将web前端工程化了,就像服务端工程化那样.</p><p>所以,使用造组件的思路,可以造出各种各样的ui来.</p></div><div class=doc-part-box id=grid><h2>册格系统</h2><p>册格布局是bootstrap的经典,现在css已经自带了.可以直接使用自带的.</p><style>.demo-grids{display:grid;grid-template-columns:repeat(12,8.3333%)}.demo-grid{background-color:var(--primary);padding:5px;border:1px solid #fff}</style><p>对div使用样式 {display:grid ; grid-template-columns: repeat(12,8.3333%);} 就实现了</p>
 
   <pre>
 .demo-grids {
   display: grid;
   grid-template-columns: repeat(12,8.3333%);
 }
-</pre>
-  <div class="demo-grids">
-      <span class="demo-grid text-center">1</span>
-      <span class="demo-grid text-center">2</span>
-      <span class="demo-grid text-center">3</span>
-      <span class="demo-grid text-center">4</span>
-      <span class="demo-grid text-center">5</span>
-      <span class="demo-grid text-center">6</span>
-      <span class="demo-grid text-center">7</span>
-      <span class="demo-grid text-center">8</span>
-      <span class="demo-grid text-center">9</span>
-      <span class="demo-grid text-center">10</span>
-      <span class="demo-grid text-center">11</span>
-      <span class="demo-grid text-center">12</span>
-  </div>
-  <br />
-  <h3>册格便利类</h3>
-  <p>为了方便,制做便利类, .grids-n n=(1~12)</p>
-  <p>为防止内容超出册格而撑坏,册格项添加了"overflow: hidden"样式</p>
-  <p>在div册格容器上使用样式 .grids-7 其下项目会自动均分1/7宽度</p>
-  <div class="grids-7">
-      <span class="demo-grid text-center">1 / 7</span>
-      <span class="demo-grid text-center">2 / 7</span>
-      <span class="demo-grid text-center">3 / 7</span>
-      <span class="demo-grid text-center">4 / 7</span>
-      <span class="demo-grid text-center">5 / 7</span>
-      <span class="demo-grid text-center">6 / 7</span>
-      <span class="demo-grid text-center">7 / 7</span>
-  </div>
-  <br />
-  <p>在div册格容器上使用样式 .grids 则其下项目自动根据个数均分宽度</p>
-  <div class="grids">
-      <span class="grid demo-grid text-center">1 / 9</span>
-      <span class="grid demo-grid text-center">2 / 9</span>
-      <span class="grid demo-grid text-center">3 / 9</span>
-      <span class="grid demo-grid text-center">4 / 9</span>
-      <span class="grid demo-grid text-center">5 / 9</span>
-      <span class="grid demo-grid text-center">6 / 9</span>
-      <span class="grid demo-grid text-center">7 / 9</span>
-      <span class="grid demo-grid text-center">8 / 9</span>
-      <span class="grid demo-grid text-center">9 / 9</span>
-  </div>
-  <br />
-  <p>在div册格的项目元素上使用样式 .grid-n n=(1~12) 则项目占比n/12</p>
-  <div class="grids">
-    <span class="grid-3 demo-grid text-center">grid-3</span>
-    <span class="grid-4 demo-grid text-center">grid-4</span>
-    <span class="grid-5 demo-grid text-center">grid-5</span>
-  </div>
-  <br />
-  <p>在div册格的项目元素上混合使用样式 .grid和.grid-n,其中grid-n占用指定宽度,grid则均分剩于空间</p>
-  <div class="grids">
-    <div class="grid demo-grid text-center">均分</div>
-    <div class="grid-5 demo-grid text-center">固定占grid-5</div>
-    <div class="grid demo-grid text-center">均分</div>
-    <div class="grid demo-grid text-center">均分</div>
-  </div>
-</div>
-      
-      <div class="doc-part-box" id="typography">
-  <h2>标题段落</h2>
-  <p>对h1~h6和p标签的样式</p>
-  <p class="article-title">h1-h6</p>
-  <h1>h1 标题 X2.5</h1>
-  <h2>h2 标题 X2.2</h2>
-  <h3>h3 标题 X1.8</h3>
-  <h4>h4 标题 X1.3</h4>
-  <h5>h5 标题 基准字体大小,14px</h5>
-  <h6>h6 标题 12px</h6>
-
-  <p class="article-title">p</p>
-  <p>简单的设置了下边margin-bottom 14px</p>
-  <p>第 0 段,.....</p>
-  <p>第 1 段,.....</p>
-  <p>第 2 段,.....</p>
-  <p>第 3 段,.....</p>
-  <p>第 4 段,.....</p>
-  <p>第 5 段,.....</p>
-</div>
-      
-      <div class="doc-part-box" id="hrline">
-  <h2>hr分隔线</h2>
-  <p>class="line"</p>
-  <hr class="line" />
-  <p>class="line primary"</p>
-  <hr class="line primary" />
-  <p>class="line danger"</p>
-  <hr class="line danger" />
-  <p>class="line success"</p>
-  <hr class="line success" />
-</div>
-      
-      <div class="doc-part-box" id="btn">
-  <h2>按钮</h2>
-  <p>标记使用a span button,添加.btn样式.有几种颜色.</p>
-  <div class="grids-5">
-    <div><a class="btn">class="btn"</a></div>
-    <div><a class="btn primary">class="btn primary"</a></div>
-    <div><a class="btn danger">class="btn danger"</a></div>
-    <div><a class="btn success">class="btn success"</a></div>
-    <div><a class="btn link">链接class="btn link"</a></div>
-  </div>
-  <br />
-  <div class="grids-3">
-    <div><button class="btn disabled">禁用class="btn disabled"</button></div>
-    <div><button class="btn loading">等待中class="btn loading"</button></div>
-    <div><a class="btn cir">圆角class="btn cir"</a></div>
-  </div>
-  <br />
-  <div class="grids-3">
-    <div><a class="btn sm">sm尺寸</a></div>
-    <div><a class="btn lg">lg尺寸</a></div>
-    <div><a class="btn xl">xl尺寸</a></div>
-  </div>
+</pre><div class=demo-grids><span class="demo-grid text-center">1</span> <span class="demo-grid text-center">2</span> <span class="demo-grid text-center">3</span> <span class="demo-grid text-center">4</span> <span class="demo-grid text-center">5</span> <span class="demo-grid text-center">6</span> <span class="demo-grid text-center">7</span> <span class="demo-grid text-center">8</span> <span class="demo-grid text-center">9</span> <span class="demo-grid text-center">10</span> <span class="demo-grid text-center">11</span> <span class="demo-grid text-center">12</span></div><br /><h3>册格便利类</h3><p>为了方便,制做便利类, .grids-n n=(1~12)</p><p>为防止内容超出册格而撑坏,册格项添加了"overflow: hidden"样式</p><p>在div册格容器上使用样式 .grids-7 其下项目会自动均分1/7宽度</p><div class=grids-7><span class="demo-grid text-center">1 / 7</span> <span class="demo-grid text-center">2 / 7</span> <span class="demo-grid text-center">3 / 7</span> <span class="demo-grid text-center">4 / 7</span> <span class="demo-grid text-center">5 / 7</span> <span class="demo-grid text-center">6 / 7</span> <span class="demo-grid text-center">7 / 7</span></div><br /><p>在div册格容器上使用样式 .grids 则其下项目自动根据个数均分宽度</p><div class=grids><span class="grid demo-grid text-center">1 / 9</span> <span class="grid demo-grid text-center">2 / 9</span> <span class="grid demo-grid text-center">3 / 9</span> <span class="grid demo-grid text-center">4 / 9</span> <span class="grid demo-grid text-center">5 / 9</span> <span class="grid demo-grid text-center">6 / 9</span> <span class="grid demo-grid text-center">7 / 9</span> <span class="grid demo-grid text-center">8 / 9</span> <span class="grid demo-grid text-center">9 / 9</span></div><br /><p>在div册格的项目元素上使用样式 .grid-n n=(1~12) 则项目占比n/12</p><div class=grids><span class="grid-3 demo-grid text-center">grid-3</span> <span class="grid-4 demo-grid text-center">grid-4</span> <span class="grid-5 demo-grid text-center">grid-5</span></div><br /><p>在div册格的项目元素上混合使用样式 .grid和.grid-n,其中grid-n占用指定宽度,grid则均分剩于空间</p><div class=grids><div class="grid demo-grid text-center">均分</div><div class="grid-5 demo-grid text-center">固定占grid-5</div><div class="grid demo-grid text-center">均分</div><div class="grid demo-grid text-center">均分</div></div></div><div class=doc-part-box id=typography><h2>标题段落</h2><p>对h1~h6和p标签的样式</p><p class=article-title>h1-h6</p><h1>h1 标题 X2.5</h1><h2>h2 标题 X2.2</h2><h3>h3 标题 X1.8</h3><h4>h4 标题 X1.3</h4><h5>h5 标题 基准字体大小,14px</h5><h6>h6 标题 12px</h6><p class=article-title>p</p><p>简单的设置了下边margin-bottom 14px</p><p>第 0 段,.....</p><p>第 1 段,.....</p><p>第 2 段,.....</p><p>第 3 段,.....</p><p>第 4 段,.....</p><p>第 5 段,.....</p></div><div class=doc-part-box id=hrline><h2>hr分隔线</h2><p>class="line"</p><hr class=line /><p>class="line primary"</p><hr class="line primary" /><p>class="line danger"</p><hr class="line danger" /><p>class="line success"</p><hr class="line success" /></div><div class=doc-part-box id=btn><h2>按钮</h2><p>标记使用a span button,添加.btn样式.有几种颜色.</p><div class=grids-5><div><a class=btn>class="btn"</a></div><div><a class="btn primary">class="btn primary"</a></div><div><a class="btn danger">class="btn danger"</a></div><div><a class="btn success">class="btn success"</a></div><div><a class="btn link">链接class="btn link"</a></div></div><br /><div class=grids-3><div><button class="btn disabled">禁用class="btn disabled"</button></div><div><button class="btn loading">等待中class="btn loading"</button></div><div><a class="btn cir">圆角class="btn cir"</a></div></div><br /><div class=grids-3><div><a class="btn sm">sm尺寸</a></div><div><a class="btn lg">lg尺寸</a></div><div><a class="btn xl">xl尺寸</a></div></div>
   <a class="btn block">块级按钮</a>
-  <pre class="code">
-&lt;a class="btn"&gt;默认&lt;/a&gt;
-&lt;button class="btn <b>loading</b>"&gt;等待中&lt;/button&gt;
-&lt;button class="btn <b>disabled</b>"&gt;禁用&lt;/button&gt;
-&lt;a class="btn <b>cir</b>"&gt;圆角&lt;/a&gt;
-&lt;a class="btn <b>link</b>"&gt;链接&lt;/a&gt;
-&lt;a class="btn <b>lg</b>"&gt;lg尺寸&lt;/a&gt;
-&lt;a class="btn <b>success</b>"&gt;绿色&lt;/a&gt;
-&lt;a class="btn <b>block</b> blue-b cir lg"&gt;块级按钮&lt;/a&gt;
-</pre>
-</div>
-      
-      <div class="doc-part-box" id="table">
-  <h2>表格</h2>
-  <p class="lead">一个简单的表格样式,有隔行颜色,鼠标hover,外边框</p>
-  <p class="article-title">简单表格</p>
-  <table class="table">
-    <tr><th>#</th><th>名字</th><th>职位</th></tr>
-    <tr><td>1</td><td>关羽</td><td>前将军</td></tr>
-    <tr><td>2</td><td>张飞</td><td>右将军</td></tr>
-    <tr><td>3</td><td>马超</td><td>左将军</td></tr>
-    <tr><td>4</td><td>黄忠</td><td>后将军</td></tr>
-    <tr><td>5</td><td>赵云</td><td>翊将军</td></tr>
-  </table>
-  <pre class="code">
-&lt;table class="table"&gt;
-    &lt;tr&gt;&lt;th&gt;#&lt;/th&gt;&lt;th&gt;名字&lt;/th&gt;&lt;th&gt;职位&lt;/th&gt;&lt;/tr&gt;
-    &lt;tr&gt;&lt;td&gt;1&lt;/td&gt;&lt;td&gt;关羽&lt;/td&gt;&lt;td&gt;前将军&lt;/td&gt;&lt;/tr&gt;
-&lt;/table&gt;
-</pre>
-
-  <p class="article-title">hover隔行色</p>
-  <table class="table hover">
-    <tr><th>#</th><th>名字</th><th>职位</th></tr>
-    <tr><td>1</td><td>关羽</td><td>前将军</td></tr>
-    <tr><td>2</td><td>张飞</td><td>右将军</td></tr>
-    <tr><td>3</td><td>马超</td><td>左将军</td></tr>
-    <tr><td>4</td><td>黄忠</td><td>后将军</td></tr>
-    <tr><td>5</td><td>赵云</td><td>翊将军</td></tr>
-  </table>
-  <pre class="code">
-&lt;table class="table hover"&gt;&lt;/table&gt;
-</pre>
-
-  <p class="article-title">外边框</p>
-  <table class="table border">
-    <tr><th>#</th><th>名字</th><th>职位</th></tr>
-    <tr><td>1</td><td>关羽</td><td>前将军</td></tr>
-    <tr><td>2</td><td>张飞</td><td>右将军</td></tr>
-    <tr><td>3</td><td>马超</td><td>左将军</td></tr>
-    <tr><td>4</td><td>黄忠</td><td>后将军</td></tr>
-    <tr><td>5</td><td>赵云</td><td>翊将军</td></tr>
-  </table>
-  <pre class="code">
-&lt;table class="table border"&gt;&lt;/table&gt;
-</pre>
-
-  <p class="article-title">内外边框</p>
-  <table class="table border-all">
-    <tr><th>#</th><th>名字</th><th>职位</th></tr>
-    <tr><td>1</td><td>关羽</td><td>前将军</td></tr>
-    <tr><td>2</td><td>张飞</td><td>右将军</td></tr>
-    <tr><td>3</td><td>马超</td><td>左将军</td></tr>
-    <tr><td>4</td><td>黄忠</td><td>后将军</td></tr>
-    <tr><td>5</td><td>赵云</td><td>翊将军</td></tr>
-  </table>
-  <pre class="code">
-&lt;table class="table <b>border-all</b>"&gt;&lt;/table&gt;
-</pre>
-</div>
-      
-      <div class="doc-part-box" id="form">
-  <h2>表单元素</h2>
-  <p class="lead">几种表单元素的样式.另外做了两种纸质风格的样式.</p>
-  <p class="article-title">input框</p>
-  <p>input文本框,除文件框单选复选框外</p>
-  <div class="grids">
-    <label class="input-label grid-1">文本框</label>
-    <input class="input-text grid-3" type="text" value="123456" />
-
-    <label class="input-label grid-1">密码框</label>
-    <input class="input-text grid-3" type="password" value="123456" />
-
-    <label class="input-label grid-1">Email</label>
-    <input class="input-text grid-3" type="email" value="xxx@mirror.com" />
-  </div>
-  <pre class="code">
-&lt;label class="input-label grid-2"&gt;文本框&lt;/label&gt;
-&lt;input class="input-text grid-3" type="text" value="123456" /&gt;
-</pre>
-  <br />
-  <p>四种大小,sm md(默认) lg xl</p>
-  <div class="grids">
-
-    <label class="input-label sm grid-1">sm尺寸</label>
-    <input class="input-text sm grid-3" type="text" value="sm font-size=12px" />
-
-    <label class="input-label lg grid-1">lg尺寸</label>
-    <input class="input-text lg grid-3" type="text" value="lg 14px*1.25" />
-
-    <label class="input-label xl grid-1">xl尺寸</label>
-    <input class="input-text xl grid-3" type="text" value="xl 14px*1.6" />
-
-  </div>
-  <pre class="code">
-&lt;label class="input-label <b>sm</b> grid-2"&gt;sm小号&lt;/label&gt;
-&lt;input class="input-text <b>sm</b>" type="text" value="sm font-size=12px" /&gt;
-</pre>
-
-  <p class="article-title">textarea</p>
-  <div class="grids">
+  <pre class=code>
+&lt;a class="btn">默认&lt;/a>
+&lt;button class="btn <b>loading</b>">等待中&lt;/button>
+&lt;button class="btn <b>disabled</b>">禁用&lt;/button>
+&lt;a class="btn <b>cir</b>">圆角&lt;/a>
+&lt;a class="btn <b>link</b>">链接&lt;/a>
+&lt;a class="btn <b>lg</b>">lg尺寸&lt;/a>
+&lt;a class="btn <b>success</b>">绿色&lt;/a>
+&lt;a class="btn <b>block</b> blue-b cir lg">块级按钮&lt;/a>
+</pre></div><div class=doc-part-box id=table><h2>表格</h2><p class=lead>一个简单的表格样式,有隔行颜色,鼠标hover,外边框</p><p class=article-title>简单表格</p><table class=table><tr><th>#</th><th>名字</th><th>职位</th></tr><tr><td>1</td><td>关羽</td><td>前将军</td></tr><tr><td>2</td><td>张飞</td><td>右将军</td></tr><tr><td>3</td><td>马超</td><td>左将军</td></tr><tr><td>4</td><td>黄忠</td><td>后将军</td></tr><tr><td>5</td><td>赵云</td><td>翊将军</td></tr></table>
+  <pre class=code>
+&lt;table class="table">
+    &lt;tr>&lt;th>#&lt;/th>&lt;th>名字&lt;/th>&lt;th>职位&lt;/th>&lt;/tr>
+    &lt;tr>&lt;td>1&lt;/td>&lt;td>关羽&lt;/td>&lt;td>前将军&lt;/td>&lt;/tr>
+&lt;/table>
+</pre><p class=article-title>hover隔行色</p><table class="table hover"><tr><th>#</th><th>名字</th><th>职位</th></tr><tr><td>1</td><td>关羽</td><td>前将军</td></tr><tr><td>2</td><td>张飞</td><td>右将军</td></tr><tr><td>3</td><td>马超</td><td>左将军</td></tr><tr><td>4</td><td>黄忠</td><td>后将军</td></tr><tr><td>5</td><td>赵云</td><td>翊将军</td></tr></table>
+  <pre class=code>
+&lt;table class="table hover">&lt;/table>
+</pre><p class=article-title>外边框</p><table class="table border"><tr><th>#</th><th>名字</th><th>职位</th></tr><tr><td>1</td><td>关羽</td><td>前将军</td></tr><tr><td>2</td><td>张飞</td><td>右将军</td></tr><tr><td>3</td><td>马超</td><td>左将军</td></tr><tr><td>4</td><td>黄忠</td><td>后将军</td></tr><tr><td>5</td><td>赵云</td><td>翊将军</td></tr></table>
+  <pre class=code>
+&lt;table class="table border">&lt;/table>
+</pre><p class=article-title>内外边框</p><table class="table border-all"><tr><th>#</th><th>名字</th><th>职位</th></tr><tr><td>1</td><td>关羽</td><td>前将军</td></tr><tr><td>2</td><td>张飞</td><td>右将军</td></tr><tr><td>3</td><td>马超</td><td>左将军</td></tr><tr><td>4</td><td>黄忠</td><td>后将军</td></tr><tr><td>5</td><td>赵云</td><td>翊将军</td></tr></table>
+  <pre class=code>
+&lt;table class="table <b>border-all</b>">&lt;/table>
+</pre></div><div class=doc-part-box id=form><h2>表单元素</h2><p class=lead>几种表单元素的样式.另外做了两种纸质风格的样式.</p><p class=article-title>input框</p><p>input文本框,除文件框单选复选框外</p><div class=grids><label class="input-label grid-1">文本框</label><input class="input-text grid-3" type=text value=123456 /> <label class="input-label grid-1">密码框</label><input class="input-text grid-3" type=password value=123456 /> <label class="input-label grid-1">Email</label><input class="input-text grid-3" type=email value=xxx@mirror.com /></div>
+  <pre class=code>
+&lt;label class="input-label grid-2">文本框&lt;/label>
+&lt;input class="input-text grid-3" type="text" value="123456" />
+</pre><br /><p>四种大小,sm md(默认) lg xl</p><div class=grids><label class="input-label sm grid-1">sm尺寸</label><input class="input-text sm grid-3" type=text value="sm font-size=12px" /> <label class="input-label lg grid-1">lg尺寸</label><input class="input-text lg grid-3" type=text value="lg 14px*1.25" /> <label class="input-label xl grid-1">xl尺寸</label><input class="input-text xl grid-3" type=text value="xl 14px*1.6" /></div>
+  <pre class=code>
+&lt;label class="input-label <b>sm</b> grid-2">sm小号&lt;/label>
+&lt;input class="input-text <b>sm</b>" type="text" value="sm font-size=12px" />
+</pre><p class=article-title>textarea</p>
+  <div class=grids>
     <label class="textarea-label grid-2">多行文本框</label>
-    <textarea class="textarea grid-10">多行文本框的高度为100px,且禁止手动调整大小.文本框没有分大小号</textarea>
-  </div>
-  <pre class="code">
-&lt;label class="textarea-label grid-2"&gt;多行文本框&lt;/label&gt;
-&lt;textarea class="textarea grid-10"&gt;多行文本框的高度为100px,文本框没有分大小号&lt;/textarea&gt;
+    <textarea class="textarea grid-10">多行文本框的高度为100px,且禁止手动调整大小.文本框没有分大小号</textarea></div>
+  <pre class=code>
+&lt;label class="textarea-label grid-2">多行文本框&lt;/label>
+&lt;textarea class="textarea grid-10">多行文本框的高度为100px,文本框没有分大小号&lt;/textarea>
+</pre><p class=article-title>文件选择</p><p>采用将input控件透明化,覆盖在标题控件之上的办法</p><p>由一个外层DIV包含input-file控件,和一个说明标题.都使用绝对定位,其中,input-file控件位于标题控件之上,并且是透明的.</p><p>选择文件后,文件名会显示在标签中,多个文件会用逗号隔开.这个功能需要给控件添加onchange事件,方法是<b>$ui.inputFileChange(this)</b></p><div class=input-file-box><input class=input-file id=forminputfile1 onchange=$ui.inputFileChange(this) type=file multiple /><label class=input-file-label>选择文件</label></div>
+  <br />
+  <a class="btn blue-b" onclick=$ui.clsInputFile(forminputfile1)>清空文件</a>
+  <pre class=code>
+&lt;div class="input-file-box">
+  &lt;input class="input-file" onchange="$ui.inputFileChange(this)" type="file" multiple />
+  &lt;label class="input-file-label">选择文件&lt;/label>
+&lt;/div>
+</pre><p class=article-title>单选与复选</p><p>使用label与input关联,透明化原生input,单选与复选的框是label下的b元素实现,选中的勾和圆点,通过b元素的伪类实现</p><p>input需要指定ID,label要指定FOR,label内含的b元素是选择框</p><p>默认的单选与复选框是白底色,选中时勾和点为黑色</p><br /><div class=grids><div class=grid><input class=input-check type=checkbox id=testcheck_0 checked /><label class=input-check-label for=testcheck_0><b class=check></b>复选框(0)</label></div><div class=grid><input class=input-check type=checkbox id=testcheck_1 checked /><label class=input-check-label for=testcheck_1><b class=check></b>复选框(1)</label></div><div class=grid><input class=input-check type=checkbox id=testcheck_2 checked /><label class=input-check-label for=testcheck_2><b class=check></b>复选框(2)</label></div><div class=grid><input class=input-check name=radiogroup1 type=radio id=testradio_0 /><label class=input-check-label for=testradio_0><b class=radio></b>单选框(0)</label></div><div class=grid><input class=input-check name=radiogroup1 type=radio id=testradio_1 /><label class=input-check-label for=testradio_1><b class=radio></b>单选框(1)</label></div><div class=grid><input class=input-check name=radiogroup1 type=radio id=testradio_2 /><label class=input-check-label for=testradio_2><b class=radio></b>单选框(2)</label></div></div>
+  <br />
+
+  <pre class=code>
+&lt;input class="input-check" type="checkbox" id="testcheck" />
+&lt;label class="input-check-label" for="testcheck">&lt;b class="check">&lt;/b>复选框&lt;/label>
 </pre>
-
-  <p class="article-title">文件选择</p>
-  <p>采用将input控件透明化,覆盖在标题控件之上的办法</p>
-  <p>由一个外层DIV包含input-file控件,和一个说明标题.都使用绝对定位,其中,input-file控件位于标题控件之上,并且是透明的.</p>
-  <p>选择文件后,文件名会显示在标签中,多个文件会用逗号隔开.这个功能需要给控件添加onchange事件,方法是<b>$ui.inputFileChange(this)</b></p>
-  <div class="input-file-box">
-    <input class="input-file" id="forminputfile1" onchange="$ui.inputFileChange(this)" type="file" multiple />
-    <label class="input-file-label">选择文件</label>
-  </div>
+  <pre class=code>
+&lt;input class="input-check" name="radiogroup1" type="radio" id="testradio" />
+&lt;label class="input-check-label" for="testradio">&lt;b class="radio">&lt;/b>单选框&lt;/label>
+</pre><br /><p class=text-yellow>四种大小,默认14px.在label上加上样式 <b>sm lg xl</b></p><div class=grids><div class=grid><input class=input-check type=checkbox id=sizecheck_sm checked /><label class="input-check-label sm" for=sizecheck_sm><b class=check></b>复选框(sm)</label><input class=input-check name=sizegroup1 type=radio id=sizeradio_sm /> <label class="input-check-label sm" for=sizeradio_sm><b class=radio></b>单选框(sm)</label></div><div class=grid><input class=input-check type=checkbox id=sizecheck_lg checked /><label class="input-check-label lg" for=sizecheck_lg><b class=check></b>复选框(lg)</label><input class=input-check name=sizegroup1 type=radio id=sizeradio_lg /> <label class="input-check-label lg" for=sizeradio_lg><b class=radio></b>单选框(lg)</label></div><div class=grid><input class=input-check type=checkbox id=sizecheck_xl checked /><label class="input-check-label xl" for=sizecheck_xl><b class=check></b>复选框(xl)</label><input class=input-check name=sizegroup1 type=radio id=sizeradio_xl /> <label class="input-check-label xl" for=sizeradio_xl><b class=radio></b>单选框(xl)</label></div></div><br /><p class=text-yellow>颜色.在label上加上样式 <b>primary danger success</b></p><div class=grids><div class=grid><input class=input-check type=checkbox id=colorcheck_primary checked /><label class="input-check-label primary" for=colorcheck_primary><b class=check></b>复选框(primary)</label></div><div class=grid><input class=input-check type=checkbox id=colorcheck_danger checked /><label class="input-check-label danger" for=colorcheck_danger><b class=check></b>复选框(danger)</label></div><div class=grid><input class=input-check type=checkbox id=colorcheck_success checked /><label class="input-check-label success" for=colorcheck_success><b class=check></b>复选框(success)</label></div></div><br /><div class=grids><div class=grid><input class=input-check name=colorgroup1 type=radio id=colorradio_primary /><label class="input-check-label primary" for=colorradio_primary><b class=radio></b>单选框(primary)</label></div><div class=grid><input class=input-check name=colorgroup1 type=radio id=colorradio_danger /><label class="input-check-label danger" for=colorradio_danger><b class=radio></b>单选框(danger)</label></div><div class=grid><input class=input-check name=colorgroup1 type=radio id=colorradio_success /><label class="input-check-label success" for=colorradio_success><b class=radio></b>单选框(success)</label></div></div>
   <br />
-  <a class="btn blue-b" onclick="$ui.clsInputFile(forminputfile1)">清空文件</a>
-  <pre class="code">
-&lt;div class="input-file-box"&gt;
-  &lt;input class="input-file" onchange="$ui.inputFileChange(this)" type="file" multiple /&gt;
-  &lt;label class="input-file-label"&gt;选择文件&lt;/label&gt;
-&lt;/div&gt;
+
+  <pre class=code>
+&lt;input class="input-check" type="checkbox" id="colorchec" />
+&lt;label class="input-check-label <b>xl</b>" for="colorcheck">&lt;b class="check">&lt;/b>大号复选框&lt;/label>
 </pre>
+  <pre class=code>
+&lt;input class="input-check" name="colorgroup1" type="radio" id="colorradio" />
+&lt;label class="input-check-label <b>danger</b>" for="colorradio">&lt;b class="radio">&lt;/b>红色单选框&lt;/label>
+</pre><br /><p class=article-title>select</p><p>也有四种大小.</p><div class=grids><div class=grid><select class="select sm"><option>明月几时有</option><option>把酒问青天</option><option>不知天上宫阙</option><option>今昔是何年</option></select></div><div class=grid><select class=select><option>我欲乘风归去</option><option>又恐琼楼玉宇</option><option>高处不胜寒</option><option>起舞弄清影</option><option>何似在人间</option></select></div><div class=grid><select class="select lg"><option>转朱阁，低绮户，照无眠</option><option>不应有恨</option><option>何事长向别时圆</option></select></div><div class=grid><select class="select xl"><option>人有悲欢离合</option><option>月有阴晴圆缺</option><option>此事古难全</option><option>但愿人长久</option><option>千里共婵娟</option></select></div></div>
+  <pre class=code>
+&lt;select class="select sm">
+  &lt;option>明月几时有&lt;/option>
+  &lt;option>把酒问青天&lt;/option>
+  &lt;option>不知天上宫阙&lt;/option>
+  &lt;option>今昔是何年&lt;/option>
+&lt;/select>
+</pre><p class=article-title>纸质风格表单</p><p class=lead>纸质风格表单是模仿的传统表格式的风格,整个表单是一个大表格,里面按表单项合理布局.有外边框和表单项边框.</p><p>html结构组成:最外层是div.form-table-box 每一行是一个册格行div.grids,里面是表单项,添加册格类占用宽度.不必填满12册格.</p><p>这种实现办法,优点是类纸质传统风格,就像填写单据一样,习惯易用.缺点在于布局不够灵活,同一行的表单项必须高度一样,不像表格那样可以使用rowspan或colspan跨行列</p><p>这个例子使用现有的样式实现简易的版本,复杂的表格需要采用传统的table布局,还有新的display:grid布局完成.</p><div class=form-table-box><div class=grids><div class=grid-1><label class=input-label>姓名</label></div><div class=grid-1><input class=input-text value=苏轼 /></div><div class=grid-1><label class=input-label>称号</label></div><div class=grid-3><input class=input-text value=东坡居士、苏东坡、苏仙 /></div><div class=grid-1><label class=input-label>生卒</label></div><div class=grid-3><input class=input-text value=1037年1月8日—1101年8月24日 /></div><div class=grid-1><label class=input-label>谥号</label></div><div class=grid-1><input class=input-text value=文忠 /></div></div><div class=grids><div class=grid-1><label class=input-label>成就</label></div><div class=grid-3><input class=input-text value=文学家、书法家、唐宋八大家 /></div><div class=grid-1><label class=input-label>官职</label></div><div class=grid-3><input class=input-text value=翰林学士、侍读学士、礼部尚书 /></div><div class=grid-1><label class=input-label>时代</label></div><div class=grid-1><input class=input-text value=北宋 /></div><div class=grid-1><label class=input-label>民族</label></div><div class=grid-1><input class=input-text value=汉 /></div></div><div class=grids><div class=grid-1><label class=input-label>作品</label></div><div class=grid-4><input class=input-text value=《东坡七集》《东坡易传》《东坡乐府》 /></div><div class=grid-1><label class=input-label>官职</label></div><div class=grid-3><input class=input-text value=翰林学士、侍读学士、礼部尚书 /></div></div><div class=grids><div class=grid-1><label class=input-label>名作</label></div><div class=grid-7><input class=input-text value=水调歌头·明月几时有 /></div></div><div class=grids><div class=grid-2><h3>苏东坡</h3></div>
+      <div class=grid-10>
+        <textarea class=textarea>明月几时有？把酒问青天。不知天上宫阙、今夕是何年？我欲乘风归去，又恐琼楼玉宇，高处不胜寒．起舞弄清影，何似在人间？ 转朱阁，低绮户，照无眠。不应有恨、何事长向别时圆？人有悲欢离合，月有阴晴圆缺，此事古难全。但愿人长久，千里共婵娟。</textarea></div></div></div>
+  <pre class=code>
+&lt;div class="<b>form-table-box</b>">
+  &lt;div class="grids">
+    &lt;label class="input-label grid-1">姓名&lt;/label>
+    &lt;input class="input-text grid-1" value="苏东坡" />
+  &lt;/div>
+&lt;/div>
+</pre></div><div class=doc-part-box id=imagedemo><h2>图片</h2><p>自动适应父容器大小 class="img-autosize" 圆角class="img-rounded" 圆形class="img-circle"</p><div class=grids><div class=grid><img class=img-autosize style="border:1px solid var(--font-color)" src=img/imgdemo.gif /></div><div class=grid><img class=img-rounded style="border:1px solid var(--font-color)" src=img/imgdemo.gif /></div><div class=grid><img class=img-circle style="border:1px solid var(--font-color)" src=img/imgdemo.gif /></div></div></div><div class=doc-part-box id=toolclass><h2>便利样式</h2><p class=article-title>文本超出省略</p><p class=text-overflow style=width:100px title=text-overflow文本超出时,显示省略号>text-overflow文本超出时,显示省略号</p><p class=article-title>文本对齐</p><p>text-left text-center text-right text-justify:两端对齐</p><p class=article-title>文本主题色</p><div class=grids-4><p class=text-primary>class="text-primary"</p><p class=text-danger>class="text-danger"</p><p class=text-success>class="text-success"</p><p class=text-gray>class="text-gray"</p><p class=text-primaryse>class="text-primaryse"</p><p class=text-dangerse>class="text-dangerse"</p><p class=text-successse>class="text-successse"</p><p class=text-grayse>class="text-grayse"</p></div><p class=article-title>背景主题色</p><div class=grids-4><p class="bg-primary pd-5 text-grayse">class="bg-primary"</p><p class="bg-danger pd-5 text-grayse">class="bg-danger"</p><p class="bg-success pd-5 text-grayse">class="bg-success"</p><p class="bg-gray pd-5 text-grayse">class="bg-gray"</p><p class="bg-primaryse pd-5">class="bg-primaryse"</p><p class="bg-dangerse pd-5">class="bg-dangerse"</p><p class="bg-successse pd-5">class="bg-successse"</p><p class="bg-grayse pd-5">class="bg-grayse"</p></div><p class=article-title>margin padding</p><p>pd-n(n=5,10,15,..,45,50) 四个方向 pd-l-n pd-r-n pd-t-n pd-b-n 组合上下与左右 pd-lr-n pd-tb-n</p><div><span class="pd-10 bg-primary">class="pd-10"</span> <span class="pd-t-10 bg-primary">class="pd-t-10"</span> <span class="mg-l-10 bg-primary">class="mg-l-20"</span></div><br /><p class=article-title>隐藏与显示</p><p>d-none d-block 媒体查询:针对不同大小屏幕 d-sm-none d-md-none d-lg-none d-xl-none</p><span class="d-none d-sm-block">sm 576px以上显示</span> <span class="d-none d-lg-block">lg 992px以上显示</span> <span class="d-none d-xl-block">lg 1200px以上显示</span></div><div class=doc-part-box id=btngroup><h2>按钮组</h2><p>按钮组包含多个按钮,一般用于一组性质相近的功能.</p><p>按钮组容器使用<b>inline-flex</b>布局,注意是个行内flex布局,元素会变为行为元素.里面按钮flex:auto(1 1 auto)</p><p>同一组的按钮大小要相同</p><p class=article-title>横向按钮组</p><span class=btn-group><a class=btn>加粗</a> <a class=btn>下划线</a> <a class=btn>倾斜</a> <a class=btn>字体</a> <a class=btn>复制</a> <a class=btn>剪切</a></span>     <div class="btn-group cir"> <a class="btn blue-b">加粗圆角</a> <a class="btn gray-b">下划线</a> <a class=btn>倾斜</a> <a class="btn yellow-b">字体</a> <a class="btn green-b">复制</a> <a class="btn red-b">剪切</a></div><br /><br /><div class="btn-group cir"><a class="btn lg">1</a> <a class="btn lg">2</a> <a class="btn lg">3</a> <a class="btn lg">4</a> <a class="btn lg">5</a> <a class="btn lg">6</a> <a class="btn lg">7</a> <a class="btn lg">8</a> <a class="btn lg">9</a> <a class="btn lg">10</a></div>
+  <pre class=code>
+&lt;span class="btn-group">
+  &lt;a class="btn">加粗&lt;/a>
+  &lt;a class="btn">下划线&lt;/a>
+  &lt;a class="btn">倾斜&lt;/a>
+  &lt;a class="btn">字体&lt;/a>
+  &lt;a class="btn">复制&lt;/a>
+  &lt;a class="btn">剪切&lt;/a>
+&lt;/span>
 
-  <p class="article-title">单选与复选</p>
-  <p>使用label与input关联,透明化原生input,单选与复选的框是label下的b元素实现,选中的勾和圆点,通过b元素的伪类实现</p>
-  <p>input需要指定ID,label要指定FOR,label内含的b元素是选择框</p>
-  <p>默认的单选与复选框是白底色,选中时勾和点为黑色</p>
-  <br />
-  <div class="grids">
-<div class="grid">
-        <input class="input-check" type="checkbox" id="testcheck_0" checked />
-        <label class="input-check-label" for="testcheck_0"><b class="check"></b>复选框(0)</label>
-      </div>
-<div class="grid">
-        <input class="input-check" type="checkbox" id="testcheck_1" checked />
-        <label class="input-check-label" for="testcheck_1"><b class="check"></b>复选框(1)</label>
-      </div>
-<div class="grid">
-        <input class="input-check" type="checkbox" id="testcheck_2" checked />
-        <label class="input-check-label" for="testcheck_2"><b class="check"></b>复选框(2)</label>
-      </div>
-    <div class="grid">
-        <input class="input-check" name="radiogroup1" type="radio" id="testradio_0" />
-        <label class="input-check-label" for="testradio_0"><b class="radio"></b>单选框(0)</label>
-      </div>
-<div class="grid">
-        <input class="input-check" name="radiogroup1" type="radio" id="testradio_1" />
-        <label class="input-check-label" for="testradio_1"><b class="radio"></b>单选框(1)</label>
-      </div>
-<div class="grid">
-        <input class="input-check" name="radiogroup1" type="radio" id="testradio_2" />
-        <label class="input-check-label" for="testradio_2"><b class="radio"></b>单选框(2)</label>
-      </div>
-  </div>
-  <br />
-
-  <pre class="code">
-&lt;input class="input-check" type="checkbox" id="testcheck" /&gt;
-&lt;label class="input-check-label" for="testcheck"&gt;&lt;b class="check"&gt;&lt;/b&gt;复选框&lt;/label&gt;
-</pre>
-  <pre class="code">
-&lt;input class="input-check" name="radiogroup1" type="radio" id="testradio" /&gt;
-&lt;label class="input-check-label" for="testradio"&gt;&lt;b class="radio"&gt;&lt;/b&gt;单选框&lt;/label&gt;
-</pre>
-  <br />
-  <p class="text-yellow">四种大小,默认14px.在label上加上样式 <b>sm lg xl</b></p>
-  <div class="grids">
-<div class="grid">
-        <input class="input-check" type="checkbox" id="sizecheck_sm" checked />
-        <label class="input-check-label sm" for="sizecheck_sm"><b class="check"></b>复选框(sm)</label>
-
-        <input class="input-check" name="sizegroup1" type="radio" id="sizeradio_sm" />
-        <label class="input-check-label sm" for="sizeradio_sm"><b class="radio"></b>单选框(sm)</label>
-      </div>
-<div class="grid">
-        <input class="input-check" type="checkbox" id="sizecheck_lg" checked />
-        <label class="input-check-label lg" for="sizecheck_lg"><b class="check"></b>复选框(lg)</label>
-
-        <input class="input-check" name="sizegroup1" type="radio" id="sizeradio_lg" />
-        <label class="input-check-label lg" for="sizeradio_lg"><b class="radio"></b>单选框(lg)</label>
-      </div>
-<div class="grid">
-        <input class="input-check" type="checkbox" id="sizecheck_xl" checked />
-        <label class="input-check-label xl" for="sizecheck_xl"><b class="check"></b>复选框(xl)</label>
-
-        <input class="input-check" name="sizegroup1" type="radio" id="sizeradio_xl" />
-        <label class="input-check-label xl" for="sizeradio_xl"><b class="radio"></b>单选框(xl)</label>
-      </div>
-  </div>
-  <br />
-  <p class="text-yellow">颜色.在label上加上样式 <b>primary danger success</b></p>
-  <div class="grids">
-    <div class="grid">
-        <input class="input-check" type="checkbox" id="colorcheck_primary" checked />
-        <label class="input-check-label primary" for="colorcheck_primary"><b class="check"></b>复选框(primary)</label>
-      </div>
-<div class="grid">
-        <input class="input-check" type="checkbox" id="colorcheck_danger" checked />
-        <label class="input-check-label danger" for="colorcheck_danger"><b class="check"></b>复选框(danger)</label>
-      </div>
-<div class="grid">
-        <input class="input-check" type="checkbox" id="colorcheck_success" checked />
-        <label class="input-check-label success" for="colorcheck_success"><b class="check"></b>复选框(success)</label>
-      </div>
-  </div>
-  <br />
-  <div class="grids">
-<div class="grid">
-        <input class="input-check" name="colorgroup1" type="radio" id="colorradio_primary" />
-        <label class="input-check-label primary" for="colorradio_primary"><b class="radio"></b>单选框(primary)</label>
-      </div>
-<div class="grid">
-        <input class="input-check" name="colorgroup1" type="radio" id="colorradio_danger" />
-        <label class="input-check-label danger" for="colorradio_danger"><b class="radio"></b>单选框(danger)</label>
-      </div>
-<div class="grid">
-        <input class="input-check" name="colorgroup1" type="radio" id="colorradio_success" />
-        <label class="input-check-label success" for="colorradio_success"><b class="radio"></b>单选框(success)</label>
-      </div>
-  </div>
-  <br />
-
-  <pre class="code">
-&lt;input class="input-check" type="checkbox" id="colorchec" /&gt;
-&lt;label class="input-check-label <b>xl</b>" for="colorcheck"&gt;&lt;b class="check"&gt;&lt;/b&gt;大号复选框&lt;/label&gt;
-</pre>
-  <pre class="code">
-&lt;input class="input-check" name="colorgroup1" type="radio" id="colorradio" /&gt;
-&lt;label class="input-check-label <b>danger</b>" for="colorradio"&gt;&lt;b class="radio"&gt;&lt;/b&gt;红色单选框&lt;/label&gt;
-</pre>
-  <br />
-  <p class="article-title">select</p>
-  <p>也有四种大小.</p>
-  <div class="grids">
-    <div class="grid">
-      <select class="select sm">
-        <option>明月几时有</option>
-        <option>把酒问青天</option>
-        <option>不知天上宫阙</option>
-        <option>今昔是何年</option>
-      </select>
-    </div>
-    <div class="grid">
-      <select class="select">
-        <option>我欲乘风归去</option>
-        <option>又恐琼楼玉宇</option>
-        <option>高处不胜寒</option>
-        <option>起舞弄清影</option>
-        <option>何似在人间</option>
-      </select>
-    </div>
-    <div class="grid">
-      <select class="select lg">
-        <option>转朱阁，低绮户，照无眠</option>
-        <option>不应有恨</option>
-        <option>何事长向别时圆</option>
-      </select>
-    </div>
-    <div class="grid">
-      <select class="select xl">
-        <option>人有悲欢离合</option>
-        <option>月有阴晴圆缺</option>
-        <option>此事古难全</option>
-        <option>但愿人长久</option>
-        <option>千里共婵娟</option>
-      </select>
-    </div>
-  </div>
-  <pre class="code">
-&lt;select class="select sm"&gt;
-  &lt;option&gt;明月几时有&lt;/option&gt;
-  &lt;option&gt;把酒问青天&lt;/option&gt;
-  &lt;option&gt;不知天上宫阙&lt;/option&gt;
-  &lt;option&gt;今昔是何年&lt;/option&gt;
-&lt;/select&gt;
-</pre>
-  <p class="article-title">纸质风格表单</p>
-  <p class="lead">纸质风格表单是模仿的传统表格式的风格,整个表单是一个大表格,里面按表单项合理布局.有外边框和表单项边框.</p>
-  <p>html结构组成:最外层是div.form-table-box 每一行是一个册格行div.grids,里面是表单项,添加册格类占用宽度.不必填满12册格.</p>
-  <p>这种实现办法,优点是类纸质传统风格,就像填写单据一样,习惯易用.缺点在于布局不够灵活,同一行的表单项必须高度一样,不像表格那样可以使用rowspan或colspan跨行列</p>
-  <p>这个例子使用现有的样式实现简易的版本,复杂的表格需要采用传统的table布局,还有新的display:grid布局完成.</p>
-  <div class="form-table-box">
-    <div class="grids">
-      <div class="grid-1"><label class="input-label">姓名</label></div>
-      <div class="grid-1"><input class="input-text" value="苏轼" /></div>
-
-      <div class="grid-1"><label class="input-label">称号</label></div>
-      <div class="grid-3"><input class="input-text" value="东坡居士、苏东坡、苏仙" /></div>
-
-      <div class="grid-1"><label class="input-label">生卒</label></div>
-      <div class="grid-3"><input class="input-text" value="1037年1月8日—1101年8月24日" /></div>
-      <div class="grid-1"><label class="input-label">谥号</label></div>
-      <div class="grid-1"><input class="input-text" value="文忠" /></div>
-    </div>
-    <div class="grids">
-      <div class="grid-1"><label class="input-label">成就</label></div>
-      <div class="grid-3"><input class="input-text" value="文学家、书法家、唐宋八大家" /></div>
-      <div class="grid-1"><label class="input-label">官职</label></div>
-      <div class="grid-3"><input class="input-text" value="翰林学士、侍读学士、礼部尚书" /></div>
-      <div class="grid-1"><label class="input-label">时代</label></div>
-      <div class="grid-1"><input class="input-text" value="北宋" /></div>
-      <div class="grid-1"><label class="input-label">民族</label></div>
-      <div class="grid-1"><input class="input-text" value="汉" /></div>
-    </div>
-    <div class="grids">
-      <div class="grid-1"><label class="input-label">作品</label></div>
-      <div class="grid-4"><input class="input-text" value="《东坡七集》《东坡易传》《东坡乐府》" /></div>
-      <div class="grid-1"><label class="input-label">官职</label></div>
-      <div class="grid-3"><input class="input-text" value="翰林学士、侍读学士、礼部尚书" /></div>
-    </div>
-    <div class="grids">
-      <div class="grid-1"><label class="input-label">名作</label></div>
-      <div class="grid-7"><input class="input-text" value="水调歌头·明月几时有" /></div>
-    </div>
-    <div class="grids">
-      <div class="grid-2">
-        <h3>苏东坡</h3>
-      </div>
-      <div class="grid-10">
-        <textarea class="textarea">明月几时有？把酒问青天。不知天上宫阙、今夕是何年？我欲乘风归去，又恐琼楼玉宇，高处不胜寒．起舞弄清影，何似在人间？ 转朱阁，低绮户，照无眠。不应有恨、何事长向别时圆？人有悲欢离合，月有阴晴圆缺，此事古难全。但愿人长久，千里共婵娟。</textarea>
-      </div>
-    </div>
-  </div>
-  <pre class="code">
-&lt;div class="<b>form-table-box</b>"&gt;
-  &lt;div class="grids"&gt;
-    &lt;label class="input-label grid-1"&gt;姓名&lt;/label&gt;
-    &lt;input class="input-text grid-1" value="苏东坡" /&gt;
-  &lt;/div&gt;
-&lt;/div&gt;
-</pre>
-</div>
-      
-      <div class="doc-part-box" id="imagedemo">
-  <h2>图片</h2>
-  <p>自动适应父容器大小 class="img-autosize" 圆角class="img-rounded" 圆形class="img-circle"</p>
-  <div class="grids">
-    <div class="grid"><img class="img-autosize" style="border:1px solid var(--font-color)" src="img/imgdemo.gif"/></div>
-    <div class="grid"><img class="img-rounded" style="border:1px solid var(--font-color)" src="img/imgdemo.gif" /></div>
-    <div class="grid"><img class="img-circle" style="border:1px solid var(--font-color)" src="img/imgdemo.gif" /></div>
-  </div>
-</div>
-      
-      <div class="doc-part-box" id="toolclass">
-  <h2>便利样式</h2>
-  <p class="article-title">文本超出省略</p>
-  <p class="text-overflow" style="width:100px" title="text-overflow文本超出时,显示省略号">text-overflow文本超出时,显示省略号</p>
-
-  <p class="article-title">文本对齐</p>
-  <p>text-left text-center text-right text-justify:两端对齐</p>
-
-  <p class="article-title">文本主题色</p>
-  <div class="grids-4">
-      <p class="text-primary">class="text-primary"</p>
-      <p class="text-danger">class="text-danger"</p>
-      <p class="text-success">class="text-success"</p>
-      <p class="text-gray">class="text-gray"</p>
-          <p class="text-primaryse">class="text-primaryse"</p>
-      <p class="text-dangerse">class="text-dangerse"</p>
-      <p class="text-successse">class="text-successse"</p>
-      <p class="text-grayse">class="text-grayse"</p>
-  </div>
-
-  <p class="article-title">背景主题色</p>
-  <div class="grids-4">
-      <p class="bg-primary pd-5 text-grayse">class="bg-primary"</p>
-      <p class="bg-danger pd-5 text-grayse">class="bg-danger"</p>
-      <p class="bg-success pd-5 text-grayse">class="bg-success"</p>
-      <p class="bg-gray pd-5 text-grayse">class="bg-gray"</p>
-          <p class="bg-primaryse pd-5">class="bg-primaryse"</p>
-      <p class="bg-dangerse pd-5">class="bg-dangerse"</p>
-      <p class="bg-successse pd-5">class="bg-successse"</p>
-      <p class="bg-grayse pd-5">class="bg-grayse"</p>
-  </div>
-
-  <p class="article-title">margin padding</p>
-  <p>pd-n(n=5,10,15,..,45,50) 四个方向 pd-l-n pd-r-n pd-t-n pd-b-n 组合上下与左右 pd-lr-n pd-tb-n</p>
-  <div>
-    <span class="pd-10 bg-primary">class="pd-10"</span>
-    <span class="pd-t-10 bg-primary">class="pd-t-10"</span>
-    <span class="mg-l-10 bg-primary">class="mg-l-20"</span>
-  </div>
-  <br />
-  <p class="article-title">隐藏与显示</p>
-  <p>d-none d-block 媒体查询:针对不同大小屏幕 d-sm-none d-md-none d-lg-none d-xl-none</p>
-  <span class="d-none d-sm-block">sm 576px以上显示</span>
-  <span class="d-none d-lg-block">lg 992px以上显示</span>
-  <span class="d-none d-xl-block">lg 1200px以上显示</span>
-</div>
-      
-      <div class="doc-part-box" id="btngroup">
-  <h2>按钮组</h2>
-  <p>按钮组包含多个按钮,一般用于一组性质相近的功能.</p>
-  <p>按钮组容器使用<b>inline-flex</b>布局,注意是个行内flex布局,元素会变为行为元素.里面按钮flex:auto(1 1 auto)</p>
-  <p>同一组的按钮大小要相同</p>
-  <p class="article-title">横向按钮组</p>
-  <span class="btn-group">
-    <a class="btn">加粗</a>
-    <a class="btn">下划线</a>
-    <a class="btn">倾斜</a>
-    <a class="btn">字体</a>
-    <a class="btn">复制</a>
-    <a class="btn">剪切</a>
-  </span>
-  &nbsp;&nbsp;&nbsp;&nbsp;
-  <div class="btn-group cir">
-    <a class="btn blue-b">加粗圆角</a>
-    <a class="btn gray-b">下划线</a>
-    <a class="btn">倾斜</a>
-    <a class="btn yellow-b">字体</a>
-    <a class="btn green-b">复制</a>
-    <a class="btn red-b">剪切</a>
-  </div>
-  <br /><br />
-  <div class="btn-group cir">
-      <a class="btn lg">1</a>
-      <a class="btn lg">2</a>
-      <a class="btn lg">3</a>
-      <a class="btn lg">4</a>
-      <a class="btn lg">5</a>
-      <a class="btn lg">6</a>
-      <a class="btn lg">7</a>
-      <a class="btn lg">8</a>
-      <a class="btn lg">9</a>
-      <a class="btn lg">10</a>
-  </div>
-  <pre class="code">
-&lt;span class="btn-group"&gt;
-  &lt;a class="btn"&gt;加粗&lt;/a&gt;
-  &lt;a class="btn"&gt;下划线&lt;/a&gt;
-  &lt;a class="btn"&gt;倾斜&lt;/a&gt;
-  &lt;a class="btn"&gt;字体&lt;/a&gt;
-  &lt;a class="btn"&gt;复制&lt;/a&gt;
-  &lt;a class="btn"&gt;剪切&lt;/a&gt;
-&lt;/span&gt;
-
-&lt;div class="btn-group <b>cir</b>"&gt;&lt;/div&gt;
-</pre>
-  <br />
-  <p class="article-title">下拉式按钮组</p>
-  <p>第1个按钮用于下拉框标题,用伪类加三角符号.当鼠标hover下拉框时<b>btn-list-group</b>,显示下拉按钮组<b>btn-list-area</b></p>
-  <p><b>btn-list-group</b>绝对定位于<b>btn-list-group</b>,里面包含下拉按钮列表.</p>
-  <p class="text-red">注意:下拉式按钮组使用行内元素</p>
-  <span class="btn-list-group">
-    <a class="btn">悬停</a>
-    <span class="btn-list-area">
+&lt;div class="btn-group <b>cir</b>">&lt;/div>
+</pre><br /><p class=article-title>下拉式按钮组</p><p>第1个按钮用于下拉框标题,用伪类加三角符号.当鼠标hover下拉框时<b>btn-list-group</b>,显示下拉按钮组<b>btn-list-area</b></p><p><b>btn-list-group</b>绝对定位于<b>btn-list-group</b>,里面包含下拉按钮列表.</p><p class=text-red>注意:下拉式按钮组使用行内元素</p>
+  <span class=btn-list-group>
+    <a class=btn>悬停</a>
+    <span class=btn-list-area>
       <a class="btn primary">新建</a>
-      <a class="btn">编辑</a>
+      <a class=btn>编辑</a>
       <a class="btn success">打开</a>
       <a class="btn danger">导出</a>
       <a class="btn primary">导入</a>
       <a class="btn success">退出</a>
     </span>
   </span>
-  <pre class="code">
-&lt;<b>span</b> class="<b>btn-list-group</b>"&gt;
-  &lt;a class="btn"&gt;悬停&lt;/a&gt;
-  &lt;span class="<b>btn-list-area</b>"&gt;
-    &lt;a class="btn primary"&gt;新建&lt;/a&gt;
-    &lt;a class="btn"&gt;编辑&lt;/a&gt;
-    &lt;a class="btn success"&gt;打开&lt;/a&gt;
-    &lt;a class="btn danger"&gt;导出&lt;/a&gt;
-    &lt;a class="btn primary"&gt;导入&lt;/a&gt;
-    &lt;a class="btn success"&gt;退出&lt;/a&gt;
-  &lt;/span&gt;
-&lt;/span&gt;
-</pre>
+  <pre class=code>
+&lt;<b>span</b> class="<b>btn-list-group</b>">
+  &lt;a class="btn">悬停&lt;/a>
+  &lt;span class="<b>btn-list-area</b>">
+    &lt;a class="btn primary">新建&lt;/a>
+    &lt;a class="btn">编辑&lt;/a>
+    &lt;a class="btn success">打开&lt;/a>
+    &lt;a class="btn danger">导出&lt;/a>
+    &lt;a class="btn primary">导入&lt;/a>
+    &lt;a class="btn success">退出&lt;/a>
+  &lt;/span>
+&lt;/span>
+</pre><br /><p class=article-title>混合按钮组</p><p>将下拉式按钮组放在横向按钮组里</p><div class=btn-group><a class=btn>默认选项</a> <span class=btn-list-group><a class=btn>颜色</a> <span class=btn-list-area><a class="btn danger">红</a> <a class="btn success">绿</a> <a class=btn>白</a></span></span> <span class=btn-list-group><a class=btn>操作</a> <span class=btn-list-area><a class="btn success">新建</a> <a class=btn>编辑</a> <a class="btn primary">打开</a> <a class="btn danger">导出</a> <a class="btn primary">导入</a> <a class="btn success">退出</a></span></span></div></div><div class=doc-part-box id=label><h2>标签</h2><span class=label>默认class="label"</span> <span class="label sm">class="label sm"</span> <span class="label lg">大字体lg</span> <span class="label xl">最大字体xl</span><br /> <span class="label primary">class="label primary"</span> <span class="label success">success</span> <span class="label danger">danger</span></div><div class=doc-part-box id=article><h2>段落标题</h2><div class=grids-4><div><p class=article-title>默认标题</p></div><div><p class="article-title primary">primary</p></div><div><p class="article-title danger">danger</p></div><div><p class="article-title success">success</p></div></div><div class=grids-3><div><p class="article-title sm">sm小号</p></div><div><p class="article-title lg">lg大</p></div><div><p class="article-title xl">xl最大</p></div>
+  <pre class=code>&lt;p class="article-title">默认标题&lt;/p></pre></div><div class=doc-part-box id=msgpanel><h1>信息面板</h1><p>内容包含标题和一段文字.也可无标题.标题使用h1~h6,段落使用p.</p><div class=msgpanel><h5>标题h1~h6</h5><p>可用于介绍说明,有一个醒目的标题和简短的文字描述.</p></div>
+  <pre class=code>
+&lt;div class="msgpanel">
+  &lt;h2>标题h2~h4&lt;/h2>
+  &lt;p>可用于介绍说明,有一个醒目的标题和简短的文字描述.&lt;/p>
+&lt;/div>
+</pre><div class=msgpanel><h6>子虚赋</h6><p>《子虚赋》作于司马相如早期客游梁孝王之时。据《史记·司马相如列传》载，相如“以赀为郎，事孝景帝，为武骑常侍，非其好也。会景帝不好辞赋，是时梁孝王来朝，从游说之士齐人邹阳、淮阴枚乘、吴庄忌夫子之徒，相如见而说之。因病免，客游梁。梁孝王令与诸生同舍，相如得与诸生游士居数岁，乃著《子虚之赋》” 。当时司马相如还只是“与诸生同舍”，“得与诸生游士居”，在文坛上尚未有所建树。</p></div>
+  <pre class=code>
+&lt;div class="msgpanel">
+  &lt;h4>子虚赋&lt;/h4>
+  &lt;p>楚王派子虚出使齐国，&lt;/p>
+&lt;/div>
+</pre><div class="msgpanel primary"><h1>Primary</h1><p>class="msgpanel primary"</p></div><div class="msgpanel success"><h2>Success</h2><p>......</p></div><div class="msgpanel danger"><h3>Danger</h3><p>......</p></div></div><div class=doc-part-box id=panel><h2>面板</h2><p>像广告牌,分两部分,上面是大标题,下面是简介.面板是个容器,可放入其它零件.</p><div class=grids><div class=grid-2><div class=panel><div class=panel-head><h2>标题h2</h2></div><div class=panel-body><p>面板内容,使用了p标记</p></div></div></div><div class=grid><div class="panel primary"><div class=panel-head><h4>垓下歌-项羽</h4></div><div class=panel-body><p>力拔山兮气盖世。时不利兮骓不逝。</p><p>骓不逝兮可奈何！虞兮虞兮奈若何！</p></div></div></div><div class=grid><div class="panel danger"><div class=panel-head><h4 style=color:#fff>泊船瓜-王安石洲</h4></div><div class=panel-body><p>京口瓜洲一水间，钟山只隔数重山。</p><p>春风又绿江南岸，明月何时照我还？</p></div></div></div><div class=grid><div class="panel success"><div class=panel-head><h4>短歌行-曹操</h4></div><div class=panel-body><p>慨当以慷，忧思难忘。何以解忧？唯有杜康。</p><p>青青子衿，悠悠我心。但为君故，沉吟至今。</p></div></div></div></div>
   <br />
-  <p class="article-title">混合按钮组</p>
-  <p>将下拉式按钮组放在横向按钮组里</p>
-  <div class="btn-group">
-    <a class="btn">默认选项</a>
-    <span class="btn-list-group">
-      <a class="btn">颜色</a>
-      <span class="btn-list-area">
-        <a class="btn danger">红</a>
-        <a class="btn success">绿</a>
-        <a class="btn">白</a>
-      </span>
-    </span>
-    <span class="btn-list-group">
-      <a class="btn">操作</a>
-      <span class="btn-list-area">
-        <a class="btn success">新建</a>
-        <a class="btn">编辑</a>
-        <a class="btn primary">打开</a>
-        <a class="btn danger">导出</a>
-        <a class="btn primary">导入</a>
-        <a class="btn success">退出</a>
-      </span>
-    </span>
-  </div>
-</div>
-      
-      <div class="doc-part-box" id="label">
-  <h2>标签</h2>
-  <span class="label">默认class="label"</span>
-  <span class="label sm">class="label sm"</span>
-  <span class="label lg">大字体lg</span>
-  <span class="label xl">最大字体xl</span>
-  <br />
-  <span class="label primary">class="label primary"</span>
-  <span class="label success">success</span>
-  <span class="label danger">danger</span>
-</div>
-      
-      <div class="doc-part-box" id="article">
-  <h2>段落标题</h2>
-  <div class="grids-4">
-    <div><p class="article-title">默认标题</p></div>
-    <div><p class="article-title primary">primary</p></div>
-    <div><p class="article-title danger">danger</p></div>
-    <div><p class="article-title success">success</p></div>
-  </div>
-  <div class="grids-3">
-    <div><p class="article-title sm">sm小号</p></div>
-    <div><p class="article-title lg">lg大</p></div>
-    <div"><p class="article-title xl">xl最大</p>
-  </div>
-  <pre class="code">&lt;p class="article-title"&gt;默认标题&lt;/p&gt;</pre>
-</div>
-
-      
-      <div class="doc-part-box" id="msgpanel">
-  <h1>信息面板</h1>
-  <p>内容包含标题和一段文字.也可无标题.标题使用h1~h6,段落使用p.</p>
-  <div class="msgpanel">
-    <h5>标题h1~h6</h5>
-    <p>可用于介绍说明,有一个醒目的标题和简短的文字描述.</p>
-  </div>
-  <pre class="code">
-&lt;div class="msgpanel"&gt;
-  &lt;h2&gt;标题h2~h4&lt;/h2&gt;
-  &lt;p&gt;可用于介绍说明,有一个醒目的标题和简短的文字描述.&lt;/p&gt;
-&lt;/div&gt;
-</pre>
-  <div class="msgpanel">
-    <h6>子虚赋</h6>
-    <p>《子虚赋》作于司马相如早期客游梁孝王之时。据《史记·司马相如列传》载，相如“以赀为郎，事孝景帝，为武骑常侍，非其好也。会景帝不好辞赋，是时梁孝王来朝，从游说之士齐人邹阳、淮阴枚乘、吴庄忌夫子之徒，相如见而说之。因病免，客游梁。梁孝王令与诸生同舍，相如得与诸生游士居数岁，乃著《子虚之赋》” 。当时司马相如还只是“与诸生同舍”，“得与诸生游士居”，在文坛上尚未有所建树。</p>
-  </div>
-  <pre class="code">
-&lt;div class="msgpanel"&gt;
-  &lt;h4&gt;子虚赋&lt;/h4&gt;
-  &lt;p&gt;楚王派子虚出使齐国，&lt;/p&gt;
-&lt;/div&gt;
-</pre>
-  <div class="msgpanel primary">
-    <h1>Primary</h1>
-    <p>class="msgpanel primary"</p>
-  </div>
-  <div class="msgpanel success">
-    <h2>Success</h2>
-    <p>......</p>
-  </div>
-  <div class="msgpanel danger">
-    <h3>Danger</h3>
-    <p>......</p>
-  </div>
-</div>
-      
-      <div class="doc-part-box" id="panel">
-  <h2>面板</h2>
-  <p>像广告牌,分两部分,上面是大标题,下面是简介.面板是个容器,可放入其它零件.</p>
-  <div class="grids">
-    <div class="grid-2">
-      <div class="panel">
-        <div class="panel-head"><h2>标题h2</h2></div>
-        <div class="panel-body">
-          <p>面板内容,使用了p标记</p>
-        </div>
-      </div>
-    </div>
-    <div class="grid">
-      <div class="panel primary">
-        <div class="panel-head"><h4>垓下歌-项羽</h4></div>
-        <div class="panel-body">
-          <p>力拔山兮气盖世。时不利兮骓不逝。</p>
-          <p>骓不逝兮可奈何！虞兮虞兮奈若何！</p>
-        </div>
-      </div>
-    </div>
-    <div class="grid">
-      <div class="panel danger">
-        <div class="panel-head"><h4 style="color:#fff">泊船瓜-王安石洲</h4></div>
-        <div class="panel-body">
-          <p>京口瓜洲一水间，钟山只隔数重山。</p>
-          <p>春风又绿江南岸，明月何时照我还？</p>
-        </div>
-      </div>
-    </div>
-    <div class="grid">
-      <div class="panel success">
-        <div class="panel-head"><h4>短歌行-曹操</h4></div>
-        <div class="panel-body">
-          <p>慨当以慷，忧思难忘。何以解忧？唯有杜康。</p>
-          <p>青青子衿，悠悠我心。但为君故，沉吟至今。</p>
-
-        </div>
-      </div>
-    </div>
-  </div>
-  <br />
-  <pre class="code">
-&lt;div class="panel"&gt;
-  &lt;div class="panel-head"&gt;
-    &lt;h2&gt;标题&lt;/h2&gt;
-  &lt;/div&gt;
-  &lt;div class="panel-body"&gt;
+  <pre class=code>
+&lt;div class="panel">
+  &lt;div class="panel-head">
+    &lt;h2>标题&lt;/h2>
+  &lt;/div>
+  &lt;div class="panel-body">
     内容
-  &lt;/div&gt;
-&lt;/div&gt;
-</pre>
-</div>
-      
-      <div class="doc-part-box" id="tabs">
-  <h2>选项卡</h2>
-  <p class="lead">切换选项卡,显示相应页面.很常用的组件</p>
-  <p>单击或者鼠标移入选项卡,激活该选项页.选项卡与页由索引顺序相关联,例如:激活第2个选项卡时,则激活第2个面板.</p>
-  <p>当前活动的选项卡和对应页面有类名<b>active</b>,class="tabs-label active" class="tabs-panel active" 默认第1个是激活的</p>
-  <div id="mytabs1" class="tabs-box">
-    <div class="tabs-header">
-      <span class="tabs-label">苏轼</span>
-      <span class="tabs-label">陆游</span>
-      <span class="tabs-label">李清照</span>
-    </div>
-    <div class="tabs-panel">
-      <h4>饮湖上初晴后雨二首·其二</h4>
-      <p>水光潋滟晴方好</p><p>山色空蒙雨亦奇</p><p>欲把西湖比西子</p><p>淡妆浓抹总相宜</p>
-    </div>
-    <div class="tabs-panel">
-      <h4>卜算子 咏梅</h4>
-      <p>驿外断桥边</p><p>寂寞开无主</p><p>已是黄昏独自愁</p>
-      <p>更著风和雨</p><p>无意苦争春</p>
-      <p>一任群芳妒</p><p>零落成泥碾作尘</p><p>只有香如故</p>
-    </div>
-    <div class="tabs-panel">
-      <h4>一剪梅 红藕香残玉蕈秋</h4><p>红藕香残玉蕈秋</p><p>轻解罗裳</p><p>独上兰舟</p>
-      <p>云中谁寄锦书来</p><p>雁字回时</p><p>月满西楼</p><p>花自飘零水自流</p>
-      <p>一种相思</p><p>两处闲愁</p><p>此情无计可消除</p><p>才下眉头</p><p>却上心头</p>
-    </div>
-  </div>
-  <br />
-  <div id="mytabs3" class="tabs-box">
-    <div class="tabs-header">
-      <span class="tabs-label">选项1-mover</span>
-      <span class="tabs-label">选项2-mover</span>
-      <span class="tabs-label">选项3-mover</span>
-    </div>
-    <div class="tabs-panel">选项1-内容</div>
-    <div class="tabs-panel">选项2-内容</div>
-    <div class="tabs-panel">选项3-内容</div>
-  </div>
-  <br />
-  <p class="article-title sm">HTML结构,js调用</p>
-  <pre class="code">
-&lt;div id="mytabs1" class="tabs-box"&gt;
-    &lt;div class="tabs-header"&gt;
-        &lt;span class="tabs-label"&gt;苏轼&lt;/span&gt;
-        &lt;span class="tabs-label"&gt;陆游&lt;/span&gt;
-        &lt;span class="tabs-label"&gt;李清照&lt;/span&gt;
-    &lt;/div &gt;
-    &lt;div class="tabs-panel"&gt;...&lt;/div&gt;
-    &lt;div class="tabs-panel"&gt;...&lt;/div &gt;
-    &lt;div class="tabs-panel"&gt;...&lt;/div &gt;
-&lt;/div&gt;
+  &lt;/div>
+&lt;/div>
+</pre></div><div class=doc-part-box id=tabs><h2>选项卡</h2><p class=lead>切换选项卡,显示相应页面.很常用的组件</p><p>单击或者鼠标移入选项卡,激活该选项页.选项卡与页由索引顺序相关联,例如:激活第2个选项卡时,则激活第2个面板.</p><p>当前活动的选项卡和对应页面有类名<b>active</b>,class="tabs-label active" class="tabs-panel active" 默认第1个是激活的</p><div id=mytabs1 class=tabs-box><div class=tabs-header><span class=tabs-label>苏轼</span> <span class=tabs-label>陆游</span> <span class=tabs-label>李清照</span></div><div class=tabs-panel><h4>饮湖上初晴后雨二首·其二</h4><p>水光潋滟晴方好</p><p>山色空蒙雨亦奇</p><p>欲把西湖比西子</p><p>淡妆浓抹总相宜</p></div><div class=tabs-panel><h4>卜算子 咏梅</h4><p>驿外断桥边</p><p>寂寞开无主</p><p>已是黄昏独自愁</p><p>更著风和雨</p><p>无意苦争春</p><p>一任群芳妒</p><p>零落成泥碾作尘</p><p>只有香如故</p></div><div class=tabs-panel><h4>一剪梅 红藕香残玉蕈秋</h4><p>红藕香残玉蕈秋</p><p>轻解罗裳</p><p>独上兰舟</p><p>云中谁寄锦书来</p><p>雁字回时</p><p>月满西楼</p><p>花自飘零水自流</p><p>一种相思</p><p>两处闲愁</p><p>此情无计可消除</p><p>才下眉头</p><p>却上心头</p></div></div><br /><div id=mytabs3 class=tabs-box><div class=tabs-header><span class=tabs-label>选项1-mover</span> <span class=tabs-label>选项2-mover</span> <span class=tabs-label>选项3-mover</span></div><div class=tabs-panel>选项1-内容</div><div class=tabs-panel>选项2-内容</div><div class=tabs-panel>选项3-内容</div></div><br /><p class="article-title sm">HTML结构,js调用</p>
+  <pre class=code>
+&lt;div id="mytabs1" class="tabs-box">
+    &lt;div class="tabs-header">
+        &lt;span class="tabs-label">苏轼&lt;/span>
+        &lt;span class="tabs-label">陆游&lt;/span>
+        &lt;span class="tabs-label">李清照&lt;/span>
+    &lt;/div >
+    &lt;div class="tabs-panel">...&lt;/div>
+    &lt;div class="tabs-panel">...&lt;/div >
+    &lt;div class="tabs-panel">...&lt;/div >
+&lt;/div>
 //
 tabs('mytabs1');
 // 切换方式鼠标移入时
 tabs('mytabs1',0,2);
 // 指定第2个面板激活,索引从0开始
 tabs('mytabs1',1);
-</pre>
-  <br />
-  <p class="article-title sm">选项卡均分</p>
-  <p>选项卡平均整行,加上full类.<b>class="tabs-box full"</b></p>
-  <div id="mytabs2" class="tabs-box full">
-    <div class="tabs-header">
-      <span class="tabs-label">卓文君</span>
-      <span class="tabs-label">上官婉儿</span>
-      <span class="tabs-label">秦观</span>
-    </div>
-    <div class="tabs-panel">
-      <h4>白头吟</h4>
-      <p>皑如山上雪 皎若云间月 闻君有两意 故来相决绝</p>
-      <p>今日斗酒会 明旦沟水头 躞蹀御沟上 沟水东西流</p>
-      <p>凄凄复凄凄 嫁娶不须啼 愿得一心人 白头不相离</p>
-      <p>竹竿何袅袅 鱼尾何簁簁 男儿重意气 何用钱刀为</p>
-    </div>
-    <div class="tabs-panel">
-      <h4>彩书怨</h4>
-      <p>叶下洞庭初 思君万里余 露浓香被冷 月落锦屏虚</p>
-      <p>欲奏江南曲 贪封蓟北书 书中无别意 惟怅久离居</p>
-    </div>
-    <div class="tabs-panel">
-      <h4>鹊桥仙 纤云弄巧</h4>
-      <p>纤云弄巧 飞星传恨 银汉迢迢暗度 金风玉露一相逢 便胜却人间无数</p>
-      <p>柔情似水 佳期如梦 忍顾鹊桥归路 两情若是久长时 又岂在朝朝暮暮</p>
-    </div>
-  </div>
-  <br />
-  <p class="article-title sm">颜色</p>
-    <div id="mytabs_primary" class="tabs-box primary">
-      <div class="tabs-header">
-        <span class="tabs-label">选项1</span>
-        <span class="tabs-label">选项2</span>
-        <span class="tabs-label">选项3</span>
-      </div>
-      <div class="tabs-panel">选项1-内容</div>
-      <div class="tabs-panel">选项2-内容</div>
-      <div class="tabs-panel">选项3-内容</div>
-    </div>
-    <br />
-    <div id="mytabs_danger" class="tabs-box danger">
-      <div class="tabs-header">
-        <span class="tabs-label">选项1</span>
-        <span class="tabs-label">选项2</span>
-        <span class="tabs-label">选项3</span>
-      </div>
-      <div class="tabs-panel">选项1-内容</div>
-      <div class="tabs-panel">选项2-内容</div>
-      <div class="tabs-panel">选项3-内容</div>
-    </div>
-    <br />
-    <div id="mytabs_success" class="tabs-box success">
-      <div class="tabs-header">
-        <span class="tabs-label">选项1</span>
-        <span class="tabs-label">选项2</span>
-        <span class="tabs-label">选项3</span>
-      </div>
-      <div class="tabs-panel">选项1-内容</div>
-      <div class="tabs-panel">选项2-内容</div>
-      <div class="tabs-panel">选项3-内容</div>
-    </div>
-    <br />
-  <p class="article-title primary">列表形式</p>
-  <p>加上list类 class="tabs-box list"</p>
-  <div id="mytabs_list" class="tabs-box list">
-    <div class="tabs-header">
-      <span class="tabs-label">选项1</span>
-      <span class="tabs-label">选项2</span>
-      <span class="tabs-label">选项3</span>
-    </div>
-    <div class="tabs-panel">选项1-内容</div>
-    <div class="tabs-panel">选项2-内容</div>
-    <div class="tabs-panel">选项3-内容</div>
-  </div>
-  <script>
-    tabs('mytabs1');
-    tabs('mytabs2', 1, 1);
-    tabs('mytabs3', 0, 2);
-    tabs('mytabs_primary', 0);
-    tabs('mytabs_success', 1);
-    tabs('mytabs_danger', 2);
-    tabs('mytabs_list');
-  </script>
-</div>
-      
-      <div class="doc-part-box" id="msgbox">
-  <style>
-    .testbtn {
-      border: 1px solid #999999;
-      border-radius: 4px;
-      color: #333333;
-      background-color: #eeeeee;
-      font-size: 14px;
-      box-sizing: border-box;
-      padding: 20px;
-      outline: none;
-    }
-  </style>
-  <h2>弹出框</h2>
-  <p>原理来自研究bootstrap的弹出层.模仿实现三种系统弹出框alert confirm prompt</p>
-  <p>msgbox.alert(文本消息,[回调事件],[按钮样式:primary,danger,success],[弹出位置:center,top,bottom])</p>
-  <h1>alert</h1>
-  <button class="testbtn" onclick="msgbox.alert('msgbox.alert,默认正中','','primary')">msgbox.alert('msgbox.alert,默认正中','','','primary')</button>
-  <button class="testbtn" onclick="msgbox.alert('msgbox.alert,上','','','top')">msgbox.alert('msgbox.alert,上')</button>
-  <button class="testbtn" onclick="msgbox.alert('msgbox.alert,下','','','bottom')">msgbox.alert('msgbox.alert,下')</button>
-
-  <h1>confirm</h1>
-  <button class="testbtn" onclick="msgbox.confirm('msgbox.confirm,默认正中',confirmCall,'danger')">msgbox.confirm('msgbox.confirm,默认正中',confirmCall,'danger')</button>
-  <button class="testbtn" onclick="msgbox.confirm('msgbox.confirm,上',confirmCall,'','top')">msgbox.confirm('msgbox.confirm,上')</button>
-  <button class="testbtn" onclick="msgbox.confirm('msgbox.confirm,下',confirmCall,'','bottom')">msgbox.confirm('msgbox.confirm,下')</button>
-  <p><label>confirm结果</label>&nbsp;<span id="confirmRes" class="label primary"></span></p>
-  <h1>prompt</h1>
-  <button class="testbtn" onclick="msgbox.prompt('msgbox.prompt,默认正中',promptCall,'success')">msgbox.prompt('msgbox.prompt,默认正中',promptCall,'success')</button>
-  <button class="testbtn" onclick="msgbox.prompt('msgbox.prompt,上',promptCall,'','top')">msgbox.prompt('msgbox.prompt,上')</button>
-  <button class="testbtn" onclick="msgbox.prompt('msgbox.prompt,下',promptCall,'','bottom')">msgbox.prompt('msgbox.prompt,下')</button>
-  <p><label>prompt结果</label>&nbsp;<span id="promptRes" class="label primary"></span></p>
-  <h4>自定义弹出层</h4>
-  <p>自定义框是一个HTML片段,弹出的本质是在将它显示在弹出层父级上</p>
-  <img src="img/msgboxlayer.png" alt="" width="600"/>
-  <p>
-    <button onclick="showcustom()">弹出下面的HTML片段msgbox.show(innerhtml)</button>
-  </p>
+</pre><br /><p class="article-title sm">选项卡均分</p><p>选项卡平均整行,加上full类.<b>class="tabs-box full"</b></p><div id=mytabs2 class="tabs-box full"><div class=tabs-header><span class=tabs-label>卓文君</span> <span class=tabs-label>上官婉儿</span> <span class=tabs-label>秦观</span></div><div class=tabs-panel><h4>白头吟</h4><p>皑如山上雪 皎若云间月 闻君有两意 故来相决绝</p><p>今日斗酒会 明旦沟水头 躞蹀御沟上 沟水东西流</p><p>凄凄复凄凄 嫁娶不须啼 愿得一心人 白头不相离</p><p>竹竿何袅袅 鱼尾何簁簁 男儿重意气 何用钱刀为</p></div><div class=tabs-panel><h4>彩书怨</h4><p>叶下洞庭初 思君万里余 露浓香被冷 月落锦屏虚</p><p>欲奏江南曲 贪封蓟北书 书中无别意 惟怅久离居</p></div><div class=tabs-panel><h4>鹊桥仙 纤云弄巧</h4><p>纤云弄巧 飞星传恨 银汉迢迢暗度 金风玉露一相逢 便胜却人间无数</p><p>柔情似水 佳期如梦 忍顾鹊桥归路 两情若是久长时 又岂在朝朝暮暮</p></div></div><br /><p class="article-title sm">颜色</p><div id=mytabs_primary class="tabs-box primary"><div class=tabs-header><span class=tabs-label>选项1</span> <span class=tabs-label>选项2</span> <span class=tabs-label>选项3</span></div><div class=tabs-panel>选项1-内容</div><div class=tabs-panel>选项2-内容</div><div class=tabs-panel>选项3-内容</div></div><br /><div id=mytabs_danger class="tabs-box danger"><div class=tabs-header><span class=tabs-label>选项1</span> <span class=tabs-label>选项2</span> <span class=tabs-label>选项3</span></div><div class=tabs-panel>选项1-内容</div><div class=tabs-panel>选项2-内容</div><div class=tabs-panel>选项3-内容</div></div><br /><div id=mytabs_success class="tabs-box success"><div class=tabs-header><span class=tabs-label>选项1</span> <span class=tabs-label>选项2</span> <span class=tabs-label>选项3</span></div><div class=tabs-panel>选项1-内容</div><div class=tabs-panel>选项2-内容</div><div class=tabs-panel>选项3-内容</div></div><br /><p class="article-title primary">列表形式</p><p>加上list类 class="tabs-box list"</p><div id=mytabs_list class="tabs-box list"><div class=tabs-header><span class=tabs-label>选项1</span> <span class=tabs-label>选项2</span> <span class=tabs-label>选项3</span></div><div class=tabs-panel>选项1-内容</div><div class=tabs-panel>选项2-内容</div><div class=tabs-panel>选项3-内容</div></div><script>tabs("mytabs1");tabs("mytabs2",1,1);tabs("mytabs3",0,2);tabs("mytabs_primary",0);tabs("mytabs_success",1);tabs("mytabs_danger",2);tabs("mytabs_list")</script></div><div class=doc-part-box id=msgbox><style>.testbtn{border:1px solid #999;border-radius:4px;color:#333;background-color:#eee;font-size:14px;box-sizing:border-box;padding:20px;outline:none}</style><h2>弹出框</h2><p>原理来自研究bootstrap的弹出层.模仿实现三种系统弹出框alert confirm prompt</p><p>msgbox.alert(文本消息,[回调事件],[按钮样式:primary,danger,success],[弹出位置:center,top,bottom])</p><h1>alert</h1><button class=testbtn onclick="msgbox.alert('msgbox.alert,默认正中','','primary')">msgbox.alert('msgbox.alert,默认正中','','','primary')</button> <button class=testbtn onclick="msgbox.alert('msgbox.alert,上','','','top')">msgbox.alert('msgbox.alert,上')</button> <button class=testbtn onclick="msgbox.alert('msgbox.alert,下','','','bottom')">msgbox.alert('msgbox.alert,下')</button> <h1>confirm</h1><button class=testbtn onclick="msgbox.confirm('msgbox.confirm,默认正中',confirmCall,'danger')">msgbox.confirm('msgbox.confirm,默认正中',confirmCall,'danger')</button> <button class=testbtn onclick="msgbox.confirm('msgbox.confirm,上',confirmCall,'','top')">msgbox.confirm('msgbox.confirm,上')</button> <button class=testbtn onclick="msgbox.confirm('msgbox.confirm,下',confirmCall,'','bottom')">msgbox.confirm('msgbox.confirm,下')</button> <p><label>confirm结果</label> <span id=confirmRes class="label primary"></span></p><h1>prompt</h1><button class=testbtn onclick="msgbox.prompt('msgbox.prompt,默认正中',promptCall,'success')">msgbox.prompt('msgbox.prompt,默认正中',promptCall,'success')</button> <button class=testbtn onclick="msgbox.prompt('msgbox.prompt,上',promptCall,'','top')">msgbox.prompt('msgbox.prompt,上')</button> <button class=testbtn onclick="msgbox.prompt('msgbox.prompt,下',promptCall,'','bottom')">msgbox.prompt('msgbox.prompt,下')</button> <p><label>prompt结果</label> <span id=promptRes class="label primary"></span></p><h4>自定义弹出层</h4><p>自定义框是一个HTML片段,弹出的本质是在将它显示在弹出层父级上</p><img src=img/msgboxlayer.png alt="" width=600 /><p><button onclick=showcustom()>弹出下面的HTML片段msgbox.show(innerhtml)</button></p>
   <pre>
-    &lt;div style="background-color:#eee;width:400px;height:140px;border:1px solid #666;align-self:center;padding:15px"&gt;
-        &lt;h3&gt;自定义弹出层标题&lt;/h3&gt;
-        &lt;p&gt;弹出框原理分析学习,模仿了系统的三种弹出框.实现弹出自定义html片段&lt;/p&gt;
-        &lt;div style="text-align:center"&gt;&lt;button onclick="msgbox.close()"&gt;取消&lt;/button&gt;&lt;button onclick="msgbox.close()"&gt;确定&lt;/button&gt;&lt;/div&gt;
-    &lt;/div&gt;
-    </pre>
-  <script>
-    function confirmCall(res) {
-      let resdom = document.querySelector('#confirmRes');
-      resdom.textContent = res == 1 ? "OK" : "Cancel";
-    }
-
-    function promptCall(res) {
-      let resdom = document.querySelector('#promptRes');
-      resdom.textContent = res;
-    }
-
-    function showcustom() {
-      let innerhtml = `<div style="background-color:#eee;width:400px;border:1px solid #666;align-self:center;padding:15px">
+    &lt;div style="background-color:#eee;width:400px;height:140px;border:1px solid #666;align-self:center;padding:15px">
+        &lt;h3>自定义弹出层标题&lt;/h3>
+        &lt;p>弹出框原理分析学习,模仿了系统的三种弹出框.实现弹出自定义html片段&lt;/p>
+        &lt;div style="text-align:center">&lt;button onclick="msgbox.close()">取消&lt;/button>&lt;button onclick="msgbox.close()">确定&lt;/button>&lt;/div>
+    &lt;/div>
+    </pre><script>function confirmCall(n){let t=document.querySelector("#confirmRes");t.textContent=n==1?"OK":"Cancel"}function promptCall(n){let t=document.querySelector("#promptRes");t.textContent=n}function showcustom(){let n=`<div style="background-color:#eee;width:400px;border:1px solid #666;align-self:center;padding:15px">
                       <h3>自定义弹出层标题</h3>
                       <p>弹出框原理分析学习,模仿了系统的三种弹出框.实现弹出自定义html片段</p>
                       <p>自定义弹出框需要定义HTML以及按钮事件,然后调用msgbox.show()弹出</p>
                       <div style="text-align:center"><button class="btn" onclick="msgbox.close()">取消</button><button class="btn" onclick="msgbox.close()">确定</button></div>
-                  </div>`;
-      msgbox.show(innerhtml);
-    }
-  </script>
-</div>
-
-      
-      <div class="doc-part-box" id="datetime">
-  <h2>日期时间</h2>
-  <p>日期控件,兼容PC与手机端.js插件模式.支持日期和日期时间基本功能</p>
-  <div>
-    <label>日期</label>
-    <input onclick="MyDatePick()" type="text">
-    <label>日期时间</label>
-    <input onclick="MyDatePick({fmt:'datetime'})" type="text">
-  </div>
+                  </div>`;msgbox.show(n)}</script></div><div class=doc-part-box id=datetime><h2>日期时间</h2><p>日期控件,兼容PC与手机端.js插件模式.支持日期和日期时间基本功能</p><div><label>日期</label><input onclick=MyDatePick() type=text /> <label>日期时间</label><input onclick="MyDatePick({fmt:'datetime'})" type=text /></div>
   <pre>
 // 日期
-&lt;input onclick="MyDatePick()" type="text"&gt;
+&lt;input onclick="MyDatePick()" type="text">
 // 日期时间
-&lt;input onclick="MyDatePick({fmt:'datetime'})" type="text"&gt;
-</pre>
-  <p class="article-title">实现思路</p>
-  <p>开始参考了火狐浏览器自带日期控件的样子.实现时,将日期看做一个四行七列的表格.首行为年月日今天按钮,第二行放星期,三行为日,四行为小时区.布局后,放入对应按钮,然后绑定各自事件</p>
-  <p>控件的复杂处在于事件比较多,但js和css并没有太多难度,只是代码有点多而已.在判断当天所在月的日期时,需要一个计算,最终要算出这个月1号的前几天和最后一号的后几天</p>
-</div>
-      
-      <div class="doc-part-box" id="pagenum">
-  <h2>分页导航</h2>
-  <p>参考了天猫京东的分页条,最后设计成包含如下按钮.上一页,1页,当前页前几页,当前页,当前页后几页,最后页,下一页,总页数,跳转页输入框,确定</p>
-  <nav class="pagenum" id="pagenum1">
-    <span class="pagenum-btns">
-      <a class="pagenum-prev"><</a>
-      <a class="pagenum-num">1</a>
-      <span class="pagenum-break">...</span>
-      <a class="pagenum-num">7</a>
-      <a class="pagenum-num">8</a>
-      <a class="pagenum-active">9</a>
-      <a class="pagenum-num">10</a>
-      <a class="pagenum-num">11</a>
-      <span class="pagenum-break">...</span>
-      <a class="pagenum-num">98</a>
-      <a class="pagenum-next">></a>
-    </span>
-    <span class="pagenum-skip">
-      共<b class="pagenum-total">98</b>页&nbsp;&nbsp;到第<input class="pagenum-input" value="1" type="text" />页<a class="pagenum-ok">确定</a>
-    </span>
-  </nav>
-
-  <p class="article-title">使用</p>
-  <p>pagenum(cfg);</p>
-  <pre class="code">
-&lt;nav class="pagenum" id="pagenumId"&gt;&lt;/nav&gt;
-&lt;nav class="pagenum primary" id="pagenumId2"&gt;&lt;/nav&gt;
+&lt;input onclick="MyDatePick({fmt:'datetime'})" type="text">
+</pre><p class=article-title>实现思路</p><p>开始参考了火狐浏览器自带日期控件的样子.实现时,将日期看做一个四行七列的表格.首行为年月日今天按钮,第二行放星期,三行为日,四行为小时区.布局后,放入对应按钮,然后绑定各自事件</p><p>控件的复杂处在于事件比较多,但js和css并没有太多难度,只是代码有点多而已.在判断当天所在月的日期时,需要一个计算,最终要算出这个月1号的前几天和最后一号的后几天</p></div><div class=doc-part-box id=pagenum><h2>分页导航</h2><p>参考了天猫京东的分页条,最后设计成包含如下按钮.上一页,1页,当前页前几页,当前页,当前页后几页,最后页,下一页,总页数,跳转页输入框,确定</p><nav class=pagenum id=pagenum1><span class=pagenum-btns><a class=pagenum-prev><</a> <a class=pagenum-num>1</a> <span class=pagenum-break>...</span> <a class=pagenum-num>7</a> <a class=pagenum-num>8</a> <a class=pagenum-active>9</a> <a class=pagenum-num>10</a> <a class=pagenum-num>11</a> <span class=pagenum-break>...</span> <a class=pagenum-num>98</a> <a class=pagenum-next>></a></span> <span class=pagenum-skip>共<b class=pagenum-total>98</b>页  到第<input class=pagenum-input value=1 type=text />页<a class=pagenum-ok>确定</a></span></nav><p class=article-title>使用</p><p>pagenum(cfg);</p>
+  <pre class=code>
+&lt;nav class="pagenum" id="pagenumId">&lt;/nav>
+&lt;nav class="pagenum primary" id="pagenumId2">&lt;/nav>
 // 调用方法
 function newpagenum(pnnum) {
     let cfg = {
@@ -1124,11 +211,8 @@ function newpagenum(pnnum) {
     pagenum(cfg);
 }
 newpagenum(1);
-</pre>
-  <p class="article-title">刷新分页和无刷新分页的使用区别</p>
-  <p>pageClickE这个方法将绑定到页码按钮的点击事件上,如果是整页面刷新分页,那么该方法执行跳转到新页面,新页面再生成分页条即可.</p>
-  <p>web前端一般是无刷新分页,pageClickE方法会包含一个ajax请求,这个请求的回调方法里,再执行生成新的分页条,并且配置参数中的pageClickE,再次指向ajax方法自己</p>
-  <pre class="code">
+</pre><p class=article-title>刷新分页和无刷新分页的使用区别</p><p>pageClickE这个方法将绑定到页码按钮的点击事件上,如果是整页面刷新分页,那么该方法执行跳转到新页面,新页面再生成分页条即可.</p><p>web前端一般是无刷新分页,pageClickE方法会包含一个ajax请求,这个请求的回调方法里,再执行生成新的分页条,并且配置参数中的pageClickE,再次指向ajax方法自己</p>
+  <pre class=code>
 // ajax请求示例方法
 function getdata()
 {
@@ -1156,326 +240,52 @@ function getdata()
   }
   pagenum(cfg);
 }
-</pre>
+</pre><nav class="pagenum danger" id=testpagenumbox1></nav><br /><nav class="pagenum primary" id=testpagenumbox2></nav><script>function newpagenum(n){let t={domId:"testpagenumbox1",pageClickE:newpagenum,totalData:96,pageIndex:n,pageSize:10,totalBtn:5};pagenum(t)}function newpagenum2(n){let t={domId:"testpagenumbox2",pageClickE:newpagenum2,totalData:296,pageIndex:n,pageSize:20,totalBtn:8};pagenum(t)}newpagenum(1);newpagenum2(3)</script></div><div class=doc-part-box id=sidemenu><h2>侧边菜单</h2><p class=article-title>html结构</p><p>最外层是nav容器,包含ul列表,每个ul是一组菜单.ul里的li为菜单项容器.里面的a是菜单项,每个ul内第1个span是组标题.</p>
 
-  <nav class="pagenum danger" id="testpagenumbox1"></nav>
-  <br />
-  <nav class="pagenum primary" id="testpagenumbox2"></nav>
-  <script>
-    function newpagenum(pnnum) {
-      let cfg = {
-        // 容器id(必须)
-        domId: 'testpagenumbox1',
-        // 点击事件(必须)
-        pageClickE: newpagenum,
-        // 总数(必须) >0 由后端返回新的总数
-        totalData: 96,
-        // 当前页码(必须) >0 由后端返回当前页码,或者页面记住当前请求页面
-        pageIndex: pnnum,
-        // 每页数量 [5-50]
-        pageSize: 10,
-        // 显示几个按钮[5-10]
-        totalBtn: 5
-      }
-      pagenum(cfg);
-    }
-    newpagenum(1);
-
-    function newpagenum2(pnnum) {
-      let cfg = {
-        domId: 'testpagenumbox2',
-        // 这里绑定getdata方法自己
-        pageClickE: newpagenum2,
-        // 总数(必须) >0 由后端返回新的总数
-        totalData: 296,
-        // 当前页码(必须) >0 由后端返回当前页码,或者页面记住当前请求页面
-        pageIndex: pnnum,
-        // 每页数量 [5-50]
-        pageSize: 20,
-        // 显示几个按钮[5-10]
-        totalBtn: 8
-      }
-      pagenum(cfg);
-    }
-    newpagenum2(3);
-  </script>
-</div>
-      
-      <div class="doc-part-box" id="sidemenu">
-  <h2>侧边菜单</h2>
-  <p class="article-title">html结构</p>
-  <p>最外层是nav容器,包含ul列表,每个ul是一组菜单.ul里的li为菜单项容器.里面的a是菜单项,每个ul内第1个span是组标题.</p>
-
-  <pre class="code">
-&lt;nav class="sidemenu-box" id="main_menubox"&gt;
-  &lt;ul class="sidemenu-group"&gt;
-    &lt;li&gt;
-      &lt;span class="sidemenu-label"&gt;零件&lt;i class="sidemenu-arrdown"&gt;&lt;/i&gt;&lt;/span&gt;
-    &lt;/li&gt;
-    &lt;li&gt;&lt;a class="sidemenu-item" href="#grid"&gt;册格&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a class="sidemenu-item" href="#typography"&gt;标题段落&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a class="sidemenu-item" href="#btn"&gt;按钮&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a class="sidemenu-item" href="#table"&gt;表格&lt;/a&gt;&lt;/li&gt;
-    &lt;li&gt;&lt;a class="sidemenu-item" href="#form"&gt;表单&lt;/a&gt;&lt;/li&gt;
-  &lt;/ul&gt;
+  <pre class=code>
+&lt;nav class="sidemenu-box" id="main_menubox">
+  &lt;ul class="sidemenu-group">
+    &lt;li>
+      &lt;span class="sidemenu-label">零件&lt;i class="sidemenu-arrdown">&lt;/i>&lt;/span>
+    &lt;/li>
+    &lt;li>&lt;a class="sidemenu-item" href="#grid">册格&lt;/a>&lt;/li>
+    &lt;li>&lt;a class="sidemenu-item" href="#typography">标题段落&lt;/a>&lt;/li>
+    &lt;li>&lt;a class="sidemenu-item" href="#btn">按钮&lt;/a>&lt;/li>
+    &lt;li>&lt;a class="sidemenu-item" href="#table">表格&lt;/a>&lt;/li>
+    &lt;li>&lt;a class="sidemenu-item" href="#form">表单&lt;/a>&lt;/li>
+  &lt;/ul>
   ...
-&lt;/nav&gt;
-</pre>
-  <p class="article-title">菜单超长</p>
-  <p>菜单内容项设置了超长显示省略号的样式,但需要给菜单容器设定一个宽度,自适应宽度可能不行</p>
+&lt;/nav>
+</pre><p class=article-title>菜单超长</p><p>菜单内容项设置了超长显示省略号的样式,但需要给菜单容器设定一个宽度,自适应宽度可能不行</p>
   <pre>
-&lt;nav class="sidemenu-box" style="width:220px;"&gt;
-</pre>
+&lt;nav class="sidemenu-box" style="width:220px;">
+</pre><br /><div class=grids id=sidemenutestbox><div class=grid><nav class=sidemenu-box id=sidemenudemo1 style=width:220px><ul class=sidemenu-group><li><span class=sidemenu-label>第1组<i class=sidemenu-arrdown></i></span></li><li><a class=sidemenu-item>菜单一</a></li><li><a class=sidemenu-item>菜单二</a></li><li><a class=sidemenu-item>菜单三</a></li><li><a class=sidemenu-item>菜单四(如果菜单内容超过宽度,显示省略号)</a></li></ul></nav></div><div class=grid><nav class="sidemenu-box primary" id=sidemenudemo2><ul class=sidemenu-group><li><span class=sidemenu-label>第2组<i class=sidemenu-arrdown></i></span></li><li><a class=sidemenu-item>菜单一</a></li><li><a class=sidemenu-item>菜单二</a></li><li><a class=sidemenu-item>菜单三</a></li><li><a class=sidemenu-item>菜单四</a></li></ul></nav></div><div class=grid><nav class="sidemenu-box danger" id=sidemenudemo3><ul class=sidemenu-group><li><span class=sidemenu-label>第3组<i class=sidemenu-arrdown></i></span></li><li><a class=sidemenu-item>菜单一</a></li><li><a class=sidemenu-item>菜单二</a></li><li><a class=sidemenu-item>菜单三</a></li><li><a class=sidemenu-item>菜单四</a></li></ul></nav></div></div><script>sidemenu("sidemenudemo1");sidemenu("sidemenudemo2");sidemenu("sidemenudemo3")</script>
   <br />
-  <div class="grids" id="sidemenutestbox">
-    <div class="grid">
-      <nav class="sidemenu-box" id="sidemenudemo1" style="width:220px;">
-        <ul class="sidemenu-group">
-          <li>
-            <span class="sidemenu-label">第1组<i class="sidemenu-arrdown"></i></span>
-          </li>
-          <li><a class="sidemenu-item">菜单一</a></li>
-          <li><a class="sidemenu-item">菜单二</a></li>
-          <li><a class="sidemenu-item">菜单三</a></li>
-          <li><a class="sidemenu-item">菜单四(如果菜单内容超过宽度,显示省略号)</a></li>
-        </ul>
-      </nav>
-    </div>
-    <div class="grid">
-      <nav class="sidemenu-box primary" id="sidemenudemo2">
-        <ul class="sidemenu-group">
-          <li>
-            <span class="sidemenu-label">第2组<i class="sidemenu-arrdown"></i></span>
-          </li>
-          <li><a class="sidemenu-item">菜单一</a></li>
-          <li><a class="sidemenu-item">菜单二</a></li>
-          <li><a class="sidemenu-item">菜单三</a></li>
-          <li><a class="sidemenu-item">菜单四</a></li>
-        </ul>
-      </nav>
-    </div>
-    <div class="grid">
-      <nav class="sidemenu-box danger" id="sidemenudemo3">
-        <ul class="sidemenu-group">
-          <li>
-            <span class="sidemenu-label">第3组<i class="sidemenu-arrdown"></i></span>
-          </li>
-          <li><a class="sidemenu-item">菜单一</a></li>
-          <li><a class="sidemenu-item">菜单二</a></li>
-          <li><a class="sidemenu-item">菜单三</a></li>
-          <li><a class="sidemenu-item">菜单四</a></li>
-        </ul>
-      </nav>
-    </div>
-  </div>
-  <script>
-    sidemenu('sidemenudemo1');
-    sidemenu('sidemenudemo2');
-    sidemenu('sidemenudemo3');
-  </script>
-  <br />
-  <pre class="code">
+  <pre class=code>
 // 实例化
 let menu=sidemenu('sidemenudemo1');
 // 点击第0个菜单
 menu.activeItem(0);
 // 点击菜单后执行一个方法
 sidemenu('sidemenudemo1','方法')
-</pre>
-</div>
-      
-      <div class="doc-part-box" id="cachepage">
-  <style>
-    .cachepagedemo {
-      display: flex;
-      justify-content: space-between;
-      border: 5px solid #eeeeee;
-      padding-bottom: 10px;
-    }
-
-    #main_menu1 {
-      width: 80px;
-      margin: 0;
-      list-style: square;
-    }
-
-    .main {
-      width: 100%;
-    }
-  </style>
-  <h2>CachePage</h2>
-  <p>缓存页,每显示一个页面时,缓存当前的页面</p>
-  <input class="input-check" name="radiogroup1" type="radio" id="cache_def" />
-  <label onclick="changethem('cache_def')" class="input-check-label" for="cache_def"><b class="radio"></b>default</label>
-  <input class="input-check" name="radiogroup1" type="radio" id="cache_primary" />
-  <label onclick="changethem('cache_primary','primary')" class="input-check-label primary" for="cache_primary"><b class="radio"></b>primary</label>
-  <input class="input-check" name="radiogroup1" type="radio" id="cache_danger" />
-  <label onclick="changethem('cache_danger','danger')" class="input-check-label danger" for="cache_danger"><b class="radio"></b>danger</label>
-  <input class="input-check" name="radiogroup1" type="radio" id="cache_success" />
-  <label onclick="changethem('cache_success','success')" class="input-check-label success" for="cache_success"><b class="radio"></b>success</label>
-  <br />
-  <div class="cachepagedemo">
-    <ul id="main_menu1">
-      <li>
-        <a href="javascript:void(0)"></a>
-      </li>
-      <li>
-        <a href="javascript:void(0)"></a>
-      </li>
-      <li>
-        <a href="javascript:void(0)"></a>
-      </li>
-      <li>
-        <a href="javascript:void(0)"></a>
-      </li>
-      <li>
-        <a href="javascript:void(0)"></a>
-      </li>
-      <li>
-        <a href="javascript:void(0)"></a>
-      </li>
-      <li>
-        <a href="javascript:void(0)"></a>
-      </li>
-      <li>
-        <a href="javascript:void(0)"></a>
-      </li>
-      <li>
-        <a href="javascript:void(0)"></a>
-      </li>
-      <li>
-        <a href="javascript:void(0)"></a>
-      </li>
-      <li>
-        <a href="javascript:void(0)"></a>
-      </li>
-    </ul>
-    <div class="main">
-      <div class="tabsbox" id="tabsbox1">
-        <a class="tabsbox-left"></a>
-        <nav class="tabsbox-navbox">
-          <div class="tabsbox-nav"></div>
-        </nav>
-        <a class="tabsbox-right"></a>
-        <span class="tabsbox-menutitle">功能</span>
-        <div class="tabsbox-menugroup">
-          <span class="tabsbox-goto-active">定位当前页</span>
-          <span class="tabsbox-close-all">关闭全部</span>
-          <span class="tabsbox-close-other">关闭其它</span>
-        </div>
-      </div>
-      <div id="mainbox"></div>
-    </div>
-  </div>
-  <h4>实现逻辑</h4>
-  <p>
-    使用document.createDocumentFragment这个方法,将当前页面移到 "片段"中,"片段"并不在document中,所以不会引起混乱.保持一个对它的引用,在显示曾经打开过的页面时, 再添加到document中即可.如此可实现不用iframe的方案.
-  </p>
-  <h4>选项卡HMTL</h4>
+</pre></div><div class=doc-part-box id=cachepage><style>.cachepagedemo{display:flex;justify-content:space-between;border:5px solid #eee;padding-bottom:10px}#main_menu1{width:80px;margin:0;list-style:square}.main{width:100%}</style><h2>CachePage</h2><p>缓存页,每显示一个页面时,缓存当前的页面</p><input class=input-check name=radiogroup1 type=radio id=cache_def /><label onclick="changethem('cache_def')" class=input-check-label for=cache_def><b class=radio></b>default</label><input class=input-check name=radiogroup1 type=radio id=cache_primary /> <label onclick="changethem('cache_primary','primary')" class="input-check-label primary" for=cache_primary><b class=radio></b>primary</label><input class=input-check name=radiogroup1 type=radio id=cache_danger /> <label onclick="changethem('cache_danger','danger')" class="input-check-label danger" for=cache_danger><b class=radio></b>danger</label><input class=input-check name=radiogroup1 type=radio id=cache_success /> <label onclick="changethem('cache_success','success')" class="input-check-label success" for=cache_success><b class=radio></b>success</label><br /><div class=cachepagedemo><ul id=main_menu1><li> <a href=javascript:void(0)></a></li><li><a href=javascript:void(0)></a></li><li><a href=javascript:void(0)></a></li><li><a href=javascript:void(0)></a></li><li><a href=javascript:void(0)></a></li><li><a href=javascript:void(0)></a></li><li><a href=javascript:void(0)></a></li><li><a href=javascript:void(0)></a></li><li><a href=javascript:void(0)></a></li><li><a href=javascript:void(0)></a></li><li><a href=javascript:void(0)></a></li></ul><div class=main><div class=tabsbox id=tabsbox1><a class=tabsbox-left></a><nav class=tabsbox-navbox><div class=tabsbox-nav></div></nav><a class=tabsbox-right></a> <span class=tabsbox-menutitle>功能</span><div class=tabsbox-menugroup> <span class=tabsbox-goto-active>定位当前页</span> <span class=tabsbox-close-all>关闭全部</span> <span class=tabsbox-close-other>关闭其它</span></div></div><div id=mainbox></div></div></div><h4>实现逻辑</h4><p>使用document.createDocumentFragment这个方法,将当前页面移到 "片段"中,"片段"并不在document中,所以不会引起混乱.保持一个对它的引用,在显示曾经打开过的页面时, 再添加到document中即可.如此可实现不用iframe的方案.</p><h4>选项卡HMTL</h4>
   <pre>
-        &lt;div class="tabsbox" id="tabsbox1"&gt;
+        &lt;div class="tabsbox" id="tabsbox1">
             // 向左按钮
-            &lt;a class="tabsbox-left"&gt;&lt;/a&gt;
+            &lt;a class="tabsbox-left">&lt;/a>
 
             // 导航区
-            &lt;nav class="tabsbox-navbox"&gt;&lt;div class="tabsbox-nav"&gt;&lt;/div&gt;&lt;/nav&gt; 
+            &lt;nav class="tabsbox-navbox">&lt;div class="tabsbox-nav">&lt;/div>&lt;/nav> 
 
             // 向右按钮
-            &lt;a class="tabsbox-right"&gt;&lt;/a&gt;
+            &lt;a class="tabsbox-right">&lt;/a>
 
             // 功能按钮组
-            &lt;span class="tabsbox-menutitle"&gt;功能&lt;/span&gt;
-            &lt;div class="tabsbox-menugroup"&gt;
-                &lt;span class="tabsbox-goto-active"&gt;定位当前页&lt;/span&gt;
-                &lt;span class="tabsbox-close-all"&gt;关闭全部&lt;/span&gt;
-                &lt;span class="tabsbox-close-other"&gt;关闭其它&lt;/span&gt;
-            &lt;/div&gt;
-        &lt;/div&gt;
-        </pre>
-  <h4>功能与特点</h4>
-  <ul>
-    <li>点击左侧菜单时,缓存当前页面,新增选项卡,显示新页面.如果菜单已经打开过,则显示对应选项卡.</li>
-    <li>导航按钮:每个选项卡对应一个缓存页面,当选项卡超出可视范围后,使用前进后退按钮滚动选项卡框</li>
-    <li>当被点击的选项卡靠近选项卡框的两端,则调整该选项卡到中间位置</li>
-    <li>关闭所有选项卡.关闭除活动选项卡外的.定位当前活动选项卡,当其不在可视范围内时.</li>
-    <li>当前活动页面不缓存,页面由缓存到显示后,其对应缓存会删除</li>
-    <li>缓存页面使用document.createDocumentFragment,加入其中的DOM会从当前文档中脱离.用以替代经典的iframe方法</li>
-    <li>经过测试,一个填写过的表单页面在放入文档片段对象之后,再取出来时,其状态不变.</li>
-  </ul>
-  <h4>用途</h4>
-  <p>该功能用于一个经典的场景,在管理系统中,左侧菜单,右侧显示页面.点击左侧菜单时,打开多个页面.</p>
-  <p>为了避免页面冲突,通常是使用iframe来解决的,这个方案用于替代iframe.</p>
-  <h4>用法</h4>
-  <p>在点击菜单时,调用cachepage.load方法,会将当前活动页面加入到缓存中,然后显示菜单对应页面到显示区</p>
-
-
-  <script>
-    // 选项卡框Dom对象
-    let tabsDom = document.getElementById('tabsbox1');
-    // 显示内容Domc对象
-    let contDom = document.getElementById('mainbox');
-    // cachepage
-    let cpg = cachepage(tabsDom, contDom);
-    // 左侧菜单绑定事件
-    let menus = ['MainPage', '人员管理', '部门管理', '订单管理', '资料管理', '报表管理', '信息查询', '日志查询', '财务会计', '权限设置', '系统设置'];
-    let menubox = document.getElementById('main_menu1');
-    menubox.querySelectorAll('a').forEach((item, index) => {
-      item.innerHTML = menus[index];
-      //
-      item.onclick = () => {
-        let cacheDom = cpg.load(index, menus[index]);
-        contDom.innerHTML = '';
-        if (cacheDom) {
-          contDom.append(cacheDom);
-        } else {
-          contDom.innerHTML = `<h1>${menus[index]}</h1>`;
-        };
-      };
-    });
-    // 默认载入MainPage页
-    menubox.querySelector('a').click();
-
-    // 换色
-    function changethem(btnId, classN) {
-      let btn = document.getElementById(btnId);
-      let cachepagebox = document.getElementById('tabsbox1');
-      cachepagebox.classList.remove('primary', 'success', 'danger');
-      if (classN)
-        cachepagebox.classList.add(classN);
-    }
-  </script>
-</div>
-      
-      <div class="doc-part-box" id="design_form">
-  <h3>表单设计</h3>
-  <p>表单一直是重点,应用系统中更是如此.表单填写是工作人员最不喜欢的工作之一,因为很没意思.看到一大堆要填写还可能填错的东西,马上失去耐心.</p>
-  <p>在设计上减少工作人员的反感程度,可以从表单外观样式,填写方便程度这两点来改进.</p>
-  <p class="article-title">纸质风格</p>
-  <p>不同行业不同业务场景的表单不会完全一样,在样式上应该都尽量简洁明了.可以参考传统纸质风格的表单样子</p>
-  <p>传统纸质风格的单子,就是一个表格,里面有各种要填写的信息和标题.依照这种风格实现电子版本的话,工作人员</p>
-  <p>看起来就很熟悉,在计算机上操作填写时,感觉如同拿笔填写一样.不用改习惯,学习使用成本非常低.</p>
-  <p class="article-title">编辑与查看</p>
-  <p>上面是新建表单时的情景,如果需要查看与修改表单,有的解决办法是做两个页面,一个查看,一个修改.这样做其实</p>
-  <p>多做了查看页面,因为编辑页面也有查看的功能.不仅多一个页面,还多一按钮.与简洁必须原则不相符合.</p>
-  <p>在查看页面点击编辑,就可以修改,这样查看页面变成了编辑页面.这种就好多了.</p>
-  <p class="article-title">分段修改</p>
-  <p>一般在编辑表单时,只会编辑表单的某一项或者几项,并不会全部修改.而在保存时,却不会加以区别.总是保存</p>
-  <p>这个表单的所有字段,不管它有没修改过.这也是一个不好的地方.应该做到修改哪个保存哪个,如果修改的这个</p>
-  <p>字段也会引起其它字段的变化,那么其它字段也应做为修改字段,只不过它是自动修改的.</p>
-  <p>如何做到保存修改项,有的网站设计的是将表单的项分成小组,每个小组有一个编辑保存按钮.这样每次修改的就只</p>
-  <p>限于这个小组的几个字段,而不是整个表单.这种做法显然好多了.</p>
-</div>
-      
-    </div>
-  </div>
-  <script>
-    // 为主菜单绑定点击事件 点击后加上sidemenu-active类,标识为活动菜单
-    sidemenu('main_menubox');
-    function chgprimary(color) {
-      let carr = color.split(',');
-      document.body.style.setProperty('--primary', '#' + carr[0]);
-      document.body.style.setProperty('--primaryse', '#' + carr[1]);
-    }
-  </script>
-</body>
-</html>
+            &lt;span class="tabsbox-menutitle">功能&lt;/span>
+            &lt;div class="tabsbox-menugroup">
+                &lt;span class="tabsbox-goto-active">定位当前页&lt;/span>
+                &lt;span class="tabsbox-close-all">关闭全部&lt;/span>
+                &lt;span class="tabsbox-close-other">关闭其它&lt;/span>
+            &lt;/div>
+        &lt;/div>
+        </pre><h4>功能与特点</h4><ul><li>点击左侧菜单时,缓存当前页面,新增选项卡,显示新页面.如果菜单已经打开过,则显示对应选项卡.</li><li>导航按钮:每个选项卡对应一个缓存页面,当选项卡超出可视范围后,使用前进后退按钮滚动选项卡框</li><li>当被点击的选项卡靠近选项卡框的两端,则调整该选项卡到中间位置</li><li>关闭所有选项卡.关闭除活动选项卡外的.定位当前活动选项卡,当其不在可视范围内时.</li><li>当前活动页面不缓存,页面由缓存到显示后,其对应缓存会删除</li><li>缓存页面使用document.createDocumentFragment,加入其中的DOM会从当前文档中脱离.用以替代经典的iframe方法</li><li>经过测试,一个填写过的表单页面在放入文档片段对象之后,再取出来时,其状态不变.</li></ul><h4>用途</h4><p>该功能用于一个经典的场景,在管理系统中,左侧菜单,右侧显示页面.点击左侧菜单时,打开多个页面.</p><p>为了避免页面冲突,通常是使用iframe来解决的,这个方案用于替代iframe.</p><h4>用法</h4><p>在点击菜单时,调用cachepage.load方法,会将当前活动页面加入到缓存中,然后显示菜单对应页面到显示区</p><script>function changethem(n,t){let r=document.getElementById(n),i=document.getElementById("tabsbox1");i.classList.remove("primary","success","danger");t&&i.classList.add(t)}let tabsDom=document.getElementById("tabsbox1"),contDom=document.getElementById("mainbox"),cpg=cachepage(tabsDom,contDom),menus=["MainPage","人员管理","部门管理","订单管理","资料管理","报表管理","信息查询","日志查询","财务会计","权限设置","系统设置"],menubox=document.getElementById("main_menu1");menubox.querySelectorAll("a").forEach((n,t)=>{n.innerHTML=menus[t],n.onclick=()=>{let n=cpg.load(t,menus[t]);contDom.innerHTML="";n?contDom.append(n):contDom.innerHTML=`<h1>${menus[t]}</h1>`}});menubox.querySelector("a").click()</script></div><div class=doc-part-box id=design_form><h3>表单设计</h3><p>表单一直是重点,应用系统中更是如此.表单填写是工作人员最不喜欢的工作之一,因为很没意思.看到一大堆要填写还可能填错的东西,马上失去耐心.</p><p>在设计上减少工作人员的反感程度,可以从表单外观样式,填写方便程度这两点来改进.</p><p class=article-title>纸质风格</p><p>不同行业不同业务场景的表单不会完全一样,在样式上应该都尽量简洁明了.可以参考传统纸质风格的表单样子</p><p>传统纸质风格的单子,就是一个表格,里面有各种要填写的信息和标题.依照这种风格实现电子版本的话,工作人员</p><p>看起来就很熟悉,在计算机上操作填写时,感觉如同拿笔填写一样.不用改习惯,学习使用成本非常低.</p><p class=article-title>编辑与查看</p><p>上面是新建表单时的情景,如果需要查看与修改表单,有的解决办法是做两个页面,一个查看,一个修改.这样做其实</p><p>多做了查看页面,因为编辑页面也有查看的功能.不仅多一个页面,还多一按钮.与简洁必须原则不相符合.</p><p>在查看页面点击编辑,就可以修改,这样查看页面变成了编辑页面.这种就好多了.</p><p class=article-title>分段修改</p><p>一般在编辑表单时,只会编辑表单的某一项或者几项,并不会全部修改.而在保存时,却不会加以区别.总是保存</p><p>这个表单的所有字段,不管它有没修改过.这也是一个不好的地方.应该做到修改哪个保存哪个,如果修改的这个</p><p>字段也会引起其它字段的变化,那么其它字段也应做为修改字段,只不过它是自动修改的.</p><p>如何做到保存修改项,有的网站设计的是将表单的项分成小组,每个小组有一个编辑保存按钮.这样每次修改的就只</p><p>限于这个小组的几个字段,而不是整个表单.这种做法显然好多了.</p></div></div></div><script>function chgprimary(n){let t=n.split(",");document.body.style.setProperty("--primary","#"+t[0]);document.body.style.setProperty("--primaryse","#"+t[1])}sidemenu("main_menubox")</script></div></body></html>
