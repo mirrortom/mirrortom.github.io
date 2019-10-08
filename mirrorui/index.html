@@ -18,7 +18,7 @@
 &lt;a class="btn <b>lg</b>">lg尺寸&lt;/a>
 &lt;a class="btn <b>success</b>">绿色&lt;/a>
 &lt;a class="btn <b>block</b> blue-b cir lg">块级按钮&lt;/a>
-</pre></div><div class=doc-part-box id=table><h2>表格</h2><p class=lead>一个简单的表格样式,有隔行颜色,鼠标hover,外边框</p><p class=article-title>简单表格</p><table class=table><tr><th>#</th><th>名字</th><th>职位</th></tr><tr><td>1</td><td>关羽</td><td>前将军</td></tr><tr><td>2</td><td>张飞</td><td>右将军</td></tr><tr><td>3</td><td>马超</td><td>左将军</td></tr><tr><td>4</td><td>黄忠</td><td>后将军</td></tr><tr><td>5</td><td>赵云</td><td>翊将军</td></tr></table>
+</pre><br /><p>调用 "$ui.isBtnLoading(btn)" 给按钮加等待效果</p><a id=btnloadtest1 class=btn>点击等待</a> <p>按钮等待时.调用 "$ui.clsBtnLoading(btn,2000)" 消除等待</p><a id=btnloadtest2 class=btn>2秒后等待消除</a><script>(()=>{let n=document.querySelector("#btnloadtest1"),t=document.querySelector("#btnloadtest2");n.onclick=()=>{$ui.isBtnLoading(n)==!0&&$ui.clsBtnLoading(n)};t.onclick=()=>{$ui.isBtnLoading(t)==!1&&$ui.clsBtnLoading(t,2e3)}})()</script></div><div class=doc-part-box id=table><h2>表格</h2><p class=lead>一个简单的表格样式,有隔行颜色,鼠标hover,外边框</p><p class=article-title>简单表格</p><table class=table><tr><th>#</th><th>名字</th><th>职位</th></tr><tr><td>1</td><td>关羽</td><td>前将军</td></tr><tr><td>2</td><td>张飞</td><td>右将军</td></tr><tr><td>3</td><td>马超</td><td>左将军</td></tr><tr><td>4</td><td>黄忠</td><td>后将军</td></tr><tr><td>5</td><td>赵云</td><td>翊将军</td></tr></table>
   <pre class=code>
 &lt;table class="table">
     &lt;tr>&lt;th>#&lt;/th>&lt;th>名字&lt;/th>&lt;th>职位&lt;/th>&lt;/tr>
