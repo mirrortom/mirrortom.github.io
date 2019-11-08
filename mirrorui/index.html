@@ -158,9 +158,10 @@
   &lt;h4>子虚赋&lt;/h4>
   &lt;p>楚王派子虚出使齐国，&lt;/p>
 &lt;/div>
-</pre><div class="msgpanel primary"><h1>Primary</h1><p>class="msgpanel primary"</p></div><div class="msgpanel success"><h2>Success</h2><p>......</p></div><div class="msgpanel danger"><h3>Danger</h3><p>......</p></div></div><div class=doc-part-box id=panel><h2>面板</h2><p>像广告牌,分两部分,上面是大标题,下面是简介.面板是个容器,可放入其它零件.</p><div class=grids><div class=grid-2><div class=panel><div class=panel-head><h2>标题h2</h2></div><div class=panel-body><p>面板内容,使用了p标记</p></div></div></div><div class=grid><div class="panel primary"><div class=panel-head><h4>垓下歌-项羽</h4></div><div class=panel-body><p>力拔山兮气盖世。时不利兮骓不逝。</p><p>骓不逝兮可奈何！虞兮虞兮奈若何！</p></div></div></div><div class=grid><div class="panel danger"><div class=panel-head><h4 style=color:#fff>泊船瓜-王安石洲</h4></div><div class=panel-body><p>京口瓜洲一水间，钟山只隔数重山。</p><p>春风又绿江南岸，明月何时照我还？</p></div></div></div><div class=grid><div class="panel success"><div class=panel-head><h4>短歌行-曹操</h4></div><div class=panel-body><p>慨当以慷，忧思难忘。何以解忧？唯有杜康。</p><p>青青子衿，悠悠我心。但为君故，沉吟至今。</p></div></div></div></div>
+</pre><div class="msgpanel primary"><h1>Primary</h1><p>class="msgpanel primary"</p></div><div class="msgpanel success"><h2>Success</h2><p>......</p></div><div class="msgpanel danger"><h3>Danger</h3><p>......</p></div></div><div class=doc-part-box id=panel><h2>面板</h2><p>像广告牌,分两部分,上面是大标题,下面是简介.面板是个容器,可放入其它零件.</p><p>在panel-head或者panel-body上加背景色,可做出不同颜色的面板</p><div class=grids><div class=grid-2><div class=panel><div class="panel-head bg-gray"><h2>标题h2</h2></div><div class=panel-body><p>面板内容,使用了p标记</p></div></div></div><div class=grid><div class=panel><div class="panel-head bg-primary"><h4>垓下歌-项羽</h4></div><div class="panel-body bg-gray"><p>力拔山兮气盖世。时不利兮骓不逝。</p><p>骓不逝兮可奈何！虞兮虞兮奈若何！</p></div></div></div><div class=grid><div class=panel><div class="panel-head bg-danger"><h4 style=color:#fff>泊船瓜洲-王安石</h4></div><div class=panel-body><p>京口瓜洲一水间，钟山只隔数重山。</p><p>春风又绿江南岸，明月何时照我还？</p></div></div></div><div class=grid><div class=panel><div class="panel-head bg-success"><h4>短歌行-曹操</h4></div><div class="panel-body bg-grayse"><p>慨当以慷，忧思难忘。何以解忧？唯有杜康。</p><p>青青子衿，悠悠我心。但为君故，沉吟至今。</p></div></div></div></div>
   <br />
-  <pre class=code>
+  <div class=grids>
+    <pre class=code>
 &lt;div class="panel">
   &lt;div class="panel-head">
     &lt;h2>标题&lt;/h2>
@@ -169,7 +170,17 @@
     内容
   &lt;/div>
 &lt;/div>
-</pre></div><div class=doc-part-box id=tabs><h2>选项卡</h2><p class=lead>切换选项卡,显示相应页面.很常用的组件</p><p>单击或者鼠标移入选项卡,激活该选项页.选项卡与页由索引顺序相关联,例如:激活第2个选项卡时,则激活第2个面板.</p><p>当前活动的选项卡和对应页面有类名<b>active</b>,class="tabs-label active" class="tabs-panel active" 默认第1个是激活的</p><div id=mytabs1 class=tabs-box><div class=tabs-header><span class=tabs-label>苏轼</span> <span class=tabs-label>陆游</span> <span class=tabs-label>李清照</span></div><div class=tabs-panel><h4>饮湖上初晴后雨二首·其二</h4><p>水光潋滟晴方好</p><p>山色空蒙雨亦奇</p><p>欲把西湖比西子</p><p>淡妆浓抹总相宜</p></div><div class=tabs-panel><h4>卜算子 咏梅</h4><p>驿外断桥边</p><p>寂寞开无主</p><p>已是黄昏独自愁</p><p>更著风和雨</p><p>无意苦争春</p><p>一任群芳妒</p><p>零落成泥碾作尘</p><p>只有香如故</p></div><div class=tabs-panel><h4>一剪梅 红藕香残玉蕈秋</h4><p>红藕香残玉蕈秋</p><p>轻解罗裳</p><p>独上兰舟</p><p>云中谁寄锦书来</p><p>雁字回时</p><p>月满西楼</p><p>花自飘零水自流</p><p>一种相思</p><p>两处闲愁</p><p>此情无计可消除</p><p>才下眉头</p><p>却上心头</p></div></div><br /><div id=mytabs3 class=tabs-box><div class=tabs-header><span class=tabs-label>选项1-mover</span> <span class=tabs-label>选项2-mover</span> <span class=tabs-label>选项3-mover</span></div><div class=tabs-panel>选项1-内容</div><div class=tabs-panel>选项2-内容</div><div class=tabs-panel>选项3-内容</div></div><br /><p class="article-title sm">HTML结构,js调用</p>
+</pre>
+    <pre class=code>
+&lt;div class="panel">
+  &lt;div class="panel-head bg-danger">
+    &lt;h4>泊船瓜洲-王安石&lt;/h4>
+  &lt;/div>
+  &lt;div class="panel-body">
+    内容
+  &lt;/div>
+&lt;/div>
+</pre></div></div><div class=doc-part-box id=tabs><h2>选项卡</h2><p class=lead>切换选项卡,显示相应页面.很常用的组件</p><p>单击或者鼠标移入选项卡,激活该选项页.选项卡与页由索引顺序相关联,例如:激活第2个选项卡时,则激活第2个面板.</p><p>当前活动的选项卡和对应页面有类名<b>active</b>,class="tabs-label active" class="tabs-panel active" 默认第1个是激活的</p><div id=mytabs1 class=tabs-box><div class=tabs-header><span class=tabs-label>苏轼</span> <span class=tabs-label>陆游</span> <span class=tabs-label>李清照</span></div><div class=tabs-panel><h4>饮湖上初晴后雨二首·其二</h4><p>水光潋滟晴方好</p><p>山色空蒙雨亦奇</p><p>欲把西湖比西子</p><p>淡妆浓抹总相宜</p></div><div class=tabs-panel><h4>卜算子 咏梅</h4><p>驿外断桥边</p><p>寂寞开无主</p><p>已是黄昏独自愁</p><p>更著风和雨</p><p>无意苦争春</p><p>一任群芳妒</p><p>零落成泥碾作尘</p><p>只有香如故</p></div><div class=tabs-panel><h4>一剪梅 红藕香残玉蕈秋</h4><p>红藕香残玉蕈秋</p><p>轻解罗裳</p><p>独上兰舟</p><p>云中谁寄锦书来</p><p>雁字回时</p><p>月满西楼</p><p>花自飘零水自流</p><p>一种相思</p><p>两处闲愁</p><p>此情无计可消除</p><p>才下眉头</p><p>却上心头</p></div></div><br /><div id=mytabs3 class=tabs-box><div class=tabs-header><span class=tabs-label>选项1-mover</span> <span class=tabs-label>选项2-mover</span> <span class=tabs-label>选项3-mover</span></div><div class=tabs-panel>选项1-内容</div><div class=tabs-panel>选项2-内容</div><div class=tabs-panel>选项3-内容</div></div><br /><p class="article-title sm">HTML结构,js调用</p>
   <pre class=code>
 &lt;div id="mytabs1" class="tabs-box">
     &lt;div class="tabs-header">
