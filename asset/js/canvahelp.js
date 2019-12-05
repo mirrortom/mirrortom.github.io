@@ -1,0 +1,1 @@
+(n=>{function t(n){const t=document.querySelector("#"+n);if(t!=null){t.style.display="block";t.style.backgroundColor="#f0f0f0";return t.getContext("2d")}}n.getCanvas2d=t})(window)
