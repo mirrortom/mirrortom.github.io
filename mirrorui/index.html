@@ -183,7 +183,7 @@
   <pre class=code>&lt;p class="article-title">默认标题&lt;/p></pre></div><div class=doc-part-box id=msgpanel><h1>信息面板</h1><p>内容包含标题和一段文字.也可无标题.标题使用h1~h6,段落使用p.</p><div class=msgpanel><h5>标题h1~h6</h5><p>可用于介绍说明,有一个醒目的标题和简短的文字描述.</p></div>
   <pre class=code>
 &lt;div class="msgpanel">
-  &lt;h2>标题h2~h4&lt;/h2>
+  &lt;h2>标题h1~h6&lt;/h2>
   &lt;p>可用于介绍说明,有一个醒目的标题和简短的文字描述.&lt;/p>
 &lt;/div>
 </pre><div class=msgpanel><h6>子虚赋</h6><p>《子虚赋》作于司马相如早期客游梁孝王之时。据《史记·司马相如列传》载，相如“以赀为郎，事孝景帝，为武骑常侍，非其好也。会景帝不好辞赋，是时梁孝王来朝，从游说之士齐人邹阳、淮阴枚乘、吴庄忌夫子之徒，相如见而说之。因病免，客游梁。梁孝王令与诸生同舍，相如得与诸生游士居数岁，乃著《子虚之赋》” 。当时司马相如还只是“与诸生同舍”，“得与诸生游士居”，在文坛上尚未有所建树。</p></div>
@@ -336,24 +336,40 @@ let menu=sidemenu('sidemenudemo1');
 menu.activeItem(0);
 // 点击菜单后执行一个方法
 sidemenu('sidemenudemo1','方法')
-</pre></div><div class=doc-part-box id=cachepage><style>.cachepagedemo{display:flex;justify-content:space-between;border:5px solid #eee;padding-bottom:10px}#main_menu1{width:80px;margin:0;list-style:square}.main{width:100%}</style><h2>CachePage</h2><p>缓存页,每显示一个页面时,缓存当前的页面</p><input class=input-check name=radiogroup1 type=radio id=cache_def /><label onclick="changethem('cache_def')" class=input-check-label for=cache_def><b class=radio></b>default</label><input class=input-check name=radiogroup1 type=radio id=cache_primary /> <label onclick="changethem('cache_primary','primary')" class="input-check-label primary" for=cache_primary><b class=radio></b>primary</label><input class=input-check name=radiogroup1 type=radio id=cache_danger /> <label onclick="changethem('cache_danger','danger')" class="input-check-label danger" for=cache_danger><b class=radio></b>danger</label><input class=input-check name=radiogroup1 type=radio id=cache_success /> <label onclick="changethem('cache_success','success')" class="input-check-label success" for=cache_success><b class=radio></b>success</label><br /><div class=cachepagedemo><ul id=main_menu1><li> <a href=javascript:void(0)></a></li><li><a href=javascript:void(0)></a></li><li><a href=javascript:void(0)></a></li><li><a href=javascript:void(0)></a></li><li><a href=javascript:void(0)></a></li><li><a href=javascript:void(0)></a></li><li><a href=javascript:void(0)></a></li><li><a href=javascript:void(0)></a></li><li><a href=javascript:void(0)></a></li><li><a href=javascript:void(0)></a></li><li><a href=javascript:void(0)></a></li></ul><div class=main><div class=tabsbox id=tabsbox1><a class=tabsbox-left></a><nav class=tabsbox-navbox><div class=tabsbox-nav></div></nav><a class=tabsbox-right></a> <span class=tabsbox-menutitle>功能</span><div class=tabsbox-menugroup> <span class=tabsbox-goto-active>定位当前页</span> <span class=tabsbox-close-all>关闭全部</span> <span class=tabsbox-close-other>关闭其它</span></div></div><div id=mainbox></div></div></div><h4>实现逻辑</h4><p>使用document.createDocumentFragment这个方法,将当前页面移到 "片段"中,"片段"并不在document中,所以不会引起混乱.保持一个对它的引用,在显示曾经打开过的页面时, 再添加到document中即可.如此可实现不用iframe的方案.</p><h4>选项卡HMTL</h4>
+</pre></div><div class=doc-part-box id=cachepage><style>.cachepagedemo{border:1px solid #eee;max-width:90%}.leftbox{display:inline-block;width:100px;min-width:100px;vertical-align:top}#main_menu1 a{cursor:pointer}#main_menu1 a:active{color:#f00}.main{display:inline-block;width:80%;vertical-align:top}</style><h2>CachePage</h2><p>缓存页,每显示一个页面时,缓存当前的页面</p><span class=label>主题</span><input class=input-check name=radiogroup1 type=radio id=cache_def /> <label onclick="changethem('cache_def')" class=input-check-label for=cache_def><b class=radio></b>default</label><input class=input-check name=radiogroup1 type=radio id=cache_primary /> <label onclick="changethem('cache_primary','primary')" class="input-check-label primary" for=cache_primary><b class=radio></b>primary</label><input class=input-check name=radiogroup1 type=radio id=cache_danger /> <label onclick="changethem('cache_danger','danger')" class="input-check-label danger" for=cache_danger><b class=radio></b>danger</label><input class=input-check name=radiogroup1 type=radio id=cache_success /> <label onclick="changethem('cache_success','success')" class="input-check-label success" for=cache_success><b class=radio></b>success</label><br /><br /><div class=cachepagedemo><div class=leftbox> <span class="label mg-5">管理系统</span><ul id=main_menu1 class="list num"></ul></div><div class=main><div id=tabsbox1></div><div id=mainbox></div></div></div><h4>实现逻辑</h4><p>使用document.createDocumentFragment这个方法,将当前页面移到 "片段"中,"片段"并不在document中,所以不会引起混乱.保持一个对它的引用,在显示曾经打开过的页面时, 再添加到document中即可.如此可实现不用iframe的方案.</p><h4>选项卡HMTL</h4><p>组件只包含选项卡部分,菜单和内容容器部分是自由定义的</p><p>换主题色,在选项卡html容器上加primary,success,danger</p><p>选项卡html内容由js生成,但是外层容器需要写出</p>
   <pre>
-        &lt;div class="tabsbox" id="tabsbox1">
-            // 向左按钮
-            &lt;a class="tabsbox-left">&lt;/a>
+    &lt;div class="tabsbox <b>primary</b>" id="tabsbox1">
+        // 向左按钮
+        &lt;a class="tabsbox-left">&lt;/a>
 
-            // 导航区
-            &lt;nav class="tabsbox-navbox">&lt;div class="tabsbox-nav">&lt;/div>&lt;/nav> 
+        // 导航区
+        &lt;nav class="tabsbox-navbox">&lt;div class="tabsbox-nav">&lt;/div>&lt;/nav> 
 
-            // 向右按钮
-            &lt;a class="tabsbox-right">&lt;/a>
+        // 向右按钮
+        &lt;a class="tabsbox-right">&lt;/a>
 
-            // 功能按钮组
-            &lt;span class="tabsbox-menutitle">功能&lt;/span>
-            &lt;div class="tabsbox-menugroup">
-                &lt;span class="tabsbox-goto-active">定位当前页&lt;/span>
-                &lt;span class="tabsbox-close-all">关闭全部&lt;/span>
-                &lt;span class="tabsbox-close-other">关闭其它&lt;/span>
-            &lt;/div>
+        // 功能按钮组
+        &lt;span class="tabsbox-menutitle">功能&lt;/span>
+        &lt;div class="tabsbox-menugroup">
+            &lt;span class="tabsbox-goto-active">定位当前页&lt;/span>
+            &lt;span class="tabsbox-close-all">关闭全部&lt;/span>
+            &lt;span class="tabsbox-close-other">关闭其它&lt;/span>
         &lt;/div>
-        </pre><h4>功能与特点</h4><ul><li>点击左侧菜单时,缓存当前页面,新增选项卡,显示新页面.如果菜单已经打开过,则显示对应选项卡.</li><li>导航按钮:每个选项卡对应一个缓存页面,当选项卡超出可视范围后,使用前进后退按钮滚动选项卡框</li><li>当被点击的选项卡靠近选项卡框的两端,则调整该选项卡到中间位置</li><li>关闭所有选项卡.关闭除活动选项卡外的.定位当前活动选项卡,当其不在可视范围内时.</li><li>当前活动页面不缓存,页面由缓存到显示后,其对应缓存会删除</li><li>缓存页面使用document.createDocumentFragment,加入其中的DOM会从当前文档中脱离.用以替代经典的iframe方法</li><li>经过测试,一个填写过的表单页面在放入文档片段对象之后,再取出来时,其状态不变.</li></ul><h4>用途</h4><p>该功能用于一个经典的场景,在管理系统中,左侧菜单,右侧显示页面.点击左侧菜单时,打开多个页面.</p><p>为了避免页面冲突,通常是使用iframe来解决的,这个方案用于替代iframe.</p><h4>用法</h4><p>在点击菜单时,调用cachepage.load方法,会将当前活动页面加入到缓存中,然后显示菜单对应页面到显示区</p><script>function changethem(n,t){let r=document.getElementById(n),i=document.getElementById("tabsbox1");i.classList.remove("primary","success","danger");t&&i.classList.add(t)}let tabsDom=document.getElementById("tabsbox1"),contDom=document.getElementById("mainbox"),cpg=cachepage(tabsDom,contDom),menus=["MainPage","人员管理","部门管理","订单管理","资料管理","报表管理","信息查询","日志查询","财务会计","权限设置","系统设置"],menubox=document.getElementById("main_menu1");menubox.querySelectorAll("a").forEach((n,t)=>{n.innerHTML=menus[t],n.onclick=()=>{let n=cpg.load(t,menus[t]);contDom.innerHTML="";n?contDom.append(n):contDom.innerHTML=`<h1>${menus[t]}</h1>`}});menubox.querySelector("a").click()</script></div><div class=doc-part-box id=design_form><h3>表单设计</h3><p>表单一直是重点,应用系统中更是如此.表单填写是工作人员最不喜欢的工作之一,因为很没意思.看到一大堆要填写还可能填错的东西,马上失去耐心.</p><p>在设计上减少工作人员的反感程度,可以从表单外观样式,填写方便程度这两点来改进.</p><p class=article-title>纸质风格</p><p>不同行业不同业务场景的表单不会完全一样,在样式上应该都尽量简洁明了.可以参考传统纸质风格的表单样子</p><p>传统纸质风格的单子,就是一个表格,里面有各种要填写的信息和标题.依照这种风格实现电子版本的话,工作人员</p><p>看起来就很熟悉,在计算机上操作填写时,感觉如同拿笔填写一样.不用改习惯,学习使用成本非常低.</p><p class=article-title>编辑与查看</p><p>上面是新建表单时的情景,如果需要查看与修改表单,有的解决办法是做两个页面,一个查看,一个修改.这样做其实</p><p>多做了查看页面,因为编辑页面也有查看的功能.不仅多一个页面,还多一按钮.与简洁必须原则不相符合.</p><p>在查看页面点击编辑,就可以修改,这样查看页面变成了编辑页面.这种就好多了.</p><p class=article-title>分段修改</p><p>一般在编辑表单时,只会编辑表单的某一项或者几项,并不会全部修改.而在保存时,却不会加以区别.总是保存</p><p>这个表单的所有字段,不管它有没修改过.这也是一个不好的地方.应该做到修改哪个保存哪个,如果修改的这个</p><p>字段也会引起其它字段的变化,那么其它字段也应做为修改字段,只不过它是自动修改的.</p><p>如何做到保存修改项,有的网站设计的是将表单的项分成小组,每个小组有一个编辑保存按钮.这样每次修改的就只</p><p>限于这个小组的几个字段,而不是整个表单.这种做法显然好多了.</p></div></div></div><script>function chgprimary(n){let t=n.split(",");document.body.style.setProperty("--primary","#"+t[0]);document.body.style.setProperty("--primaryse","#"+t[1])}function chgfontsize(n){document.body.style.setProperty("--font-size",n+"px")}sidemenu("main_menubox")</script></div></body></html>
+    &lt;/div>
+        </pre><h4>功能与特点</h4><ul class="list square"><li>点击左侧菜单时,缓存当前页面,新增选项卡,显示新页面.如果菜单已经打开过,则显示对应选项卡.</li><li>导航按钮:每个选项卡对应一个缓存页面,当选项卡超出可视范围后,使用前进后退按钮滚动选项卡框</li><li>当被点击的选项卡靠近选项卡框的两端,则调整该选项卡到中间位置</li><li>关闭所有选项卡.关闭除活动选项卡外的.定位当前活动选项卡,当其不在可视范围内时.</li><li>当前活动页面不缓存,页面由缓存到显示后,其对应缓存会删除</li><li>缓存页面使用document.createDocumentFragment,加入其中的DOM会从当前文档中脱离.用以替代经典的iframe方法</li><li>经过测试,一个填写过的表单页面在放入文档片段对象之后,再取出来时,其状态不变.</li></ul><h4>用途</h4><p>该功能用于一个经典的场景,在管理系统中,左侧菜单,右侧显示页面.点击左侧菜单时,打开多个页面.</p><p>为了避免页面冲突,通常是使用iframe来解决的,这个方案用于替代iframe.</p><h4>用法</h4><p>在点击菜单时,调用cachepage.load方法,会将当前活动页面加入到缓存中,然后显示菜单对应页面到显示区</p>
+  <pre>
+// 新建实例,tabsDom:选项卡容器DOM,contDom:显示内容的容器DOM
+let cpg = cachepage(tabsDom, contDom);
+// load方法,{pid:菜单唯一标识,title:选项卡标题},点击左侧菜单时,调用此方法
+cpg.load(pid, title);
+// pid不能重复,每个菜单一个pid,可以在绑定菜单点击方法时,统一分配.
+</pre><h4>经典布局结构</h4><p>左侧菜单,右侧分为2部分,上面是选项卡,下面是内容区</p>
+  <pre>
+&lt;div class="box">
+  &lt;div class="left">&lt;ul>菜单区域&lt;/ul>&lt;/div>
+  &lt;div class="right">
+    &lt;div class="top">选项卡区域&lt;/div>
+    &lt;div>内容区域&lt;/div>
+  &lt;/div>
+&lt;/div>
+</pre><script>function changethem(n,t){let r=document.getElementById(n),i=document.getElementById("tabsbox1");i.classList.remove("primary","success","danger");t&&i.classList.add(t)}let tabsDom=document.getElementById("tabsbox1"),contDom=document.getElementById("mainbox"),cpg=cachepage(tabsDom,contDom),menus=["MainPage","人员管理","部门管理","订单管理","资料管理","报表管理","信息查询","日志查询","财务会计","权限设置","系统设置"],fragment=document.createDocumentFragment();for(var i=0;i<menus.length;i++){let r=document.createElement("li"),n=document.createElement("a");n.innerText=menus[i];let t=i;n.onclick=()=>{let n=cpg.load(t,menus[t]);contDom.innerHTML="";n?contDom.append(n):contDom.innerHTML=`<h1>${menus[t]}</h1>`};r.append(n);fragment.append(r)}let menubox=document.getElementById("main_menu1");menubox.append(fragment);menubox.querySelector("a").click()</script></div><div class=doc-part-box id=design_form><h3>表单设计</h3><p>表单一直是重点,应用系统中更是如此.表单填写是工作人员最不喜欢的工作之一,因为很没意思.看到一大堆要填写还可能填错的东西,马上失去耐心.</p><p>在设计上减少工作人员的反感程度,可以从表单外观样式,填写方便程度这两点来改进.</p><p class=article-title>纸质风格</p><p>不同行业不同业务场景的表单不会完全一样,在样式上应该都尽量简洁明了.可以参考传统纸质风格的表单样子</p><p>传统纸质风格的单子,就是一个表格,里面有各种要填写的信息和标题.依照这种风格实现电子版本的话,工作人员</p><p>看起来就很熟悉,在计算机上操作填写时,感觉如同拿笔填写一样.不用改习惯,学习使用成本非常低.</p><p class=article-title>编辑与查看</p><p>上面是新建表单时的情景,如果需要查看与修改表单,有的解决办法是做两个页面,一个查看,一个修改.这样做其实</p><p>多做了查看页面,因为编辑页面也有查看的功能.不仅多一个页面,还多一按钮.与简洁必须原则不相符合.</p><p>在查看页面点击编辑,就可以修改,这样查看页面变成了编辑页面.这种就好多了.</p><p class=article-title>分段修改</p><p>一般在编辑表单时,只会编辑表单的某一项或者几项,并不会全部修改.而在保存时,却不会加以区别.总是保存</p><p>这个表单的所有字段,不管它有没修改过.这也是一个不好的地方.应该做到修改哪个保存哪个,如果修改的这个</p><p>字段也会引起其它字段的变化,那么其它字段也应做为修改字段,只不过它是自动修改的.</p><p>如何做到保存修改项,有的网站设计的是将表单的项分成小组,每个小组有一个编辑保存按钮.这样每次修改的就只</p><p>限于这个小组的几个字段,而不是整个表单.这种做法显然好多了.</p></div></div></div><script>function chgprimary(n){let t=n.split(",");document.body.style.setProperty("--primary","#"+t[0]);document.body.style.setProperty("--primaryse","#"+t[1])}function chgfontsize(n){document.body.style.setProperty("--font-size",n+"px")}sidemenu("main_menubox")</script></div></body></html>
