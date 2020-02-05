@@ -5,4 +5,4 @@
   <br />
   <div class=grids>
     <label class="textarea-label grid-2">转义后HTML</label>
-    <textarea id=tolt_newhtml class="textarea grid-10" style=height:200px></textarea></div></div><hr class=line /><script src=/jslib/jslib.js></script><script>function tolt_convert(){var n=$("#tolt_oldhtml")[0].value,t;n.length!=0&&(t=n.replace(/</g,"&lt;").replace(/>/g,"&gt;"),$("#tolt_newhtml")[0].value=t)}function tole_clear(){$("#tolt_oldhtml,#tolt_newhtml").each(n=>{n.value=""})}</script></body></html>
+    <textarea id=tolt_newhtml class="textarea grid-10" style=height:200px></textarea></div></div><hr class=line /><script src=/jslib/jslib.js></script><script>function tolt_convert(){var n=$("#tolt_oldhtml")[0].value,t;n.length!=0&&(t=n.replace(/</g,"&lt;").replace(/>/g,"&gt;"),$("#tolt_newhtml").val(t)[0].select())}function tole_clear(){$("#tolt_oldhtml,#tolt_newhtml").each(n=>{n.value=""})}</script></body></html>
