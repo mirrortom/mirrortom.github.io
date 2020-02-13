@@ -1,0 +1,34 @@
+<!DOCTYPE html><html lang=en><head><meta charset=utf-8 /><meta http-equiv=X-UA-Compatible content="IE=edge,chrome=1" /><meta name=viewport content="width=device-width,initial-scale=1.0,user-scalable=no" /><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png /><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png /><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png /><link rel=manifest href=/site.webmanifest /><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5 /><meta name=msapplication-TileColor content=#da532c /><meta name=theme-color content=#ffffff /><title>MemoryCache | Mirror Space</title><link href=/mirrorui/mirrorui.css rel=stylesheet /><link href=/asset/css/blog.css rel=stylesheet /></head><body><div class=layout><div class=layout-part1><a class="mainmenu-onoff d-block d-md-none" onclick=mainmenuonoff()>Ω</a><div id=mainmenubox class="mainmenu d-none d-md-block"><div class=logobox> <img src=/asset/img/logo.jpg class=logoimg /></div><h3 class=pd-5>Mirror Space</h3><hr class=line /><a class=mainmenu-link href=/index.html>Home</a> <a class=mainmenu-link href=/about.html>About</a> <a class=mainmenu-link href=/projectinfo.html>Info</a><div class=theme id=themebox> <a class=mainmenu-btn onclick=changetheme(1)>白天sun</a> <a class=mainmenu-btn onclick=changetheme(2)>夜晚moon</a><br /> <a class=mainmenu-btn onclick=changefontsize(14)>A</a> <a class=mainmenu-btn onclick=changefontsize(16)>AA</a> <a class=mainmenu-btn onclick=changefontsize(20)>AAA</a></div></div><script src=/asset/js/mainmenu.js></script></div><div class=layout-part2><div class=wz-page><div><div id=article_headerbox></div><a onclick=window.history.back() class="btn link danger">返回上页</a><hr class=line /></div><script src=/asset/js/article.js></script><script>(()=>{let f=window.location.pathname,u=f.split("/"),e="article_"+u[2],t=JSON.parse(window.sessionStorage.getItem(e)),i=u[3].replace(".html",""),n={};n.t=t[i][0];n.d=t[i][1];n.a=t[i][2];let r=`<h1 class="text-center">${n.t}</h1>`;r+=`<h5>作者:&emsp;<span></span>${n.a}</h5>`;r+=`<h5>日期:&emsp;<span></span>${n.d}</h5>`;let o=window.document.querySelector("#article_headerbox");o.innerHTML=r})()</script><h3>简介</h3><p>使用MemoryCache 类实现缓存功能</p><p>文档地址: <a href="https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.extensions.caching.memory.memorycache?view=dotnet-plat-ext-3.1" target=_blank>https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.extensions.caching.memory.memorycache?view=dotnet-plat-ext-3.1</a></p><p>内存中缓存(文章): <a href="https://docs.microsoft.com/zh-cn/aspnet/core/performance/caching/memory?view=aspnetcore-3.1" target=_blank>https://docs.microsoft.com/zh-cn/aspnet/core/performance/caching/memory?view=aspnetcore-3.1</a></p><h3>测试使用</h3><p>以下是在.net core2.1的控制台程序中的测试.</p><p>先加入nuget包引用:</p><p class=bg-gray>Microsoft.Extensions.Caching.Memory</p><p>代码中加入命名空间:</p><p class=bg-gray>using Microsoft.Extensions.Caching.Memory;</p><p>新建实例</p>
+  <pre class=bg-gray>
+// 配置对象
+MemoryCacheOptions mcop = new MemoryCacheOptions();
+
+// new
+MemoryCache cache = new MemoryCache(mcop);
+</pre><br /><p>和其它缓存用法一样,添加KV对.</p>
+  <pre class=bg-gray>
+// Set方法 添加一个key为id的kv对
+cache.Set("id","mirror");
+
+// Get方法 根据键取值. 如果知道值的类型,可以使用泛型重载
+string v = cache.Get&lt;string>("id"); // mirror
+</pre><br /><p>设置过期时间</p>
+  <pre class=bg-gray>
+// 相对过期时间,从Set开始设置好开始到60秒时间内可以取得id的值,60秒后取值为null
+cache.Set("id", "mirror", TimeSpan.FromSeconds(60));
+
+// 绝对过期时间,设置一个具体时间点,到时间就过期.
+DateTimeOffset maxDate = DateTimeOffset.Parse("2020/02/13 23:59:59");
+cache.Set("id", "mirror", maxDate);
+</pre><br /><p>其它k,v类型</p>
+  <pre class=bg-gray>
+// 键是字节,值是个数组
+byte[] k = new byte[] { 1, 2, 3 };
+int[] v = new int[5] { 1, 3, 5, 7, 11 };
+
+// 泛型是值的类型
+cache.Set&lt;int[]>(k, v);
+
+// 得到第3个值
+int val = cache.Get&lt;int[2]>(k); // 5
+</pre><h3>一些应用</h3><p>这个简洁的内存缓存可以用于web程序服务端,存放token.也可以用于桌面程序,存放一些耗时的操作结果.</p></div><hr class=line /></div></div></body></html>

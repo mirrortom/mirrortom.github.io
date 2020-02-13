@@ -30,7 +30,7 @@ WHERE c.object_id =
 SELECT c.name 列名,t.name 列类型,c.max_length 列长度,i.value 列说明
 FROM sys.columns c
 JOIN sys.systypes t ON t.xusertype=c.system_type_id
-LEFT JOIN sys.extended_properties i ON i.minor_id=c.column_id
+LEFT JOIN sys.extended_properties i ON i.minor_id=c.column_id AND i.major_id=c.object_id
 WHERE c.object_id = 
         (SELECT object_id FROM sys.tables WHERE type='U' AND name='user')
 </pre><p class=article-title>like</p>
