@@ -46,11 +46,26 @@ fetch('/api/json1')
   // 这里,拿到了两此请求的所有数据
   .then(data=>console.log(data))
 </pre><p>then(callback(res))的callback()方法的返回值可以是json对象,string对象,或者其它对象,自定义对象,它会被包装成Promise对象返回,</p><p>下一个then()的函数参数callback(res)的参数res就是上一个then()方法返回的对象.</p><h4>错误处理</h4><p>.catch((err)=>{console.log(err)}) .then()之后的.catch()方法,在出现错误时会调用.ajax出错的常见情况有:网路不通,</p><p>ajax方法本身有异常,接口地址错了,服务器异常了.这时都会到.catch()方法里来,前提是要写上.</p>
-      <pre>
-.fetch(url)
+      <pre class=code>
+fetch(url)
   .then(res=>res.json())
   .catch(err=>{console.log(err)})
-</pre><p>还有一种错误是由于没有弄清返回值类型而报出异常.比如一个接口返回值不是json类型,而是文本类型,此时如果在.then(res=>res.json())</p><p>就会异常,因为返回值不是json类型,所以res.json()的解析就会出错.所以要事先知道返回值类型.根据类型选择res.json()或res.text()</p><p><a href=https://www.cnblogs.com/libin-1/p/6853677.html>详细讲解fetch() https://www.cnblogs.com/libin-1/p/6853677.html</a></p><p><a target=_blank href=https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Using_promises>promise对象参考文档 https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Using_promises</a></p></div><div id=nextSibling class=apiarea><h2>nextSibling</h2><p class=code>nextNode = node.nextSibling</p><p>Node.nextSibling 是一个只读属性,返回其父节点的 childNodes 列表中紧跟在其后面的节点,如果指定的节点为最后一个节点,则返回 null</p><p>其它测试说明</p><p>Gecko内核的浏览器会在源代码中标签内部有空白符的地方插入一个文本结点到文档中.因此,</p><p>使用诸如 Node.firstChild 和 Node.previousSibling 之类的方法可能会引用到一个空白符文本节点, 而不是使用者所预期得到的节点.</p>
+</pre><p>还有一种错误是由于没有弄清返回值类型而报出异常.比如一个接口返回值不是json类型,而是文本类型,此时如果在.then(res=>res.json())</p><p>就会异常,因为返回值不是json类型,所以res.json()的解析就会出错.所以要事先知道返回值类型.根据类型选择res.json()或res.text()</p>
+      <pre class=code>
+// 一种错误处理办法
+fetch(url)
+  .then(res=>{
+    // 正常情况返回json对象给后续处理
+    if(res.ok)
+      return res.json();
+    // 异常情况时,丢出异常.让后面的catch()执行
+      throw new Error('出错了')
+  })
+  .catch(err=>{
+    // 异常信息
+    console.log(err.message);
+  })
+</pre><p><a href=https://www.cnblogs.com/libin-1/p/6853677.html>详细讲解fetch() https://www.cnblogs.com/libin-1/p/6853677.html</a></p><p><a target=_blank href=https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Using_promises>promise对象参考文档 https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Guide/Using_promises</a></p></div><div id=nextSibling class=apiarea><h2>nextSibling</h2><p class=code>nextNode = node.nextSibling</p><p>Node.nextSibling 是一个只读属性,返回其父节点的 childNodes 列表中紧跟在其后面的节点,如果指定的节点为最后一个节点,则返回 null</p><p>其它测试说明</p><p>Gecko内核的浏览器会在源代码中标签内部有空白符的地方插入一个文本结点到文档中.因此,</p><p>使用诸如 Node.firstChild 和 Node.previousSibling 之类的方法可能会引用到一个空白符文本节点, 而不是使用者所预期得到的节点.</p>
       <pre class=code>
 var elem = document.getElementById('#id');
 // elem到组后一个时,值为null
