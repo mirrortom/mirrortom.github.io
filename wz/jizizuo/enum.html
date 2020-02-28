@@ -1,0 +1,69 @@
+<!DOCTYPE html><html lang=en><head><meta charset=utf-8 /><meta http-equiv=X-UA-Compatible content="IE=edge,chrome=1" /><meta name=viewport content="width=device-width,initial-scale=1.0,user-scalable=no" /><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png /><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png /><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png /><link rel=manifest href=/site.webmanifest /><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5 /><meta name=msapplication-TileColor content=#da532c /><meta name=theme-color content=#ffffff /><title>Enum枚举 | Mirror Space</title><link href=/mirrorui/mirrorui.css rel=stylesheet /><link href=/asset/css/blog.css rel=stylesheet /></head><body><div class=layout><div class=layout-part1><a class="mainmenu-onoff d-block d-md-none" onclick=mainmenuonoff()>Ω</a><div id=mainmenubox class="mainmenu d-none d-md-block"><div class=logobox> <img src=/asset/img/logo.jpg class=logoimg /></div><h3 class=pd-5>Mirror Space</h3><hr class=line /><a class=mainmenu-link href=/index.html>Home</a> <a class=mainmenu-link href=/about.html>About</a> <a class=mainmenu-link href=/projectinfo.html>Info</a><div class=theme id=themebox> <a class=mainmenu-btn onclick=changetheme(1)>白天sun</a> <a class=mainmenu-btn onclick=changetheme(2)>夜晚moon</a><br /> <a class=mainmenu-btn onclick=changefontsize(14)>A</a> <a class=mainmenu-btn onclick=changefontsize(16)>AA</a> <a class=mainmenu-btn onclick=changefontsize(20)>AAA</a></div></div><script src=/asset/js/mainmenu.js></script></div><div class=layout-part2><div class=wz-page><div><div id=article_headerbox></div><a onclick=window.history.back() class="btn link danger">返回上页</a><hr class=line /></div><script src=/asset/js/article.js></script><script>(()=>{let f=window.location.pathname,u=f.split("/"),e="article_"+u[2],t=JSON.parse(window.sessionStorage.getItem(e)),i=u[3].replace(".html",""),n={};n.t=t[i][0];n.d=t[i][1];n.a=t[i][2];let r=`<h1 class="text-center">${n.t}</h1>`;r+=`<h5>作者:&emsp;<span></span>${n.a}</h5>`;r+=`<h5>日期:&emsp;<span></span>${n.d}</h5>`;let o=window.document.querySelector("#article_headerbox");o.innerHTML=r})()</script><h3>简介</h3><p>C#枚举类型 <b>Enum</b> 是值类型,每个成员的值是一个整数值,名字是一个有意义的名字.</p><p>枚举值默认从0开始,其后累加1</p><p>枚举经常用于一些固定不变的状态值,状态个数不多时(20个以内).因为用有意义的名字代表了状态值,所有在编码时比较方便.</p><h3>测试使用</h3><p>性别枚举: enum是关键字 ,Sex是枚举名字(自定义的), man,woman是枚举成员</p>
+  <pre class=bg-gray>
+  <b>enum</b> Sex
+    {
+        man,
+        woman
+    }
+    // 打印名字
+    Console.WriteLine(Sex.man); // man
+    // 打印值
+    Console.WriteLine((int)Sex.man); // 0
+    
+    // 名字可以是汉字
+    enum Sex
+    {
+        男,
+        女
+    }
+</pre><br /><p>枚举的值可以自定义,可以是负数,值可以相同,名字不能相同</p>
+  <pre class=bg-gray>
+    enum Sex
+    {
+        other = -1,
+        man = 1,
+        boy = 1,
+        woman = 2,
+        girl = 2,
+        err
+    }
+    // err没有设置值,它的值是3.(Sex.woman + 1)
+
+</pre><br /><p>列出枚举的所有名字~值,使用Enum类的静态方法</p>
+  <pre class=bg-gray>
+    enum Sex
+    {
+        other,
+        man,
+        woman,
+    }
+    // 所有的名字
+    string[] names = Enum.GetNames(typeof(Sex));
+    Console.WriteLine(string.Join(',', names)); // other,man,woman
+
+    // 所有值
+    Array values = Enum.GetValues(typeof(Sex));
+    foreach (int item in values)
+    {
+        Console.WriteLine(item); // 0 , 1 , 2
+    }
+
+</pre><br /><h4>组合枚举值</h4><p>一个枚举值是由多个枚举组和的.可以用于同时又几种状态的情况,例如权限.</p><p>要这样所有枚举,注意2点: 1.要贴上[Flags]这个特性,表示这个枚举值可以是组合的.</p><p>2.组合的枚举值不能等于任何一个枚举项的值,否则错误.</p><p>下面的组合 read + write 值是3,那么,Power枚举中不能有值是3的枚举项.否则组合错误,不成立.</p><p>避免错误的方法是,值使用 2^n (1,2,4,8,16,32,.....)</p>
+  <pre class=bg-gray>
+    [Flags]
+    enum Power
+    {
+        read = 1,
+        write = 2,
+        exec = 4,
+    }
+    // 组合权限
+    Power rw = Power.read | Power.write;
+    Console.WriteLine(rw); // read , write
+
+</pre><br /><p>判断组合枚举值包含那个枚举项</p>
+  <pre class=bg-gray>
+    bool has = rw.HasFlag(Power.read);
+    Console.WriteLine(has); // True
+
+</pre><br /><h3>应用</h3><p>使用枚举可以减少数据库使用,一些固定不变的状态可以不必放到数据库.使用枚举建立对应关系,用起来方便.</p><p>固定项数量太多时,不宜使用枚举,可以想想一个有几百个成员的枚举,用起来时麻烦的.</p><p>经常变化的状态,不宜使用枚举.</p></div><hr class=line /></div></div></body></html>
