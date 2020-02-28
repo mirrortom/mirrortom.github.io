@@ -68,6 +68,22 @@ ELSE
     BEGIN
         SELECT '错'
     END
+</pre><p class=article-title>case when</p>
+  <pre class=bg-gray>
+-- case 列 when 条件 then 值 ... ELSE 值 END
+CASE col
+    WHEN '1'
+        THEN 1
+    WHEN '2'
+        THEN 2
+    ELSE 0
+END
+//
+CASE
+    WHEN col IS NULL
+        THEN 0
+    ELSE 1
+END
 </pre><p class=article-title>时间间隔</p>
   <pre class=bg-gray>
 --查询当天：   
