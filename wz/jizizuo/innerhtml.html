@@ -1,0 +1,37 @@
+<!DOCTYPE html><html lang=en><head><meta charset=utf-8 /><meta http-equiv=X-UA-Compatible content="IE=edge,chrome=1" /><meta name=viewport content="width=device-width,initial-scale=1.0,user-scalable=no" /><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png /><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png /><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png /><link rel=manifest href=/site.webmanifest /><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5 /><meta name=msapplication-TileColor content=#da532c /><meta name=theme-color content=#ffffff /><title>innerhtml | Mirror Space</title><link href=/mirrorui/mirrorui.css rel=stylesheet /><link href=/asset/css/blog.css rel=stylesheet /></head><body><div class=layout><div class=layout-part1><a class="mainmenu-onoff d-block d-md-none" onclick=mainmenuonoff()>Ω</a><div id=mainmenubox class="mainmenu d-none d-md-block"><div class=logobox> <img src=/asset/img/logo.jpg class=logoimg /></div><h3 class=pd-5>Mirror Space</h3><hr class=line /><a class=mainmenu-link href=/index.html>Home</a> <a class=mainmenu-link href=/about.html>About</a> <a class=mainmenu-link href=/projectinfo.html>Info</a><div class=theme id=themebox> <a class=mainmenu-btn onclick=changetheme(1)>白天sun</a> <a class=mainmenu-btn onclick=changetheme(2)>夜晚moon</a><br /> <a class=mainmenu-btn onclick=changefontsize(14)>A</a> <a class=mainmenu-btn onclick=changefontsize(16)>AA</a> <a class=mainmenu-btn onclick=changefontsize(20)>AAA</a></div></div><script src=/asset/js/mainmenu.js></script></div><div class=layout-part2><div class=wz-page><div><div id=article_headerbox></div><a onclick=window.history.back() class="btn link danger">返回上页</a><hr class=line /></div><script src=/asset/js/article.js></script><script>(()=>{let f=window.location.pathname,u=f.split("/"),e="article_"+u[2],t=JSON.parse(window.sessionStorage.getItem(e)),i=u[3].replace(".html",""),n={};n.t=t[i][0];n.d=t[i][1];n.a=t[i][2];let r=`<h1 class="text-center">${n.t}</h1>`;r+=`<h5>作者:&emsp;<span></span>${n.a}</h5>`;r+=`<h5>日期:&emsp;<span></span>${n.d}</h5>`;let o=window.document.querySelector("#article_headerbox");o.innerHTML=r})()</script><p>innerHTML属性是个经常用到的原生属性.将html元素用字符串形式设置到父元素中,经常用于将动态拼接的html文本,显示在父容器里.</p><p>拼html字符串的办法已经被认为不妥,正经的办法是使用appendChild()或者createDocumentFragment().不过对于少量的html,当然也能用.</p><p>以前用jQuery库,对应的方法是$('#id').html(),在使用原生属性时,发现与jquery行为有所不同.</p><p>这可能是原生innerHTML属性在执行时,有判断过程.会判断父元素是否可以接受html文本.而jQuery已经处理过这个问题,它的html()方法分析过html字符串.</p><p>以下测试在谷歌浏览器80+版本,x64.</p><p>将div的子元素换成a标记</p>
+  <pre class=bg-gray>
+    &lt;div id = "div1">&lt;/div>
+
+    let div = document.getElementById('div1');
+    div.innerHTML = '&lt;a>link&lt;/a>';
+
+    // 结果
+    &lt;div class="btn" id="div1">&lt;a>link&lt;/a>&lt;/div>
+
+</pre><br /><p>这是预期的结果,div里可以放a.如果换成tr就不能成功.</p>
+  <pre class=bg-gray>
+    div.innerHTML = '&lt;tr>&lt;td>data&lt;/td>&lt;/tr>';
+    
+    // 结果 没有加进去
+    &lt;div id = "div1">&lt;/div>
+
+</pre><br /><p>tr是表格table里的子元素,如果div换成table呢</p>
+  <pre class=bg-gray>
+    &lt;table id="tab1">&lt;/table>
+
+    let tab = document.getElementById('tab1');
+    tab.innerHTML = '&lt;tr>&lt;td>data&lt;/td>&lt;/tr>';
+
+    // 结果
+    &lt;table id="tab1"><b>&lt;tbody></b>&lt;tr>&lt;td>data&lt;/td>&lt;/tr><b>&lt;/tbody></b>&lt;/table>
+
+</pre><br /><p>成功了.不过不太一样,table里多了一个tbody元素,而innerHTML时并没有这个tbody.这是原生innerHTML属性自己的行为.</p><p>可见,innerHTML也会分析设置的html字符串,如果发现"不合法"的,会拒绝加入.</p><p>使用html对象而不是字符串,可以实现预期效果</p>
+  <pre class=bg-gray>
+    let tr = document.createElement('tr');
+    tr.innerHTML = '&lt;td>data&lt;/td>';
+    tab.appendChild(tr);
+
+    // 结果
+    &lt;table id="tab1">&lt;tr>&lt;td>data&lt;/td>&lt;/tr>&lt;/table>
+
+</pre><br /><p>建立tr元素对象,使用appendChild(tr)加到table,结果里没有tboby元素.</p><p>在项目中还是减少使用innerHTML,使用正规的appendChild()和createDocumentFragment()</p></div><hr class=line /></div></div></body></html>
