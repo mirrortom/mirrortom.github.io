@@ -6,6 +6,9 @@
     // new
     MemoryCache cache = new MemoryCache(mcop);
 
+    // 缓存数量属性
+    cache.Count; // 0
+
 </pre><br /><p>和其它缓存用法一样,添加KV对.</p>
   <pre class=bg-gray>
     // Set方法 添加一个key为id的kv对
@@ -13,6 +16,9 @@
 
     // Get方法 根据键取值. 如果知道值的类型,可以使用泛型重载
     string v = cache.Get&lt;string>("id"); // mirror
+
+    // 如果key不存在,得到null值
+    cache.Get("Idid"); // null
 
 </pre><br /><p>设置过期时间</p>
   <pre class=bg-gray>
@@ -34,4 +40,15 @@
 
     // 得到第3个值
     int val = cache.Get&lt;int[2]>(k); // 5
-  </pre><h3>一些应用</h3><p>这个简洁的内存缓存可以用于web程序服务端,存放token.也可以用于桌面程序,存放一些耗时的操作结果.</p></div><hr class=line /></div></div></body></html>
+  </pre><br /><p>删除键</p>
+  <pre class=bg-gray>
+    // Remove()
+    cache.Remove("id");
+    cache.Get("id"); // null
+
+    // 如果设置一个过去的过期时间,效果同删除
+    DateTimeOffset maxDate = DateTimeOffset.Parse("1900/01/01 23:59:59");
+    cache.Set("id", "mirror", maxDate);
+    cache.Get("id"); // null
+
+</pre><h3>一些应用</h3><p>这个简洁的内存缓存可以用于web程序服务端,存放token.也可以用于桌面程序,存放一些耗时的操作结果.</p></div><hr class=line /></div></div></body></html>

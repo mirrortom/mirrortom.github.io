@@ -139,9 +139,6 @@ ORDER BY [CreateTime] DESC
 OFFSET @OffSetRows ROWS FETCH NEXT @PageSize ROWS ONLY
 </pre>
   <br />
-
-
-
   <pre class=bg-gray>
 -- OFFSET分页2,同时计算总条数 
 SELECT ROW_NUMBER() OVER (ORDER BY [CreateTime] DESC) RowNumber
@@ -159,4 +156,17 @@ SELECT REPLACE(NEWID(), '-', '')
   <pre class=bg-gray>
 -- 返回自增主键
 INSERT INTO 表([col1]) VALUES(@col1);SELECT SCOPE_IDENTITY()
-</pre></div><hr class=line /></body></html>
+</pre><p class=article-title>每小组特定值</p><p>这是一个常用的需求,一张表中的数据,可以按一个或者多个字段分组,在每个分组数据中查出符合要求的那一条或者多条记录.</p><p>最简单例子:找出订单表中,每一天的金额最大的那一个订单,要列出所有字段.</p><p>使用开窗函数 OVER(PARTITION BY col ORDER BY col) 解决.使用group by不够方便.</p><p>所谓开窗函数,可以将数据分组,PARTITION BY 分组字段,ORDER BY 排序字段.</p>
+  <pre class=bg-gray>
+-- 第一步,按每天分组订单记录,并且每个分组按金额由大到小排列.
+-- OVER函数前的,ROW_NUMBER()函数是关键,它为每组生成行号.执行结果会多出一个rowNumber字段(别名).
+SELECT col1, col2, ROW_NUMBER() OVER(PARTITION BY 每天日期 ORDER BY 金额 DESC) rowNumber
+FROM 订单表
+
+-- 第二步就简单了,每组行号为1的就是每天的最大金额记录,在外套一层查询就得到结果了
+SELECT col1, col2
+FROM
+(SELECT col1, col2, ROW_NUMBER() OVER(PARTITION BY 每天日期 ORDER BY 金额 DESC) rowNumber
+FROM 订单表) 订单表开窗函数结果集别名
+WHERE 订单表开窗函数结果集别名.rowNumber=1
+</pre><br /><p>由于要列出所有字段,所以使用group by不是特别方便.</p></div><hr class=line /></body></html>
