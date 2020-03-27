@@ -1,0 +1,119 @@
+<!DOCTYPE html><html lang=en><head><meta charset=utf-8 /><meta http-equiv=X-UA-Compatible content="IE=edge,chrome=1" /><meta name=viewport content="width=device-width,initial-scale=1.0,user-scalable=no" /><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png /><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png /><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png /><link rel=manifest href=/site.webmanifest /><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5 /><meta name=msapplication-TileColor content=#da532c /><meta name=theme-color content=#ffffff /><title>三角形 | canvas-demo | Mirror Space</title><link href=/mirrorui/mirrorui.css rel=stylesheet /><link href=/asset/css/blog.css rel=stylesheet /></head><body><div class=layout><div class=layout-part1><a class="mainmenu-onoff d-block d-md-none" onclick=mainmenuonoff()>Ω</a><div id=mainmenubox class="mainmenu d-none d-md-block"><div class=logobox> <img src=/asset/img/logo.jpg class=logoimg /></div><h3 class=pd-5>Mirror Space</h3><hr class=line /><a class=mainmenu-link href=/index.html>Home</a> <a class=mainmenu-link href=/about.html>About</a> <a class=mainmenu-link href=/projectinfo.html>Info</a><div class=theme id=themebox> <a class=mainmenu-btn onclick=changetheme(1)>白天sun</a> <a class=mainmenu-btn onclick=changetheme(2)>夜晚moon</a><br /> <a class=mainmenu-btn onclick=changefontsize(14)>A</a> <a class=mainmenu-btn onclick=changefontsize(16)>AA</a> <a class=mainmenu-btn onclick=changefontsize(20)>AAA</a></div></div><script src=/asset/js/mainmenu.js></script></div><div class=layout-part2><h2>三角形</h2><p>三角形</p><h4>中线</h4><p>顶点与对边中点连线: 红色</p><p>三角形一边的中点坐标,可以使用平分线定理求出.中点坐标为两端点坐标和的一半.例如边 ab 的平分点 m</p><p>m.x = ( a.x + b.x ) / 2 , m.y = ( a.y + b.y ) / 2</p><p>3个中线交点连线得三角形: 绿色</p><canvas id=canvas1></canvas><h4>垂线</h4><p>顶点与对边垂足连线: 红色</p><p>3个垂足连线得三角形: 绿色</p><canvas id=canvas2></canvas><h5>对边上的垂足坐标,使用向量法求出.分析过程如下:</h5><p>根据两个向量垂直性质 a(x1,y1) ⊥ b(x2,y2) ,那么有 x1 * x2 + y1 * y2 = 0</p><p>下图中,CH是AB边上的高,那么就有 AB ⊥ HC ,同时还有 AH ⊥ HC</p><p>根据向量坐标表示法写出来: 设H点的坐标是 (x , y)</p>
+<pre class=bg-gray>
+    // 设 H 点的坐标是 (x , y) , A 点 (a.x , a.y) B 点 (b.x , b.y) , AB , AH , HC 表示向量
+    AB = (b.x - a.x , b.y - a.y)
+    AH = (x - a.x , y - a.y)
+    HC = (c.x - x , c.y - y)
+
+    // 因 AB ⊥ HC 故 AB * HC = 0 , 得到一个方程
+    ① (b.x - a.x) * (c.x - x) + (b.y - a.y) * (c.y - y) = 0
+    // 因 AH ⊥ HC 故 AH * HC = 0 , 得到二个方程
+    ② (x - a.x) * (c.x - x) + (y - a.y) * (c.y - y) = 0
+
+    // 解这2个方程得出x,y值,就是垂足坐标
+    
+</pre><h5>方程具体解法</h5><p>化简方程1得到 x 的表达式</p>
+<pre class=bg-gray>
+    ① (b.x - a.x) * (c.x - x) + (b.y - a.y) * (c.y - y) = 0
+    //
+    (b.x - a.x) * (c.x - x) = - (b.y - a.y) * (c.y - y)
+    c.x - x = - (b.y - a.y) * (c.y - y) / (b.x - a.x)
+
+    // 得到 x
+    x = (b.y - a.y) * (c.y - y) / (b.x - a.x) + c.x
+    
+    // 设
+    M = (b.y - a.y) / (b.x - a.x)
+    α = c.y - y
+    β = a.y - y 
+
+    // 简化表达式的 x
+    x = α * M + c.x
+
+</pre><br /><p>将 x 的表达式带入方程2 ,得到 y 值</p>
+<pre class=bg-gray>
+    ② (x - a.x) * (c.x - x) + (y - a.y) * (c.y - y) = 0
+    
+    // 带入后展开
+    (α * M + c.x - a.x) * (c.x - α * M - c.x) + (y - a.y) * (c.y - y) = 0
+    - (α * M)^2 - α * M * (c.x - a.x) + α * β = 0
+
+    // 方程两边消去一个 α
+    - α * M^2 - c.x * M + a.x * M - β = 0
+    α * M^2 + β = M * (a.x - c.x)
+
+    // 将 β α 的再代入,化简
+    (c.y - y) * M^2 + a.y - y  = M * (a.x - c.x)
+    c.y * M^2 - y * M^2 + a.y - y = M * (a.x - c.x)
+    y * (M^2 + 1) = a.y - M * (a.x - c.x - c.y * M)
+
+    // 到此, y 坐标就可以求出
+    y = (a.y - M * (a.x - c.x - c.y * M)) / (M^2 + 1)
+
+    // 得到 y 后,再带入第一步得到的 x 的方程得到 x
+    x = (b.y - a.y) * (c.y - y) / (b.x - a.x) + c.x
+
+</pre><h4>角平分线</h4><p>顶点与对边连线平分顶点的角: 黄色</p><p>3个角平分线交点连线得三角形: 绿色</p><p>重要性质:角平分线上的点,离角两边的距离相等.角平分线交点是三角形内切圆的圆心.</p><canvas id=canvas3></canvas><h5>角平分线对边交点坐标使用定比分点公式求出:</h5><p>AH 是角 A 的平分线, H 是与对边 BC 的交点.</p><p>根据角平分线的性质有: AB / AC = BH / HC</p><p>B , H ,C 是共线的, H 将 BC 分为 BH / HC 这样就可以使用定比分点公式:</p>
+<pre class=bg-gray>
+x = (x1 + λ * x2) / (1 + λ)
+
+y = (y1 + λ * y2) / (1 + λ)
+
+</pre><br /><p>这个公式中 x1 , x2 , y1 , y2 是线段两个端点坐标, λ 是比例,是分线段为两段后的长度比例.</p><p>λ = BH / HC = AB / AC 而 AB / AC 可以使用两点间距离公式求出.这样就得到 λ 值.</p><p>B , C 坐标已知,故能求出 x , y</p><h4>中垂线</h4><p>三边中点的垂线: 红色</p><p>重要性质: 中垂线交点是三角形外接圆的圆心.</p><canvas id=canvas4></canvas><h5>中垂线交点坐标使用向量法求出.分析过程如下:</h5><p>图中,HD HE HF 是垂线,那么就有 AB ⊥ HD BC ⊥ HE CA ⊥ HF 根据垂直向量性质,得到方程组.</p>
+<pre class=bg-gray>
+    AB * HD = 0 
+    BC * HE = 0
+    CA * HF = 0
+
+    // 方程组
+    AB * HD = BC * HE
+    BC * HE = CA * HF
+    
+    // 设 H 点的坐标是 (x , y) , A 点 (a.x , a.y) B 点 (b.x , b.y) C 点(c.x , c.y)
+    ① (b.x - a.x) * (d.x - x) + (b.y - a.y) * (d.y - y) = (c.x - b.x) * (e.x - x) + (c.y - b.y) * (e.y - y)
+    ② (c.x - b.x) * (e.x - x) + (c.y - b.y) * (e.y - y) = (a.x - c.x) * (f.x - x) + (a.y - c.y) * (f.y - y)
+
+    // 解这2个方程得出 x , y 值,就是中垂线交点坐标
+
+</pre><h5>方程具体解法</h5><p>初步化简后发现,这是2元1次方程组,化简成 A*x + B*y = C 的形式求解.</p>
+<pre class=bg-gray>
+    // ①
+    (c.x - 2 * b.x + a.x) * x + (c.y - 2 * b.y + a.y) * y = 
+        (c.x - b.x) * e.x + (c.y - b.y) * e.y - (b.x - a.x) * d.x - (b.y - a.y) * d.y
+
+    // ②
+    (a.x - 2 * c.x + b.x) * x + (a.y - 2 * c.y + b.y) * y =
+        (a.x - c.x) * f.x + (a.y - c.y) * f.y - (c.y - b.y) * e.y - (c.x - b.x) * e.x
+
+    // 设 A1 , B1 , C1 | A2 , B2 , C2, 是 ① , ② 的系数
+    A1 = c.x - 2 * b.x + a.x
+    B1 = c.y - 2 * b.y + a.y
+    C1 = (c.x - b.x) * e.x + (c.y - b.y) * e.y - (b.x - a.x) * d.x - (b.y - a.y) * d.y
+
+    A2 = (a.x - 2 * c.x + b.x)
+    B2 = a.y - 2 * c.y + b.y
+    C2 = (a.x - c.x) * f.x + (a.y - c.y) * f.y - (c.y - b.y) * e.y - (c.x - b.x) * e.x
+
+    // 那么
+    A1 * x + B1 * y = C1
+    A2 * x + B2 * y = C2
+    
+    // 由 ① 得 x
+    x = (C1 - B1 * y) / A1
+    // 带入 ② 求出 y 值
+    A2 * (C1 - B1 * y) / A1 + B2 * y = C2
+    y = (A1 * C2 - A2 * C1) / (A1 * B2 - A2 * B1)
+
+</pre><h4>内切圆与外接圆</h4><p>内切圆圆心是角平分线交点,圆心坐标与半径可以由下列公式计算出</p>
+<pre class=bg-gray>
+    // r = 内切圆半径 S = 三角形面积 C = 三角形周长 
+    r = 2S / C
+
+    // 三角形三个顶点
+    A : (x1,x2) , B : (y1,y2) , C : (z1,z2) 
+    
+    // 内切圆圆心坐标 (x , y)
+    x = ax1 + by1 + cz1 / C
+    y = ax2 + by2 + cz2 / C
+  
+</pre><br /><p>外接圆圆心是中垂线交点,这个坐标已实现计算函数,半径就是圆心到任意一个顶点的距离</p><p>内切圆圆心:绿色 , 外接圆圆心:黄色</p><canvas id=canvas5></canvas><hr class=line /><script src=/jslib/cavlib.js></script><script>(()=>{let n=(n,t,i)=>{let r={};return r.a=n,r.b=t,r.c=i,r.sideLengths=()=>{let n=r.a,t=r.b,i=r.c,u=Math.sqrt((n.x-t.x)*(n.x-t.x)+(n.y-t.y)*(n.y-t.y)),f=Math.sqrt((t.x-i.x)*(t.x-i.x)+(t.y-i.y)*(t.y-i.y)),e=Math.sqrt((i.x-n.x)*(i.x-n.x)+(i.y-n.y)*(i.y-n.y));return[u,f,e]},r.area=()=>{let t=r.sideLengths(),i=t[0],u=t[1],f=t[2],n=i+u+f;return Math.sqrt(n/2*(n/2-i)*(n/2-u)*(n/2-f))},r.middlePoints=()=>{let n=r.a,t=r.b,i=r.c,u={x:(n.x+t.x)/2,y:(n.y+t.y)/2},f={x:(t.x+i.x)/2,y:(t.y+i.y)/2},e={x:(i.x+n.x)/2,y:(i.y+n.y)/2};return[u,f,e]},r.verticalPoints=()=>{let t=r.a,i=r.b,u=r.c,f=(n,t,i)=>{let r=(t.y-n.y)/(t.x-n.x),u=(n.y-r*(n.x-i.x-i.y*r))/(r*r+1),f=(i.y-u)*(t.y-n.y)/(t.x-n.x)+i.x;return{x:f,y:u}},n=[];return n.push(f(t,i,u)),n.push(f(u,i,t)),n.push(f(u,t,i)),n},r.angleBisectPoints=()=>{let t=r.a,i=r.b,u=r.c,f=(n,t,i)=>{let u=Math.sqrt((n.x-t.x)*(n.x-t.x)+(n.y-t.y)*(n.y-t.y)),f=Math.sqrt((n.x-i.x)*(n.x-i.x)+(n.y-i.y)*(n.y-i.y)),r=u/f,e=(t.x+r*i.x)/(1+r),o=(t.y+r*i.y)/(1+r);return{x:e,y:o}},n=[];return n.push(f(u,i,t)),n.push(f(t,i,u)),n.push(f(i,u,t)),n},r.middleVerticalCrossPoint=()=>{let i=r.a,n=r.b,t=r.c,f=r.middlePoints(),o=f[0],u=f[1],s=f[2],e=t.x-2*n.x+i.x,h=t.y-2*n.y+i.y,c=(t.x-n.x)*u.x+(t.y-n.y)*u.y-(n.x-i.x)*o.x-(n.y-i.y)*o.y,l=i.x-2*t.x+n.x,v=i.y-2*t.y+n.y,y=(i.x-t.x)*s.x+(i.y-t.y)*s.y-(t.y-n.y)*u.y-(t.x-n.x)*u.x,a=(e*y-l*c)/(e*v-l*h),p=(c-h*a)/e;return{x:p,y:a}},r.draw=(n,t=null,i=null)=>{let u=r.a,f=r.b,e=r.c;n.save();n.beginPath();n.moveTo(u.x,u.y);n.lineTo(f.x,f.y);n.lineTo(e.x,e.y);n.closePath();t&&(n.strokeStyle=t);n.stroke();i&&(n.fillStyle=i,n.fill());n.restore()},r.showTxt=(n,t="A",i="B",u="C",f=null)=>{let e=r.a,o=r.b,s=r.c;n.save();f&&(n.fillStyle=f);n.beginPath();n.fillText(t,e.x-15,e.y);n.fillText(i,o.x+5,o.y);n.fillText(u,s.x-15,s.y);n.restore()},r.middleLine=(n,t=null)=>{let f=r.a,e=r.b,o=r.c,u=[o,f,e],i=r.middlePoints();for(let r=0;r<3;r++)n.save(),n.beginPath(),n.moveTo(u[r].x,u[r].y),n.lineTo(i[r].x,i[r].y),t&&(n.strokeStyle=t),n.stroke(),n.restore();return i},r.verticalLine=(n,t=null)=>{let f=r.a,e=r.b,o=r.c,i=r.verticalPoints(),u=[o,f,e];n.save();n.beginPath();t&&(n.strokeStyle=t);for(let t=0,r=u.length;t<r;t++)n.moveTo(i[t].x,i[t].y),n.lineTo(u[t].x,u[t].y),n.stroke();return n.restore(),i},r.angleBisectLine=(n,t=null)=>{let f=r.a,e=r.b,o=r.c,i=[o,f,e],u=r.angleBisectPoints();n.save();n.beginPath();t&&(n.strokeStyle=t);for(let t=0,r=i.length;t<r;t++)n.moveTo(u[t].x,u[t].y),n.lineTo(i[t].x,i[t].y),n.stroke();return n.restore(),u},r.middleVerticalLine=(n,t=null)=>{let e=r.a,o=r.b,s=r.c,u=r.middleVerticalCrossPoint(),f=r.middlePoints();n.save();t&&(n.strokeStyle=t);for(var i=0;i<f.length;i++)n.beginPath(),n.moveTo(u.x,u.y),n.lineTo(f[i].x,f[i].y),n.stroke();return n.restore(),u},r.inCir=(n,t=null)=>{let s=r.a,h=r.b,c=r.c,i=r.sideLengths(),u=i[0],f=i[1],e=i[2],o=u+f+e,y=r.area(),l=(f*s.x+e*h.x+u*c.x)/o,a=(f*s.y+e*h.y+u*c.y)/o,v=2*y/o;return n.save(),n.beginPath(),n.arc(l,a,v,0,Math.PI*2),t&&(n.strokeStyle=t),n.stroke(),n.restore(),{x:l,y:a,r:v}},r.outCir=(n,t=null)=>{let u=r.a,e=r.b,o=r.c,i=r.middleVerticalCrossPoint(),f=Math.sqrt((i.x-u.x)*(i.x-u.x)+(i.y-u.y)*(i.y-u.y));return n.save(),n.beginPath(),n.arc(i.x,i.y,f,0,Math.PI*2),t&&(n.strokeStyle=t),n.stroke(),n.restore(),{x:i.x,y:i.y,r:f}},r};window.triangle=n})(window)</script><script>function canva5(){let n=InitCanvas("canvas5"),t=InitTri();t.draw(n,"blue");let u=(t,i,r,u,f)=>{n.save(),n.translate(t,i),n.beginPath(),n.strokeStyle=u,n.moveTo(0,0),n.lineTo(r,0),n.stroke(),n.beginPath(),n.arc(0,0,2,0,Math.PI*2),n.fillStyle=f,n.fill(),n.restore()},i=t.inCir(n,"green");u(i.x,i.y,i.r,"green","green");let r=t.outCir(n,"gold");u(r.x,r.y,r.r,"gold","gold")}function canva4(){let n=InitCanvas("canvas4"),i=InitTri();i.draw(n,"blue");let r=i.middleVerticalLine(n,"red");i.showTxt(n);let t=i.middlePoints();n.fillText("H",r.x-8,r.y-8);n.fillText("D",t[0].x-8,t[0].y+15);n.fillText("E",t[1].x+8,t[1].y);n.fillText("F",t[2].x-10,t[2].y)}function canva3(){let n=InitCanvas("canvas3"),t=InitTri();t.draw(n,"blue");let i=t.angleBisectLine(n,"red");t.showTxt(n);n.fillText("H",(t.c.x+t.b.x)/2,(t.c.y+t.b.y)/2);n.beginPath();n.moveTo(i[0].x,i[0].y);n.lineTo(i[1].x,i[1].y);n.lineTo(i[2].x,i[2].y);n.closePath();n.strokeStyle="green";n.stroke()}function canva2(){let n=InitCanvas("canvas2"),t=InitTri();t.draw(n,"blue");t.draw(n,"blue");let i=t.verticalLine(n,"red");t.showTxt(n);n.fillText("H",(t.a.x+t.b.x)/2,t.a.y);n.beginPath();n.moveTo(i[0].x,i[0].y);n.lineTo(i[1].x,i[1].y);n.lineTo(i[2].x,i[2].y);n.closePath();n.strokeStyle="green";n.stroke()}function canva1(){let n=InitCanvas("canvas1"),i=InitTri();i.draw(n,"blue");i.showTxt(n);let t=i.middleLine(n,"red");n.beginPath();n.moveTo(t[0].x,t[0].y);n.lineTo(t[1].x,t[1].y);n.lineTo(t[2].x,t[2].y);n.closePath();n.strokeStyle="green";n.stroke()}function InitTri(n,t,i){let r=n||{x:-90,y:65},u=t||{x:60,y:30},f=i||{x:-30,y:-60};return window.triangle(r,u,f)}function InitCanvas(n){let i=cavlib(n).style(),t=i.ctx;return t.font="16px serial",t.translate(150,75),t.save(),t.setLineDash([5,5]),t.strokeStyle="gray",i.lineArrow([-135,0,135,0]),i.lineArrow([0,60,0,-60]),t.restore(),t}canva1();canva2();canva3();canva4();canva5()</script></div></div></body></html>
