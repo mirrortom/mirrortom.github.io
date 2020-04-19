@@ -1,0 +1,57 @@
+<!DOCTYPE html><html lang=en><head><meta charset=utf-8 /><meta http-equiv=X-UA-Compatible content="IE=edge,chrome=1" /><meta name=viewport content="width=device-width,initial-scale=1.0,user-scalable=no" /><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png /><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png /><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png /><link rel=manifest href=/site.webmanifest /><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5 /><meta name=msapplication-TileColor content=#da532c /><meta name=theme-color content=#ffffff /><title>组合数学 | Mirror Space</title><link href=/mirrorui/mirrorui.css rel=stylesheet /><link href=/asset/css/blog.css rel=stylesheet /></head><body><div class=layout><div class=layout-part1><a class="mainmenu-onoff d-block d-md-none" onclick=mainmenuonoff()>Ω</a><div id=mainmenubox class="mainmenu d-none d-md-block"><div class=logobox> <img src=/asset/img/logo.jpg class=logoimg /></div><h3 class=pd-5>Mirror Space</h3><hr class=line /><a class=mainmenu-link href=/index.html>Home</a> <a class=mainmenu-link href=/about.html>About</a> <a class=mainmenu-link href=/projectinfo.html>Info</a><div class=theme id=themebox> <a class=mainmenu-btn onclick=changetheme(1)>白天sun</a> <a class=mainmenu-btn onclick=changetheme(2)>夜晚moon</a><br /> <a class=mainmenu-btn onclick=changefontsize(14)>A</a> <a class=mainmenu-btn onclick=changefontsize(16)>AA</a> <a class=mainmenu-btn onclick=changefontsize(20)>AAA</a></div></div><script src=/asset/js/mainmenu.js></script></div><div class=layout-part2><p>组合数学(原书第5版) 美 Richard Brualdi</p><div id=menubox class="grids-2 grids-sm-5"></div><h3>什么是组合数学</h3><p>数学归纳法</p><p>b-ominoe b 格牌 覆盖棋盘的(条形牌) (4页)</p><h5 id=m1>幻方</h5><p>一个 n x n 矩阵,其行~列~对角线上元素和都相等.和叫幻和.</p>
+<pre class=bg-gray>
+    8 1 6
+    3 5 7
+    4 9 2
+    // 这个3阶幻方的幻和是15
+    n 阶幻方的幻和公式 s = n * (n^2 + 1) / 2
+
+</pre><p>la Loubere 构造幻方的方法.可以造出 n 为奇数时的幻方. (8页)</p><h5 id=m2>36军官问题</h5><p>拉丁方</p><p>拉丁方是一个 n x n 矩阵,其元素特点是每一行每一列都是 (1,2,..,n) 的一种排列,且没有两行或者两列出现相同的排列.</p><p>或者是这样, (1,2,..,n)里的元素,在拉丁方的每一行每一列都出现一次.</p>
+<pre class=bg-gray>
+    // 3阶拉丁方 每一行每一列都有 (1,2,3) 这3个数
+    1 2 3
+    3 1 2
+    2 3 1
+
+    // 又一个3阶拉丁方
+    1 3 2
+    3 2 1
+    2 1 3
+
+    // 这个不是拉丁方,第2列没有3,第3列没有2
+    1 2 3
+    3 2 1
+    2 1 3
+
+</pre><p>正交拉丁方</p><p>如果有两个 n x n 的拉丁方矩阵 A B ,它们的元素按相应位置组成一个新元素c1(a1,b1),得到一个新的 n x n 矩阵 C.它的每个元素都互不相同.那么,A B是互相正交的拉丁方.</p>
+<pre class=bg-gray>
+    // 3阶拉丁方 A
+    1 2 3
+    3 1 2
+    2 3 1
+
+    // 3阶拉丁方 B
+    1 3 2
+    3 2 1
+    2 1 3
+ 
+    // 组合 A B , 其元素都是互不相同的
+    (1,1) (2,3) (3,2)
+    (3,3) (1,2) (2,1)
+    (2,2) (3,1) (1,3)
+
+</pre><p>2阶拉丁方例子,也就是 A B 这两种情况了.</p>
+<pre class=bg-gray>
+    // A
+    1 2
+    2 1
+
+    // B
+    2 1
+    1 2
+
+    // 组合 A B ,可见元素有相同的,2阶拉丁方不存在正交的.
+    (1,2) (2,1)
+    (2,1) (1,2)
+
+</pre><h5>相互重叠的圆</h5><p>每个圆之间都相交,可以划分出多少个区域? 两个圆相交(不是相切)会有2个交点.</p><canvas id=canvas1></canvas><h3>附录</h3><p>附录 (394页)</p><hr class=line /><script src=/jslib/cavlib.js></script><script>(()=>{var t,u;let f=["<b>一 什么是组合数学<\/b>","1. 棋盘的完美覆盖","2. 幻方","3. 四色问题","4. 36军官问题","5. 最短路径问题","6. 相互重叠的圆","7. Nim游戏"],i="",n=10,r=f.length,e=r/n;r%n>0&&(e+=1);let o=[0,0,"m1",0,"m2",0,0,0,0];for(t=0;t<e;t++){if(t*n>=r)break;for(i+='<ul class="list mg-b-10">',u=0;u<n;u++){let e=t*n+u;if(e>=r)break;i+=o[e]?`<li><a href="#${o[e]}">${f[e]}</a></li>`:`<li>${f[e]}</li>`}i+="<\/ul>"}let s=document.querySelector("#menubox");s.innerHTML=i})()</script><script>function canva1(){let e=cavlib("canvas1").style(),i=e.ctx,r=[{x:75,y:75,r:60,c:"red"},{x:115,y:45,r:30,c:"green"},{x:125,y:100,r:45,c:"blue"},{x:170,y:80,r:65,c:"brown"}];for(var u=0,o=r.length;u<o;u++){let n=r[u];i.beginPath();i.arc(n.x,n.y,n.r,0,Math.PI*2);i.strokeStyle=n.c;i.stroke()}let f={x1:0,y1:0,x2:0,y2:0},n=r[0],t=r[1];f.x1=Math.sqrt((t.y*n.r*n.r-n.y*t.r*t.r)/(n.x*t.y-t.x*n.y));f.y1=Math.sqrt((t.x*n.r*n.r-n.x*t.r*t.r)/(n.y*t.x-n.x*t.y));console.log(f)}canva1()</script></div></div></body></html>
