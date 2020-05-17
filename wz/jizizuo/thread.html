@@ -22,7 +22,7 @@
     t1.Start();
     t2.Start("t2 参数");
 
-</pre><h5>一些属性</h5><p>Priority 获取或设置指示线程的调度优先级的值.System.Threading.ThreadPriority 值之一.默认值为System.Threading.ThreadPriority.Normal</p><p>ManagedThreadId 一个整数,表示此托管线程的唯一标识符</p><p>IsBackground 如果此线程为或将成为后台线程,则为 true;否则为 false.</p><h5>前台线程和后台线程</h5><p>应用程序的主线程是前台线程,一个应用程序的所有前台线程都执行完了,应用程序也就结束了.如果有前台线程,也有后台线程.那么</p><p>前台线程全部结束时,应用程序会直接结束,即使后台线程没有执行完.</p><p>用 Thread 建立的线程默认是前台线程</p><h5>一些方法</h5><p>Join() 在继续执行标准的 COM 和 SendMessage 消息泵处理期间,阻止调用线程,直到由该实例表示的线程终止</p><p>例如 t1.Join(),那么调用t1的线程会阻塞(假设是主线程调用了t1),直到t1执行完成后,主线程才执行.</p><h4>ThreadPool 线程池类</h4><p>线程的开启切换都需要占用系统资源,为了提高线程使用效率,.net提供了线程池类,可以比较方便的使用线程,不用自己建立线程.</p><p class=bg-gray>"通过CLR线程池所建立的线程总是默认为后台线程,优先级数为ThreadPriority.Normal."</p><h5>ThreadPool.QueueUserWorkItem()</h5><p>这个方法比Thread的使用简单些,没有建立线程和启动线程的代码.直接调用方法就可以使用线程.</p>
+</pre><h5>一些属性</h5><p>Priority 获取或设置指示线程的调度优先级的值.System.Threading.ThreadPriority 值之一.默认值为System.Threading.ThreadPriority.Normal</p><p>ManagedThreadId 一个整数,表示此托管线程的唯一标识符</p><p>IsBackground 如果此线程为后台线程,则为 true;否则为 false.</p><h5>前台线程和后台线程</h5><p>应用程序的主线程是前台线程,一个应用程序的所有前台线程都执行完了,应用程序也就结束了.如果有前台线程,也有后台线程.那么</p><p>前台线程全部结束时,应用程序会直接结束,即使后台线程没有执行完.</p><p>用 Thread 建立的线程默认是前台线程</p><h5>一些方法</h5><p>Join() 在继续执行标准的 COM 和 SendMessage 消息泵处理期间,阻止调用线程,直到由该实例表示的线程终止</p><p>例如 t1.Join(),那么调用t1的线程会阻塞(假设是主线程调用了t1),直到t1执行完成后,主线程才执行.</p><h4>ThreadPool 线程池类</h4><p>线程的开启切换都需要占用系统资源,为了提高线程使用效率,.net提供了线程池类,可以比较方便的使用线程,不用自己建立线程.</p><p class=bg-gray>"通过CLR线程池所建立的线程总是默认为后台线程,优先级数为ThreadPriority.Normal."</p><h5>ThreadPool.QueueUserWorkItem()</h5><p>这个方法比Thread的使用简单些,没有建立线程和启动线程的代码.直接调用方法就可以使用线程.</p>
   <pre class=bg-gray>
     // 参数是一个委托,方法签名要求有一个 Object 类型参数,没有返回值
     // 第二个参数就是委托的参数,可以不传,默认是null.
@@ -91,7 +91,7 @@
         Console.WriteLine("1KW次FOR循环完成");
     }
 
-</pre><p>那么,调用 async 方法,会这么执行呢?这个问题可以再回看 Task.WaitAll(t1);</p><p>在主线程中调用 Task.WaitAll(t1); 这句代码后,线程会等这个t1执行完成,然后再执行主线程后面(这句代码后面)的代码.这是同步的.</p><p>如果不调用Task.WaitAll(t1);那么主线程不会等待t1执行完成,而是正常执行其它代码.t1会在某个时间执行.</p>
+</pre><p>那么,调用 async 方法,会怎么执行呢?这个问题可以再回看 Task.WaitAll(t1);</p><p>在主线程中调用 Task.WaitAll(t1); 这句代码后,线程会等这个t1执行完成,然后再执行主线程后面(这句代码后面)的代码.这是同步的.</p><p>如果不调用Task.WaitAll(t1);那么主线程不会等待t1执行完成,而是正常执行其它代码.t1会在某个时间执行.</p>
   <pre class=bg-gray>
     // 调用上面的 async 方法
     static void Main(){
