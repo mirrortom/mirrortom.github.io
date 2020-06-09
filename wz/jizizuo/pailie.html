@@ -1,0 +1,179 @@
+<!DOCTYPE html><html lang=en><head><meta charset=utf-8 /><meta http-equiv=X-UA-Compatible content="IE=edge,chrome=1" /><meta name=viewport content="width=device-width,initial-scale=1.0,user-scalable=no" /><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png /><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png /><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png /><link rel=manifest href=/site.webmanifest /><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5 /><meta name=msapplication-TileColor content=#da532c /><meta name=theme-color content=#ffffff /><title>排列算法 | Mirror Space</title><link href=/mirrorui/mirrorui.css rel=stylesheet /><link href=/asset/css/blog.css rel=stylesheet /></head><body><div class=layout><div class=layout-part1><a class="mainmenu-onoff d-block d-md-none" onclick=mainmenuonoff()>Ω</a><div id=mainmenubox class="mainmenu d-none d-md-block"><div class=logobox> <img src=/asset/img/logo.jpg class=logoimg /></div><h3 class=pd-5>Mirror Space</h3><hr class=line /><a class=mainmenu-link href=/index.html>Home</a> <a class=mainmenu-link href=/about.html>About</a> <a class=mainmenu-link href=/projectinfo.html>Info</a><div class=theme id=themebox> <a class=mainmenu-btn onclick=changetheme(1)>白天sun</a> <a class=mainmenu-btn onclick=changetheme(2)>夜晚moon</a><br /> <a class=mainmenu-btn onclick=changefontsize(14)>A</a> <a class=mainmenu-btn onclick=changefontsize(16)>AA</a> <a class=mainmenu-btn onclick=changefontsize(20)>AAA</a></div></div><script src=/asset/js/mainmenu.js></script></div><div class=layout-part2><div class=wz-page><div><div id=article_headerbox></div><a onclick=window.history.back() class="btn link danger">返回上页</a><hr class=line /></div><script src=/asset/js/article.js></script><script>(()=>{let f=window.location.pathname,u=f.split("/"),e="article_"+u[2],t=JSON.parse(window.sessionStorage.getItem(e)),i=u[3].replace(".html",""),n={};n.t=t[i][0];n.d=t[i][1];n.a=t[i][2];let r=`<h1 class="text-center">${n.t}</h1>`;r+=`<h5>作者:&emsp;<span></span>${n.a}</h5>`;r+=`<h5>日期:&emsp;<span></span>${n.d}</h5>`;let o=window.document.querySelector("#article_headerbox");o.innerHTML=r})()</script></div><p>生成排列程序算法.算法描述在 "组合数学(原书第5版)).((美)Richard A.Brualdi)" 55-57页.算法作者是 Johnson 和 Trotter.</p><h3>观察</h3><p>这个算法基于一个观察,{1 , 2 , 3,..,n}的所有排列,可以视为在{1 , 2 , 3,..,n-1}的所有排列的每个元素前后位置插入n.</p><p>而{1 , 2 , 3,..,n-1}的排列,可以视为{1 , 2 , 3,..,n-2}的所有排列的每个位置插入n-1...,最后一直到{1}的排列,只有一种.</p><p>举例说明,{1 , 2}的所有排列有2种: {1 , 2} {2 , 1}.按照上述观察,这两个排列是由 "所有的n-1排列,在不同位置插入n得到的" ,对于{1 , 2}来说,</p><p>n-1排列 = {1} , n = 2,在{1}的所有位置插入2,在1前面插入2就是{2 , 1},后面插入2就是{1 , 2}.由此得到{1 , 2}的所有排列.对于{1 , 2 , 3}来说,</p><p>n-1排列 = {1 , 2} {2 , 1} , n=3,在{1 , 2} {2 , 1}这两个排列的所有位置插入3,就是{3 , 1 , 2} {1 , 3 , 2} {1 , 2 , 3} 和 {3 , 2 , 1} {2 , 3 , 1} {2 , 1 , 3}...</p><p>注意: {1 , 2 , 3,..,n-1}排列插入n的位置的数目是 (n-1)+1 = n .也可以说,存在n种方法,把{1 , 2 , 3,..,n-1}的一个排列,变成{1 , 2 , 3,..,n}的一个排列.</p><p>在计算机算法上,这是递归,排列{1}是递归的返回条件.</p><p>这个观察说明了一个集合的所有排列可以由此观察得到,但是算法并不是以这种逻辑实现的,继续观察如下:</p><p>集合{1 , 2 , 3}的所有排列,可以由其中一个排列通过交换元素位置得到.例如{1 , 2 , 3}交换1 , 2后,得到{2 , 1 , 3},交换2 , 3后,得到{1 , 3 , 2},</p><p>在得到的两个排列{2 , 1 , 3} {1 , 3 , 2}继续这种交换,可以得到{2 , 3 , 1} {3 , 1 , 2},由{2 , 3 , 1}可得{3 , 2 , 1}.最后发现,集合{1 , 2 , 3}的6种排列都得到了.</p><p>注意:上面的交换都是发生在两个相邻的元素之间.</p><p>这说明一个集合的所有排列,可以由其中一个排列通过交换元素位置的方法推算出来.那么,算法的关键就在于,如何确定交换逻辑.</p><h3>算法</h3><h5>可交换判断</h5><p>规定交换逻辑是算法的关键,举书中的例子: 集合{2 , 6 , 3 , 1 , 5 , 4},规定一个方向 d ,设 d = right .交换逻辑是,元素可以与在方向 d 上相邻的元素交换,如果相邻元素比这个元素小.</p><p>实例的讲就是,元素6右边相邻的元素是3 , 3比6小,所以6允许与3交换.</p><p>根据这个逻辑,可以推断两种不能交换的情况.</p><p>集合中最小的元素不能交换,因为它相邻的元素都比它大.例如1右边是5 , 5比1大,所以1不允许与5交换.</p><p>集合中最大的元素在方向的末尾时不能交换,因为它没有相邻的元素了.例如{2 , 4 , 3 , 1 , 5 , 6}中的6,它的右边没有元素,所以不允许交换.</p><h5>方向确定</h5><p>如果确定了一个集合里有可交换的元素,需要做三个事情:</p><p>1.找出最大的可移动整数 m</p><p>2.交换 m 和它 d 方向上的相邻元素位置</p><p>3.如果有 p > m,那么将 p 的方向反向</p><p>按照这个方法会得到最后一个排列,其中找不到可交换的元素,就终止了.</p><h5>详细说明</h5><p>举例说明这3个事情. 设 S = {1 , 2 , 3 , 4} ,d = 左</p><p>排列P1 = {1 , 2 , 3 ,4}里有可交换的元素,4就是可交换的,因为它的左边相邻元素是3,且3小于4,所以可交换.</p><p>第1件事: 找最大的整数 m = 4</p><p>第2件事: 交换之后得到一个排列 {1 , 2 , 4 , 3}</p><p>第3件事: 找 p > m 的数,没有找到.忽略</p><p>这一趟得到一个排列 P2 = {1 , 2 , 4 , 3} , P1也有可交换的元素,那么继续3件事,可以得到:</p><ul class=list><li>P3 {1 , 4 , 2 , 3}</li><li>P4 {4 , 1 , 2 , 3}</li></ul><br /><p>P4 {4 , 1 , 2 , 3}里,3是最大的可交换数 m = 3 ,4是最大的数,但是不可交换,因为4位于最左边,是方向的最末尾,左侧没有相邻元素了.</p><p>由P4 可得 P5 {4 , 1 , 3 , 2} ,在由第3件事,找到了 p > m的数4.然后将 4 的方向反向.那么P5就变成这样:</p><p>P5 {4(右) , 1(左) , 3(左) , 2(左)} ,也有可交换的元素.最大的可交换元素是 4 ,那么可得:</p><ul class=list><li>P6 {1 , 4(右) , 3 , 2}</li><li>P7 {1 , 3 , 4(右) , 2}</li><li>P8 {1 , 3 , 2 , 4(右)}</li></ul><br /><p>P8 {1 , 3 , 2 , 4(右)},3是最大可交换数,4是最大数,但是不可交换.因为右侧没有相邻元素了.</p><p>由P8 可得 P9 {3 , 1 , 2 , 4(右)},由于找到 p > m的数4.所以将 4 的方向反向.那么P9就变成 {3(左) , 1(左) , 2(左) , 4(左)}</p><p>P9任然有可交换元素,继续算法可得:</p><ul class=list><li>P10 {3 , 1 , 4 , 2}</li><li>P11 {3 , 4 , 1 , 2}</li><li>P12 {4 , 3 , 1 , 2}</li></ul><br /><p>p12 的最大可交换数是2,交换之后,找到p > m 的数4和3.所以P13是 {4(右) , 3(右) , 2 , 1}</p><p>P13找到可交换元素,继续可得:</p><ul class=list><li>P14 {3(右) , 4(右) , 2 , 1}</li><li>P15 {3(右) , 2 , 4(右) , 1}</li><li>P16 {3(右) , 2 , 1 , 4(右)}</li></ul><br /><p>P16继续可得:</p><ul class=list><li>P17 {2 , 3(右) , 1 , 4(左)}</li><li>P18 {2 , 3(右) , 4(左) , 1}</li><li>P19 {2 , 4(左) , 3(右) , 1}</li><li>P20 {4(左) , 2 , 3(右) , 1}</li><li>P21 {4(右) , 2 , 1 , 3(右)}</li><li>P22 {2 , 4(右) , 1 , 3(右)}</li><li>P23 {2 , 1 , 4(右) , 3(右)}</li><li>P24 {2 , 1 , 3(右) , 4(右)}</li></ul><br /><p>P24已经找不到可交换的元素了,4的右侧没有元素,1最小不可交换,3的右侧元素比3大,2的左侧没有元素.</p><p>至此S = {1 , 2 , 3 , 4} 的所有排列已经计算出来了,有 24 个.根据排列公式,S的排列数为 4! = 4*3*2*2 = 24.结果正确!</p><p>注意:由第1个排列{1 , 2 , 3 , 4}开始,这是一个由小到大的顺序排列.要计算所有排列时,需要从这个特定排列开始.</p><h3>程序</h3>
+<pre class=bg-gray>
+    public struct PItem
+    {
+        /// &lt;summary>
+        /// 排列中的一个元素
+        /// &lt;/summary>
+        public long num;
+        /// &lt;summary>
+        /// 方向 false=left true=right
+        /// &lt;/summary>
+        public bool dir;
+    }
+
+    class Pailie
+    {
+        private readonly PItem[] pitems;
+        private readonly long[] startItem;
+        /// &lt;summary>
+        /// 计算正整数集合的所有排列
+        /// &lt;/summary>
+        /// &lt;param name="p">&lt;/param>
+        public Pailie(long[] p)
+        {
+            int len = p.Length;
+            startItem = new long[len];
+            for (int i = 0; i &lt; len; i++)
+            {
+                startItem[i] = p[i];
+            }
+            // 由小到大排序startItem
+            for (int i = 0; i &lt; len - 1; i++)
+            {
+                for (int j = i + 1; j &lt; len; j++)
+                {
+                    if (startItem[i] > startItem[j])
+                    {
+                        long tmp = startItem[j];
+                        startItem[j] = startItem[i];
+                        startItem[i] = tmp;
+                    }
+                }
+
+            }
+            // 生成集合元素
+            this.pitems = new PItem[len];
+            for (int i = 0; i &lt; len; i++)
+            {
+                this.pitems[i] = new PItem() { num = startItem[i], dir = false };
+            }
+            
+        }
+        /// &lt;summary>
+        /// 计算p的所有排列
+        /// &lt;/summary>
+        /// &lt;param name="p">&lt;/param>
+        public List&lt;long[]> Create()
+        {
+            List&lt;long[]> p = new List&lt;long[]>
+            {
+                startItem
+            };
+            if (this.pitems.Length == 1)
+            {
+                return p;
+            }
+            while (true)
+            {
+                // 1.找可交换元素
+                int changeIndex = GetChangeNumIndex();
+                if (changeIndex == -1)
+                    return p;
+                // 2.改变方向(要在交换元素前做,否则交换后顺序就不对了)
+                ChangeDir(changeIndex);
+                // 3.交换元素
+                p.Add(ChangeNum(changeIndex));
+            }
+        }
+
+        /// &lt;summary>
+        /// 找出最大可交换元素的索引,如果没有返回-1;
+        /// &lt;/summary>
+        /// &lt;param name="p">&lt;/param>
+        /// &lt;returns>&lt;/returns>
+        private int GetChangeNumIndex()
+        {
+            int index = -1;
+            int lastIndex = this.pitems.Length - 1;
+            PItem first = this.pitems[0];
+            PItem last = this.pitems[lastIndex];
+            // 先找出可交换的
+            List&lt;int> canChgIndexs = new List&lt;int>();
+
+            // 单独处理首位和末位
+            if (first.dir == true && (first.num > this.pitems[1].num))
+            {
+                canChgIndexs.Add(0);
+            }
+            if (last.dir == false && (last.num > this.pitems[lastIndex - 1].num))
+            {
+                canChgIndexs.Add(lastIndex);
+            }
+            // 判断其它
+            for (int i = lastIndex - 1; i > 0; i--)
+            {
+                PItem item = this.pitems[i];
+                PItem previtem = this.pitems[i - 1];
+                PItem nextitem = this.pitems[i + 1];
+                if (item.dir == false)
+                {
+                    if (item.num > previtem.num)
+                        canChgIndexs.Add(i);
+                }
+                else
+                {
+                    if (item.num > nextitem.num)
+                        canChgIndexs.Add(i);
+                }
+            }
+
+            // 没有可交换的
+            if (canChgIndexs.Count == 0)
+                return index;
+
+            // 再找出大的
+            index = canChgIndexs[0];
+            foreach (var itemIndex in canChgIndexs)
+            {
+                if (this.pitems[index].num &lt; this.pitems[itemIndex].num)
+                    index = itemIndex;
+            }
+            return index;
+        }
+
+        /// &lt;summary>
+        /// 交换元素,返回交换后的排列.
+        /// &lt;/summary>
+        /// &lt;param name="changeIndex">要交换元素的索引&lt;/param>
+        /// &lt;returns>&lt;/returns>
+        private long[] ChangeNum(int changeIndex)
+        {
+            PItem tmp = this.pitems[changeIndex];
+            if (tmp.dir == false)
+            {
+                this.pitems[changeIndex] = this.pitems[changeIndex - 1];
+                this.pitems[changeIndex - 1] = tmp;
+            }
+            else
+            {
+                this.pitems[changeIndex] = this.pitems[changeIndex + 1];
+                this.pitems[changeIndex + 1] = tmp;
+            }
+            //
+            int len = this.pitems.Length;
+            long[] p = new long[len];
+            for (int i = 0; i &lt; len; i++)
+            {
+                p[i] = this.pitems[i].num;
+            }
+            return p;
+        }
+
+        /// &lt;summary>
+        /// 改变 p > m 的所有p方向
+        /// &lt;/summary>
+        /// &lt;param name="changeIndex">要交换元素的索引&lt;/param>
+        private void ChangeDir(int changeIndex)
+        {
+            int len = this.pitems.Length;
+            long m = this.pitems[changeIndex].num;
+            for (int i = 0; i &lt; len; i++)
+            {
+                if (this.pitems[i].num > m)
+                    this.pitems[i].dir = !this.pitems[i].dir;
+            }
+        }
+    }
+
+</pre><hr class=line /><script src=/jslib/cavlib.js></script><script>(()=>{})(window)</script></div></div></body></html>
