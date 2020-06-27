@@ -7,8 +7,8 @@
     <a class="mainmenu-link grid" href="/about.html">About</a>
   </div>
   <div class="theme grid-12 grid-md-3 grid-lg-3 grid-xl-3 text-right" id="themebox">
-    <a class="mainmenu-link" colorval="1">白天sun</a>
-    <a class="mainmenu-link" colorval="2">夜晚moon</a>
+    <a class="mainmenu-link" colorval="1">Sun</a>
+    <a class="mainmenu-link" colorval="2">Moon</a>
     <a class="mainmenu-link" fontval="14">A</a>
     <a class="mainmenu-link" fontval="16">AA</a>
     <a class="mainmenu-link" fontval="20">AAA</a>
