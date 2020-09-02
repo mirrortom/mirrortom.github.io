@@ -1,1 +1,279 @@
-<!DOCTYPE html><html><head><meta charset=utf-8 /><meta http-equiv=X-UA-Compatible content="IE=edge,chrome=1" /><meta name=viewport content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" /><link href=/mirrorui/mirrorui.css rel=stylesheet /><title>jslib-doc | Mirror Space</title><style>.page{display:grid;grid-template-columns:210px auto}.menu-box{position:sticky;top:0;width:94%;max-height:100vh;overflow-x:hidden;overflow-y:auto}.doc-part-box{margin:50px auto}</style></head><body><div class=page><div class=menu-box><nav class=sidemenu-box id=main_menubox><ul class=sidemenu-group><li><span class=sidemenu-label>About<i class=sidemenu-arrdown></i></span></li><li><a class=sidemenu-item href=#about>关于</a></li></ul><ul class=sidemenu-group><li><span class=sidemenu-label>dom<i class=sidemenu-arrdown></i></span></li></ul></nav></div><div class="content pd-15"><div id=about><h1>关于jslib</h1></div></div></div><script src=jslib.js></script><script src=/mirrorui/mirrorui.js></script><script>function chgfontsize(n){document.body.style.setProperty("--font-size",n+"px")}sidemenu("main_menubox")</script></body></html>
+<!DOCTYPE html><html><head><meta charset=utf-8 /><meta http-equiv=X-UA-Compatible content="IE=edge,chrome=1" /><meta name=viewport content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0" /><link href=/mirrorui/mirrorui.css rel=stylesheet /><title>jslib-doc | Mirror Space</title><style>.page{display:grid;grid-template-columns:210px auto}.menu-box{position:sticky;top:0;width:94%;max-height:100vh;overflow-x:hidden;overflow-y:auto}.doc-part-box{margin:50px auto}</style></head><body><script src=jslib.js></script><script src=/mirrorui/mirrorui.js></script><div class=page><div class=menu-box><nav class=sidemenu-box id=main_menubox><ul class=sidemenu-group><li><span class=sidemenu-label>About<i class=sidemenu-arrdown></i></span></li><li><a class=sidemenu-item href=#about>关于</a></li><li><a class=sidemenu-item href=#jslib>jslib</a></li></ul><ul class=sidemenu-group><li><span class=sidemenu-label>dom操作<i class=sidemenu-arrdown></i></span></li><li><a class=sidemenu-item href=#selectdom>选择器</a></li><li><a class=sidemenu-item href=#find>find</a></li><li><a class=sidemenu-item href=#eq>eq</a></li><li><a class=sidemenu-item href=#index>index</a></li><li><a class=sidemenu-item href=#siblings>siblings</a></li><li><a class=sidemenu-item href=#next>next</a></li><li><a class=sidemenu-item href=#nextAll>nextAll</a></li><li><a class=sidemenu-item href=#prev>prev</a></li><li><a class=sidemenu-item href=#prevAll>prevAll</a></li><li><a class=sidemenu-item href=#parent>parent</a></li><li><a class=sidemenu-item href=#prop>prop</a></li><li><a class=sidemenu-item href=#val>val</a></li><li><a class=sidemenu-item href=#removeProp>removeProp</a></li><li><a class=sidemenu-item href=#addClass>addClass</a></li><li><a class=sidemenu-item href=#removeClass>removeClass</a></li><li><a class=sidemenu-item href=#hasClass>hasClass</a></li><li><a class=sidemenu-item href=#text>text</a></li><li><a class=sidemenu-item href=#html>html</a></li><li><a class=sidemenu-item href=#append>append</a></li><li><a class=sidemenu-item href=#prepend>prepend</a></li><li><a class=sidemenu-item href=#before>before</a></li><li><a class=sidemenu-item href=#after>after</a></li><li><a class=sidemenu-item href=#remove>remove</a></li><li><a class=sidemenu-item href=#empty>empty</a></li><li><a class=sidemenu-item href=#fragment>fragment</a></li></ul><ul class=sidemenu-group><li><span class=sidemenu-label>帮助函数<i class=sidemenu-arrdown></i></span></li><li><a class=sidemenu-item href=#ajax>ajax</a></li><li><a class=sidemenu-item href=#array>array</a></li><li><a class=sidemenu-item href=#date>date</a></li><li><a class=sidemenu-item href=#formcheck>formcheck</a></li><li><a class=sidemenu-item href=#valid>valid</a></li><li><a class=sidemenu-item href=#rand>rand</a></li><li><a class=sidemenu-item href=#string>string</a></li></ul></nav></div><div class="content pd-15"><div id=about><h2>关于jslib</h2><p>在前端框架大发展前,jQuery库是最流行的js库,最强大的功能就是dom操作.还提供好多工具函数,不必使用复杂的原生js,使用jQuery简单多了.</p><p>随着浏览器的进化,jQuery逐渐丢掉历史包袱,目前最新3.5版本不会再支持旧是浏览器,尤其是很老的IE.</p><p>新浏览器支持的js函数可以比较方便的操作dom,这种方便和jQuery的便利相差无几了.前端框架使用绑定数据到dom的数据驱动模式,不再使用dom选择器.</p><p>这两个情况让jQuery的使用热度降低了,不过jQuery的设计是非常值得学习的.做这个jslib库是为了学习jQuery.</p><p>将模仿jQuery做一个dom操作的库,api名字和操作方式都与jQuery一样,但是没有实现所有的api.</p><p>jslib实质上,外形是jQuery,内部实现用的新的js函数.例如:document.querySelectorAll()</p></div><div class=doc-part-box id=jslib><h2>全局对象</h2><p>jslib,是一个类数组对象.也是模仿jQuery的,里面包含dom引用和操作方法.有length属性,表示回当前选中的dom个数.</p>
+  <pre class=bg-gray>
+    // 类数组对象,存放选择器选中的dom元素,还有操作方法,模仿jQuery对象
+    function jslib(selector){}
+
+    // 工厂函数,实例化这个对象.
+    function factory(selector){
+        return new jslib(selector);
+    }
+
+    // 引用对象 模仿jQuery使用 "$".外部调用这个函数使用jslib对象.
+    window.lib = factory
+    if(!window.$)
+        window.$ = factory
+
+</pre><p class=article-title>jslib对象实例方法</p>
+  <pre class=bg-gray>
+    // 向jslib类数组添加元素
+    $().push(dom)
+
+    // jslib类数组中是否已有指定元素
+    $().contains(dom);
+
+    // 重置jslib类数组内容.如果传入elemlist,则添加到jslib类数组
+    // elemlist用于填充的新DOM元素列表,如果其中元素已经在jslib类数组中,则不会重复添加
+    $().reset(elemlist)
+
+    // 遍历jslib类数组元素.
+    $().each(fn)
+</pre><p class=article-title>获取dom对象</p>
+  <pre class=bg-gray>
+    // 从匹配的dom元素中获取dom对象,使用索引
+    // 取出第二个div
+    let div = $('div')[1]
+
+</pre><br /><p class=article-title>扩展jslib对象实例方法</p>
+  <pre class=bg-gray>
+    // 为jslib对象添加实例方法 prototype上的方法.
+    // json 一个方法名和函数值的json对像.方法名要用""号包起来.
+    $.extend(json)
+
+</pre><br /></div><div class=doc-part-box id=selectdom><h2>dom选择</h2><p>$(<b>selector</b>),支持字符串和dom对象</p>
+  <pre class=bg-gray>
+    // 1.字符串css选择器,里面实现是 <b>document.querySelectorAll()</b> 方法,支持css选择器
+    $('#id') , $('.class') , $('div') , $('.class .xx') , ...
+
+    // 2.带尖括号的字符串,生成新dom元素
+    $('&lt;div>')
+
+    // 3.dom对象,或者dom对象数组
+    let div = document.createElement('div')
+    $(div)
+    let divarr = [];
+    divarr.push(div1);divarr.push(div2);
+    $(divarr)
+  </pre></div><div class=doc-part-box id=find><h2>find(selector)</h2><p>以已经匹配的元素为根,查找子元素.(内部使用 dom.querySelectorAll())</p>
+  <pre class=bg-gray>
+    &lt;div id="id1">&lt;span class="ss">&lt;/span>&lt;p>aa&lt;/p>&lt;/div>
+    // 匹配 span
+    $('#id1').find('.ss')
+
+</pre></div><div class=doc-part-box id=eq><h2>eq(index)</h2><p>筛选取匹配元素的第n个元素</p>
+  <pre class=bg-gray>
+    &lt;div>&lt;span>1&lt;/span>&lt;span>2&lt;/span>&lt;/div>
+    // 匹配 span1
+    $('span').eq(0)
+
+</pre></div><div class=doc-part-box id=index><h2>index()</h2><p>返回第一个匹配元素在父元素中的索引</p>
+  <pre class=bg-gray>
+    &lt;div>&lt;p>&lt;/p>&lt;span>1&lt;/span>&lt;span>2&lt;/span>&lt;/div>
+    // 返回 1
+    $('span').index()
+
+</pre></div><div class=doc-part-box id=siblings><h2>siblings(selector)</h2><p>查找所有匹配元素的同级元素,不包含匹配元素自己. selector: 可以筛选</p>
+  <pre class=bg-gray>
+    &lt;div>&lt;p>&lt;/p>&lt;span>1&lt;/span>&lt;span>2&lt;/span>&lt;/div>
+    // 匹配 p
+    $('span').siblings()
+
+</pre></div><div class=doc-part-box id=next><h2>next(selector)</h2><p>查找所有匹配元素的后面一个同辈元素,不指定筛选时返回紧邻的后一个元素</p>
+  <pre class=bg-gray>
+    &lt;div>&lt;p>&lt;/p>&lt;span>1&lt;/span>&lt;span>2&lt;/span>&lt;label>&lt;/label>&lt;/div>
+    // 匹配 span1
+    $('p').next()
+    // 匹配 label
+    $('p').next('label')
+
+</pre></div><div class=doc-part-box id=nextAll><h2>nextAll(selector)</h2><p>查找所有匹配元素之后所有的同辈元素</p>
+  <pre class=bg-gray>
+    &lt;div>&lt;p>&lt;/p>&lt;span>1&lt;/span>&lt;span>2&lt;/span>&lt;label>&lt;/label>&lt;/div>
+    // 匹配 span1 span2 label
+    $('p').nextAll()
+
+</pre></div><div class=doc-part-box id=prev><h2>prev(selector)</h2><p>查找所有匹配元素的紧邻的前面那一个同辈元素</p>
+  <pre class=bg-gray>
+    &lt;div>&lt;p>&lt;/p>&lt;span>1&lt;/span>&lt;span>2&lt;/span>&lt;label>&lt;/label>&lt;/div>
+    // 匹配 span2
+    $('label').prev()
+
+</pre></div><div class=doc-part-box id=prevAll><h2>prevAll(selector)</h2><p>查找所有匹配元素之后所有的同辈元素</p>
+  <pre class=bg-gray>
+    &lt;div>&lt;p>&lt;/p>&lt;span>1&lt;/span>&lt;span>2&lt;/span>&lt;label>&lt;/label>&lt;/div>
+    // 匹配 span2 span1 p
+    $('label').prevAll()
+
+</pre></div><div class=doc-part-box id=parent><h2>parent(selector)</h2><p>返回每个匹配元素的一个父元素或者祖先元素.不传参数时,返回父元素</p>
+  <pre class=bg-gray>
+    &lt;div>&lt;p>&lt;/p>&lt;span>1&lt;/span>&lt;span>2&lt;/span>&lt;label>&lt;/label>&lt;/div>
+    // 匹配 div
+    $('label').parent()
+
+</pre></div><div class=doc-part-box id=prop><h2>prop(key, val)</h2><p>设置每个匹配元素的属性或返回第一个元素的属性值.</p>
+  <pre class=bg-gray>
+    &lt;div>&lt;p p1="aa">&lt;/p>&lt;span>1&lt;/span>&lt;/div>
+    // 返回 aa
+    $('p').prop('p1')
+    // p1修改为 bb
+    $('p').prop('p1','bb')
+
+</pre></div><div class=doc-part-box id=val><h2>val(val)</h2><p>设置每个匹配元素的value属性或返回第一个元素的value属性值.主要用于input,textarea,select等表单元素</p>
+  <pre class=bg-gray>
+  &lt;input type="text" value="mirror" />
+  // 返回 mirror
+  $('input').val()
+  // 设置 value值
+  $('input').val('space')
+
+</pre></div><div class=doc-part-box id=removeProp><h2>removeProp(...key)</h2><p>删除每个匹配的元素指定的属性.属性名一个或者多个.</p>
+  <pre class=bg-gray>
+    &lt;span p1="aa" p2="bb" title="cc">&lt;/span>
+    // 删除属性 p1 p2
+    $('span').removeProp("p1","p2");
+
+</pre></div><div class=doc-part-box id=addClass><h2>addClass(...val)</h2><p>为每个匹配的元素添加指定的类名</p>
+  <pre class=bg-gray>
+    &lt;span p1="aa" p2="bb" title="cc">&lt;/span>
+    // 为span添加 primary btn 样式类
+    $('span').addClass("primary","btn");
+
+</pre></div><div class=doc-part-box id=removeClass><h2>removeClass(...val)</h2><p>从所有匹配的元素中删除全部或者指定的类</p>
+  <pre class=bg-gray>
+    &lt;span class="primary btn cc" p2="dd">&lt;/span>
+    // 删除样式primary btn
+    $('span').removeClass("primary","btn");
+
+</pre></div><div class=doc-part-box id=hasClass><h2>hasClass(val)</h2><p>检查第一个匹配的元素是否含有指定的类</p>
+  <pre class=bg-gray>
+    &lt;span class="primary btn cc" p2="dd">&lt;/span>
+    // 返回 true
+    $('span').hasClass("primary");
+
+</pre></div><div class=doc-part-box id=text><h2>text(val)</h2><p>设置所有匹配的元素的innerText.无参数时,返回第一个元素的innerText内容</p>
+  <pre class=bg-gray>
+    &lt;span class="primary btn cc" p2="dd">&lt;/span>
+    // 设置文本mirror space
+    $('span').text("mirror space");
+
+</pre></div><div class=doc-part-box id=html><h2>html(val)</h2><p>设置所有匹配的元素的innerHTML属性.如果html中,含有script时,会重新生成script标签再加入文档中.</p><p>如果有外联的script,会ajax下载变成内联的.如此操作,当html加入到文档时,其中包含的script脚本会执行.</p>
+  <pre class=bg-gray>
+    &lt;div>&lt;/div>
+    let html='&lt;p>&lt;/p>'
+    // 给div设置html文本标签
+    $('div').html(html)
+
+</pre></div><div class=doc-part-box id=append><h2>append(...content)</h2><p>向每个匹配元素内部追加内容.content是一个或者多个dom对象,或者DocumentFragment对象.</p>
+  <pre class=bg-gray>
+    &lt;div>&lt;span>1&lt;/span>&lt;/div>
+    let p=document.createElement('p');
+    // 给div里追加p元素,在span1后面
+    $('div').append(p)
+
+</pre></div><div class=doc-part-box id=prepend><h2>prepend(...content)</h2><p>向每个匹配元素内部第一子节点前面加入内容.</p>
+  <pre class=bg-gray>
+    &lt;div>&lt;span>1&lt;/span>&lt;/div>
+    let p=document.createElement('p');
+    // 给div里前面插入p元素,在span1前面
+    $('div').prepend(p)
+
+</pre></div><div class=doc-part-box id=before><h2>before(...content)</h2><p>向每个匹配元素的前面加元素</p>
+  <pre class=bg-gray>
+    &lt;div>&lt;span>1&lt;/span>&lt;/div>
+    let p=document.createElement('p');
+    // 在span前面插入p元素
+    $('span').before(p)
+
+</pre></div><div class=doc-part-box id=after><h2>after(...content)</h2><p>向每个匹配元素的后面加元素</p>
+  <pre class=bg-gray>
+    &lt;div>&lt;span>1&lt;/span>&lt;/div>
+    let p=document.createElement('p');
+    // 在span后面插入p元素
+    $('span').after(p)
+
+</pre></div><div class=doc-part-box id=remove><h2>remove()</h2><p>删除所有匹配的元素.被删除的元素要有个父元素.</p>
+  <pre class=bg-gray>
+    &lt;div>&lt;span>1&lt;/span>&lt;/div>
+    // 删除span
+    $('span').remove()
+
+</pre></div><div class=doc-part-box id=empty><h2>empty()</h2><p>清空所有匹配的元素的全部子元素</p>
+  <pre class=bg-gray>
+    &lt;div>&lt;span>1&lt;/span>&lt;/div>
+    // 删除div的所有子元素
+    $('div').empty()
+
+</pre></div><div class=doc-part-box id=fragment><h2>fragment(...content)</h2><p>建立一个DocumentFragment文档片段对象,将传入的node或DocumentFragment对象添加到其中.</p><p>$ 的静态方法, 这个就是调用document.createDocumentFragment()方法.</p>
+  <pre class=bg-gray>
+    // 参数是node节点 或者 DocumentFragment对象,返回 DocumentFragment实例
+    $.fragment(...content)
+
+</pre></div><div class=doc-part-box id=ajax><h2>ajax</h2><p>内部使用fetch()方法实现.简单处理了参数,方便使用.</p><p class=article-title>$.post(url, data, initCfg = null, resType = 'json')</p><p>简易post方式Ajax,对参数做了包装,第一个then()对请求结果判断成败,丢出异常.</p><p>外部调用后可以继续使用then(),catch().</p><p><b class=bg-gray>url</b><span class=mg-l-20>string ,请求地址</span></p><p><b class=bg-gray>data</b><span class=mg-l-20>any|FormData ,json对象或者FormData对象,如果是json对象,会转化成FormData对象</span></p><p><b class=bg-gray>initCfg</b><span class=mg-l-20>RequestInit ,fetch请求配置对象.例如传headers:{'Auth':'xxx'}用来验证</span></p><p><b class=bg-gray>string</b><span class=mg-l-20>string ,返回值类型 默认"json",可选"html"</span></p><p><b class=bg-gray>返回</b><span class=mg-l-20>Promise ,fetch().then()返回的Promise对象</span></p>
+  <pre class=bg-gray>
+  let para = { p1:'',p2:'' };
+  $.post('https://www.api.io/test/post', para)
+    // 这个data默认服务器返回的是json对象
+    .then((data) => {
+      console.log(data);
+    })
+    .catch((err) => {
+      console.log('服务器异常')
+    })
+
+</pre><br /><p class=article-title>$.post(url, para, initCfg = null, resType = 'html')</p><p>简易 get方式Ajax,对para参数转换为url参数,对请求结果判断成败.</p><p><b class=bg-gray>url</b><span class=mg-l-20>string ,请求地址</span></p><p><b class=bg-gray>data</b><span class=mg-l-20>any|FormData ,para json对象或者FormData对象,转化为url参数</span></p><p><b class=bg-gray>initCfg</b><span class=mg-l-20>RequestInit ,fetch请求配置对象.例如传headers:{'Auth':'xxx'}用来验证</span></p><p><b class=bg-gray>string</b><span class=mg-l-20>string ,resType 返回值类型 默认"html",可选"json"</span></p><p><b class=bg-gray>返回</b><span class=mg-l-20>Promise ,fetch().then()返回的Promise对象</span></p>
+  <pre class=bg-gray>
+  let para = { p1:'',p2:'' };
+  $.get('https://www.api.io/test/get', para)
+    // 这个html默认服务器返回的是html字符串
+    .then((html) => {
+      console.log(html);
+    })
+    .catch((err) => {
+      console.log('服务器异常')
+    })
+
+</pre></div><div class=doc-part-box id=array><h2>array</h2><p></p></div><div class=doc-part-box id=date><h2>date</h2><p>日期时间格式化便利方法</p><p class=article-title>$.datefmt(date, fmtstr)</p><p>格式化时间</p><p><b class=bg-gray>date</b><span class=mg-l-20>Date ,要格式化的Date对象</span></p><p><b class=bg-gray>fmtstr</b><span class=mg-l-20>string ,format string 格式化字符串 (默认:四位年份,24小时制: "yyyy/MM/dd HH:mm:ss")</span></p><p>自定义格式时,年月日时分秒代号必须是: y(年)M(月)d(日)H(时)m(分)s(秒)</p><p><b class=bg-gray>返回</b><span class=mg-l-20>string ,返回格式化时间字符串</span></p>
+  <pre class=bg-gray>
+    let d = new Date(2000,0,1,1,1,1);
+    let dStr = $.datefmt(d);
+    console.log(dStr);
+    // 2000/01/01 01:01:01
+
+    let fmtstr = 'yyyy年MM月dd日 HH时mm分ss秒';
+    dStr = $.datefmt(d, fmtstr);
+    console.log(dStr);
+    // 2000年01月01日 01时01分01秒
+
+</pre><br /><p class=article-title>$.dateByfmt(fmtstr)</p><p>将时间字符串转换为Date对象.</p><p><b class=bg-gray>fmtstr</b><span class=mg-l-20>Date ,时间格式的字符串</span></p><p>支持格式: yyyy/mm/dd yyyy-mm-dd yyyy/mm/dd hh:mm:ss 时分秒可省略自动补0,年月日必须.年份4位月日时分秒支持1位.</p><p><b class=bg-gray>返回</b><span class=mg-l-20>Date|null ,成功时返回Date对象,失败返回null</span></p>
+  <pre class=bg-gray>
+    let dStr = '2000/1/1';
+    let d = $.dateByfmt(dStr, dStr);
+    console.log(d.getFullYear());
+    // 2000
+
+</pre></div><div class=doc-part-box id=formcheck><h2>formcheck</h2><p>验证表单元素的值.支持 input,textarea</p><p class=article-title>$.formCheck(elem)</p><p>提交表单前,验证值的有效性.返回 true / false</p><p>需要设置表单元素的vtype属性,一个或者多个,用逗号隔开.verrmsg是自定义提示语,和vtype对应,可以不设置.</p><p>如果验证不通过,那么表单上会变色提示.</p>
+  <pre class=bg-gray>    
+    &lt;input class="input-text" name="title" type="text" value="" placeholder="请输入名字" <b>vtype="notnull" verrmsg="必填项"</b>>
+    let isCheck = $.formCheck(input);
+    // true / false
+
+</pre><br /><p>一般情况下只需要使用$.formCheck(elem)即可.后面两个方法也可以手动操作.</p><p class=article-title>$.formClear(elem)</p><p>清除表单元素的错误样式和提示语.</p><p>清除$.formAlert()产生的表单错误提示.</p><br /><p class=article-title>$.formAlert(elem,msg)</p><p>触发错误提示</p><p>生成表单元素验证出错时的错误样式和提示语: 背景变红,在其正下方生成span,显示提示语</p><br /><p class=article-title>vtype选项</p><p><b class=bg-gray>notnull</b><span class=mg-l-20>必要项且不能为空或空白字符</span></p><p><b class=bg-gray>email</b><span class=mg-l-20>电子邮件格式</span></p><p><b class=bg-gray>mobile</b><span class=mg-l-20>指示一个字符串是否为国内11位手机号</span></p><p><b class=bg-gray>abc</b><span class=mg-l-20>限26个英文,大小写不限.</span></p><p><b class=bg-gray>123</b><span class=mg-l-20>限0-9数字</span></p><p><b class=bg-gray>abc123</b><span class=mg-l-20>限26个英文字母(开头)和0-9整数(可选)</span></p><p><b class=bg-gray>abc_123</b><span class=mg-l-20>限26个英文字母和0-9整数(可选)和_下划线(可选),并且是字母或者下划线开头.</span></p><p><b class=bg-gray>url</b><span class=mg-l-20>限url</span></p><p><b class=bg-gray>ipv4</b><span class=mg-l-20>限ipv4</span></p><p><b class=bg-gray>date</b><span class=mg-l-20>标准日期 "1999-02-28 12:08:33"</span></p><p><b class=bg-gray>maxlen</b><span class=mg-l-20>是否超长度限制.</span></p><p>需要在表单元素上设置属性 maxlength</p><p><b class=bg-gray>minlen</b><span class=mg-l-20>是否小于长度</span></p><p>需要在表单元素上设置属性 minlength</p><p><b class=bg-gray>money</b><span class=mg-l-20>正整数或正1-3位小数</span></p></div><div class=doc-part-box id=valid><h2>valid</h2><p>验证相关方法</p><p class=article-title>$.isNotNull(str)</p><p>指示一个字符串是否含有内容,并且不能全部是空白字符</p><br /><p class=article-title>$.isNumber(str)</p><p>指示一个字符串是否为数值</p><br /><p class=article-title>$.isEmail(str)</p><p>指示一个字符串是否为email地址</p><br /><p class=article-title>$.isMobile(str)</p><p>指示一个字符串是否为国内11位手机号</p><p>可匹配"(+86)013800138000",()号可以省略，+号可以省略，(+86)可以省略,11位手机号前的0可以省略;11位手机号第二位数可以是3~9中的任意一个</p><br /><p class=article-title>$.isAbc(str)</p><p>指示一个字符串是否为26个英文字母组成,大小写不限.</p><br /><p class=article-title>$.isDigit(str)</p><p>指示一个字符串是否为0-9整数组成</p><br /><p class=article-title>$.isAbcDigit(str)</p><p>指示一个字符串是否为26个英文字母和0-9整数(可选)组成,但必须是字母开头.</p><br /><p class=article-title>$.isAbcDigitUline(str)</p><p>指示一个字符串是否为26个英文字母和0-9整数(可选)和_下划线(可选)组成,并且是字母或者下划线开头.</p><br />/** <p class=article-title>$.isUrl(str)</p><p>指示一个字符串是否为url</p><br /><p class=article-title>$.isIpv4(str)</p><p>指示一个字符串是否为ipv4</p><br /><p class=article-title>$.isMaxLength(str, maxlen)</p><p>指示一个字符串长度是否超过maxlength. maxlen 最大长度</p><br /><p class=article-title>$.isMinLength(str, minlen)</p><p>指示一个字符串长度是否小于minlength. minlen 最小长度</p><br /><p class=article-title>$.isMoney(str)</p><p>指示一个字符串是否为1~3位小数,或者正数 (d | d.dd | d.d | d.ddd),可用于金额</p><br /><p class=article-title>$.isDate(str)</p><p>指示一个字符串是否为日期格式</p><br /></div><div class=doc-part-box id=rand><h2>rand</h2><p class=article-title>$.nextInt(intMin, intMax)</p><p>生成一个非负随机整数</p><p><b class=bg-gray>intMin</b><span class=mg-l-20>number ,起始值(>0整数,含)</span></p><p><b class=bg-gray>intMax</b><span class=mg-l-20>number ,intMax:结束值(大于起始值整数,不含)</span></p><p><b class=bg-gray>返回</b><span class=mg-l-20>number ,返回整数,范围在 [intMin ~ intMax)</span></p>
+  <pre class=bg-gray>
+    let randNum = $.nextInt(0,100);
+    // 返回0,100间的数,不含100
+
+</pre></div><div class=doc-part-box id=string><h2>string</h2><p>字符串相关方法</p><p class=article-title>$.isEmptyOrNull(str)</p><p>字符串是否为空或者null或者全是空白字符.</p><p><b class=bg-gray>str</b><span class=mg-l-20>string ,被检查字符串</span></p><p><b class=bg-gray>返回</b><span class=mg-l-20>boolean ,true / false</span></p><br /><p class=article-title>$.isNullOrWhiteSpace(str)</p><p>字符串是否为空或者null或者全是空白字符.</p><p><b class=bg-gray>str</b><span class=mg-l-20>string ,被检查字符串</span></p><p><b class=bg-gray>返回</b><span class=mg-l-20>boolean ,true / false</span></p><br /><p class=article-title>$.format(str, ...repstrs)</p><p>格式化字符串,将字符串中的占位符替换为给定字符串{d},返回替换后字符串.例:("my name is {0} from {1}",mirror,china)</p><p><b class=bg-gray>str</b><span class=mg-l-20>string ,要格式化的字符串,包含占位符{d}</span></p><p><b class=bg-gray>...any</b><span class=mg-l-20>repstrs ,替换占位符的字符串数组</span></p><p><b class=bg-gray>返回</b><span class=mg-l-20>string ,返回替换后字符串</span></p>
+  <pre class=bg-gray>
+    let str = 'my name is {0} from {1}';
+    let nstr=$.format(str,'mirror','china');
+    console.log(nstr);
+    // my name is mirror from china
+
+</pre><br /><p class=article-title>$.dataBind(str, json)</p><p>格式化字符串,根据占位符${key},到json中找到json.key,然后替换掉${key}</p><p>没找到的'${key}'时, ${key}替换为''(空值)</p><p><b class=bg-gray>str</b><span class=mg-l-20>string ,要格式化的字符串,包含占位符${key}</span></p><p><b class=bg-gray>json</b><span class=mg-l-20>any ,json对象,键为key</span></p><p><b class=bg-gray>返回</b><span class=mg-l-20>string ,返回替换后字符串</span></p>
+  <pre class=bg-gray>
+    let json={name:'mirror',from:'china'};
+    let str='my name is ${name} from ${from}';
+    let nstr=$.dataBind(str,json);
+    console.log(nstr);
+    // my name is mirror from china
+
+</pre><br /><p class=article-title>$.trim(str)</p><p>去除字符串前后的空白字符</p><p><b class=bg-gray>str</b><span class=mg-l-20>string ,字符串</span></p><p><b class=bg-gray>返回</b><span class=mg-l-20>string ,返回新字符串</span></p></div></div></div><script>function chgfontsize(n){document.body.style.setProperty("--font-size",n+"px")}sidemenu("main_menubox")</script></body></html>
