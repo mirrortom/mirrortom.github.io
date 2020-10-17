@@ -25,14 +25,22 @@ WHERE c.object_id =
 </pre>
   <br />
   <pre class=bg-gray>
--- 查询表"user"的字段名~类型~长度~字段说明
+-- 查询表"user"的字段名~类型~长度~字段说明,字段是否主键,是否自增长
 -- 注意:列类型为char时长度有参考用.如果是nchar(前面有n,可以支持中文),查出的长度要除以2.中文字符长度为2个ascii字符长度
-SELECT c.name 列名,t.name 列类型,c.max_length 列长度,i.value 列说明
+SELECT  
+    CASE WHEN pk.COLUMN_NAME IS NULL THEN '' ELSE 'Y' END as 是否主键,
+    CASE(c.is_identity) WHEN 1 THEN 'Y' ELSE '' END as 是否自增长,
+    c.name 列名,
+    t.name 列类型,
+    c.max_length 长度,
+    CASE(c.is_nullable) WHEN 0 THEN 'NOT NULL' ELSE 'NULL' END AS 可空,
+    p.value 注释
 FROM sys.columns c
-JOIN sys.systypes t ON t.xusertype=c.system_type_id
-LEFT JOIN sys.extended_properties i ON i.minor_id=c.column_id AND i.major_id=c.object_id
+LEFT JOIN sys.systypes  t ON t.xusertype=c.system_type_id
+LEFT JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE pk ON pk.COLUMN_NAME=c.name AND pk.TABLE_NAME='表名'
+LEFT JOIN sys.extended_properties p ON p.minor_id=c.column_id AND p.major_id=c.object_id
 WHERE c.object_id = 
-        (SELECT object_id FROM sys.tables WHERE type='U' AND name='user')
+    (SELECT object_id FROM sys.tables WHERE type='U' AND name='表名')
 </pre><p class=article-title>like</p>
 <pre class=bg-gray>
 -- 参数化LIKE查询
