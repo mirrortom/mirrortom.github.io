@@ -1,12 +1,12 @@
 (()=>{function i(n){let t="#fff",i="#333";n==2&&(t="#303030",i="#b0b0b0");document.documentElement.style.setProperty("--font-color",i);document.body.style.backgroundColor=t;window.localStorage.setItem("theme",n);let r=document.createEvent("HTMLEvents");r.initEvent("changethemehandler",!1,!1);window.dispatchEvent(r);u()}function r(n){document.documentElement.style.setProperty("--font-size",n+"px");window.localStorage.setItem("fontsize",n)}function u(){let t=`
 <div id="mainmenubox" class="mainmenu grids">
-  <div class="grid-12 grid-md-9 grid-lg-9 grid-xl-9 grids text-center">
-    <div class="grid-5"><a href="/index.html"><canvas id="logo_canv" height="30"></canvas></a></div>
+  <div class="grid-12 grid-md-8 grids text-center">
+    <div class="grid-6"><a href="/index.html"><canvas id="logo_canv" height="30"></canvas></a></div>
     <a class="mainmenu-link grid" href="/index.html">Home</a>
     <a class="mainmenu-link grid" href="/projectinfo.html">Info</a>
     <a class="mainmenu-link grid" href="/about.html">About</a>
   </div>
-  <div class="theme grid-12 grid-md-3 grid-lg-3 grid-xl-3 text-right" id="themebox">
+  <div class="theme grid-12 grid-md-4" id="themebox">
     <a href="javascript:scrollTo(0,0)" title="回到顶部. to page top.">Top ↑</a>
     <a colorval="1" title="白天">Sun</a>
     <a colorval="2" title="夜晚">Moon</a>
