@@ -282,7 +282,7 @@
     console.log(nstr);
     // my name is mirror from china
 
-</pre><br /><p class=article-title>$.trim(str)</p><p>去除字符串前后的空白字符</p><p><b class=bg-gray>str</b><span class=mg-l-20>string ,字符串</span></p><p><b class=bg-gray>返回</b><span class=mg-l-20>string ,返回新字符串</span></p></div><div class=doc-part-box id=domstring><h2>dom string</h2><p>生成dom元素字符串,主要用于拼接html字符串的情况,直接拼接有点啰嗦.</p><p class=article-title>$.dom</p><p>$.dom是个对象,每个属性的名字是dom的名字,例如div,span,p.值是一个函数,返回这个dom的html字符串</p><p>$.dom.div('innerText','class',attrjson)</p><p><b class=bg-gray>innerText</b><span class=mg-l-20>string ,html标记中的文本</span></p><p><b class=bg-gray>class</b><span class=mg-l-20>string ,样式字符串.如果不需要样式参数但有属性参数,可以省略.</span></p><p><b class=bg-gray>attrjson</b><span class=mg-l-20>json ,属性名值对</span></p>
+</pre><br /><p class=article-title>$.trim(str)</p><p>去除字符串前后的空白字符</p><p><b class=bg-gray>str</b><span class=mg-l-20>string ,字符串</span></p><p><b class=bg-gray>返回</b><span class=mg-l-20>string ,返回新字符串</span></p></div><div class=doc-part-box id=domstring><h2>dom string</h2><p>生成dom元素字符串,主要用于拼接html字符串的情况,直接拼接有点啰嗦.</p><p class=article-title>$.dom</p><p>$.dom是个对象,每个属性的名字是dom的名字,例如div,span,p.值是一个函数,返回这个dom的html字符串</p><p>$.dom.div('innerText','class',attrjson)</p><p><b class=bg-gray>innerText</b><span class=mg-l-20>string ,html标记中的文本</span></p><p><b class=bg-gray>class</b><span class=mg-l-20>string ,样式字符串.如果不需要样式参数但有属性参数,可以省略.</span></p><p><b class=bg-gray>attrjson</b><span class=mg-l-20>json ,属性名值对</span></p><p>支持的标记有: 'div', 'span', 'a', 'p', 'table', 'tr', 'th', 'td', 'select', 'option', 'ul', 'li', 'dt', 'dd', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'</p>
   <pre class=bg-gray>
     // 生成一个段落
     $.dom.p('一个段落','article-title primary',{id:'myname'});
