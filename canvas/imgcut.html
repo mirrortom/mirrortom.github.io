@@ -1,0 +1,72 @@
+<!DOCTYPE html><html lang=en><head><meta charset=utf-8 /><meta name=viewport content="width=device-width,initial-scale=1.0,user-scalable=no" /><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png /><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png /><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png /><link rel=manifest href=/site.webmanifest /><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5 /><meta name=msapplication-TileColor content=#da532c /><meta name=theme-color content=#ffffff /><title>图片裁剪 | canvas-demo | Mirror Space</title><link href=/mirrorui/mirrorui.css rel=stylesheet /><link href=/asset/css/blog.css rel=stylesheet /></head><body><div class=layout><div class=layout-part1></div><div class=layout-part2><h1>图片裁剪</h1><p>选择一个图片,然后载入到img中,有一个固定的选框,选取图片的一部分,可以拖动图片改变选取的部分.</p><p>这个操作经常出现在上传头像时,需要头像图片是一个指定比例或者长度宽度的图片.</p><p>实现这个功能关键在于计算图片在选框区域内的坐标点.然后调用ctx.drawImage()这个方法,把选区的图片画到canvas里.</p><p class=article-title>dom</p><p>1. div容器,设置相对定位,拖动图片的操作在这个容器内完成.</p><p>2. img,在div内,绝对定位(坐标0,0),选择的图片显示在这个img中.</p><p>3. div固定选区,在div内,绝对定位(位于div容器中央),img在此选区范围内的部分就是选择目标,画到canvas里</p><p>4. canvas,在div下面,就是显示选区的图片.</p><p class=article-title>操作</p><p>用鼠标拖动图片,观察canvas变化.手机端可以触摸拖动</p><p class=article-title>事件</p><p>在div容器上绑定鼠标按下(mousedown)和移动事件(mousemove),移动端对应事件是touchstart,touchmove</p><p>也可以绑定在img上.不过绑在容器上似乎感觉更好,在容器上移动鼠标,可以改变容器里图片的位置.</p><p class=article-title>观察拖动</p><p>经过一些尝试,发现图片坐标计算不是想象中的,鼠标坐标点(x,y)就是图片的目的坐标点的情况.关键点在于没有认清拖动这个行为.</p><p>观察拖动一个图片,首先有个起点,然后是移动,最后停下来有个终点.这样就完成了一次拖动.</p><p>于是就有个概念,这一次拖动是相对于这一次的起点坐标的.如果进行下一次拖动,那么上一次拖动的终点坐标,就是这下一次拖动的起点坐标.</p><p class=article-title>坐标计算</p><p>根据这个观察,在DOM准备好以后,图片在没有进行拖动前,有一个起始坐标img0,就是(0,0).坐标参考是div容器,这个不变.</p><p>鼠标起点坐标通过mousedown或者touchstart事件获得,因为开始拖动时,一般要按住这个图片,那么自然就触发按下事件.</p><p>此时得到了鼠标按下时的坐标(mx0,my0),这个坐标是鼠标的起始坐标.</p><pre class=bg-gray>
+    startX = mx0;
+    startY = my0;
+
+</pre><p>然后鼠标拖动,发生mousemove事件,鼠标坐标在变化,得到新坐标(mx1,my1)</p><p>这个坐标减去起点坐标,就是鼠标移动的距离,把这个距离加到图片坐标上,就是图片这次移动后的新坐标位置.img1</p><pre class=bg-gray>
+    // 鼠标移动距离
+    moveX = mx1 - startX;
+    moveY = my1 - startY;
+    // 带入startX,startY
+    moveX = mx1 - mx0;
+    moveY = my1 - my0;
+    // 图片移动的目标坐标,就是图片起始位置加上鼠标移动距离
+    img1X = img0.offsetLeft + moveX;
+    img1Y = img0.offsetTop + moveY;
+    // 代入moveX,moveY
+    img1X = img0.offsetLeft + mx1 - mx0;
+    img1Y = img0.offsetTop + my1 - my0;
+
+</pre><p>根据这个推理,需要在鼠标按下事件里记录鼠标起始位置还有图片起始位置</p><pre class=bg-gray>
+    // 鼠标起始坐标
+    let mxy = { x: 0, y: 0 };
+    // 图片起始坐标
+    let imgxy = { x: imgele.offsetLeft, y: imgele.offsetTop };
+    // 鼠标按下时
+    function moveStart(x, y) {
+      mxy = { x: x, y: y };
+      imgxy = { x: imgele.offsetLeft, y: imgele.offsetTop };
+    }
+
+</pre><p>在鼠标移动事件里计算鼠标移动距离和图片新坐标</p><pre class=bg-gray>
+    function moving(x, y) {
+      imgele.style.left = (imgxy.x + x - mxy.x) + 'px';
+      imgele.style.top = (imgxy.y + y - mxy.y) + 'px';
+    }
+
+</pre><p class=article-title>坐标计算2</p><p>第二种思路是刚开始想象中的那种,鼠标拖动的坐标位置就是图片的新坐标.实现它的关键在于将鼠标坐标和图片坐标视为一点.这样,改变鼠标坐标就相当于改变图片坐标.</p><p>移动图片实际上是在修改图片左上角顶点坐标,如果将鼠标坐标变化与这个点产生关系,那么就实现移动鼠标就等于移动图片了.</p><p>鼠标按下时,起始坐标mxy,图片起始坐标imgxy.如果总是以图片为原点(0,0),那么鼠标在这个坐标系的坐标就是</p><pre class=bg-gray>
+    startX = mx0 - imgele.offsetLeft;
+    startY = my0 - imgele.offsetTop;
+
+</pre><p>然后鼠标拖动,发生mousemove事件,鼠标坐标在变化,得到新坐标(mx1,my1)</p><p>这个坐标减去起点坐标,就是图片新坐标.img1</p><pre class=bg-gray>
+    // 鼠标移动后,图片新坐标
+    img1X = mx1 - startX;
+    img1Y  = my1 - startX;
+    // 代入startX,Y
+    img1X = mx1 - mx0 + imgele.offsetLeft;
+    img1Y = my1 - my0 + imgele.offsetTop;
+
+</pre><p>结果发现两种思路得到的结果是相同的,如果只是从公式的数学推演角度看的化.第2种思路实现程序时,相对简洁一些.</p><p>在鼠标按下时,记录鼠标坐标,在以图片为原点的坐标系的坐标</p><pre class=bg-gray>
+    // 鼠标起始坐标
+    let mxy = { x: 0, y: 0 };   
+    // 鼠标按下时
+    function moveStart(x, y) {
+      mxy.x = x - imgele.offsetLeft;
+      mxy.y = y - imgele.offsetTop;
+    }
+
+</pre><p>在鼠标移动事件里计算图片新坐标,也就是鼠标的新坐标</p><pre class=bg-gray>
+    function moving(x, y) {
+      imgele.style.left = (x - mxy.x) + 'px';
+      imgele.style.top = (y - mxy.y) + 'px';
+    }
+
+</pre><p class=article-title>画选区图片</p><p>这个就是计算选区DIV的坐标,当图片在(0,0)点时,选区坐标就是选区在图片上的选取点坐标.</p><p>图片不在(0,0)时,选取点坐标就是,选区DIV坐标减去图片坐标.</p><pre class=bg-gray>
+    //  获取div选区坐标
+    let squarexy = { x: selsquareDIV.offsetLeft, y: selsquareDIV.offsetTop };
+    // 获取图片坐标
+    let imgxy = { x: imgele.offsetLeft, y: imgele.offsetTop }
+    // 绘画
+    ctx.clearRect(0, 0, cavW, cavH);
+    ctx.drawImage(imgele, squarexy.x - imgxy.x, squarexy.y - imgxy.y, cavW, cavH, 0, 0, cavW, cavH);
+
+</pre><p class=article-title>测试</p><div id=selectImgBox style="position:relative;max-width:600px;width:100%;height:300px;overflow:hidden;border:1px solid #fff"><img id=srcImgBox src=../asset/img/imgcut.jpg draggable=false dropzone="" alt="my camera photo" style=position:absolute;left:0;top:0;user-select:none /><div id=selectAreaBox style="position:absolute;width:128px;height:128px;left:0;right:0;top:0;bottom:0;margin:auto;border:2px dotted #ff4500"></div></div><canvas id=canva1 width=128 height=128 style="display:block;border:6px solid #dfdfdf;border-radius:5px;margin:20px"></canvas><script>function moveStart(n,t){mxy.x=n-imgele.offsetLeft;mxy.y=t-imgele.offsetTop}function moving(n,t){imgele.style.left=n-mxy.x+"px";imgele.style.top=t-mxy.y+"px";selectSquareToCanvas()}function selectSquareToCanvas(){if(imgele.src){let n={x:selsquare.offsetLeft,y:selsquare.offsetTop},t={x:imgele.offsetLeft,y:imgele.offsetTop};ctx.clearRect(0,0,cavW,cavH);ctx.drawImage(imgele,n.x-t.x,n.y-t.y,cavW,cavH,0,0,cavW,cavH)}}let imgbox=document.getElementById("selectImgBox"),imgele=document.getElementById("srcImgBox"),canvas=document.getElementById("canva1"),ctx=canvas.getContext("2d"),cavW=canvas.width,cavH=canvas.height,selsquare=document.getElementById("selectAreaBox");imgbox.addEventListener("mousedown",n=>{moveStart(n.x,n.y)});imgbox.addEventListener("mousemove",n=>{n.buttons==1&&moving(n.x,n.y)});imgbox.addEventListener("touchstart",n=>{n.stopPropagation();n.preventDefault();let t=n.targetTouches[0];moveStart(t.pageX,t.pageY)});imgbox.addEventListener("touchmove",n=>{n.stopPropagation();n.preventDefault();let t=n.targetTouches[0];moving(t.pageX,t.pageY);selectSquareToCanvas()});let mxy={x:0,y:0},imgxy={x:imgele.offsetLeft,y:imgele.offsetTop}</script></div></div><script src=/asset/js/mainmenu.js></script></body></html>
