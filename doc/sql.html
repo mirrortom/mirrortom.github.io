@@ -1,30 +1,21 @@
-<!DOCTYPE html><html lang=en><head><meta charset=utf-8 /><meta http-equiv=X-UA-Compatible content="IE=edge,chrome=1" /><meta name=viewport content="width=device-width,initial-scale=1.0,user-scalable=no" /><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png /><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png /><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png /><link rel=manifest href=/site.webmanifest /><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5 /><meta name=msapplication-TileColor content=#da532c /><meta name=theme-color content=#ffffff /><title>常用sql | Mirror Space</title><link href=/mirrorui/mirrorui.css rel=stylesheet /></head><body><div class=mg-50><h1>sqlserver</h1><h5>测试工具: smss2016 数据库: localdb2014</h5><p class=article-title>数据库~表查询</p>
-<pre class=bg-gray>
+<!DOCTYPE html><html lang=en><head><meta charset=utf-8 /><meta http-equiv=X-UA-Compatible content="IE=edge,chrome=1" /><meta name=viewport content="width=device-width,initial-scale=1.0,user-scalable=no" /><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png /><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png /><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png /><link rel=manifest href=/site.webmanifest /><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5 /><meta name=msapplication-TileColor content=#da532c /><meta name=theme-color content=#ffffff /><title>常用sql | Mirror Space</title><link href=/mirrorui/mirrorui.css rel=stylesheet /></head><body><div class=mg-50><h1>sqlserver</h1><h5>测试工具: smss2016 数据库: localdb2014</h5><p class=article-title>数据库~表查询</p><pre class=bg-gray>
 -- 查询所有数据库
 SELECT * FROM master.sys.databases
-</pre>
-  <br />
-<pre class=bg-gray>
+</pre><br /><pre class=bg-gray>
 -- 查询当前数据库所有表
 SELECT * FROM sys.objects where type='U'
-</pre>
-  <br />
-  <pre class=bg-gray>
+</pre><br /><pre class=bg-gray>
 -- 查询表"user"的所有字段信息
 SELECT * FROM sys.columns
 WHERE object_id = (SELECT object_id FROM sys.tables WHERE type='U' AND name='user')
-</pre>
-  <br />
-  <pre class=bg-gray>
+</pre><br /><pre class=bg-gray>
 -- 查询表"user"的字段名和类型
 SELECT c.name 列名,t.name 列类型
 FROM sys.columns c
 JOIN sys.systypes t ON t.xusertype=c.system_type_id
 WHERE c.object_id = 
         (SELECT object_id FROM sys.tables WHERE type='U' AND name='user')
-</pre>
-  <br />
-  <pre class=bg-gray>
+</pre><br /><pre class=bg-gray>
 -- 查询表"user"的字段名~类型~长度~字段说明,字段是否主键,是否自增长
 -- 注意:列类型为char时长度有参考用.如果是nchar(前面有n,可以支持中文),查出的长度要除以2.中文字符长度为2个ascii字符长度
 SELECT  
@@ -41,22 +32,16 @@ LEFT JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE pk ON pk.COLUMN_NAME=c.name AND pk
 LEFT JOIN sys.extended_properties p ON p.minor_id=c.column_id AND p.major_id=c.object_id
 WHERE c.object_id = 
     (SELECT object_id FROM sys.tables WHERE type='U' AND name='表名')
-</pre><p class=article-title>like</p>
-<pre class=bg-gray>
+</pre><p class=article-title>like</p><pre class=bg-gray>
 -- 参数化LIKE查询
 SELECT * FROM 表名 WHERE 列名 like '%'+@ParaName+'%'
-</pre>
-  <br />
-
-<pre class=bg-gray>
+</pre><br /><pre class=bg-gray>
 -- 在SMSS工具里执行模糊查寻时,如果查找的参数是中文,可尝试在前面加 N
 SELECT * FROM 表名 WHERE 列名 like N'%汉%'
-</pre><br /><p class=article-title>in</p>
-  <pre class=bg-gray>
+</pre><br /><p class=article-title>in</p><pre class=bg-gray>
 -- 参数化IN查询
 SELECT * FROM 表名 WHERE 列名 IN (@para1,@para2,....多个参数占位符可以循环拼接)
-</pre><p class=article-title>while</p>
-  <pre class=bg-gray>
+</pre><p class=article-title>while</p><pre class=bg-gray>
 -- while循环
 DECLARE @i int   
 SET @i=1   
@@ -65,8 +50,7 @@ WHILE @i&lt;30 BEGIN
             insert into test (userid) values(@i)
             set @i=@i +1
             END
-</pre><p class=article-title>if else</p>
-  <pre class=bg-gray>
+</pre><p class=article-title>if else</p><pre class=bg-gray>
 -- 条件
 IF(1=1)
     BEGIN
@@ -76,8 +60,7 @@ ELSE
     BEGIN
         SELECT '错'
     END
-</pre><p class=article-title>case when</p>
-  <pre class=bg-gray>
+</pre><p class=article-title>case when</p><pre class=bg-gray>
 -- case 列 when 条件 then 值 ... ELSE 值 END
 CASE col
     WHEN '1'
@@ -92,21 +75,22 @@ CASE
         THEN 0
     ELSE 1
 END
-</pre><p class=article-title>时间间隔</p>
-  <pre class=bg-gray>
---查询当天：   
-SELECT * FROM info where DateDiff(dd,datetime,getdate())=0   
+</pre><p class=article-title>时间间隔</p><p>datediff文档: <a href="https://docs.microsoft.com/zh-cn/sql/t-sql/functions/datediff-transact-sql?view=sql-server-ver15" target=_blank>https://docs.microsoft.com/zh-cn/sql/t-sql/functions/datediff-transact-sql?view=sql-server-ver15</a></p><p>参考日期字段类型是datetime.如果是datetimeoffset,可以修改GETDATE()为SYSDATETIMEOFFSET()</p><pre class=bg-gray>
+--查询当天
+SELECT * FROM 表 WHERE DATEDIFF(day,[参照日期字段],GETDATE())=0   
   
---查询24小时内的:   
-SELECT * FROM info where DateDiff(hh,datetime,getDate())<=24
+--查询24小时内的
+SELECT * FROM 表 WHERE DATEDIFF(hour,[参照日期字段],GETDATE())<=24
 
---本月记录   
-SELECT * FROM 表 WHERE datediff(month,[dateadd],getdate())=0   
+--本月记录
+SELECT * FROM 表 WHERE DATEDIFF(month,[参照日期字段],GETDATE())=0   
   
---本周记录   
-SELECT * FROM 表 WHERE datediff(week,[dateadd],getdate())=0
-</pre><p class=article-title>分页row_number</p>
-  <pre class=bg-gray>
+--本周记录
+SELECT * FROM 表 WHERE DATEDIFF(week,[参照日期字段],GETDATE())=0
+
+--本年记录
+SELECT * FROM 表 WHERE DATEDIFF(year,[参照日期字段],GETDATE())=0
+</pre><p class=article-title>分页row_number</p><pre class=bg-gray>
 -- ROW_NUMBER分页1:分为两步.可以写在事务里.经测试,在总记录数少于三万条时,时间效率低
 SELECT count(pk) from 表 WHERE 1=1
              
@@ -118,12 +102,7 @@ SELECT * FROM
      ) A 
 WHERE A.RowNumber BETWEEN @StartRowIndex AND @EndRowIndex
 ORDER BY A.[CreateTime] DESC
-</pre>
-  <br />
-
-
-
-  <pre class=bg-gray>
+</pre><br /><pre class=bg-gray>
 -- ROW_NUMBER分页2:分页同时计算总条数.经测试,在总记录数在三万以内时,比分两步算法时间效率高
 SELECT * FROM
     (SELECT ROW_NUMBER() OVER (ORDER BY [CreateTime] DESC) RowNumber
@@ -134,8 +113,7 @@ SELECT * FROM
      ) A 
 WHERE A.RowNumber BETWEEN @StartRowIndex AND @EndRowIndex
 ORDER BY A.[CreateTime] DESC
-</pre><p class=article-title>分页OFFSET</p>
-  <pre class=bg-gray>
+</pre><p class=article-title>分页OFFSET</p><pre class=bg-gray>
 -- OFFSET分页1:分为两步,总条数和分页 使用OFFSET,SQL2012开始可用.时间效率比rownumber高一点
 SELECT count(pk) from 表 WHERE 1=1
               
@@ -145,9 +123,7 @@ FROM 表
 WHERE 1=1
 ORDER BY [CreateTime] DESC
 OFFSET @OffSetRows ROWS FETCH NEXT @PageSize ROWS ONLY
-</pre>
-  <br />
-  <pre class=bg-gray>
+</pre><br /><pre class=bg-gray>
 -- OFFSET分页2,同时计算总条数 
 SELECT ROW_NUMBER() OVER (ORDER BY [CreateTime] DESC) RowNumber
           ,COUNT(pk) OVER() AS ListCount
@@ -156,16 +132,13 @@ FROM 表
 WHERE 1=1
 ORDER BY [CreateTime] DESC
 OFFSET @OffSetRows ROWS FETCH NEXT @PageSize ROWS ONLY  
-</pre><p class=article-title>guid</p>
-  <pre class=bg-gray>
+</pre><p class=article-title>guid</p><pre class=bg-gray>
 --生成一个GUID
 SELECT REPLACE(NEWID(), '-', '')
-</pre><p class=article-title>返回自增长id</p>
-  <pre class=bg-gray>
+</pre><p class=article-title>返回自增长id</p><pre class=bg-gray>
 -- 返回自增主键
 INSERT INTO 表([col1]) VALUES(@col1);SELECT SCOPE_IDENTITY()
-</pre><p class=article-title>每小组特定值</p><p>这是一个常用的需求,一张表中的数据,可以按一个或者多个字段分组,在每个分组数据中查出符合要求的那一条或者多条记录.</p><p>最简单例子:找出订单表中,每一天的金额最大的那一个订单,要列出所有字段.</p><p>使用开窗函数 OVER(PARTITION BY col ORDER BY col) 解决.使用group by不够方便.</p><p>所谓开窗函数,可以将数据分组,PARTITION BY 分组字段,ORDER BY 排序字段.</p>
-  <pre class=bg-gray>
+</pre><p class=article-title>每小组特定值</p><p>这是一个常用的需求,一张表中的数据,可以按一个或者多个字段分组,在每个分组数据中查出符合要求的那一条或者多条记录.</p><p>最简单例子:找出订单表中,每一天的金额最大的那一个订单,要列出所有字段.</p><p>使用开窗函数 OVER(PARTITION BY col ORDER BY col) 解决.使用group by不够方便.</p><p>所谓开窗函数,可以将数据分组,PARTITION BY 分组字段,ORDER BY 排序字段.</p><pre class=bg-gray>
 -- 第一步,按每天分组订单记录,并且每个分组按金额由大到小排列.
 -- OVER函数前的,ROW_NUMBER()函数是关键,它为每组生成行号.执行结果会多出一个rowNumber字段(别名).
 SELECT col1, col2, ROW_NUMBER() OVER(PARTITION BY 每天日期 ORDER BY 金额 DESC) rowNumber
