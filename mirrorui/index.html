@@ -280,17 +280,26 @@
     &lt;a class="btn success">退出&lt;/a>
   &lt;/span>
 &lt;/span>
-</pre><br /><p>将下拉式按钮组放在横向按钮组里</p><div class=btn-group><a class=btn>默认选项</a> <span class=btn-list-group><a class=btn>颜色</a> <span class=btn-list-area><a class="btn danger">红</a> <a class="btn success">绿</a> <a class=btn>白</a></span></span> <span class=btn-list-group><a class=btn>操作</a> <span class=btn-list-area><a class="btn success">新建</a> <a class=btn>编辑</a> <a class="btn primary">打开</a> <a class="btn danger">导出</a> <a class="btn primary">导入</a> <a class="btn success">退出</a></span></span></div></div><div class=doc-part-box id=onoff><h2>开关</h2><p>switch使用自定义标记 &lt;m-switch class="switch">主要用于事项的停用/启用状态.</p><p># 不使用自定义标记实现的方式是:</p><p class=text-in>使用input(type=checkbox)和label两个标记,利用label的for属性和checkbox的id属性关联的特点,再用CSS选择器check判断checkbox选中时和未选中时,分别显示label的on/off状态.chekcbox放在label的前面,便于css选择器操作.</p><div class=mg-b-10><input type=checkbox id=onoff1 /><label for=onoff1>点击label,for属性关联checkbox</label></div><p class=text-in>这种办法不用写js就能实现.使用自定义标记后,由于可以使用js了,所以很简单了</p><p># dom属性 on off</p><p class=text-in>默认值是 'ON','OFF',用于显示标题.可以自定义成'开''关'</p><p># 初始状态</p><p class=text-in>状态为OFF,如果要为ON,需要添加样式"checked"</p><p># 获取开关状态 checked</p><pre class=bg-gray-lt>
-  // m-switchd的checked属性,checked属性.开返回true,关返回false
-  let isonoff = document.getElementById('switch1')<strong>.checked</strong> // true|false
+</pre><br /><p>将下拉式按钮组放在横向按钮组里</p><div class=btn-group><a class=btn>默认选项</a> <span class=btn-list-group><a class=btn>颜色</a> <span class=btn-list-area><a class="btn danger">红</a> <a class="btn success">绿</a> <a class=btn>白</a></span></span> <span class=btn-list-group><a class=btn>操作</a> <span class=btn-list-area><a class="btn success">新建</a> <a class=btn>编辑</a> <a class="btn primary">打开</a> <a class="btn danger">导出</a> <a class="btn primary">导入</a> <a class="btn success">退出</a></span></span></div></div><div class=doc-part-box id=onoff><h2>开关</h2><p>switch使用自定义标记 &lt;m-switch class="switch">主要用于事项的停用/启用状态.</p><div class=mg-b-10><m-switch class=mg-r-10></m-switch><m-switch class="checked mg-r-10"></m-switch><m-switch class=mg-r-10 on=开 off=关></m-switch><m-switch class="checked mg-r-10" on=开 off=关></m-switch><m-switch class=mg-r-10 on=启用 off=停用></m-switch><m-switch class=checked on=启用 off=停用></m-switch></div><div class=mg-b-10><m-switch class="checked primary mg-r-10"></m-switch><m-switch class="checked danger mg-r-10"></m-switch><m-switch class="checked success mg-r-10"></m-switch><m-switch class="checked info mg-r-10"></m-switch><m-switch class="checked warning mg-r-10"></m-switch></div><div class=mg-b-10><m-switch class="checked text-sm mg-r-10"></m-switch><m-switch class="checked text-md mg-r-10"></m-switch><m-switch class="checked text-lg mg-r-10"></m-switch><m-switch class="checked text-xl mg-r-10"></m-switch><m-switch class="checked text-xxl mg-r-10"></m-switch><m-switch class="checked text-xxxl mg-r-10"></m-switch></div><p># 不使用自定义标记实现的方式是:</p><p class=text-in>使用input(type=checkbox)和label两个标记,利用label的for属性和checkbox的id属性关联的特点,再用CSS选择器check判断checkbox选中时和未选中时,分别显示label的on/off状态.chekcbox放在label的前面,便于css选择器操作.</p><div class="mg-b-10 mg-l-10"><input type=checkbox id=onoff1 /><label for=onoff1>点击label,for属性关联checkbox</label></div><p class=text-in>这种办法不用写js就能实现.使用自定义标记后,由于可以使用js了,所以很简单了</p><p># dom属性 <strong>on off</strong></p><p class=text-in>默认值是 'ON','OFF',用于显示标题.可以自定义成'开''关'</p><p># 初始状态</p><p class=text-in>状态为OFF,如果要为ON,需要添加样式 ".checked"</p><p># 属性 <strong>checked</strong> 获取开关状态</p><p># 属性 <strong>onClicked</strong> 设置点击后执行事件</p><pre class=bg-gray-lt>
 
-</pre><br /><div class=mg-b-10><m-switch class="switch mg-r-10"></m-switch><m-switch class="switch checked mg-r-10"></m-switch><m-switch class="switch mg-r-10" on=开 off=关></m-switch><m-switch class="switch checked mg-r-10" on=开 off=关></m-switch><m-switch class="switch mg-r-10" on=启用 off=停用></m-switch><m-switch class="switch checked" on=启用 off=停用></m-switch></div><div class=mg-b-10><m-switch class="switch checked primary mg-r-10"></m-switch><m-switch class="switch checked danger mg-r-10"></m-switch><m-switch class="switch checked success mg-r-10"></m-switch><m-switch class="switch checked info mg-r-10"></m-switch><m-switch class="switch checked warning mg-r-10"></m-switch></div><div class=mg-b-10><m-switch class="switch checked text-sm mg-r-10"></m-switch><m-switch class="switch checked text-md mg-r-10"></m-switch><m-switch class="switch checked text-lg mg-r-10"></m-switch><m-switch class="switch checked text-xl mg-r-10"></m-switch><m-switch class="switch checked text-xxl mg-r-10"></m-switch><m-switch class="switch checked text-xxxl mg-r-10"></m-switch></div><pre class=bg-gray-lt>
+  let switch1 = document.getElementById('switch1');
+
+  // m-switchd的checked属性,checked属性.开返回true,关返回false
+  let isonoff = switch1<strong>.checked</strong> // true | false
+
+  // 点击后执行一个方法 self 就是 m-swtich 对象
+  switch1<strong>.onClicked</strong> = (self)=>{
+    if(self.checked)
+        msgbox.alert('状态是: 开');
+  }
+
+</pre><br /><pre class=bg-gray-lt>
   // class="switch"
   &lt;m-switch <strong>on="开" off="关"</strong> class="<strong>switch checked</strong>">&lt;/m-switch>
 
   // 主题色与大小
-  &lt;m-switch class="switch <strong>primary</strong>">&lt;/m-switch>
-  &lt;m-switch class="switch <strong>text-lg</strong>">&lt;/m-switch>
+  &lt;m-switch class="<strong>primary</strong>">&lt;/m-switch>
+  &lt;m-switch class="<strong>text-lg</strong>">&lt;/m-switch>
 
 </pre></div><div class=doc-part-box id=label><h2>标签</h2><p>默认标签背景颜色继承父级,可以自定义标签背景色,文字色,也可以使用主题背景色</p><span class=label>默认标签</span> <span class="label cir">圆角 class="label cir"</span> <span class="label text-white bg-black-lt">暗色背景 class="label text-white bg-black-lt"</span><div class=mg-tb-10> <span class="label cir primary">primary</span> <span class="label cir danger">danger</span> <span class="label cir success">success</span> <span class="label cir info">info</span> <span class="label cir warning">warning</span></div><div class=mg-tb-10><span class="label text-sm">text-sm</span> <span class="label text-md">text-md</span> <span class="label text-lg">text-lg</span> <span class="label text-xl">text-xl</span> <span class="label text-xxl">text-xxl</span> <span class="label text-xxxl">text-xxxl</span></div><pre class=bg-gray-lt>
   // 
@@ -417,6 +426,13 @@
 
   // 获取选中的第一个文件
   let files0 = inputFileDom.files[0]
+
+</pre><br /><p># 属性 <strong>files</strong></p><pre class=bg-gray-lt>
+  // 返回input file dom的files对象
+  let file1 = document.getElementById('file1');
+  
+  // 获取选中的文件数组
+  file1.files;
 
 </pre><br /><p># 方法 <strong>reset()</strong></p><pre class=bg-gray-lt>
   // 重置组件,清空选择的文件
@@ -679,7 +695,7 @@
       [
         // 每个元素是一个对象
         {
-          <strong>title</strong>: '菜单组标题',
+  <strong>title</strong>: '菜单组标题',
           // 菜单组标题的属性和样式
           props: { k: 'v', k1: 'v1' },
           styles: ['class1','class2']
@@ -687,7 +703,7 @@
           // 每组菜单项是一个数组
           menus: [
             {
-              <strong>title</strong>: '菜单标题',
+  <strong>title</strong>: '菜单标题',
               // 菜单项dom的属性
               props: { href: '#url', name: 'name' },
               // 菜单项dom的样式
@@ -699,7 +715,7 @@
         }
       ]
   
-    // itemClickE: 点击菜单后执行的方法
+    // <strong>itemClickE(item, index)</strong>: 点击菜单后执行的方法.item是被点击的菜单dom对象,index是菜单索引
     // 这两个参数都可以省略.如果不需要使用数据生成菜单项.
     
 </pre><br /><p># 方法 <strong>activeItem(itemIndex)</strong></p><p class=text-in>指定一个激活的菜单,itemIndex 是菜单索引</p><pre class=bg-gray-lt>
@@ -852,7 +868,7 @@
   // loadType=2: 菜单之前载入过
   // loadType=3: 是新载入菜单,其对应的页面没有载入过,需要做载入新页面的操作</span>
 
-</pre><p># 经典布局结构</p><p class=text-in>缓存页组件可用于导航.信息管理系统的经典布局就是左变菜单,右边内容,右边上面缓存打开的页面,点击可以切换.</p><p class=text-in>HTML结构如下:左侧菜单,右侧分为2部分,上面是选项卡,下面是内容区</p><pre class=bg-gray-lt>
+</pre><br /><p># 经典布局结构</p><p class=text-in>缓存页组件可用于导航.信息管理系统的经典布局就是左变菜单,右边内容,右边上面缓存打开的页面,点击可以切换.</p><p class=text-in>HTML结构如下:左侧菜单,右侧分为2部分,上面是选项卡,下面是内容区 <a class="btn text-primary link" href=doc/cachepagedemo1.html target=_blank>新窗口示例</a></p><pre class=bg-gray-lt>
 
   &lt;div class="container">
 
