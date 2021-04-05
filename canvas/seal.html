@@ -1,0 +1,49 @@
+<!DOCTYPE html><html lang=en><head><meta charset=utf-8 /><meta name=viewport content="width=device-width,initial-scale=1.0,user-scalable=no" /><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png /><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png /><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png /><link rel=manifest href=/site.webmanifest /><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5 /><meta name=msapplication-TileColor content=#da532c /><meta name=theme-color content=#ffffff /><title>图章 | canvas-demo | Mirror Space</title><link href=/mirrorui/mirrorui.css rel=stylesheet /><link href=/asset/css/blog.css rel=stylesheet /></head><body><div class=layout><div class=layout-part1></div><div class=layout-part2><h2>图章</h2><p>圆形的图章,有4部分内容组成,标题,5角星,名字,编号.</p><p>5角星位于中心,5角星下方两个点的连线到圆心的距离就是图章名字的位置</p><p>标题内容的对称轴是Y轴,从Y轴下半部分起,顺时针排布,起点具体位置是从圆正下方90度(Y轴下半部分)为参照起点,根据内容所占有的圆心角计算出来.</p><pre class=bg-gray-lt>
+
+  // txtCirAngle 标题内容所占圆弧对应的圆心角
+  let txtStartA = Math.PI / 2 + Math.PI - txtCirAngle / 2 + Math.PI / 2;
+
+</pre><br /><p>编号与标题类似,也是Y轴对称,但是逆时针排布,起点是从圆正上方90度(Y轴上半部分)为参照起点,根据编号内容圆心角度计算</p><pre class=bg-gray-lt>
+
+  // numCirAngle 编号内容所占圆弧对应的圆心角
+  let numStartA = -Math.PI / 2 + Math.PI - numCirAngle / 2 - Math.PI / 2;
+
+</pre><br /><div class="grids text-center bg-gray-lt" id=sealParaBox><label class="form-label grid-1">图章标题</label><input class="input-text grid-2" name=title type=text value="" /> <label class="form-label grid-1">图章名字</label><input class="input-text grid-2" name=name type=text value="" /> <label class="form-label grid-1">图章编号</label><input class="input-text grid-2" name=num type=text value="" /> <label class="form-label grid-1">宽度</label><input class="input-text grid-2" name=width dtype=num type=text value="" /> <label class="form-label grid-1">边框厚度%</label><input class="input-text grid-2" name=borderPPI dtype=num type=text value="" /> <label class="form-label grid-1">边框颜色</label><input class="input-text grid-2" name=bdColor type=text value="" /> <label class="form-label grid-1">五角星半径%</label><input class="input-text grid-2" name=start5PPI dtype=num type=text value="" /> <label class="form-label grid-1">文字颜色</label><input class="input-text grid-2" name=color type=text value="" /> <label class="form-label grid-1">文字字体</label><input class="input-text grid-2" name=fontFamily type=text value="" /> <label class="form-label grid-1">文字大小%</label><input class="input-text grid-2" name=fontSizePPI dtype=num type=text value="" /> <label class="form-label grid-1">文字间距1-60</label><input class="input-text grid-2" name=fontSP dtype=num type=text value="" /> <label class="form-label grid-1">文字blod</label><input class="input-text grid-2" name=fontWeight dtype=num type=text value="" /> <label class="form-label grid-1">编号大小%</label><input class="input-text grid-2" name=numSizePPI dtype=num type=text value="" /> <label class="form-label grid-1">编号间距1-60</label><input class="input-text grid-2" name=numSP dtype=num type=text value="" /><div class=grid-4> <a class="btn d-block primary" id=createNewSealBtn>生成</a></div></div><div class="grids mg-tb-30"><div class=grid><canvas id=canvas1><h3>不支持canvas</h3></canvas></div><pre class="grid bg-gray-lt">
+
+    // 参数默认配置
+
+    let cfg = {
+    // 图章标题
+    title: 'xxxxxxxxxxx',
+    // 图章名字
+    name: 'yyyyy',
+    // 图章编号
+    num: '000000000000',
+    // 宽度: 像素(比例基准值) 300
+    width: 300,
+    // 边框厚度占宽度比例 3.5%
+    borderPPI: 3.5,
+    // 边框颜色
+    bdColor: '#ee0000',
+    // 五角星半径大小占宽度比例
+    start5PPI: 30,
+    // 文字颜色
+    color: '#ee0000',
+    // 文字字体
+    fontFamily: '仿宋,宋体,arial',
+    // 文字大小占宽度比例
+    fontSizePPI: 10,
+    // 文字间距角度 1-60
+    fontSP: 20,
+    // 字体blod 600
+    fontWeight: 600,
+    // 图章编号文字大小占宽度比例
+    numSizePPI: 8,
+    // 图章编号文字间距角度 1-60
+    numSP: 8,
+    // canvas画布DOM的Id
+    cavId: 'canvas1'
+    };
+
+</pre></div><script>function createSeal(n){let y=document.getElementById(n.cavId),t=y.getContext("2d");t.canvas.width=t.canvas.height=n.width||300;t.clearRect(0,0,t.canvas.width,t.canvas.width);let r=Math.round(n.width*n.borderPPI/100),a=`${n.fontWeight} ${n.width*n.fontSizePPI/100}px ${n.fontFamily}`,p=`${n.fontWeight} ${n.width*n.numSizePPI/100}px ${n.fontFamily}`,i={x:n.width/2,y:n.width/2},u=n.width/2-r/2;t.beginPath();t.strokeStyle=n.bdColor;t.lineWidth=r;t.arc(i.x,i.y,u,0,Math.PI*2);t.stroke();let w=u-r,f=n.title.length,e=n.fontSP*Math.PI/180,o=e*(f+1);o>Math.PI*2&&(e=Math.PI*2/f,o=Math.PI*2);let b=Math.PI/2+Math.PI-o/2+Math.PI/2;t.save();t.font=a;t.translate(i.x,i.y);t.rotate(b);t.textBaseline="top";t.textAlign="center";t.fillStyle=n.color;for(let i=0;i<f;i++){let r=n.title[i];t.beginPath();t.rotate(e);t.fillText(r,0,-w)}t.restore();let s=Math.round(n.width*n.start5PPI/200);t.save();t.translate(i.x,i.y);t.moveTo(0,-s);for(var v=0;v<5;v++)t.rotate(-Math.PI*4/5),t.lineTo(0,-s);t.fillStyle=n.color;t.fill();t.restore();t.save();t.font=a;t.translate(i.x,i.y+Math.sin(Math.PI*.3)*s);t.textBaseline="top";t.textAlign="center";t.beginPath();t.fillStyle=n.color;t.fillText(n.name,0,0);t.restore();let k=u-r,h=n.num.length,c=n.numSP*Math.PI/180,l=c*(h+1);l>Math.PI*2&&(c=Math.PI*2/h,l=Math.PI*2);let d=-Math.PI/2+Math.PI-l/2-Math.PI/2;t.save();t.font=p;t.translate(i.x,i.y);t.rotate(-d);t.textBaseline="bottom";t.textAlign="center";t.fillStyle=n.color;for(let i=0;i<h;i++){let r=n.num[i];t.stroke();t.beginPath();t.rotate(-c);t.fillText(r,0,k)}t.restore()}function sealParaBox(){let n="";for(let t in cfg)n+=`<label class="form-label grid-1">${t}</label>
+    <input class="input-text grid-2" name="" type="text" value="${cfg[t]}">`;document.getElementById("sealParaBox").querySelectorAll("input[name]").forEach(n=>{n.value=cfg[n.name]})}let cfg={title:"镜子空间另一个宇宙",name:"Mirror Space",num:"101001000100",width:300,borderPPI:3.5,bdColor:"#ee0000",start5PPI:30,color:"#ee0000",fontFamily:"仿宋,宋体,arial",fontSizePPI:10,fontSP:20,fontWeight:600,numSizePPI:8,numSP:8,cavId:"canvas1"};createSeal(cfg);sealParaBox();document.getElementById("createNewSealBtn").onclick=()=>{let n={};n.cavId="canvas1";document.getElementById("sealParaBox").querySelectorAll("input[name]").forEach(t=>{n[t.name]=t.getAttribute("dtype")=="num"?parseFloat(t.value):t.value});createSeal(n)}</script></div></div><script src=/asset/js/mainmenu.js></script></body></html>
