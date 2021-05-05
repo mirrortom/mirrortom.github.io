@@ -1,12 +1,16 @@
-<!DOCTYPE html><html lang=en><head><meta charset=utf-8 /><meta name=viewport content="width=device-width,initial-scale=1.0,user-scalable=no" /><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png /><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png /><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png /><link rel=manifest href=/site.webmanifest /><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5 /><meta name=msapplication-TileColor content=#da532c /><meta name=theme-color content=#ffffff /><title>图片切换 | canvas-demo | Mirror Space</title><link href=/mirrorui/mirrorui.css rel=stylesheet /><link href=/asset/css/blog.css rel=stylesheet /></head><body><div class=layout><div class=layout-part1></div><div class=layout-part2><h2>图片切换Slider</h2><p>用canvas做图片切换,用到 <a href=doc/drawimage.html>drawImage()</a> 这个API.</p><p>将图片用各种办法画到canvas上,在每种画法之间切换.图片画到canvas上是宽度等比缩放的.</p><p>html结构是一个容器DIV,里面有多个IMG,都是隐藏的,需要给容器一个高度.</p><pre class=bg-gray-lt>
+<!DOCTYPE html><html lang=en><head><meta charset=utf-8 /><meta name=viewport content="width=device-width,initial-scale=1.0,user-scalable=no" /><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png /><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png /><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png /><link rel=manifest href=/site.webmanifest /><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5 /><meta name=msapplication-TileColor content=#da532c /><meta name=theme-color content=#ffffff /><title>图片切换 | canvas-demo | Mirror Space</title><link href=/mirrorui/mirrorui.css rel=stylesheet /><link href=/asset/css/blog.css rel=stylesheet /></head><body><div class=layout><div class=layout-part1></div><div class=layout-part2><h2>图片切换Slider</h2><p>用canvas做图片切换,用到 <a href=doc/drawimage.html>drawImage()</a> 这个API.</p><p>将图片用各种办法画到canvas上,在每种画法之间切换.图片画到canvas上是宽度等比缩放的.</p><p>html结构是一个容器DIV,里面有多个IMG,需要给容器一个高度.</p><p>图片img在第一个子div里,是隐藏的.动态添加图片时要加到这个容器里.</p><pre class=bg-gray-lt>
 
     &lt;div class="slider" id="sliderBox" style="width:380px;height:260px">
-      &lt;img src="slider1.jpg" />
-      &lt;img src="slider2.jpg" />
-      &lt;img src="slider3.jpg" />
-      &lt;img src="slider4.jpg" />
-      &lt;img src="slider5.jpg" />
-      &lt;img src="slider6.jpg" />
+      // 图片在这个div里,div不可见.
+      &lt;div class="slider-imgs d-none">
+        &lt;img src="slider1.jpg" />
+        &lt;img src="slider2.jpg" />
+        &lt;img src="slider3.jpg" />
+        &lt;img src="slider4.jpg" />
+        &lt;img src="slider5.jpg" />
+        &lt;img src="slider6.jpg" />
+      &lt;/div>
+      // 会加入canvas对象,图片就是画在这个对象上的.
     &lt;/div>
 
 </pre><br /><p>类和主要方法</p><pre class=bg-gray-lt>
@@ -16,6 +20,8 @@
 
   // canvas 2d绘画
   slid.ctx = null;
+  // 图片容器div
+  slid.box = null;
   // 图片数组
   slid.imgs = null;
   // 当前动画显示的图片
@@ -25,9 +31,8 @@
   // 动画函数数组,函数加入数组的顺序决定动画顺序
   slid.aniArr = null;
   slid.aniIndex = 0;
-
-  // 初始化: 主要是获取了图片,添加了canvas画布
-  slid.init = (boxId) => {}
+  // 动画速度
+  slid.speed=1;
 
   // 等待加载图片完成后开始动画: 定时检查图片是否加载完成,加载中时,画面显示loading.加载完成后开始动画
   slid.loadImgAndStart = (...index) => {}
@@ -73,4 +78,14 @@
       window.requestAnimationFrame(step);
     }
 
-</pre><br /><div class=mg-tb-30><div class=grids><div class="grid-12 grid-md-6"><div id=sliderBox class=mg-10 style="width:380px;height:260px;outline:5px dotted #f00"><img src=/asset/img/slider/slider1.jpg class=d-none /> <img src=/asset/img/slider/slider2.jpg class=d-none /> <img src=/asset/img/slider/slider3.jpg class=d-none /> <img src=/asset/img/slider/slider4.jpg class=d-none /> <img src=/asset/img/slider/slider5.jpg class=d-none /> <img src=/asset/img/slider/slider6.jpg class=d-none /> <img src=/asset/img/slider/slider7.jpg class=d-none /></div></div><div class="grid-12 grid-md-6"><div class=mg-10 style="width:380px;outline:5px dotted #008000"><img src="" width=380 id=showimg style=display:block /></div></div></div><br /><br /></div><script>(()=>{function t(n){document.getElementById("showimg").src=n.src}function i(n){let y=n.ctx,r=n.nextImg(),i=0,u=0,f=n.w,b=n.h,e=r.width,o=r.height,p=f/e,w=o*p,s=f/16,h=w/16,c=e/16,l=o/16,a=0;t(r);let v=()=>{if(a>255){n.next();return}i>15&&(i=0,u++);y.drawImage(r,i*c,u*l,c,l,i*s,u*h,s,h);i++;a++;window.requestAnimationFrame(v)};window.requestAnimationFrame(v)}function r(n){let i=n.ctx,r=n.nextImg(),f=0,u=n.w,e=n.h,s=r.width,h=r.height,c=u/s,l=h*c;t(r);let o=()=>{if(f>Math.max(u,e)*.707){n.next();return}i.save();i.beginPath();i.arc(u/2,e/2,f,0,Math.PI*2);i.clip();i.drawImage(r,0,0,u,l);i.restore();f++;window.requestAnimationFrame(o)};window.requestAnimationFrame(o)}function u(n){let e=n.ctx,i=n.nextImg(),r=n.w,l=n.h,o=i.width,s=i.height,h=r/o,c=s*h,u=-r;t(i);let f=()=>{if(u>0){n.next();return}e.drawImage(i,u,0,r,c);u++;window.requestAnimationFrame(f)};window.requestAnimationFrame(f)}function f(n){let e=n.ctx,i=n.nextImg(),u=n.w,o=n.h,s=i.width,h=i.height,c=u/s,l=h*c,r=-o;t(i);let f=()=>{if(r>0){n.next();return}e.drawImage(i,0,r,u,l);r++;window.requestAnimationFrame(f)};window.requestAnimationFrame(f)}function e(n){let i=n.ctx,r=n.nextImg(),f=n.w,l=n.h,o=r.width,s=r.height,h=f/o,c=s*h,u=1;t(r);let e=()=>{if(u>200){n.next();return}i.save();i.scale(u/200,u/200);i.drawImage(r,0,0,f,c);i.restore();u++;window.requestAnimationFrame(e)};window.requestAnimationFrame(e)}function o(n){let i=n.ctx,r=n.nextImg(),u=n.w,e=n.h,s=r.width,h=r.height,c=u/s,l=h*c,f=0;t(r);i.save();i.translate(u/2,e/2);let o=()=>{if(f>360){i.restore();n.next();return}i.save();i.rotate(f*Math.PI/180);i.drawImage(r,-u/2,-e/2,u,l);i.restore();f++;window.requestAnimationFrame(o)};window.requestAnimationFrame(o)}function s(n){let r=n.ctx,u=n.nextImg(),f=n.w,l=n.h,o=u.width,s=u.height,h=f/o,c=s*h,i=0;t(u);let e=()=>{if(i>1){n.next();return}r.save();r.globalAlpha=i;r.drawImage(u,0,0,f,c);r.restore();i+=i<.25?.002:i<.5?.005:i<.75?.01:.02;window.requestAnimationFrame(e)};window.requestAnimationFrame(e)}function h(n){let i=n.ctx,u=n.nextImg(),r=n.w,f=n.h,s=u.width,h=u.height,c=r/s,l=h*c,e=0,a=Math.max(r,f)*.707;t(u);let o=()=>{if(e>360){n.next();return}i.save();i.beginPath();i.moveTo(r/2,f/2);i.arc(r/2,f/2,a,0,e*Math.PI/180);i.clip();i.drawImage(u,0,0,r,l);i.restore();e++;window.requestAnimationFrame(o)};window.requestAnimationFrame(o)}let n={};n.ctx=null;n.imgs=null;n.imgIndex=-1;n.skipTime=2e3;n.aniArr=null;n.aniIndex=0;n.init=t=>{let c=document.getElementById(t);n.w=c.offsetWidth;n.h=c.offsetHeight;n.imgs=c.querySelectorAll("img");let l=document.createElement("canvas");l.width=n.w;l.height=n.h;n.ctx=l.getContext("2d");c.append(l);n.aniArr=[i,r,u,f,e,o,s,h]};n.nextImg=()=>(n.imgIndex++,n.imgIndex>=n.imgs.length&&(n.imgIndex=0),n.imgs[n.imgIndex]);n.next=()=>{setTimeout(()=>{n.aniIndex++,n.aniIndex>=n.aniArr.length&&(n.aniIndex=0),n.aniArr[n.aniIndex](n)},n.skipTime)};n.loadImgAndStart=(...t)=>{let i=()=>{n.ctx.font="600 30px arial";n.ctx.fillText("Loading...",n.w/3,n.h/2);for(var r=0,u=n.imgs.length;r<u;r++)if(!n.imgs[r].complete){setTimeout(()=>{i()},10);return}n.start(...t)};i()};n.start=(...t)=>{if(!t||t.length==0){n.aniArr[0](n);return}let r=[];for(var i=0,u=t.length;i<u;i++){let u=t[i];r[i]=u<0||u>=n.aniArr.length?n.aniArr[i]:n.aniArr[u]}n.aniArr=r;n.aniArr[0](n)};n.init("sliderBox");n.loadImgAndStart()})()</script></div></div><script src=/asset/js/mainmenu.js></script></body></html>
+</pre><br /><pre class=bg-gray-lt>
+
+    let slid = slider('sliderBox');
+    
+    // 定时检查所有图片加载完成后开始动画. id: 装img的div容器Id
+    slid.loadImgAndStart();
+    
+    // 不检查加载情况,直接开始动画
+    slid.start();
+
+</pre><div class=mg-tb-30><div class=grids><div class="grid-12 grid-md-6"><div id=sliderBox class=mg-10 style="width:380px;height:260px;outline:5px dotted #f00"><img src=/asset/img/slider/slider1.jpg class=d-none /> <img src=/asset/img/slider/slider2.jpg class=d-none /> <img src=/asset/img/slider/slider3.jpg class=d-none /> <img src=/asset/img/slider/slider4.jpg class=d-none /> <img src=/asset/img/slider/slider5.jpg class=d-none /> <img src=/asset/img/slider/slider6.jpg class=d-none /> <img src=/asset/img/slider/slider7.jpg class=d-none /></div></div><div class="grid-12 grid-md-6"><div class=mg-10 style="width:380px;outline:5px dotted #008000"><img src="" width=380 id=showimg style=display:block /></div></div></div><br /><br /></div><script>(()=>{function n(n){document.getElementById("showimg").src=n.src}function t(n){let t={};t.boxId=n;t.ctx=null;t.imgs=null;t.imgIndex=-1;t.skipTime=2e3;t.aniArr=null;t.aniIndex=0;let l=document.getElementById(t.boxId);t.w=l.offsetWidth;t.h=l.offsetHeight;t.imgs=l.querySelectorAll("img");let a=document.createElement("canvas");return a.width=t.w,a.height=t.h,t.ctx=a.getContext("2d"),l.append(a),i(t),t.aniArr=[r,u,f,e,o,s,h,c],t.nextImg=()=>(t.imgIndex++,t.imgIndex>=t.imgs.length&&(t.imgIndex=0),t.imgs[t.imgIndex]),t.next=()=>{setTimeout(()=>{t.aniIndex++,t.aniIndex>=t.aniArr.length&&(t.aniIndex=0),t.aniArr[t.aniIndex](t)},t.skipTime)},t.loadImgAndStart=(...n)=>{let i=r=>{if(r<=0){t.ctx.beginPath();t.ctx.fillText("images loading falid!",t.w/3,t.h/2);return}t.imgs.length==0&&(t.imgs=document.getElementById(t.boxId).querySelectorAll("img"),setTimeout(()=>{i(r-1)},10));for(var u=0,f=t.imgs.length;u<f;u++)if(!t.imgs[u].complete){setTimeout(()=>{i(r-1)},10);return}t.start(...n)};i(500)},t.start=(...n)=>{if(!n||n.length==0){t.aniArr[0](t);return}let r=[];for(var i=0,u=n.length;i<u;i++){let u=n[i];r[i]=u<0||u>=t.aniArr.length?t.aniArr[i]:t.aniArr[u]}t.aniArr=r;t.aniArr[0](t)},t}function i(n){let t=n.ctx;t.save();t.beginPath();t.rect(0,0,n.w,n.h);t.fillStyle="#efefef";t.fill();t.beginPath();t.font="600 30px arial";t.fillStyle="#34343480";t.textAlign="center";t.fillText("images Loading...",n.w/2,n.h/2);t.restore()}function r(t){let y=t.ctx,r=t.nextImg(),i=0,u=0,f=t.w,b=t.h,e=r.width,o=r.height,p=f/e,w=o*p,s=f/16,h=w/16,c=e/16,l=o/16,a=0;n(r);let v=()=>{if(a>255){t.next();return}i>15&&(i=0,u++);y.drawImage(r,i*c,u*l,c,l,i*s,u*h,s,h);i++;a++;window.requestAnimationFrame(v)};window.requestAnimationFrame(v)}function u(t){let i=t.ctx,r=t.nextImg(),f=0,u=t.w,e=t.h,s=r.width,h=r.height,c=u/s,l=h*c;n(r);let o=()=>{if(f>Math.max(u,e)*.707){t.next();return}i.save();i.beginPath();i.arc(u/2,e/2,f,0,Math.PI*2);i.clip();i.drawImage(r,0,0,u,l);i.restore();f++;window.requestAnimationFrame(o)};window.requestAnimationFrame(o)}function f(t){let e=t.ctx,i=t.nextImg(),r=t.w,l=t.h,o=i.width,s=i.height,h=r/o,c=s*h,u=-r;n(i);let f=()=>{if(u>0){t.next();return}e.drawImage(i,u,0,r,c);u++;window.requestAnimationFrame(f)};window.requestAnimationFrame(f)}function e(t){let e=t.ctx,i=t.nextImg(),u=t.w,o=t.h,s=i.width,h=i.height,c=u/s,l=h*c,r=-o;n(i);let f=()=>{if(r>0){t.next();return}e.drawImage(i,0,r,u,l);r++;window.requestAnimationFrame(f)};window.requestAnimationFrame(f)}function o(t){let i=t.ctx,r=t.nextImg(),f=t.w,l=t.h,o=r.width,s=r.height,h=f/o,c=s*h,u=1;n(r);let e=()=>{if(u>200){t.next();return}i.save();i.scale(u/200,u/200);i.drawImage(r,0,0,f,c);i.restore();u++;window.requestAnimationFrame(e)};window.requestAnimationFrame(e)}function s(t){let i=t.ctx,r=t.nextImg(),u=t.w,e=t.h,s=r.width,h=r.height,c=u/s,l=h*c,f=0;n(r);i.save();i.translate(u/2,e/2);let o=()=>{if(f>360){i.restore();t.next();return}i.save();i.rotate(f*Math.PI/180);i.drawImage(r,-u/2,-e/2,u,l);i.restore();f++;window.requestAnimationFrame(o)};window.requestAnimationFrame(o)}function h(t){let r=t.ctx,u=t.nextImg(),f=t.w,l=t.h,o=u.width,s=u.height,h=f/o,c=s*h,i=0;n(u);let e=()=>{if(i>1){t.next();return}r.save();r.globalAlpha=i;r.drawImage(u,0,0,f,c);r.restore();i+=i<.25?.002:i<.5?.005:i<.75?.01:.02;window.requestAnimationFrame(e)};window.requestAnimationFrame(e)}function c(t){let i=t.ctx,u=t.nextImg(),r=t.w,f=t.h,s=u.width,h=u.height,c=r/s,l=h*c,e=0,a=Math.max(r,f)*.707;n(u);let o=()=>{if(e>360){t.next();return}i.save();i.beginPath();i.moveTo(r/2,f/2);i.arc(r/2,f/2,a,0,e*Math.PI/180);i.clip();i.drawImage(u,0,0,r,l);i.restore();e++;window.requestAnimationFrame(o)};window.requestAnimationFrame(o)}let l=t("sliderBox");l.loadImgAndStart()})()</script></div></div><script src=/asset/js/mainmenu.js></script></body></html>
