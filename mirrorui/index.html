@@ -235,16 +235,16 @@
     &lt;m-btn class="<strong>loading</strong>">等待中&lt;/m-btn>
 
 </pre><br /><p># 主题颜色,大小尺寸,块级</p><div class=mg-tb-10><m-btn class="btn primary mg-r-10">primary</m-btn><m-btn class="btn danger mg-r-10">danger</m-btn><m-btn class="btn success mg-r-10">success</m-btn><m-btn class="btn info mg-r-10">info</m-btn><m-btn class="btn warning mg-r-10">warning</m-btn></div><div class=mg-tb-10><m-btn class="btn link primary">hover primary link</m-btn><m-btn class="btn link danger">hover danger link</m-btn><m-btn class="btn link success">hover success link</m-btn><m-btn class="btn link info">hover info link</m-btn><m-btn class="btn link warning">hover warning link</m-btn></div><div class=mg-tb-10><m-btn class="btn link text-primary">text-primary link</m-btn><m-btn class="btn link text-danger">text-danger link</m-btn><m-btn class="btn link text-success">text-success link</m-btn><m-btn class="btn link text-info">text-info link</m-btn><m-btn class="btn link text-warning">text-warning link</m-btn></div><div class=mg-tb-10><m-btn class="btn text-sm loading mg-r-10">text-sm</m-btn><m-btn class="btn text-md loading mg-r-10">text-md</m-btn><m-btn class="btn text-lg loading mg-r-10">text-lg</m-btn><m-btn class="btn text-xl loading mg-r-10">text-xl</m-btn><m-btn class="btn text-xxl loading mg-r-10">text-xxl</m-btn><m-btn class="btn text-xxxl loading mg-r-10">text-xxxl</m-btn></div><div class=mg-tb-10><m-btn class="btn d-block">块级按钮</m-btn><br /><m-btn class="btn d-block primary">块级按钮class="btn d-block primary"</m-btn></div><pre class=bg-gray-lt>
-  &lt;m-btn> class="btn primary">primary&lt;/m-btn>
+  &lt;m-btn class="primary">primary&lt;/m-btn>
 
   // link连接式按钮的文字颜色,添加工具样式 text-primary|success|....
-  &lt;m-btn> class="btn link text-primary">primary link&lt;/m-btn>
+  &lt;m-btn class="link text-primary">primary link&lt;/m-btn>
 
   // 调整按钮大小,添加工具样式 text-sm|md|lg|....
-  &lt;m-btn> class="btn text-sm">btn text-sm&lt;/m-btn>
+  &lt;m-btn class="text-sm">btn text-sm&lt;/m-btn>
 
   // 块级按钮就是占一行的,添加 d-block
-  &lt;m-btn> class="btn d-block">btn d-block&lt;/m-btn>
+  &lt;m-btn class="d-block">btn d-block&lt;/m-btn>
 
 </pre><br /><p># 如果按钮处于等待状态,说明任务进行中,忽略之.这种场景用于避免按钮频繁点击. &lt;m-btn> 定义了添加和删除等待状态的方法.</p><p><m-btn id=btnloadtest1 class="btn mg-r-10">点击等待 isLoading()</m-btn><m-btn id=btnloadtest2 class=btn>消除等待 clsLoading(2000)</m-btn></p><pre class=bg-gray-lt>
   let btn1 = document.querySelector('#btnloadtest1');
@@ -716,7 +716,7 @@
       ]
   
     // <strong>itemClickE(item, index)</strong>: 点击菜单后执行的方法.item是被点击的菜单dom对象,index是菜单索引
-    // 这两个参数都可以省略.如果不需要使用数据生成菜单项.
+    // 这两个参数都可以省略.如果不需要使用数据生成菜单项.只绑定事件,不需要第1个参数,传(null,fun)
     
 </pre><br /><p># 方法 <strong>activeItem(itemIndex)</strong></p><p class=text-in>指定一个激活的菜单,itemIndex 是菜单索引</p><pre class=bg-gray-lt>
     
