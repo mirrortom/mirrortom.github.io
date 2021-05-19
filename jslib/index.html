@@ -145,25 +145,28 @@
     // 给div设置html文本标签
     $('div').html(html)
 
-</pre></div><div class=doc-part-box id=append><h2>append(...content)</h2><p>向每个匹配元素内部追加内容.content是一个或者多个dom对象,或者DocumentFragment对象.</p><pre class=bg-gray-lt>
+</pre></div><div class=doc-part-box id=append><h2>append(content)</h2><p>向每个匹配元素内部追加内容.content是一个dom对象,或者DocumentFragment对象,或者html字符串</p><pre class=bg-gray-lt>
     &lt;div>&lt;span>1&lt;/span>&lt;/div>
     let p=document.createElement('p');
     // 给div里追加p元素,在span1后面
-    $('div').append(p)
+    $('&lt;div>').append(p)
 
-</pre></div><div class=doc-part-box id=prepend><h2>prepend(...content)</h2><p>向每个匹配元素内部第一子节点前面加入内容.</p><pre class=bg-gray-lt>
+    // 多个内容可以多次调用append
+    $('&lt;div>').append(p).append(p1);
+
+</pre></div><div class=doc-part-box id=prepend><h2>prepend(content)</h2><p>向每个匹配元素内部第一子节点前面加入内容.</p><pre class=bg-gray-lt>
     &lt;div>&lt;span>1&lt;/span>&lt;/div>
     let p=document.createElement('p');
     // 给div里前面插入p元素,在span1前面
     $('div').prepend(p)
 
-</pre></div><div class=doc-part-box id=before><h2>before(...content)</h2><p>向每个匹配元素的前面加元素</p><pre class=bg-gray-lt>
+</pre></div><div class=doc-part-box id=before><h2>before(content)</h2><p>向每个匹配元素的前面加元素</p><pre class=bg-gray-lt>
     &lt;div>&lt;span>1&lt;/span>&lt;/div>
     let p=document.createElement('p');
     // 在span前面插入p元素
     $('span').before(p)
 
-</pre></div><div class=doc-part-box id=after><h2>after(...content)</h2><p>向每个匹配元素的后面加元素</p><pre class=bg-gray-lt>
+</pre></div><div class=doc-part-box id=after><h2>after(content)</h2><p>向每个匹配元素的后面加元素</p><pre class=bg-gray-lt>
     &lt;div>&lt;span>1&lt;/span>&lt;/div>
     let p=document.createElement('p');
     // 在span后面插入p元素
