@@ -1,0 +1,26 @@
+<div class=doc-page><h2>菜单条</h2><p>用于手机,模仿app菜单页面,右侧有个箭头的那种菜单<p>容器使用flex布局,两端对齐.直接子项目为2个,分别在左右两侧.<div style=width:100%;max-width:480px><div class=menubar><span>标题和箭头</span> <span class=arr></span></div><div class=menubar><div><span class=iconface>🍄</span> <span>带图标标题</span></div><span class=arr></span></div><div class=menubar><span>标题和副标题</span><div> <span>关闭数据</span> <span class=arr></span></div></div><div class=menubar><div><span class=iconface>🚯</span> <span>带图标标题和副标题</span></div><div><span>禁止丢垃圾</span> <span class=arr></span></div></div></div><br><pre class=bg-gray-lt>
+    // 标题和箭头,直接作为子项目
+    &lt;div class="menubar">
+      &lt;span>标题和箭头&lt;/span>
+      &lt;span class="arr">&lt;/span>
+    &lt;/div>
+
+    // 带图标的,需要将标题和图标再套一层DIV
+    &lt;div class="menubar">
+      &lt;div>
+        &lt;span class="iconface">🍄&lt;/span>
+        &lt;span>带图标标题&lt;/span>
+      &lt;/div>
+      &lt;span class="arr">&lt;/span>
+    &lt;/div>
+
+    // 箭头和副标题也是套一层DIV
+    &lt;div class="menubar">
+      &lt;span>标题和副标题&lt;/span>
+      &lt;div>
+        &lt;span class="">关闭数据&lt;/span>
+        &lt;span class="arr">&lt;/span>
+      &lt;/div>
+    &lt;/div>
+
+</pre></div>

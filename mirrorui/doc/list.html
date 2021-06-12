@@ -1,0 +1,25 @@
+<div class=doc-page><h2>列表</h2><p># 使用ul,ol标记,加list类. &lt;ul class="list"> &lt;ol class="list"><p class=text-in>根据原有的ul,ol的样式,稍微调整了li的padding上下.在嵌套时的padding左.另外,加了数值和字母序列<div class=grids><ul class="list pd-lr-50"><li>主食<ul class=list><li>面包<li>米饭<li>馒头<li>玉米</ul><li>饮料<ul class=list><li>咖啡<li>白酒<li>可乐<li>果汁</ul></ul><ol class="list bg-gray-lt pd-lr-50"><li>水果<ol class="list cir primary"><li>香蕉<li>苹果<li>柚子<li>葡萄</ol><li>蔬菜<ol class="list cir success"><li>白菜<li>黄瓜<li>萝卜<li>莴笋</ol></ol><ol class="list num bg-warning-lt pd-lr-50"><li>畜<ol class="list square danger"><li>猪肉<li>牛肉<li>羊肉<li>鹿肉</ol><li>禽<ol class="list square info"><li>鸡肉<li>鹌鹑<li>鸭肉<li>鹅肉</ol></ol><ol class="list num bg-info-lt pd-lr-50"><li>餐具<ol class="list num"><li>碗<li>盘<li>筷<li>勺</ol><li>会员<ol class="list num"><li>普通<li>大户<li>资深<li>贵宾</ol></ol><ol class="list abc bg-success-lt pd-lr-50"><li>优惠<ol class="list abc"><li>50免5<li>会员<ol class="list abc"><li>普通,大户8折<li>资深7.5折<li>贵宾7折</ol></ol><li>优惠券<ol class="list abc"><li>酒10元<li>肉10元<li>免5元</ol></ol></div><br><p># 数值编号,字母编号样式<p class=text-in>嵌套的序列使用了css的 "counter-reset" "counter-increment" "counters()" 这三个属性和方法<pre class=bg-gray-lt>
+  // 方块 , 圆
+  &lt;ul class="list <strong>square</strong>">
+  &lt;ul class="list <strong>cir</strong>">
+
+  // 主题色
+  &lt;ul class="list <strong>primary</strong>">
+
+  // 数值 , 字母
+  &lt;ul class="list <strong>num</strong>">
+  &lt;ul class="list <strong>abc</strong>">
+  
+  // 嵌套
+  &lt;li>
+    优惠券
+    &lt;ol class="list abc">
+      &lt;li>酒10元&lt;/li>
+      &lt;li>肉10元&lt;/li>
+      &lt;li>免5元&lt;/li>
+    &lt;/ol>
+  &lt;/li>
+
+  <b>注意:</b>嵌套的ul,ol,也要加上 class="list num|abc" 样式
+
+</pre></div>
