@@ -1,11 +1,11 @@
-<div class=doc-page><h2>太阳</h2><p>太阳图标,由太阳和8个方向的光线组成.<div class=mg-20><i class="ico ico-sun text-md"></i> <i class="ico ico-sun text-xl"></i> <i class="ico ico-sun text-xxl"></i> <i class="ico ico-sun text-xxl bg-danger"></i> <i class="ico ico-sun text-xxl text-danger bg-info"></i></div><pre class=bg-gray-lt>
+<div class=doc-page><h2>太阳</h2><p>太阳图标,由太阳和8个方向的光线组成.<div class=mg-20><i class="ico ico-sun text-md"></i> <i class="ico ico-sun text-xl"></i> <i class="ico ico-sun text-xxl"></i> <i class="ico ico-sun text-xxl text-danger"></i> <i class="ico ico-sun text-xxl text-warning"></i></div><pre class=bg-gray-lt>
 
   &lt;i class="ico ico-sun">&lt;/i>
 
   &lt;i class="ico ico-sun text-xl">&lt;/i>
 
-  // 添加文字颜色样式改变光线颜色,添加背景颜色样式改变太阳颜色
-  &lt;i class="ico ico-sun text-danger bg-info">&lt;/i>
+  // 添加文字颜色样式改变太阳颜色
+  &lt;i class="ico ico-sun text-danger">&lt;/i>
 
 </pre><br><style scoped>.sundemo{display:inline-block;position:relative;border-radius:50%;width:40px;height:40px;box-shadow:inset 0 0 4px orangered}.sundemo-light{display:inline-block;position:absolute;top:0;bottom:0;left:0;right:0;margin:auto;width:4px;height:4px;color:#f00;background-color:#f00}</style><p>实现过程<p><p>太阳是一个圆,这个容易实现.太阳的8个方向的光线抄袭了参考项目的做法,当时想了半天没想到如何实现长方形的光线,直到找到了参考项目才找到办法.<p><i class="sundemo text-xxl bg-warning"></i></p><br><p>先看上下左右4个方向的光线,可以看成是圆心上的一点,以这点为原点的坐标系,在X,Y轴上取了长度相等的4个点.这个用到的css规则当然是boxshadow了,元素使用伪类:before.<p><i class="sundemo text-xxl"><i class=sundemo-light></i></i> <i class="sundemo text-xxl mg-l-20"><i style="box-shadow:24px 0" class=sundemo-light></i></i> <i class="sundemo text-xxl mg-l-20"><i style="box-shadow:24px 0,0 24px" class=sundemo-light></i></i> <i class="sundemo text-xxl mg-l-20"><i style="box-shadow:24px 0,0 24px,-24px 0,0 -24px" class=sundemo-light></i></i> <i class="sundemo text-xxl mg-l-20"><i style="width:8px;box-shadow:24px 0,0 24px,-24px 0,0 -24px" class=sundemo-light></i></i><pre class=bg-gray-lt>
 
@@ -22,7 +22,7 @@
   box-shadow: 24px 0,0 24px,-24px 0,0 -24px,
               28px 0,0 28px,-28px 0,0 -28px  
 
-</pre><br><p>这8个方向的光线其实是两组阴影,所以用到两个伪类:before和:after.使用绝对定位并且垂直居中,让2个伪类置于太阳的中心,并且是叠起的.然后设置它们的box-shadow,4个阴影一组,设置2层.光线实现了.<pre class=bg-gray-lt>
+</pre><br><p>这8个方向的光线其实是两组阴影,所以用到两个伪类:before和:after.使用绝对定位并且垂直居中,让2个伪类置于太阳的中心,并且是叠起的.然后设置它们的box-shadow,4个阴影一组,设置2层.光线实现了.<p>太阳圈圈设置了内阴影填充了整个太阳内部,便于通过设置字体颜色改变太阳颜色.<pre class=bg-gray-lt>
 
    &lt;i class="ico ico-sun">&lt;/i>
 
@@ -31,10 +31,8 @@
       position: relative
       width: .6em
       height: .6em
-      color: gold
       border-radius: 50%
-      background-color: gold
-      box-shadow:inset 0 0 .15em 0
+      box-shadow:inset 0 0 .5em
       margin: .2em
 
   .ico-sun:before, .ico-sun:after
