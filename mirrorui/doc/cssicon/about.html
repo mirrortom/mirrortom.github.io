@@ -37,6 +37,12 @@
       border-radius: 50%;
       transform: rotate(45deg)
 
+</pre><br><p class="article-title sm">currentColor<p>来自MDN: currentColor 关键字代表原始的 color 属性的计算值.它允许让继承自属性或子元素的属性颜色属性以默认值不再继承<p>这个属性值可以设置, background-color: currentColor .如果图标的颜色是使用背景色的,那么这样设置后,也可以通过设置文字颜色color来改变图标颜色了.</p><i style=display:inline-block;width:1em;height:1em;background-color:currentColor></i> <i style=display:inline-block;width:1em;height:1em;color:#f00;background-color:currentColor></i><pre class=bg-gray-lt>
+
+    // 背景颜色是红色,通过设置字体颜色
+    color:red;
+    background-color: currentColor;
+
 </pre><br><p class="article-title sm">box-shadow<p>盒子阴影,图标实现利器啊.<p>例如这个微软图标.这个图案有4个部分,每个部分颜色不同,从左上红色块开始,这是盒子实体,设置了width,heigh都是1em,是一个正方形盒子.<p>其它3块都是box-shadow实现.这个css有5个参数,依次是: x-offset阴影偏离X正方向是值 y-offset 阴影模糊半斤 阴影大小 阴影颜色.<p>默认情况下,阴影大小和实体一样大.那么要实现第2个绿色块,需要将x-offset设置为一个实体的宽度值,也就是让阴影完全显示出来,由于阴影大小默认为实体大小,所以只要修改阴影颜色为绿色即可.<p>那么第3个和第4个是怎么来的.因为阴影可以设置多个的.还是那5个参数,但可以设置多条,每一条规则间用逗号隔开.<p>利用这个规则,继续设置黄块和蓝块,调整它们的位子和颜色.最后得到微软图标.</p><i style=display:inline-block;width:1em;height:1em;background-color:#f35325></i> <i style="display:inline-block;width:1em;height:1em;background-color:#f35325;box-shadow:1em 0 0 0 #81bc06"></i> <i class=mg-l-20 style="display:inline-block;width:1em;height:1em;background-color:#f35325;box-shadow:1em 0 0 0 #81bc06,1em 1em 0 0 #ffba08"></i> <i class=mg-l-20 style="display:inline-block;width:1em;height:1em;background-color:#f35325;box-shadow:1em 0 0 0 #81bc06,1em 1em 0 0 #ffba08,0 1em 0 0 #05a6f0"></i><pre class=bg-gray-lt>
 
       display: inline-block;
