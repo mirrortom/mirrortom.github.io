@@ -1,0 +1,43 @@
+<!DOCTYPE html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1.0,user-scalable=no"><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><title>border radius | Mirror Space</title><link href=/mirrorui/mirrorui.css rel=stylesheet><link href=/asset/css/blog.css rel=stylesheet><div class=layout><div class=layout-part1></div><div class=layout-part2><div class=wz-page><style>.demo{display:inline-block;width:100px;height:70px;background-color:#ddd}</style><p>border-radius,css的圆角属性,下面是MDN的说明: 资料参考 <a href=https://developer.mozilla.org/zh-CN/docs/Web/CSS/border-radius target=_blank>MDN broder-radius</a><p>"CSS 属性 border-radius 允许你设置元素的外边框圆角.当使用一个半径时确定一个圆形,当使用两个半径时确定一个椭圆.这个(椭)圆与边框的交集形成圆角效果."<p class=article-title>属性值<p>例子是一个100 X 70 px的span元素.4个角都设置了35px的圆角值.4个属性值对应4个角,有图可见,顺序是 top-left, top-right, bottom-right, bottom-left<pre class=bg-gray-lt>
+
+  border-radius:35px // 1个值简写表示4个值都取相同
+
+  border-radius:35px 0 0 0 // top-left
+
+  border-radius:0 35px 0 0 // top-right
+
+  border-radius:0 0 35px 0 // bottom-right
+
+  border-radius:0 0 0 35px // bottom-left
+
+</pre><br><div><span class=demo></span> <span class="demo mg-l-10" style=border-radius:35px></span> <span class="demo mg-l-10" style="border-radius:35px 0 0 0"></span> <span class="demo mg-l-10" style="border-radius:0 35px 0 0"></span> <span class="demo mg-l-10" style="border-radius:0 0 35px 0"></span> <span class="demo mg-l-10" style="border-radius:0 0 0 35px"></span></div><br><p>2个值简写,1值表示top-left,bottom-right, 2值表示top-right,bottom-left.由图可见就是对角线的2个角.<p>3个值简写,1,3值的依然表示top-left,bottom-right.中间值表示top-right,bottom-left,由图可见是右上角和左下角的对角线的2个角.<pre class=bg-gray-lt>
+
+  border-radius:35px 0
+  border-radius:0 35px
+
+  border-radius:35px 0 50px // 中间值表示top-right,bottom-left
+
+</pre><br><div><span class=demo></span> <span class="demo mg-l-10" style="border-radius:35px 0"></span> <span class="demo mg-l-10" style="border-radius:0 35px"></span> <span class="demo mg-l-10" style="border-radius:35px 0 50px"></span></div><p>根据定义:"当使用一个半径时确定一个圆形."上面的值都是设定的1个值,准确的说,是4个角都设置了一个半径值.而定义还说:"当使用两个半径时确定一个椭圆",那么如何设置2个半径,这又是为什么呢?<p>圆形有一个半径概念,椭圆形有长轴和短轴概念,可以认为有两个半径.圆的半径是圆心到圆周任意点的距离,椭圆的长轴和短轴是圆心到圆周的最长距离和最短距离.这个是圆和椭圆的基本知识.<p>先看设置2个半径的写法和效果.两种写法都是设置top-left的圆角半径.<pre class=bg-gray-lt>
+
+  border-top-left-radius:60px 30px // 设置左上角,1值是椭圆水平半径,2值是垂直半径
+
+  border-radius:60px 0 0/30px 0 0 // 看斜杆左边是水平半径,右边是垂直半径
+
+  border-radius:60px 0 25px/30px 0// 这中写法等价,但不直观
+  border-radius:60px 0 25px 0/30px 0 30px 0
+
+</pre><br><div><span class=demo></span> <span class="demo mg-l-10" style="border-top-left-radius:60px 30px"></span> <span class="demo mg-l-10" style="border-radius:60px 0 0/30px 0 0"></span> <span class="demo mg-l-10" style="border-radius:60px 0 25px/30px 0"></span> <span class="demo mg-l-10" style="border-radius:60px 0 25px 0/30px 0 30px 0"></span></div><p>使用百分比值时,水平半径基于盒模型的width,垂直半径对应height<pre class=bg-gray-lt>
+
+  border-top-left-radius:50%
+
+  border-top-left-radius:50% 40%
+
+  border-top-left-radius:50px 28px // 100px * 50% 70px * 40%
+
+</pre><br><div><span class=demo></span> <span class="demo mg-l-10" style=border-top-left-radius:50%></span> <span class="demo mg-l-10" style="border-top-left-radius:50% 40%"></span> <span class="demo mg-l-10" style="border-top-left-radius:50px 28px"></span></div><p class=article-title>理解含义<p>会设置值了,但不清楚原理.两个半径值是如何起作用的,圆和椭圆是如何影响圆角的,设计原理是怎样的?<p>以左上角为例,从盒模型的左上顶点为原点,向右边移动的距离,就是水平半径,就是设置的1值.向下边移动的距离就是垂直半径,就是设置是2值.<p>那么为什么是向右和下两个方向呢,计算机图形坐标有关的似乎都如此,比如canvas也是左上角为(0,0)点,右边和下边为正方向.winform也是,css盒子模型绝对定位坐标也是如此.<p>A点是盒模型的top-left角,当设置 border-radius:50px 时,会以 A 点为原点的坐标系,在 O 点(50,50)为圆心,半径50px,作圆.这个圆一定与 A 角的两条边相切,而 A 点与切点 X Y围成的区域 AXY就是为了形成圆角,而切掉的部分.<p>也就是说,这个圆角其实就是 OXY 这个扇形的圆弧部分.而圆弧 XY 是圆与 A 角的两条边相切的那部分圆弧.AX,AY的值就是 border-radius : X/Y 的值.</p><canvas id=canvas1></canvas><br><p>上面是设置一个半径的值,显然 AX = AY ,那么两个半径的情况如下.<p>和一个半径时的情况一样,只是圆变成椭圆了,圆角效果也是 OXY 这个椭圆的一部分,也是椭圆与 A 角的两边相切的那部分</p><canvas id=canvas2></canvas><br><p>这个是左上角的情况,其它角也是一样的,仍然是以这个角为原点的坐标系,(X,Y)点为圆心作圆或者椭圆,与这个角相切的区域围成的圆或者椭圆的部分,就是圆角效果.</p><canvas id=canvas3></canvas><br><p>也只有了解了原理才能用的好,用出创意.才能弄出一些稀奇古怪的东西.<pre class=bg-gray-lt>
+  
+  border-radius:50% 0 0 50%/50% 0 0 50%
+  border-radius:0 0 50% 50%/0 0 50% 50%
+  border-radius:50%/50%
+
+</pre><br><div><span class=demo></span> <span class="demo mg-l-10" style="border-radius:50% 0 0 50%/50% 0 0 50%"></span> <span class="demo mg-l-10" style="border-radius:0 0 50% 50%/0 0 50% 50%"></span> <span class="demo mg-l-10" style=border-radius:50%/50%></span></div><br></div><hr class=line><script src=/asset/js/article.js></script><script src=/jslib/cavlib.js></script><script>(()=>{function n(){let i=cavlib("canvas1").style(),n=i.ctx;n.font="18px serif";n.translate(50,30);let t=56;n.beginPath();n.fillStyle="#221f0080";n.fillRect(0,0,150,100);n.beginPath();n.fillStyle="blue";n.fillText("A",-10,-5);n.fillText("O",t+5,t+15);n.fillText("X",t,-5);n.fillText("Y",-15,t);n.beginPath();n.arc(t,t,2,0,Math.PI*2);n.fillStyle="red";n.fill();n.beginPath();n.arc(t,t,t,0,Math.PI*2);n.strokeStyle="red";n.stroke();n.beginPath();n.strokeStyle=n.fillStyle="black";i.lineArrow([0,t,t-15,t]);i.lineArrow([t,0,t,t-15]);n.beginPath();n.arc(t,t,t,Math.PI,Math.PI*3/2);n.lineTo(0,0);n.closePath();n.fillStyle="blue";n.fill()}function t(){let r=cavlib("canvas2").style(),n=r.ctx;n.font="18px serif";n.translate(50,30);let t=56,i=38;n.beginPath();n.fillStyle="#221f0080";n.fillRect(0,0,150,100);n.beginPath();n.fillStyle="blue";n.fillText("A",-10,-5);n.fillText("O",t+5,i+15);n.fillText("X",t,-5);n.fillText("Y",-15,i);n.beginPath();n.arc(t,i,2,0,Math.PI*2);n.fillStyle="red";n.fill();n.beginPath();n.ellipse(t,i,t,i,0,0,Math.PI*2);n.strokeStyle="red";n.stroke();n.beginPath();n.strokeStyle=n.fillStyle="black";r.lineArrow([0,i,t-15,i]);r.lineArrow([t,0,t,i-15]);n.beginPath();n.ellipse(t,i,t,i,0,Math.PI,Math.PI*3/2);n.lineTo(0,0);n.closePath();n.fillStyle="blue";n.fill()}function i(){let r=cavlib("canvas3").style(),n=r.ctx;n.font="18px serif";n.translate(200,130);let t=56,i=38;n.beginPath();n.fillStyle="#221f0080";n.fillRect(0,0,-150,-100);n.beginPath();n.fillStyle="blue";n.fillText("A",10,5);n.fillText("O",-t-15,-i-5);n.fillText("X",-t,15);n.fillText("Y",5,-i);n.beginPath();n.arc(-t,-i,2,0,Math.PI*2);n.fillStyle="red";n.fill();n.beginPath();n.ellipse(-t,-i,t,i,0,0,Math.PI*2);n.strokeStyle="red";n.stroke();n.beginPath();n.strokeStyle=n.fillStyle="black";r.lineArrow([0,-i,-t+15,-i]);r.lineArrow([-t,0,-t,-i+15]);n.beginPath();n.ellipse(-t,-i,t,i,0,0,Math.PI/2);n.lineTo(0,0);n.closePath();n.fillStyle="blue";n.fill()}n();t();i()})(window)</script></div></div><script src=/asset/js/mainmenu.js></script>
