@@ -1,5 +1,4 @@
-<!DOCTYPE html><html lang=en><head><meta charset=utf-8 /><meta http-equiv=X-UA-Compatible content="IE=edge,chrome=1" /><meta name=viewport content="width=device-width,initial-scale=1.0,user-scalable=no" /><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png /><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png /><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png /><link rel=manifest href=/site.webmanifest /><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5 /><meta name=msapplication-TileColor content=#da532c /><meta name=theme-color content=#ffffff /><title>线程 | Mirror Space</title><link href=/mirrorui/mirrorui.css rel=stylesheet /><link href=/asset/css/blog.css rel=stylesheet /></head><body><div class=layout><div class=layout-part1></div><div class=layout-part2><div class=wz-page><p>参考文档 <a href=https://www.cnblogs.com/kissdodog/archive/2013/03/26/2983755.html target=_blank>https://www.cnblogs.com/kissdodog/archive/2013/03/26/2983755.html</a></p><p>本文记录下线程的使用,c#的 System.Threading 命名空间下的类,主要是 Thread 和 ThreadPool</p><p>线程的初步理解可以看参考文档,如果要深入了解线程,需要了解操作系统知识.</p><p>对于.NET托管环境</p><h5>参考文档摘录:</h5><p>"在抢先式多任务的环境下,在一个特定的时间,CPU将一个线程调度进CPU中执行,这个线程最多将会运行一个时间片的时间长度,</p><p>当时间片到期之后,操作系统将这个线程调度出CPU,将另外一个线程调度进CPU,我们通常称这种操作为上下文切换."</p><p>"公共语言运行时CLR(Common Language Runtime)是.Net程序运行的环境,它负责资源管理,并保证应用和底层操作系统之间必要的分离."</p><p>"在.Net环境下,CLR中的线程需要通过操作系统的线程完成实际的工作,目前情况下,.Net直接将CLR中的线程映射到操作系统的线程进行处理和调度,</p><p class=bg-gray>所以,我们每创建一个线程将会消耗1M以上的内存空间.但未来CLR中的线程并不一定与操作系统中的线程完全对应.通过创建CLR环境下的逻辑线程,</p><p>我们可能创建更加节省资源的线程,使得大量的CLR线程可以工作在少量的操作系统线程之上."</p><p class=bg-gray>适当使用多线程能提高系统的性能,比如:在系统请求大容量的数据时使用多线程,把数据输出工作交给异步线程,</p><p class=bg-gray>使主线程保持其稳定性去处理其他问题.但需要注意一点,因为CPU需要花费不少的时间在线程的切换上,所以过多地使用多线程反而会导致性能的下降.</p><h3>理解线程</h3><h5>计算机资源</h5><p>计算机软硬件资源由操作系统管理,操作系统是人与计算机交互的一个软件,早期的计算机没有操作系统,人要直接操作内存,IO等.有了操作系统后,</p><p>人只要在操作系统上发出一些命令,就可以使用计算机资源了,比如CPU计算,网络,IO,存储,显示等.简单的应用程序可以看成是一些列命令的集合.</p><p>计算机同时执行多个程序,是操作系统把CPU的计算时间分配给多个程序实现的.设计了一个可以暂停的功能,不必把一个程序执行完,</p><p>先运行 A 程序一段时间,暂停 A .然后运行 B 程序一段时间.这样来回切换,最后执行完A , B程序.CPU切换很快,人感觉不到.</p><h5>进程</h5><p>应用程序是软件,也由操作系统管理.应用程序是在操作系统上开发的,与操作系统有关,同样功能的应用软件,要为不同的操作系统开发对应的版本.</p><p>应用软件在使用时,需要使用计算机资源.由操作系统分配,为了运行一个程序(例如一个有main函数的控制台程序),操作系统开启一个进程.</p><p>这是一个独立的内存空间,软件加载到这块内存.</p><h5>线程</h5><p>进程中有一个主线程,线程是实际的工作者,它在使用计算机资源.除了主线程,还可以建立新的线程.CPU计算资源,可切分成一个个时间片段.</p><p>CPU的时间片,会分配给这些线程.分配的方式有抢占式和协商式,抢占可以理解为分配给 A 线程一个时间片,时间到了,马上 B 线程抢到CPU时间,</p><p>而不管 A 线程的程序有没有执行完毕.线程会有优先级高低,优先级高的往往要抢占更多的CPU时间.协商式可以认为是线程之间商议使用CPU时间,</p><p>这会导致一个问题, A 线程可能一直占用CPU时间,其它线程就没有机会执行了.现在多任务操作系统是抢占式的.</p><h5>场景</h5><p>对于操作系统,切换CPU时间,可以实现多任务.对于应用程序,开多个线程有什么好处呢?</p><p>winform程序遇到UI没有响应,原因是UI界面的绘制(刷新)工作是在主线程里.如果写了一个比较耗时的循环,那么主线程就会等这个循环执行完了,</p><p>才执行UI刷新,所以界面就会"卡"住.如果将耗时循环放在一个新的线程里执行,就不会有这个问题了,主线程继续负责UI绘制,新的线程负责耗时循环.</p><p>由于这个winform程序有2个线程,所以CPU时间会分配到这两个线程上.那么这两个线程的任务就可以"同时"执行,不相干涉.</p><p>主线程不会因为那个耗时的循环,而耽误UI的绘制.</p><h3>使用线程</h3><h4>使用Thread 类建立线程.</h4>
-  <pre class=bg-gray>
+<!DOCTYPE html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1.0,user-scalable=no"><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><title>线程 | Mirror Space</title><link href=/mirrorui/mirrorui.css rel=stylesheet><link href=/asset/css/blog.css rel=stylesheet><div class=layout><div class=layout-part1></div><div class=layout-part2><div class=wz-page><p>参考文档 <a href=https://www.cnblogs.com/kissdodog/archive/2013/03/26/2983755.html target=_blank>https://www.cnblogs.com/kissdodog/archive/2013/03/26/2983755.html</a><p>本文记录下线程的使用,c#的 System.Threading 命名空间下的类,主要是 Thread 和 ThreadPool<p>线程的初步理解可以看参考文档,如果要深入了解线程,需要了解操作系统知识.<p>对于.NET托管环境<h5>参考文档摘录:</h5><p>"在抢先式多任务的环境下,在一个特定的时间,CPU将一个线程调度进CPU中执行,这个线程最多将会运行一个时间片的时间长度,<p>当时间片到期之后,操作系统将这个线程调度出CPU,将另外一个线程调度进CPU,我们通常称这种操作为上下文切换."<p>"公共语言运行时CLR(Common Language Runtime)是.Net程序运行的环境,它负责资源管理,并保证应用和底层操作系统之间必要的分离."<p>"在.Net环境下,CLR中的线程需要通过操作系统的线程完成实际的工作,目前情况下,.Net直接将CLR中的线程映射到操作系统的线程进行处理和调度,<p class=bg-gray>所以,我们每创建一个线程将会消耗1M以上的内存空间.但未来CLR中的线程并不一定与操作系统中的线程完全对应.通过创建CLR环境下的逻辑线程,<p>我们可能创建更加节省资源的线程,使得大量的CLR线程可以工作在少量的操作系统线程之上."<p class=bg-gray>适当使用多线程能提高系统的性能,比如:在系统请求大容量的数据时使用多线程,把数据输出工作交给异步线程,<p class=bg-gray>使主线程保持其稳定性去处理其他问题.但需要注意一点,因为CPU需要花费不少的时间在线程的切换上,所以过多地使用多线程反而会导致性能的下降.<h3>理解线程</h3><h5>计算机资源</h5><p>计算机软硬件资源由操作系统管理,操作系统是人与计算机交互的一个软件,早期的计算机没有操作系统,人要直接操作内存,IO等.有了操作系统后,<p>人只要在操作系统上发出一些命令,就可以使用计算机资源了,比如CPU计算,网络,IO,存储,显示等.简单的应用程序可以看成是一些列命令的集合.<p>计算机同时执行多个程序,是操作系统把CPU的计算时间分配给多个程序实现的.设计了一个可以暂停的功能,不必把一个程序执行完,<p>先运行 A 程序一段时间,暂停 A .然后运行 B 程序一段时间.这样来回切换,最后执行完A , B程序.CPU切换很快,人感觉不到.<h5>进程</h5><p>应用程序是软件,也由操作系统管理.应用程序是在操作系统上开发的,与操作系统有关,同样功能的应用软件,要为不同的操作系统开发对应的版本.<p>应用软件在使用时,需要使用计算机资源.由操作系统分配,为了运行一个程序(例如一个有main函数的控制台程序),操作系统开启一个进程.<p>这是一个独立的内存空间,软件加载到这块内存.<h5>线程</h5><p>进程中有一个主线程,线程是实际的工作者,它在使用计算机资源.除了主线程,还可以建立新的线程.CPU计算资源,可切分成一个个时间片段.<p>CPU的时间片,会分配给这些线程.分配的方式有抢占式和协商式,抢占可以理解为分配给 A 线程一个时间片,时间到了,马上 B 线程抢到CPU时间,<p>而不管 A 线程的程序有没有执行完毕.线程会有优先级高低,优先级高的往往要抢占更多的CPU时间.协商式可以认为是线程之间商议使用CPU时间,<p>这会导致一个问题, A 线程可能一直占用CPU时间,其它线程就没有机会执行了.现在多任务操作系统是抢占式的.<h5>场景</h5><p>对于操作系统,切换CPU时间,可以实现多任务.对于应用程序,开多个线程有什么好处呢?<p>winform程序遇到UI没有响应,原因是UI界面的绘制(刷新)工作是在主线程里.如果写了一个比较耗时的循环,那么主线程就会等这个循环执行完了,<p>才执行UI刷新,所以界面就会"卡"住.如果将耗时循环放在一个新的线程里执行,就不会有这个问题了,主线程继续负责UI绘制,新的线程负责耗时循环.<p>由于这个winform程序有2个线程,所以CPU时间会分配到这两个线程上.那么这两个线程的任务就可以"同时"执行,不相干涉.<p>主线程不会因为那个耗时的循环,而耽误UI的绘制.<h3>使用线程</h3><h4>使用Thread 类建立线程.</h4><pre class=bg-gray>
     // 参数是一个委托,方法签名要求没有参数,没有返回值
     Thread t1 = new Thread(() =>
     {
@@ -22,8 +21,7 @@
     t1.Start();
     t2.Start("t2 参数");
 
-</pre><h5>一些属性</h5><p>Priority 获取或设置指示线程的调度优先级的值.System.Threading.ThreadPriority 值之一.默认值为System.Threading.ThreadPriority.Normal</p><p>ManagedThreadId 一个整数,表示此托管线程的唯一标识符</p><p>IsBackground 如果此线程为后台线程,则为 true;否则为 false.</p><h5>前台线程和后台线程</h5><p>应用程序的主线程是前台线程,一个应用程序的所有前台线程都执行完了,应用程序也就结束了.如果有前台线程,也有后台线程.那么</p><p>前台线程全部结束时,应用程序会直接结束,即使后台线程没有执行完.</p><p>用 Thread 建立的线程默认是前台线程</p><h5>一些方法</h5><p>Join() 在继续执行标准的 COM 和 SendMessage 消息泵处理期间,阻止调用线程,直到由该实例表示的线程终止</p><p>例如 t1.Join(),那么调用t1的线程会阻塞(假设是主线程调用了t1),直到t1执行完成后,主线程才执行.</p><h4>ThreadPool 线程池类</h4><p>线程的开启切换都需要占用系统资源,为了提高线程使用效率,.net提供了线程池类,可以比较方便的使用线程,不用自己建立线程.</p><p class=bg-gray>"通过CLR线程池所建立的线程总是默认为后台线程,优先级数为ThreadPriority.Normal."</p><h5>ThreadPool.QueueUserWorkItem()</h5><p>这个方法比Thread的使用简单些,没有建立线程和启动线程的代码.直接调用方法就可以使用线程.</p>
-  <pre class=bg-gray>
+</pre><h5>一些属性</h5><p>Priority 获取或设置指示线程的调度优先级的值.System.Threading.ThreadPriority 值之一.默认值为System.Threading.ThreadPriority.Normal<p>ManagedThreadId 一个整数,表示此托管线程的唯一标识符<p>IsBackground 如果此线程为后台线程,则为 true;否则为 false.<h5>前台线程和后台线程</h5><p>应用程序的主线程是前台线程,一个应用程序的所有前台线程都执行完了,应用程序也就结束了.如果有前台线程,也有后台线程.那么<p>前台线程全部结束时,应用程序会直接结束,即使后台线程没有执行完.<p>用 Thread 建立的线程默认是前台线程<h5>一些方法</h5><p>Join() 在继续执行标准的 COM 和 SendMessage 消息泵处理期间,阻止调用线程,直到由该实例表示的线程终止<p>例如 t1.Join(),那么调用t1的线程会阻塞(假设是主线程调用了t1),直到t1执行完成后,主线程才执行.<h4>ThreadPool 线程池类</h4><p>线程的开启切换都需要占用系统资源,为了提高线程使用效率,.net提供了线程池类,可以比较方便的使用线程,不用自己建立线程.<p class=bg-gray>"通过CLR线程池所建立的线程总是默认为后台线程,优先级数为ThreadPriority.Normal."<h5>ThreadPool.QueueUserWorkItem()</h5><p>这个方法比Thread的使用简单些,没有建立线程和启动线程的代码.直接调用方法就可以使用线程.<pre class=bg-gray>
     // 参数是一个委托,方法签名要求有一个 Object 类型参数,没有返回值
     // 第二个参数就是委托的参数,可以不传,默认是null.
     ThreadPool.QueueUserWorkItem((object para) => {
@@ -34,8 +32,7 @@
     // 当前线程是否是线程池里的?
     bool isFromPool = Thread.CurrentThread.IsThreadPoolThread;
 
-</pre><p>注意: ThreadPool 是后台线程.</p><h3>Task</h3><p>参考文档 <a href=https://www.cnblogs.com/zhaoshujie/p/11082753.html target=_blank>https://www.cnblogs.com/zhaoshujie/p/11082753.html</a></p><h5>参考文档摘录:</h5><p>ThreadPool相比Thread来说具备了很多优势,但是ThreadPool却又存在一些使用上的不方便.比如:</p><p>ThreadPool不支持线程的取消~完成~失败通知等交互性操作；</p><p>ThreadPool不支持线程执行的先后次序；</p><p>以往,如果开发者要实现上述功能,需要完成很多额外的工作,现在,FCL中提供了一个功能更强大的概念:Task.Task在线程池的基础上进行了优化,并提供了更多的API.</p><p>在FCL4.0中,如果我们要编写多线程程序,Task显然已经优于传统的方式.</p><h5>Task 用法</h5><p>基本用法</p>
-  <pre class=bg-gray>
+</pre><p>注意: ThreadPool 是后台线程.<h3>Task</h3><p>参考文档 <a href=https://www.cnblogs.com/zhaoshujie/p/11082753.html target=_blank>https://www.cnblogs.com/zhaoshujie/p/11082753.html</a><h5>参考文档摘录:</h5><p>ThreadPool相比Thread来说具备了很多优势,但是ThreadPool却又存在一些使用上的不方便.比如:<p>ThreadPool不支持线程的取消~完成~失败通知等交互性操作；<p>ThreadPool不支持线程执行的先后次序；<p>以往,如果开发者要实现上述功能,需要完成很多额外的工作,现在,FCL中提供了一个功能更强大的概念:Task.Task在线程池的基础上进行了优化,并提供了更多的API.<p>在FCL4.0中,如果我们要编写多线程程序,Task显然已经优于传统的方式.<h5>Task 用法</h5><p>基本用法<pre class=bg-gray>
     // 一个无返回值,有一个object类型的参数,方法
     void A(object para)
     {
@@ -53,16 +50,14 @@
     // 3. 如果要等Task执行完,再退出调用它的线程,用这个静态方法
     Task.WaitAll(t1);
 
-</pre><p>简易方法</p>
-  <pre class=bg-gray>
+</pre><p>简易方法<pre class=bg-gray>
     // 使用StartNew(),这个一步相当于上面的1,2两步.
     Task t1 = Task.Factory.StartNew(a, "aaa");
 
     // 等待Task执行完
     Task.WaitAll(t1);
 
-</pre><h5>async / await</h5><p>这是语法糖,一个便利的写法,理解清楚之后可以用同步代码的形式写异步程序.</p>
-  <pre class=bg-gray>
+</pre><h5>async / await</h5><p>这是语法糖,一个便利的写法,理解清楚之后可以用同步代码的形式写异步程序.<pre class=bg-gray>
     // 方法前面的关键字 async 表示这是一个异步方法
     async void a(object para)
     {
@@ -91,8 +86,7 @@
         Console.WriteLine("1KW次FOR循环完成");
     }
 
-</pre><p>那么,调用 async 方法,会怎么执行呢?这个问题可以再回看 Task.WaitAll(t1);</p><p>在主线程中调用 Task.WaitAll(t1); 这句代码后,线程会等这个t1执行完成,然后再执行主线程后面(这句代码后面)的代码.这是同步的.</p><p>如果不调用Task.WaitAll(t1);那么主线程不会等待t1执行完成,而是正常执行其它代码.t1会在某个时间执行.</p>
-  <pre class=bg-gray>
+</pre><p>那么,调用 async 方法,会怎么执行呢?这个问题可以再回看 Task.WaitAll(t1);<p>在主线程中调用 Task.WaitAll(t1); 这句代码后,线程会等这个t1执行完成,然后再执行主线程后面(这句代码后面)的代码.这是同步的.<p>如果不调用Task.WaitAll(t1);那么主线程不会等待t1执行完成,而是正常执行其它代码.t1会在某个时间执行.<pre class=bg-gray>
     // 调用上面的 async 方法
     static void Main(){
         a();
@@ -101,4 +95,4 @@
     }
     
 
-</pre><p>a()是这么执行的呢?</p><p>在async方法 a 被调用后,程序执行进入到 a 方法,直到 await 关键字之前,程序同步执行.直到遇到 await 后,</p><p>此时,主线程会认为这个 a 方法已经完成,然后接着执行后面的代码,打印出"主线程继续...".</p><p>而 a 方法在执行到await后,会执行Task里的方法,执行完后,会打印出"1KW次FOR循环完成".</p><p>这样做的用途在于,耗时的For循环,不占用主线程.而使用"新的线程"(可能是开了新线程,也可能是协作式切CPU时间片).</p><p>语法糖的方便之处在于,不需要写 Task.WaitAll(t1); 这句话,用 await 关键字代替.不啰嗦.</p><h5>感触: 使用语法糖一定要清楚原理,否则是用不好的!</h5></div><hr class=line /><script src=/asset/js/article.js></script></div></div><script src=/asset/js/mainmenu.js></script></body></html>
+</pre><p>a()是这么执行的呢?<p>在async方法 a 被调用后,程序执行进入到 a 方法,直到 await 关键字之前,程序同步执行.直到遇到 await 后,<p>此时,主线程会认为这个 a 方法已经完成,然后接着执行后面的代码,打印出"主线程继续...".<p>而 a 方法在执行到await后,会执行Task里的方法,执行完后,会打印出"1KW次FOR循环完成".<p>这样做的用途在于,耗时的For循环,不占用主线程.而使用"新的线程"(可能是开了新线程,也可能是协作式切CPU时间片).<p>语法糖的方便之处在于,不需要写 Task.WaitAll(t1); 这句话,用 await 关键字代替.不啰嗦.<h5>感触: 使用语法糖一定要清楚原理,否则是用不好的!</h5></div><hr class=line><script src=/asset/js/article.js></script></div></div><script src=/asset/js/mainmenu.js></script>

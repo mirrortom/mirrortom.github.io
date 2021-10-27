@@ -1,11 +1,9 @@
-<!DOCTYPE html><html lang=en><head><meta charset=utf-8 /><meta http-equiv=X-UA-Compatible content="IE=edge,chrome=1" /><meta name=viewport content="width=device-width,initial-scale=1.0,user-scalable=no" /><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png /><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png /><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png /><link rel=manifest href=/site.webmanifest /><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5 /><meta name=msapplication-TileColor content=#da532c /><meta name=theme-color content=#ffffff /><title>c#特性 | Mirror Space</title><link href=/mirrorui/mirrorui.css rel=stylesheet /><link href=/asset/css/blog.css rel=stylesheet /></head><body><div class=layout><div class=layout-part1></div><div class=layout-part2><div class=wz-page><h3>简介</h3><p>特性是个不错的发明,在做程序框架时作用很大,在减少代码组织混乱方面也有作用.尤其是一些固定逻辑的代码.</p><p>c#特性类基类是 <b>Attribute</b> ,自定义特性时,需要继承这个基类.并且,特性名字约定以 Attribute 结尾.</p><p>特性是一个类,有类的成员.方法,字段,属性.</p><p>特性使用在类,方法,字段,属性上,形式是 [Attribute].</p><h3>测试使用</h3><p>定义HttpPost特性.这个特性没有成员,可以用做标记.在方法上标记.</p>
-  <pre class=bg-gray>
+<!DOCTYPE html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1.0,user-scalable=no"><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><title>c#特性 | Mirror Space</title><link href=/mirrorui/mirrorui.css rel=stylesheet><link href=/asset/css/blog.css rel=stylesheet><div class=layout><div class=layout-part1></div><div class=layout-part2><div class=wz-page><h3>简介</h3><p>特性是个不错的发明,在做程序框架时作用很大,在减少代码组织混乱方面也有作用.尤其是一些固定逻辑的代码.<p>c#特性类基类是 <b>Attribute</b> ,自定义特性时,需要继承这个基类.并且,特性名字约定以 Attribute 结尾.<p>特性是一个类,有类的成员.方法,字段,属性.<p>特性使用在类,方法,字段,属性上,形式是 [Attribute].<h3>测试使用</h3><p>定义HttpPost特性.这个特性没有成员,可以用做标记.在方法上标记.<pre class=bg-gray>
     public class HttpPostAttribute : Attribute
     {
     }
 
-</pre><br /><p>例如asp.net的webapi,action方法只接受POST请求,那么可在方法上贴[HttpPost]特性.当请求来时,框架先检查处理请求的方法上,</p><h4>判断特性</h4><p>有没有贴[HttpPost]特性,如果有那么只接受POST请求,其它请求拒绝掉.</p>
-  <pre class=bg-gray>
+</pre><br><p>例如asp.net的webapi,action方法只接受POST请求,那么可在方法上贴[HttpPost]特性.当请求来时,框架先检查处理请求的方法上,<h4>判断特性</h4><p>有没有贴[HttpPost]特性,如果有那么只接受POST请求,其它请求拒绝掉.<pre class=bg-gray>
     [HttpPost]
     public class ActionResult Postdata()
     {}
@@ -13,8 +11,7 @@
     MethodInfo method = (typeof(WebApiController)).GetMethod("Postdata");
     bool hasPostAttr = Attribute.IsDefined(method, typeof(HttpPostAttribute)); // true
 
-</pre><br /><p>可用特新基类判断,IsDefined()的特性类参数,也可以是基类.例如</p>
-  <pre class=bg-gray>
+</pre><br><p>可用特新基类判断,IsDefined()的特性类参数,也可以是基类.例如<pre class=bg-gray>
     // 自定义特性基类
     public class BaseReqAttribute : Attribute {}
     // 特性1,2,3...
@@ -24,8 +21,7 @@
     // 判断
     bool hasReqAttr = Attribute.IsDefined(method, typeof(BaseReqAttribute)); // true
 
-</pre><br /><h4>获取特性</h4><p>获取类,方法,属性,字段上的特性,使用GetCustomAttributes()方法</p>
-  <pre class=bg-gray>
+</pre><br><h4>获取特性</h4><p>获取类,方法,属性,字段上的特性,使用GetCustomAttributes()方法<pre class=bg-gray>
     [AttrOnClass]
     public class User
     {
@@ -49,4 +45,4 @@
     MethodInfo method = (typeof(User)).GetMethod("GetMoney");
     IEnumerable&lt;AttrOnMethodBase> attrs = method.GetCustomAttributes&lt;AttrOnMethodBase>();
 
-</pre><h3>应用</h3><p>asp.net mvc/webapi 有大量应用.例如限制请求方式,token验证,表单数据验证.可以对比一下特性的方便之处.</p><p>例如token验证,token验证是一个方法,在请求处理中调用.如果写成特性,只要在需要token的请求处理类或者方法上贴上,而不必在方法中</p><p>调用token验证,这样可以专注业务处理,代码量也少了.</p><p>还有表单传来的数据要验证,传统办法是写很多验证方法,在各个地方调用,验证数据很多都是用正则表达式判断,是固定不变的程序,</p><p>如果做成特性贴在实体类的字段或者属性上,然后写个方法统一调用特性里的验证方法,完成验证.</p><p>这种办法由点像插件,一个验证插件,每个插件的功能写好,在需要的地方使用.</p><p>而不必再写很多调用代码用于验证数据.验证代码都分散到各个验证特性里了,程序代码少,结构清晰,才容易维护.</p></div><hr class=line /><script src=/asset/js/article.js></script></div></div><script src=/asset/js/mainmenu.js></script></body></html>
+</pre><h3>应用</h3><p>asp.net mvc/webapi 有大量应用.例如限制请求方式,token验证,表单数据验证.可以对比一下特性的方便之处.<p>例如token验证,token验证是一个方法,在请求处理中调用.如果写成特性,只要在需要token的请求处理类或者方法上贴上,而不必在方法中<p>调用token验证,这样可以专注业务处理,代码量也少了.<p>还有表单传来的数据要验证,传统办法是写很多验证方法,在各个地方调用,验证数据很多都是用正则表达式判断,是固定不变的程序,<p>如果做成特性贴在实体类的字段或者属性上,然后写个方法统一调用特性里的验证方法,完成验证.<p>这种办法由点像插件,一个验证插件,每个插件的功能写好,在需要的地方使用.<p>而不必再写很多调用代码用于验证数据.验证代码都分散到各个验证特性里了,程序代码少,结构清晰,才容易维护.</div><hr class=line><script src=/asset/js/article.js></script></div></div><script src=/asset/js/mainmenu.js></script>
