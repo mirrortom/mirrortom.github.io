@@ -15,35 +15,34 @@
       border-top: calc(0.866 * 100px) solid;
       border-bottom: none;
 
-</pre><br><p>方向向下(bottom)的三角形箭头,需要的是top边框,并且要去掉bottom边框,这是个规律.据此画出其它3个方向的.<p><i class="triarrdemo top text-black-lt"></i> <i class="triarrdemo left text-black-lt"></i> <i class="triarrdemo right text-black-lt"></i><p>由于边长是 L,高是 sin60 * L,所以图标是一个长方形,上下方向与左右方向不能通过旋转90度得到,不是旋转对称的.<p>为此,通过设置margin值,让盒模型占地面积成一个正方形.对于上下方向的箭头,height小于width,所以设置上下的margin.这个值显然是 (L - sin60 * L) / 2.同理,左右方向的设置左右margin.<div class=grids style=font-size:0><div class=bg-warning-lt><i class="triarrdemo top margin-tb text-black-lt"></i></div><i class=mg-lr-20></i><div class=bg-warning-lt><i class="triarrdemo left margin-lr text-black-lt"></i></div></div><br><p>完整样式<pre class=bg-gray-lt>
+</pre><br><p>方向向下(bottom)的三角形箭头,需要的是top边框,并且要去掉bottom边框,这是个规律.据此画出其它3个方向的.<p><i class="triarrdemo top text-black-lt"></i> <i class="triarrdemo left text-black-lt"></i> <i class="triarrdemo right text-black-lt"></i><p>由于边长是 L,高是 sin60 * L,所以图标是一个长方形,上下方向与左右方向不能通过旋转90度得到,不是旋转对称的.<p>为此,通过设置margin值,让盒模型占地面积成一个正方形.对于上下方向的箭头,height小于width,所以设置上下的margin.这个值显然是 (L - sin60 * L) / 2.同理,左右方向的设置左右margin.<div class=grids style=font-size:0><div class=bg-warning-lt><i class="triarrdemo top margin-tb text-black-lt"></i></div><i class=mg-lr-20></i><div class=bg-warning-lt><i class="triarrdemo left margin-lr text-black-lt"></i></div></div><br><p><i class="ico ico-triarr fs100"></i><p>完整样式<pre class=bg-gray-lt>
   
-  .ico-triarr
-      display: inline-block
-      width: 0
-      height: 0
-      border: .5em solid transparent
+    .ico-triarr
+        width: 0
+        height: 0
+        border: .5em solid transparent
 
 
-    &.down
-        border-top: .866em solid
-        border-bottom: none
-        margin: .067em 0
+        &.down
+            border-top: .866em solid
+            border-bottom: none
+            margin: .067em 0
 
 
-    &.up
-        border-bottom: .866em solid
-        border-top: none
-        margin: .067em 0
+        &.up
+            border-bottom: .866em solid
+            border-top: none
+            margin: .067em 0
 
-    &.left
-        border-right: .866em solid
-        border-left: none
-        margin: 0 .067em
+        &.left
+            border-right: .866em solid
+            border-left: none
+            margin: 0 .067em
 
 
-    &.right
-        border-left: .866em solid
-        border-right: none
-        margin: 0 .067em
+        &.right
+            border-left: .866em solid
+            border-right: none
+            margin: 0 .067em
 
 </pre></div>

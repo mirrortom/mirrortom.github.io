@@ -2,17 +2,12 @@
 
   &lt;i class="ico <b>ico-phone</b>">&lt;/i>
 
-</pre><br><p>手机样子变化太大了,老式的苹果机下方有个home键.后来又是全面屏了.思考一番无结果,就体现一个home键和手机上的app图标.<p>设计长度为容器的80%,长宽比例为1:0.618.使用:before作为手机机身轮廓,home键和app方块是:after和它的阴影实现.机身和按键在容器中绝对定位垂直居中.<p>机身轮廓就是一个长方形,上下边有一些厚度,这个是参考老式的非全面屏手机的样子.下边部分使用阴影(长方形在外),上边部分使用内阴影(在长方形内).<p>设计home键位于底部1.5%(容器)的距离.app图9个,从手机上方大概1/4的位置开始.home键就是:after,app图标则是它的阴影实现的.<p><i class="ico ico-phone" style=font-size:100px></i></p><br><p>完整样式<pre class=bg-gray-lt>
+</pre><br><p>手机样子变化太大了,老式的苹果机下方有个home键.后来又是全面屏了.思考一番无结果,就体现一个home键和手机上的app图标.<p>设计长度为容器的80%,长宽比例为1:0.618.使用:before作为手机机身轮廓,home键和app方块是:after和它的阴影实现.机身和按键在容器中绝对定位垂直居中.<p>机身轮廓就是一个长方形,上下边有一些厚度,这个是参考老式的非全面屏手机的样子.下边部分使用阴影(长方形在外),上边部分使用内阴影(在长方形内).<p>设计home键位于底部1.5%(容器)的距离.app图9个,从手机上方大概1/4的位置开始.home键就是:after,app图标则是它的阴影实现的.</p><br><p><i class="ico ico-phone fs100"></i><p>完整样式<pre class=bg-gray-lt>
 
     .ico-phone
-        display: inline-block
         position: relative
-        width: 1em
-        height: 1em
     
         &:before, &:after
-            content: ''
-            display: inline-block
             position: absolute
             left: 0
             right: 0

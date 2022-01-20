@@ -1,8 +1,6 @@
-<div class=doc-page><style>.demofivestart{position:relative}.demofivestart,.demofivestart:before,.demofivestart:after{display:inline-block;width:0;height:0;border-width:calc(.726*calc(.95*100px)) calc(.95*100px);border-style:solid;border-color:transparent;border-bottom:0;border-top-color:initial;transform-origin:calc(.95*100px) calc(.31*100px)}.demofivestart:before,.demofivestart:after{content:'';position:absolute;top:0;left:0}.demofivestart:before{transform:rotate(72deg)}.demofivestart:after{transform:rotate(144deg)}.demofivestart-topleft.demofivestart:before,.demofivestart-topleft.demofivestart:after{top:calc(-.726*calc(.95*100px));left:calc(-.95*100px)}.demotri1{display:inline-block;width:0;height:0;border-width:69px 95px;border-style:solid;border-color:transparent;border-top-color:rgba(128,8,64,.7);border-bottom:none}</style><h2>五角星</h2><p><i class="ico ico-star5"></i> <i class="ico ico-star5 text-lg"></i> <i class="ico ico-star5 text-xl text-info"></i> <i class="ico ico-star5 text-xxl text-success"></i> <i class="ico ico-star5 text-xxxl text-danger"></i><pre class=bg-gray-lt>
+<div class=doc-page><style>.demofivestart{position:relative}.demofivestart,.demofivestart:before,.demofivestart:after{display:inline-block;width:0;height:0;border-width:calc(.726*calc(.95*100px)) calc(.95*100px);border-style:solid;border-color:transparent;border-bottom:0;border-top-color:initial;transform-origin:calc(.95*100px) calc(.31*100px)}.demofivestart:before,.demofivestart:after{content:'';position:absolute;top:0;left:0}.demofivestart:before{transform:rotate(72deg)}.demofivestart:after{transform:rotate(144deg)}.demofivestart-topleft.demofivestart:before,.demofivestart-topleft.demofivestart:after{top:calc(-.726*calc(.95*100px));left:calc(-.95*100px)}.demotri1{display:inline-block;width:0;height:0;border-width:69px 95px;border-style:solid;border-color:transparent;border-top-color:rgba(128,8,64,.7);border-bottom:none}</style><h2>五角星</h2><p><i class="ico ico-star5"></i> <i class="ico ico-star5 text-md"></i> <i class="ico ico-star5 text-xxl text-danger"></i><pre class=bg-gray-lt>
 
     &lt;i class="ico <b>ico-star5</b>">&lt;/i>
-    &lt;i class="ico ico-star5 text-xl text-info">&lt;/i>
-    &lt;i class="ico ico-star5 text-xxl text-danger">&lt;/i>
 
 </pre><br><p>开始做这个感觉比较复杂,研究后发现,正五角星可以由3个同样的等腰三角形叠在一起得到.而且这3个三角形的摆放位子,可以由其中任何一个三角形旋转得到.<p>如图所示,由红绿蓝色的3个三角形可以组成一个正五角星.观察发现,底边水平的红色三角形旋转72度后,就是绿色三角形的位子.旋转144度就是蓝色三角形的位子.</p><canvas id=canva1></canvas><br><p>那么用css画这个五角星其实就是画3个同样的三角形,旋转角度后叠在一起形成了五角星.<p>css画三角形用border办法.这个三角形的特点和要计算的数据,看图中心的五角星说明:<ul class="list num"><li>等腰三角形,ABR是等腰三角,A是顶点<li>底角ARH是36度,底角其实就是五角星的2个顶角,五角星内角和是180<li>旋转圆心O,三角形的旋转中心点是五角星的中心,为了方便,中心设置在坐标轴的原点.<li>半径OR,用五角星的半径表示其大小,它是一个常数,这个半径是指五角星中心到顶点的距离.<li>底边RB长度,可证明是RH的两倍,RH在直角三角形ORH中,所以 RH = cosORH * OR . OR为常数,角ORH可证明是18度.<li>高AH长度,AH = tanARH * RH ,RH已经计算出.<li>圆心O到顶点A距离OA,OA = AH - OH,而 OH = sinORH * OR.</ul><br><p>先画出底边水平的那个三角形,设定五角星的半径:OR为100px<p>then,三角形底边长度的一半(RH)是 cos18 * 100 = 95px , 高(AH)是 tan36 * RH = 69px<p><i class=demotri1></i><pre class=bg-gray-lt>
 
@@ -30,34 +28,32 @@
   // 三角形边长计算,.53em是五角星半径
   border-width: calc(0.726 * calc(0.95 * .53em)) calc(0.95 * .53em);
 
-</pre><br><p>完整样式<pre class=bg-gray-lt>
+</pre><br><p><i class="ico ico-star5 fs100"></i><p>完整样式<pre class=bg-gray-lt>
 
     .ico-star5
         position: relative
         margin-top:calc(0.726 * calc(0.951 * .53em))
         margin-bottom:calc(2 * .53em * 0.951 * calc(0.951 - 0.726))
 
-    .ico-star5, .ico-star5:before, .ico-star5:after
-        display: inline-block
-        width: 0
-        height: 0
-        border-width: calc(0.726 * calc(0.951 * .53em)) calc(0.951 * .53em);
-        border-style: solid;
-        border-color: transparent;
-        border-bottom: 0;
-        border-top-color: initial;
-        transform-origin: calc(0.951 * .53em) calc(0.31 * .53em);
+        &, &:before, &:after
+            width: 0
+            height: 0
+            border-width: calc(0.726 * calc(0.951 * .53em)) calc(0.951 * .53em)
+            border-style: solid
+            border-color: transparent
+            border-bottom: 0
+            border-top-color: initial
+            transform-origin: calc(0.951 * .53em) calc(0.31 * .53em)
 
-    .ico-star5:before, .ico-star5:after
-        content: ''
-        position: absolute
-        top: 0
-        left: 0
-        top: calc(-0.726 * calc(0.951 * .53em));
-        left: calc(-0.951 * .53em);
-    .ico-star5:before
-        transform: rotate(72deg)
-    .ico-star5:after
-        transform: rotate(144deg)
+        &:before, &:after
+            position: absolute
+            top: 0
+            left: 0
+            top: calc(-0.726 * calc(0.951 * .53em))
+            left: calc(-0.951 * .53em)
+        &:before
+            transform: rotate(72deg)
+        &:after
+            transform: rotate(144deg)
 
 </pre><br><script>(n=>{function h(n,t,i,r,u="orangered"){n.save();n.beginPath();n.translate(t,i);n.moveTo(0,-r);for(var f=0;f<4;f++)n.rotate(-Math.PI*4/5),n.lineTo(0,-r);n.closePath();n.strokeStyle=u;n.stroke();n.restore()}function e(n,t,i,r,u=1,f="#22222260"){n.save();n.beginPath();n.translate(t,i);let e=Math.cos(Math.PI/10),o=Math.sin(Math.PI/10),s=e*r,h=o*r,c=(Math.tan(Math.PI/5)*e-o)*r;u==2?n.rotate(Math.PI*2/5):u==3&&n.rotate(Math.PI*4/5);n.moveTo(-s,-h);n.lineTo(s,-h);n.lineTo(0,c);n.fillStyle=f;n.closePath();n.fill();n.restore()}let c=n.cavlib("canva1").style(),t=c.ctx,i=400,u=200;t.canvas.width=i;t.canvas.height=u;t.font="18px serif";let r=50,o=r*1.3;h(t,i/2,u/2,o,"gray");t.beginPath();t.arc(i/2,u/2,o,0,Math.PI*2);t.stroke();t.save();t.translate(i/2,u/2);let l=Math.cos(Math.PI/10),a=Math.sin(Math.PI/10),s=l*o,f=a*o,v=(Math.tan(Math.PI/5)*l-a)*o;t.beginPath();t.fillText("O",2,-2);t.beginPath();t.fillText("R",-s-15,-f-5);t.fillText("B",s+10,-f-5);t.beginPath();t.fillText("A",0,v+20);t.beginPath();t.fillText("H",2,-f-2);t.beginPath();t.moveTo(0,0);t.lineTo(-s,-f);t.setLineDash([3]);t.stroke();t.beginPath();t.moveTo(-s,-f);t.lineTo(s,-f);t.lineTo(0,v);t.closePath();t.setLineDash([]);t.stroke();t.restore();h(t,i/5,55,r);e(t,i/5,55,r,1,"#ff000070");h(t,i*5/6,55,r);e(t,i*5/6,55,r,2,"#00ff0070");h(t,i/5,155,r);e(t,i/5,155,r,3,"#0000ff70");h(t,i*5/6,155,r);e(t,i*5/6,155,r,1,"#ff000070");e(t,i*5/6,155,r,2,"#00ff0070");e(t,i*5/6,155,r,3,"#0000ff70");t.save();t.beginPath();t.setLineDash([3]);t.strokeStyle="gray";c.lineArrow([0,u/2,i-10,u/2]);c.lineArrow([u,i/2,u,10]);t.restore()})(window)</script></div>

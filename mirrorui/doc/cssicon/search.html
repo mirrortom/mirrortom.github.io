@@ -1,38 +1,31 @@
-<div class=doc-page><h2>搜索</h2><p>搜索图标,放大镜的样子.<div class=mg-20><i class="ico ico-search text-md"></i> <i class="ico ico-search text-danger text-lg"></i> <i class="ico ico-search text-warning text-xl"></i> <i class="ico ico-search text-info text-xxl"></i></div><pre class=bg-gray-lt>
+<div class=doc-page><h2>搜索</h2><p>搜索图标,放大镜的样子.<div class=mg-20><i class="ico ico-search text-md"></i> <i class="ico ico-search text-info text-xxl"></i></div><pre class=bg-gray-lt>
 
-    &lt;i class="ico ico-search text-md">&lt;/i>
-    &lt;i class="ico ico-search text-danger text-lg">&lt;/i>
-    &lt;i class="ico ico-search text-warning text-xl">&lt;/i>
-    &lt;i class="ico ico-search text-info text-xxl">&lt;/i>
+    &lt;i class="ico <b>ico-search</b>">&lt;/i>
 
-</pre><br><p>圆圈表示放大镜(:before),直线表示支架(:after),支架是旋转45度后得到.这两个部分位于图标方块(边长为 L )的对角线上,所以,圆圈的直径加上支架的长度不会超过对角线长度.(L * 1.414)<p>经过调试后,圆圈直径确定为 0.6L ,top:5%,left:5% ,支架长度 0.5L,top:55%,left:55%.这个位置刚好与圈衔接上.<p>圈和支架总长度 (0.6+0.5)L = 1.1L.支架旋转45度后,末端与图标右下角还有一点距离.由图可见,总长度加上留出的边距依然小于对角线长度1.414L.</p><canvas id=canva1></canvas><br><p>图标的圈与支架结合处,使用了圆角,但看起来不明显.<p>完整样式<pre class=bg-gray-lt>
+</pre><br><p>圆圈表示放大镜(:before),直线表示支架(:after),支架是旋转45度后得到.这两个部分位于图标方块(边长为 L )的对角线上,所以,圆圈的直径加上支架的长度不会超过对角线长度.(L * 1.414)<p>经过调试后,圆圈直径确定为 0.6L ,top:5%,left:5% ,支架长度 0.5L,top:55%,left:55%.这个位置刚好与圈衔接上.<p>圈和支架总长度 (0.6+0.5)L = 1.1L.支架旋转45度后,末端与图标右下角还有一点距离.由图可见,总长度加上留出的边距依然小于对角线长度1.414L.</p><canvas id=canva1></canvas><br><p>图标的圈与支架结合处,使用了圆角,但看起来不明显.<p><i class="ico ico-search fs100"></i><p>完整样式<pre class=bg-gray-lt>
 
-  .ico-search
-      position: relative
-      width: 1em
-      height: 1em
+    .ico-search
+        position: relative
 
-      &:before,&:after
-          content: ''
-          display: inline-block
-          position: absolute
-      // 放大镜圈圈
-      &:before
-          left: 5%
-          top: 5%
-          width: calc(0.6 * 1em)
-          height: calc(0.6 * 1em)
-          border: .07em solid currentColor
-          border-radius: 50%
-      // 放大镜支架
-      &:after
-          top: 55%
-          left: 55%
-          width: .5em
-          height: .07em
-          background-color: currentColor
-          border-radius: 50% 0 0 50%/50% 0 0 50%
-          transform-origin: 0 0
-          transform: rotate(45deg)
+        &:before,&:after
+            position: absolute
+        // 放大镜圈圈
+        &:before
+            left: 5%
+            top: 5%
+            width: calc(0.6 * 1em)
+            height: calc(0.6 * 1em)
+            border: .07em solid currentColor
+            border-radius: 50%
+        // 放大镜支架
+        &:after
+            top: 55%
+            left: 55%
+            width: .5em
+            height: .07em
+            background-color: currentColor
+            border-radius: 50% 0 0 50%/50% 0 0 50%
+            transform-origin: 0 0
+            transform: rotate(45deg)
 
 </pre><script>(n=>{let u=n.cavlib("canva1").style(),t=u.ctx;t.font="18px serif";t.translate(100,25);let i=100;t.beginPath();t.rect(0,0,i,i);t.stroke();t.fillText("L",50,-5);t.save();t.beginPath();t.setLineDash([3]);t.strokeStyle="black";u.lineArrow([0,0,i,i]);t.restore();let r=i*.3;t.beginPath();t.lineWidth=5;t.arc(r+5,r+5,r,0,Math.PI*2);t.strokeStyle="red";t.stroke();let f=i*.5;t.save();t.translate(55,55);t.beginPath();t.moveTo(0,0);t.lineTo(f,0);t.lineWidth=4;t.strokeStyle="#0000ff40";t.stroke();t.rotate(Math.PI/4);t.beginPath();t.moveTo(0,0);t.lineTo(f,0);t.lineWidth=5;t.strokeStyle="#0000ff70";t.stroke();t.restore()})(window)</script></div>

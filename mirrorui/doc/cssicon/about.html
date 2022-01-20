@@ -1,8 +1,18 @@
 <div class=doc-page><h2>关于css图标</h2><p>不用图片,使用css3功能实现一些简易的常用的图标.<p>html标签用 &lt;i> 标记,加上css的:after :before伪类.原则上一个图标只用一个&lt;i><p>所有元素的box-sizing:border-box<p>一个质量很高的项目,参考搬运. <a href=https://viglino.github.io/iconicss target=_blank>https://viglino.github.io/iconicss</a> (github) <a href=https://github.com/Viglino/iconicss target=_blank>https://github.com/Viglino/iconicss</a><pre class=bg-gray-lt>
 
-  .ico
-      pointer-events: none
-      vertical-align: middle
+    .ico
+        // 图片默认都是块级行内元素
+        display:inline-block
+        pointer-events:none
+        // 垂直居中,面积 1em X 1em
+        vertical-align:middle
+        width:1em
+        height:1em
+
+        // 
+        &:before,&:after
+            content: ''
+            display: inline-block
 
 </pre><br><p>制作css图标常用的一些样式规则</p><style scoped>.borderdemo{display:inline-block;width:60px;height:45px;border-width:15px;border-color:#f35325 #81bc06 #05a6f0 #ffba08;border-style:solid;background-color:#eee}.borderdemo1{display:inline-block;width:0;height:0;border:15px solid transparent}</style><p class="article-title text-sm">border<p>设置了4条边,为每一条边设置了颜色.</p><i class=borderdemo></i><pre class=bg-gray-lt>
 

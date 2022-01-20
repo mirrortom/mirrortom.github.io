@@ -1,9 +1,6 @@
-<div class=doc-page><h2>加号</h2><div class=mg-20><i class="ico ico-plus text-md"></i> <i class="ico ico-plus text-danger text-lg"></i> <i class="ico ico-plus text-warning text-xl"></i> <i class="ico ico-plus text-info text-xxl"></i></div><pre class=bg-gray-lt>
+<div class=doc-page><h2>加号</h2><div class=mg-20><i class="ico ico-plus text-md"></i> <i class="ico ico-plus text-info text-xxl"></i></div><pre class=bg-gray-lt>
 
-    &lt;i class="ico <b>ico-plus</b> text-md">&lt;/i>
-    &lt;i class="ico ico-plus text-danger text-lg">&lt;/i>
-    &lt;i class="ico ico-plus text-warning text-xl">&lt;/i>
-    &lt;i class="ico ico-plus text-info text-xxl">&lt;/i>
+    &lt;i class="ico <b>ico-plus</b>">&lt;/i>
 
 </pre><br><style scoped>.plusdemo{display:inline-block;width:100px;height:100px;position:relative;background-color:#fafad2}.plusdemo:before,.plusdemo:after{content:'';display:inline-block;position:absolute;left:0;right:0;top:0;bottom:0;margin:auto}.plusdemo:before{width:100px;height:4px;background-color:#f00}.plusdemo:after{width:4px;height:100px;background-color:#008000}</style><p>这个图标比较简单,将i标记大小设置为1em,它就是图标占地大小了.加号由横线和竖线组成,分别使用:before和:after伪元素.i标记相对定位,伪元素绝对定位.令其垂直水平居中.<p>加号的横线和竖线厚度固定设置为4px.<p><i class=plusdemo></i><pre class=bg-gray-lt>
 
@@ -21,31 +18,26 @@
           width: 4px;
           height:100px;
 
-</pre><br><p>完整样式<pre class=bg-gray-lt>
+</pre><br><p><i class="ico ico-plus fs100"></i><p>完整样式<pre class=bg-gray-lt>
   
-.ico-plus
-    display: inline-block
-    position: relative
-    width: 1em
-    height: 1em
+    .ico-plus
+        position: relative
     
-    &:before, &:after
-        content: ''
-        display: inline-block
-        position: absolute
-        left: 0
-        right: 0
-        top: 0
-        bottom: 0
-        margin: auto
-        box-shadow: inset 4px 4px
+        &:before, &:after
+            position: absolute
+            left: 0
+            right: 0
+            top: 0
+            bottom: 0
+            margin: auto
+            background-color: currentColor
 
-    &:before
-        width: 1em
-        height: 4px
+        &:before
+            width: 1em
+            height: 4px
 
-    &:after
-        width: 4px
-        height: 1em
+        &:after
+            width: 4px
+            height: 1em
 
 </pre></div>
