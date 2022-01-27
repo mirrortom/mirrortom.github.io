@@ -1,0 +1,34 @@
+<div class=doc-page><h2>脸</h2><p>脸表情图标<div class=mg-20><i class="ico ico-face text-md"></i> <i class="ico ico-face text-xxxl text-primary"></i></div><pre class=bg-gray-lt>
+
+  &lt;i class="ico <b>ico-face</b>">&lt;/i>
+
+</pre><br><p>face图标外层圆是i标记.眼睛:before,嘴吧:after.使用绝对定位,位置计算如下.<p>设计眼睛离容器上边30%,眼球是偏卡通的椭圆形,盒模型长宽比为 1:1.5 ,长度为容器10%. 两个眼睛的位置位于AE和BE的中点上.<p>设脸的半径为 R,那么 OE = OC - EC = R - EC = R - 2R * 30%. OA就是R,OE求出,那么AE就得出了,AE0是直角三角形.弦AB与半径OC垂直所以, AE = EB .这样得出左右眼的位置.<p>嘴是圆的一部分(1/4),圆半径为容器的40%.脸轮廓和嘴轮廓的厚度为容器的4%.嘴所在的圆与脸内相切,嘴部扇形(红色圆弧)的起点和终点位置,所对应的弦长度,大约与眼距相等.</p><canvas id=canva1></canvas><br><p><i class="ico ico-face fs100"></i><p>完整样式<pre class=bg-gray-lt>
+
+    .ico-face
+        position: relative
+        border-radius: 50%
+        border: .04em solid currentColor
+    
+        &:before,&:after
+            position: absolute
+            border-radius: 50%
+
+        &:before
+            top: .3em
+            left: .18em
+            width: .1em
+            height: .15em
+            background-color: currentColor
+            box-shadow: .46em 0
+
+        &:after
+            top: 0
+            left: 0
+            right: 0
+            margin: auto
+            width: .8em
+            height: .8em
+            border: .04em solid transparent
+            border-bottom-color: currentColor
+
+</pre><script>(n=>{let s=n.cavlib("canva1").style(),t=s.ctx,u=200,e=200;t.canvas.width=u;t.canvas.height=e;t.font="18px serif";t.save();t.beginPath();t.setLineDash([3]);t.strokeStyle="gray";s.lineArrow([0,e/2,u-10,e/2]);s.lineArrow([u/2,e,u/2,10]);t.beginPath();t.arc(u/2,e/2,3,0,Math.PI*2);t.fill();t.fillText("O",u/2+5,e/2+15);t.restore();t.save();t.translate(u/2,e/2);let i=u/4;t.beginPath();t.arc(0,0,i,0,Math.PI*2);t.stroke();t.fillText("C",5,-i-5);let r=-(i-60*i/100),o=-Math.sqrt(i*i-r*r);t.beginPath();t.moveTo(o,r);t.lineTo(-o,r);t.strokeStyle="blue";t.stroke();t.fillText("A",o-15,r);t.fillText("B",-o+10,r);t.fillText("E",5,r-5);t.beginPath();t.moveTo(0,0);t.lineTo(o,r);t.strokeStyle="blue";t.stroke();let h=i/10,c=h*1.5;t.beginPath();t.ellipse(o/2,r,h,c,0,0,Math.PI*2);t.fillStyle="orange";t.fill();t.beginPath();t.ellipse(-o/2,r,h,c,0,0,Math.PI*2);t.fill();let f=i*80/100;t.beginPath();t.arc(0,f-i,3,0,Math.PI*2);t.fillStyle="red";t.fill();t.beginPath();t.moveTo(0,f-i);t.arc(0,f-i,f,Math.PI/4,Math.PI*3/4);t.closePath();t.lineWidth=1;t.strokeStyle="gray";t.stroke();t.beginPath();t.arc(0,f-i,f,Math.PI/4,Math.PI*3/4);t.lineWidth=i/25;t.strokeStyle="red";t.stroke();t.beginPath();t.arc(0,f-i,f,Math.PI/4,Math.PI*3/4,!0);t.lineWidth=1;t.strokeStyle="green";t.stroke();t.restore()})(window)</script></div>
