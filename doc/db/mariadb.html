@@ -1,0 +1,47 @@
+<h2><a href=#maria>MariaDB</a></h2><p>测试环境: win10 / heidisql11.2 / maria10.5<p class=article-title>数据库~表查询<pre class=bg-gray-lt>
+
+  // 查询服务器上所有数据库
+  SELECT *,
+      schema_name,// 数据库名字
+      default_character_set_name,// 默认字符集(utf8)
+      default_collation_name// 默认排序规则[默认不区分大小写](utf8_general_ci)
+  FROM information_schema.SCHEMATA;
+
+  // 查询表'user'的信息
+  SELECT
+	    table_name,// 表名字
+	    table_comment// 表说明
+  FROM information_schema.tables
+  WHERE table_schema='所在数据库' AND TABLE_NAME='表名';
+
+</pre><br><pre class=bg-gray-lt>
+
+  // 查询表"user"的字段信息
+  // 长度是字符串长度,例如字母'a',和汉字'啊'都是1个长度
+  SELECT
+      CASE column_key WHEN 'PRI' THEN 'Y' ELSE '' END AS 是否主键,
+      CASE extra WHEN 'auto_increment' THEN 'Y' ELSE '' END AS 是否自增长,
+      column_name 列名,
+      data_type 列类型,
+      character_maximum_length 长度
+      numeric_precision 精度,decimal(M,D)的M值
+      numeric_scale 小数位,decimal(M,D)的D值
+      datetime_precision 毫秒位数,datetime(n)的n值
+      CASE is_nullable WHEN 'NO' THEN 'NOT NULL' ELSE 'NULL' END AS 是否可空,
+      column_comment 列注释
+  FROM information_schema.`COLUMNS`
+  WHERE TABLE_NAME='表名'
+
+</pre><br><p class=article-title>分页LIMIT<pre class=bg-gray-lt>
+
+  // 总数
+  SELECT count(pk) from 表 WHERE 1=1
+
+  // offsetrows是第n页的行数,或者说从这一行开始.第1行起点是 0
+  SELECT col1,col2,...
+  FROM 表
+  WHERE 1=1
+  ORDER BY [CreateTime] DESC
+  LIMIT @@OffSetRows, @@PageSize
+
+</pre><hr class=line>
