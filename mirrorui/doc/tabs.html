@@ -1,30 +1,26 @@
-<div class=doc-page><h2>选项卡</h2><p>切换选项卡,显示相应页面.是容器组件<p>单击或者鼠标移入选项卡,激活该选项页.选项卡与页由索引顺序相关联,例如:激活第2个选项卡时,则激活第2个面板.<p>当前活动的选项卡和对应页面有类名<b>active</b>,class="tabs-label active" class="tabs-panel active" 默认第1个是激活的<div id=mytabs1 class=tabs-box><div class=tabs-header><span class=tabs-label>苏轼</span> <span class=tabs-label>陆游</span> <span class=tabs-label>李清照</span></div><div class=tabs-panel><h5>饮湖上初晴后雨二首·其二</h5><p>水光潋滟晴方好<p>山色空蒙雨亦奇<p>欲把西湖比西子<p>淡妆浓抹总相宜</div><div class=tabs-panel><h5>卜算子 咏梅</h5><p>驿外断桥边,寂寞开无主<p>已是黄昏独自愁,更著风和雨<p>无意苦争春,一任群芳妒<p>零落成泥碾作尘,只有香如故</div><div class=tabs-panel><h5>一剪梅 红藕香残玉蕈秋</h5><p>红藕香残玉蕈秋,轻解罗裳,独上兰舟<p>云中谁寄锦书来,雁字回时,月满西楼<p>花自飘零水自流,一种相思,两处闲愁<p>此情无计可消除,才下眉头,却上心头</div></div><br><p># 鼠标划入切换<div id=mytabs3 class=tabs-box><div class=tabs-header><span class=tabs-label>选项1</span> <span class=tabs-label>选项2</span> <span class=tabs-label>选项3</span></div><div class=tabs-panel>鼠标划入切换onmouseenter</div><div class=tabs-panel>选项2-内容</div><div class=tabs-panel>选项3-内容</div></div><br><p># 选项卡标签均分<p class=text-in>选项卡平均整行,加上full类. <strong>class="tabs-box full"</strong><div id=mytabs2 class="tabs-box full"><div class=tabs-header><span class=tabs-label>卓文君</span> <span class=tabs-label>上官婉儿</span> <span class=tabs-label>秦观</span></div><div class=tabs-panel><h5>白头吟</h5><p>皑如山上雪 皎若云间月 闻君有两意 故来相决绝,今日斗酒会 明旦沟水头 躞蹀御沟上 沟水东西流<p>凄凄复凄凄 嫁娶不须啼 愿得一心人 白头不相离,竹竿何袅袅 鱼尾何簁簁 男儿重意气 何用钱刀为</div><div class=tabs-panel><h5>彩书怨</h5><p>叶下洞庭初 思君万里余 露浓香被冷 月落锦屏虚<p>欲奏江南曲 贪封蓟北书 书中无别意 惟怅久离居</div><div class=tabs-panel><h5>鹊桥仙 纤云弄巧</h5><p>纤云弄巧 飞星传恨 银汉迢迢暗度 金风玉露一相逢 便胜却人间无数<p>柔情似水 佳期如梦 忍顾鹊桥归路 两情若是久长时 又岂在朝朝暮暮</div></div><br><p># 主题颜色<div id=mytabs_primary class="tabs-box primary"><div class=tabs-header><span class=tabs-label>选项1</span> <span class=tabs-label>选项2</span> <span class=tabs-label>区别</span></div><div class=tabs-panel>添加样式 <b>class="tabs-box primary"</b></div><div class=tabs-panel>选项2-内容</div><div class=tabs-panel>区别在于选项卡标签的颜色,还有标签和面板分界线的颜色</div></div><br><div id=mytabs_danger class="tabs-box danger"><div class=tabs-header><span class=tabs-label>选项1</span> <span class=tabs-label>选项2</span> <span class=tabs-label>区别</span></div><div class=tabs-panel>添加样式 <b>class="tabs-box danger"</b></div><div class=tabs-panel>选项2-内容</div><div class=tabs-panel>区别在于选项卡标签的颜色,还有标签和面板分界线的颜色</div></div><br><div id=mytabs_success class="tabs-box success"><div class=tabs-header><span class=tabs-label>选项1</span> <span class=tabs-label>选项2</span> <span class=tabs-label>区别</span></div><div class=tabs-panel>添加样式 <b>class="tabs-box success"</b></div><div class=tabs-panel>选项2-内容</div><div class=tabs-panel>区别在于选项卡标签的颜色,还有标签和面板分界线的颜色</div></div><br><div id=mytabs_info class="tabs-box info"><div class=tabs-header><span class=tabs-label>选项1</span> <span class=tabs-label>选项2</span> <span class=tabs-label>区别</span></div><div class=tabs-panel>添加样式 <b>class="tabs-box info"</b></div><div class=tabs-panel>选项2-内容</div><div class=tabs-panel>区别在于选项卡标签的颜色,还有标签和面板分界线的颜色</div></div><br><div id=mytabs_warning class="tabs-box warning"><div class=tabs-header><span class=tabs-label>选项1</span> <span class=tabs-label>选项2</span> <span class=tabs-label>区别</span></div><div class=tabs-panel>添加样式 <b>class="tabs-box warning"</b></div><div class=tabs-panel>选项2-内容</div><div class=tabs-panel>区别在于选项卡标签的颜色,还有标签和面板分界线的颜色</div></div><br><br><p># 列表形式<p class=text-in>加上list类 class="tabs-box list"<div id=mytabs_list class="tabs-box list"><div class=tabs-header><span class=tabs-label>选项1</span> <span class=tabs-label>选项2</span> <span class=tabs-label>选项3</span></div><div class=tabs-panel>选项1-竖直排列的选项卡标签</div><div class=tabs-panel>选项2-内容</div><div class=tabs-panel>选项3-内容</div></div><br><pre class=bg-gray-lt>
+<div class=doc-page><h2>标签页</h2><p>容器组件,选择标签卡,显示对应页面.<p>这次改成了自定义组件,删减了添加选项卡相关功能,简洁了样式,主要用于展示内容.<pre class=bg-gray-lt>
 
-    &lt;div id="mytabs1" class="tabs-box">
-        &lt;div class="tabs-header">
-            &lt;span class="tabs-label">苏轼&lt;/span>
-            &lt;span class="tabs-label">陆游&lt;/span>
-            &lt;span class="tabs-label">李清照&lt;/span>
-        &lt;/div >
-        &lt;div class="tabs-panel">...&lt;/div>
-        &lt;div class="tabs-panel">...&lt;/div >
-        &lt;div class="tabs-panel">...&lt;/div >
-    &lt;/div>
+  &lt;m-tabs>&lt;/m-tabs>
 
-    // js调用,传入tabs的id.默认激活0位置面板
-    window.ns.<strong>tabs</strong>('mytabs1');
+</pre><br><m-tabs id=mytabs height=240px><div class=tabs-header><span class=tabs-label>苏轼</span> <span class=tabs-label>陆游</span> <span class=tabs-label>李清照</span> <span class=tabs-label>毛泽东</span></div><div class=tabs-content><div class=tabs-panel><h5>饮湖上初晴后雨二首·其二</h5><p>水光潋滟晴方好<p>山色空蒙雨亦奇<p>欲把西湖比西子<p>淡妆浓抹总相宜</div><div class=tabs-panel><h5>卜算子 咏梅</h5><p>驿外断桥边,寂寞开无主<p>已是黄昏独自愁,更著风和雨<p>无意苦争春,一任群芳妒<p>零落成泥碾作尘,只有香如故</div><div class=tabs-panel><h5>一剪梅 红藕香残玉蕈秋</h5><p>红藕香残玉蕈秋,轻解罗裳,独上兰舟<p>云中谁寄锦书来,雁字回时,月满西楼<p>花自飘零水自流,一种相思,两处闲愁<p>此情无计可消除,才下眉头,却上心头</div><div class=tabs-panel><h5>浪淘沙 北戴河</h5><p>大雨落幽燕,白浪滔天,秦皇岛外打鱼船<p>一片汪洋都不见,知向谁边<p>往事越千年,魏武挥鞭,东临碣石有遗篇<p>萧瑟秋风今又是,换了人间</div></div></m-tabs><br><p># 标签方位和样式<p class=text-in>设置样式类实现标签栏的位置和样式.<pre class=bg-gray-lt>
+  
+  // 标签栏位置
+  &lt;m-tabs class="<b>left | right | bottom</b>" >&lt;/m-tabs>
 
-    // 切换方式(参数3) 1=点击 2=鼠标移入
-    window.ns.tabs('mytabs1',0,2);
+  // 标签铺满整栏
+  &lt;m-tabs class="<b>full</b>" >&lt;/m-tabs>
+  
+  // 主题色
+  &lt;m-tabs class="<b>primary | danger ...</b>" >&lt;/m-tabs>
 
-    // 指定第2个面板激活,索引从0开始
-    window.ns.tabs('mytabs1',1);
+</pre><br><div><m-btn id=tabsdemo_none class=mg-5>初始</m-btn><m-btn id=tabsdemo_left class=mg-5>左侧</m-btn><m-btn id=tabsdemo_right class=mg-5>右侧</m-btn><m-btn id=tabsdemo_bottom class=mg-5>底部</m-btn><m-btn id=tabsdemo_full class=mg-5>标签均分整栏</m-btn><m-btn id=tabsdemo_theme themeindex=0 class=mg-5>主题色</m-btn></div><m-tabs id=mytabs2 height=200px><div class=tabs-header><span class=tabs-label>卓文君</span> <span class=tabs-label>上官婉儿</span> <span class=tabs-label>韩愈</span> <span class=tabs-label>秦观</span></div><div class=tabs-content><div class=tabs-panel><h5>白头吟</h5><p>皑如山上雪 皎若云间月 闻君有两意 故来相决绝,今日斗酒会 明旦沟水头 躞蹀御沟上 沟水东西流<p>凄凄复凄凄 嫁娶不须啼 愿得一心人 白头不相离,竹竿何袅袅 鱼尾何簁簁 男儿重意气 何用钱刀为</div><div class=tabs-panel><h5>彩书怨</h5><p>叶下洞庭初 思君万里余 露浓香被冷 月落锦屏虚<p>欲奏江南曲 贪封蓟北书 书中无别意 惟怅久离居</div><div class=tabs-panel><h5>春雪</h5><p>新年都未有芳华<p>二月初惊见草芽<p>白雪却嫌春色晚<p>故穿庭树作飞花</div><div class=tabs-panel><h5>鹊桥仙 纤云弄巧</h5><p>纤云弄巧 飞星传恨 银汉迢迢暗度 金风玉露一相逢 便胜却人间无数<p>柔情似水 佳期如梦 忍顾鹊桥归路 两情若是久长时 又岂在朝朝暮暮</div></div></m-tabs><br><p># dom属性<p class=text-in>height,css合法的height值.在m-tabs上设置容器高度,默认320px.内容超过高度时,出现竖直滚动条.<pre class=bg-gray-lt>
 
-</pre><br><p># 事件<p>tab1.<b>onTabActive(tabLabel)</b><p>选项卡激活后执行事件,tabLabel是选项卡标签的dom对象<pre class=bg-gray-lt>
+  // 高度设置为200px
+  &lt;m-tabs height="200px" >&lt;/m-tabs>
 
-  let tabs1 = tabs('mytabs1');
-  tabs1.onTabActive = (tabLabel) => {
-    msgbox.alert('激活面板标题是: ' + tabLabel.innerTEXT);
-  }
+</pre><br><p># 方法<p class=text-in>激活标签,index:标签索引.<pre class=bg-gray-lt>
 
-</pre><br><div id=mytabs_onevent class=tabs-box><div class=tabs-header><span class=tabs-label>选项1</span> <span class=tabs-label>选项2</span> <span class=tabs-label>选项3</span></div><div class=tabs-panel>选项1-内容</div><div class=tabs-panel>选项2-内容</div><div class=tabs-panel>选项3-内容</div></div><br><p># 方法<div id=mytabs_method class="tabs-box success"><div class=tabs-header><span class=tabs-label>选项1</span> <span class=tabs-label>选项2</span> <span class=tabs-label>选项3</span></div><div class=tabs-panel>选项1-内容</div><div class=tabs-panel>选项2-内容</div><div class=tabs-panel>选项3-内容</div></div><table class=table><tr><td>tab1.<b>activeTab(index)</b><td><a class=btn id=tab2activeTab>激活选项2</a><td>激活选项卡,index是选项卡索引<tr><td>tab1.<b>addTab(title, index)</b><td><a class=btn id=tab2addTab>添加选项卡到第2位置</a><td>添加一个选项卡. title:选项卡标题, index:添加到这个索引位置,默认加到最后<tr><td>tab1.<b>delTab(index, tagType)</b><td><a class=btn id=tab2delTab>删除第2位置的选项卡</a><td>删除一个选项卡. index:要删除的选项卡索引或pid.tagType:'index'(默认) | 'pid'(表示index指的是pid值)<tr><td>tab1.<b>getCount()</b><td><a class=btn id=tab2getCount>选项卡个数</a><td>返回选项卡个数</table><script>(()=>{let n=window.ns.tabs;n("mytabs1");n("mytabs2",1,1);n("mytabs3",0,2);let r=["primary","danger","success","info","warning"];for(var i=0;i<r.length;i++){let t="mytabs_"+r[i];n(t,i)}n("mytabs_list");let u=n("mytabs_onevent");u.onTabActive=n=>{window.ns.msgbox.alert("激活面板标题:"+n.innerText)};let t=n("mytabs_method");document.getElementById("tab2activeTab").onclick=()=>{t.activeTab(1)};document.getElementById("tab2addTab").onclick=()=>{t.addTab("添加到第二个位置"+t.getCount(),1)};document.getElementById("tab2delTab").onclick=()=>{t.delTab(1)};document.getElementById("tab2getCount").onclick=()=>{window.ns.msgbox.alert("选项卡总数: "+t.getCount())}})()</script></div>
+  // 激活第一个标签
+  tabs.<b>activeTab(0)</b>
+
+</pre><script>(()=>{$("#mytabs")[0].activeTab(0),$("#mytabs2")[0].activeTab(0),$("#tabsdemo_none")[0].onclick=()=>{$("#mytabs2").removeClass("left","right","bottom","full","primary","success","danger","info","warning")},$("#tabsdemo_left,#tabsdemo_right,#tabsdemo_bottom").each(n=>{n.onclick=()=>{let t=$(n).prop("id").substr(9);$("#mytabs2").removeClass("left","right","bottom");$("#mytabs2").addClass(t)}}),$("#tabsdemo_full")[0].onclick=()=>{$("#mytabs2").hasClass("full")?$("#mytabs2").removeClass("full"):$("#mytabs2").addClass("full")},$("#tabsdemo_theme")[0].onclick=()=>{let t=["primary","success","danger","info","warning"],n=parseInt($("#tabsdemo_theme").prop("themeIndex"));t.forEach(n=>{$("#mytabs2").removeClass(n)});n+1>=t.length&&(n=-1);$("#mytabs2").addClass(t[n+1]);$("#tabsdemo_theme").prop("themeIndex",n+1)}})()</script></div>
