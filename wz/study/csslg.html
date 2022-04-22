@@ -1,0 +1,102 @@
+<!DOCTYPE html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1.0,user-scalable=no"><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><title>css线性渐变 | Mirror Space</title><link href=/mirrorui/mirrorui.css rel=stylesheet><link href=/asset/css/blog.css rel=stylesheet><div class=layout><div class=layout-part1></div><div class=layout-part2><div class=wz-page><style>.demo{display:inline-block;width:100px;height:100px}.demo-2x{width:200px}.lg{background-image:linear-gradient(red,blue)}.lg-1{background-image:linear-gradient(red,yellow)}.lg-2{background-image:linear-gradient(to right,red,yellow)}.lg-3{background-image:linear-gradient(38deg,red,yellow)}.lg-4{background-image:linear-gradient(to right,red,orange,yellow,green,skyblue,blue,purple)}.lg-5{background-image:linear-gradient(90deg,red 0%,yellow 100%)}.lg-6{background-image:linear-gradient(to right,red 50px,yellow 80px)}.lg-7{background-image:linear-gradient(to right,red,yellow 25px,black 50px,blue 75px,skyblue)}.lg-8{background-image:linear-gradient(to right,red,50%,yellow)}.lg-9{background-image:linear-gradient(to right,red,30%,yellow)}.lg-10{background-image:linear-gradient(to right,red,70%,yellow)}.lg-11{background-image:linear-gradient(red,yellow,blue)}.lg-12{background-image:linear-gradient(red,25%,yellow,75%,blue)}.lg-13{background-image:linear-gradient(red,yellow,blue,green)}.lg-14{background-image:linear-gradient(red,17.5%,yellow,49.5%,blue,82.5%,green)}.lg-15{border:10px dashed rgba(0,0,0,.3);background-image:linear-gradient(to right,red,17.5%,yellow,49.5%,blue,82.5%,green)}.lg-16{background-image:linear-gradient(90deg,red 17%,green 17%,green 33%,yellow 33%,yellow 50%,black 50%,black 66%,blue 66%,blue 80%,pink 80%,pink 90%,purple 90%)}.lg-17{background-image:linear-gradient(-90deg,red 17%,green 17% 33%,yellow 33% 50%,black 50% 66%,blue 66% 80%,pink 80% 90%,purple 90%)}.lg-18{background-image:linear-gradient(45deg,red 10%,#ff000050 10%),linear-gradient(135deg,green 10%,transparent 10%),linear-gradient(225deg,blue 10%,transparent 10%),linear-gradient(-45deg,yellow 10%,transparent 10%),radial-gradient(pink 1%,black 25%,transparent 25%)}.lg-19{background-image:repeating-linear-gradient(45deg,red 0 2%,transparent 2% 10%),repeating-linear-gradient(-45deg,black,black 1%,transparent 1%,transparent 10%)}</style><h4>简介</h4><p>渐变是指从一种颜色到另一种颜色的过渡.<p>渐变效果显示在盒模型的背景上,css规则是background-image,也可以是background.(文中例子盒模型是 100px X 100px 和 200px X 100px,无边框.)<p>css渐变有3种类型,线性渐变 | <a href=cssrg.html target=_blank>径向渐变</a> | <a href=csscg.html target=_blank>圆锥渐变</a> .在此基础上还有重复渐变.另外,和box-shadow可以设置多条一样,渐变也可以多个.<p>此文记录下css线性渐变的用法还有几个效果例子,不研究过渡算法和原理.<div><span class="demo lg mg-r-10"></span> <span class="demo demo-2x lg"></span></div><pre class=bg-gray-lt>
+
+    background-image:linear-gradient(red,blue);
+
+</pre><br><p>线性渐变创建一条直线前进的颜色带(来自MDN,css渐变章节)<p>最简单的线性渐变,两个颜色参数<div><span class="demo lg-1"></span></div><pre class=bg-gray-lt>
+
+    linear-gradient(red,yellow);
+
+</pre><br><h4>方向</h4><p>线性渐变的方向.上图的红黄渐变,渐变方向是从盒模型的上方到下方.按照参数顺序,从第1个参数红色,渐变到第2个参数黄色.<p>方向指定用关键字或者角度.例如 to right 表示从盒模型的左边渐变到右边. 0 deg 表示从盒模型下方渐变到上方.<div><span class="demo lg-2 mg-r-10"></span> <span class="demo lg-3"></span></div><pre class=bg-gray-lt>
+
+    // 用关键字
+    linear-gradient(to right,red,yellow);
+
+    // 用角度
+    linear-gradient(38deg,red,yellow);
+
+</pre><br><p>关键字表达比较直观,其实就是盒模型的上下左右斜对角这些特别角度.to 后面的方向就是渐变的终点方向,比如 to left: 渐变终点是到盒模型左边,起点是右边.to left top: 终点是左上角,起点就是对应的右下角.<pre class=bg-gray-lt>
+
+    // 左/右,上/下
+    to right, to left
+    to top, to bottom
+
+    // 对角,左上/下,右上/下
+    to left top, to right top
+    to left bottom, to right bottom
+
+</pre><br><p>角度表达比较自由,可以360度的指定方向.以盒模型的中心为圆心,正上方为0度.从0度开始,按顺时针旋转一周回到0(360)度,这是渐变角度值的范围.[0~360)区间的角度值,加上360度,效果一样.角度也可为负值.<p>下图的箭头指示了盒模型中的渐变方向.例如0deg,表示从盒模型下边开始渐变到上边.0度时,箭头指向上边.<div class=grids><div><canvas id=canvas1></canvas></div><div><canvas id=canvas2></canvas></div></div><br><p>那么,设置0deg时,效果等同于使用to up关键字.设置45deg时,相当于to right top.<h4>颜色</h4><p>至少2个不同颜色.颜色如果相同,则没有渐变效果.比较无聊.<div><span class="demo lg-4"></span></div><pre class=bg-gray-lt>
+
+    linear-gradient(to right,red,orange,yellow,green,skyblue,blue,purple);
+
+</pre><br><h4>位置</h4><p>颜色渐变的起点位置.可以设置两个颜色之间的渐变范围.在颜色值后面设置,可以是像素,百分比单位.<p>先看最简单的情况,两个颜色的渐变,方向从左到右.<pre class=bg-gray-lt>
+
+    // 百分比
+    linear-gradient(90deg,red 0%,yellow 100%);
+    // 效果等同
+    linear-gradient(90deg,red,yellow);
+
+    // 像素
+    linear-gradient(to right,red 50px,yellow 80px);
+
+</pre><br><p>不设置位置参数值时(color-first,color-last),效果同设置时相同(color-first 0%,color-last 100%). 默认位置值,就是在渐变方向上,从盒模型的起点到终点,这之间的区域,都是渐变范围.<p>如果盒模型有边框,那么起点不含边框,从边框的内界限算起.<p>下图是从左到右,红色从左边框右边界线开始.边框半透明的,可见渐变效果是覆盖了边框范围.<div><span class="demo demo-2x lg-15"></span></div><p>下图例子,渐变方向从左到右.第一个颜色red,从盒模型的左边开始渐变,直到盒模型右边结束,渐变成最后一个颜色yellow.<div><span class="demo lg-5"></span></div><p>方向从左到右,设置第一个颜色的位置为50px,最后一个颜色为80px.下图可见,红色从盒模型左边开始,一直持续到50px处时,颜色开始渐变,直到80px时,变成了黄色,而后到盒模型最右边,都是黄色.<p>下图直观可见,从盒模型(从左到右)的50px到80px之间的30px区域,是渐变范围.颜色的渐变转换限制在这个区域内发生.<div><span class="demo lg-6"></span></div><h6>起止值限定范围</h6><p>那么,可以得到一个结论(双颜色情况),首颜色的位置是渐变起点,末颜色的位置是渐变终点.这两个位置限定了两色间的渐变范围.<p>多个颜色的情况<p>下图直观可得,首个颜色red到第二个颜色yellow,渐变范围是0~25px.yellow到第三个颜色black,范围是25px~50px.依次,蓝色到最后的skyblue,范围是75px~100%<div><span class="demo lg-7"></span></div><pre class=bg-gray-lt>
+
+    linear-gradient(to right,red,yellow 25px,black 50px,blue 75px,skyblue);
+
+</pre><br><h6>多颜色起止值</h6><p>那么,对于多个颜色的情况,从第一个颜色开始,它的位置值是渐变起点,第二个颜色的位置值是第一个颜色到第二个颜色的渐变终点.同时,这个位置也是第二个颜色到第三个颜色的渐变起点.依次,直到最末颜色,它的位置是倒数第二个颜色到最后一个颜色的渐变终点.<p>所以,多个颜色的情况,就是两个颜色情况时,规则的重复迭代.<p>自然的,两个相邻的颜色形成一个渐变区域,n个颜色有n-1个渐变区域.</p><canvas id=canvas3></canvas><br><h6>渐变(颜色)中点</h6><p>在两个颜色值之间,设置位置值.这个参数的意义是: 指定在这个位置上,渐变到这两个颜色值之间的中点颜色值.<p>简单的说,在中点位置上的颜色值,处于渐变过渡中的颜色中间值.在这点与颜色1之间的渐变范围内的颜色值,更接近颜色1.与颜色2之间的颜色,更接近颜色2.而这个中点上的颜色值,不偏不倚,处于颜色1,2的中间.<div><span class="demo lg-8"></span></div><pre class=bg-gray-lt>
+
+    linear-gradient(to right,red,50%,yellow);
+    // 效果等同
+    linear-gradient(to right,red,yellow);
+
+</pre><br><p>上图,在red和yellow之间设置位置值50%.从效果上看,和未设置时一样的.<p>设为30%或者70%.发现渐变区域变化了.<div><span class="demo lg-9 mg-r-10"></span> <span class="demo lg-10"></span></div><p>默认值情况,渐变会在两个颜色间均匀过渡.所以默认的颜色中点位置,是两个颜色渐变范围的中间位置.<p>例子里,red渐变到yellow,范围也是默认的从0~100%.那么,默认值中点位置就是50%.所以默认效果和设置50%一样.<p>三个颜色默认值,与等效值.<div><span class="demo lg-11 mg-r-10"></span> <span class="demo lg-12"></span></div><pre class=bg-gray-lt>
+
+    linear-gradient(red,yellow,blue);
+    // 效果等同
+    linear-gradient(red,25%,yellow,75%,blue);
+
+</pre><br><p>三个颜色时,会有2个渐变范围,分别是,颜色1~2,2~3.这2个渐变范围会平分盒模型面积,也就是各占50%.那么,范围1的中点位置就是25%,范围2的中点位置就是75%.<p>四个颜色时,会有3个渐变范围,会均分盒模型为3部分,每个占33%.所以等效值为 (0~33%)/2=17.5% (33%~66%)/2=49.5% (66%~99%)=82.5%<div><span class="demo lg-13 mg-r-10"></span> <span class="demo lg-14"></span></div><pre class=bg-gray-lt>
+
+    linear-gradient(red,17.5%,yellow,49.5%,blue,82.5%,green);
+
+</pre><br><h4>示例</h4><p>几个练习例子<h6>色谱图</h6><p>像是光谱分析图.实现关键是,将2个颜色间的渐变区域设置为0.<div><span class="demo demo-2x lg-16"></span></div><pre class=bg-gray-lt>
+
+    linear-gradient(90deg,red 17%,
+                          green 17%,green 33%,
+                          yellow 33%,yellow 50%,
+                          black 50%,black 66%,
+                          blue 66%,blue 80%,
+                          pink 80%,pink 90%,
+                          purple 90%);
+
+</pre><br><p>如上图色带.首色red起点位置17%,2色green起点也是17%,它也是red的渐变终点位置,那么red到green的渐变范围就是0,所以不发生渐变,red直接到green.<p>第3色还是green,终点为33%,起点是17%(第2个green的位置).那么渐变范围17%~33%,但是同一种颜色,所以无渐变效果.<p>后面颜色依此规则.只有首色red和末色purple,只设置了一次.因为有默认值,首色red在17%之前的范围是0~17%,末色purple在90%之后的范围是90%~100%.<p>那么,便于理解,也可以设置2次,效果一样.<pre class=bg-gray-lt>
+
+    linear-gradient(90deg,red 0,red 17%,
+                          ...
+                          purple 90%,purple 100%);
+
+</pre><br><p>这种设置比较啰嗦,有比较简洁和直观的形式.颜色可以设置2个位置值,这2值之间的范围显示的就是这个颜色,无渐变效果.<div><span class="demo demo-2x lg-17"></span></div><pre class=bg-gray-lt>
+
+    linear-gradient(-90deg,red 17%,
+                           green 17% 33%,
+                           yellow 33% 50%,
+                           black 50% 66%,
+                           blue 66% 80%,
+                           pink 80% 90%,
+                           purple 90%);
+
+</pre><br><p>同上,首色red,等同red 0~17%,末色purple等同purple 90% 100%.<p>对比啰嗦写法,这种省略了重复颜色,也更直观一些.对于颜色C,第一个位置是终点(前一个颜色到C的),第2个位置是起点(C到后一个颜色的).<p>例如red到green的终点是17%,而17%就是green的第一个位置值.green到yellow的起止点是,green的第2个位置(33%),到yellow的第1个位置(33%).<h6>形式区别</h6><p>其实两种写法也可以认为,如果只写1个位置值,那么这个值就既是终点(前色),也是起点(后色).而2个值时,前一个为终点,后一个为起点.<h6>多个渐变</h6><p>渐变可以设置1个以上,类似与box-shadow那样,用逗号隔开.<div><span class="demo demo-2x lg-18"></span></div><pre class=bg-gray-lt>
+
+    linear-gradient(45deg,red 10%,#ff000030 10%), 
+    linear-gradient(135deg,green 10%,transparent 10%),
+    linear-gradient(225deg,blue 10%,transparent 10%),
+    linear-gradient(-45deg,yellow 10%,transparent 10%),
+    radial-gradient(pink 1%,black 25%,transparent 25%);
+
+</pre><br><p>渐变的效果都是覆盖整个盒模型的,有多个渐变时,前面设置的会覆盖后面设置的.所以,要表现效果,可以将前面设置的颜色加上透明度,这样后面的颜色就可以显示了.<p>例子设置了5个渐变,分别是red,green,blue,yellow4个角,和中间的圆圈.第一个red渐变,从red渐变到透明度为50%的red,方向是从左下角开始.可见,半透明颜色覆盖在后续渐变效果上.<p>这个例子发现一个思路,将多个渐变效果显示在盒模型的不同位置,将重叠但不需要显示的部分设置为透明色,那么就可以组成图案.<h4>线性重复渐变</h4><p>使用函数repeating-linear-gradient(). 用于重复显示指定的渐变模式.<p>参数写法几乎一样的,在2值写法上,第一个颜色和最后一个颜色都要写2个值.实验发现,不写不行,可能是模式要匹配,否则函数无法找到重复规则.<p>网格,两个45度方向的重叠.<div><span class="demo demo-2x lg-19"></span></div><pre class=bg-gray-lt>
+
+    // 2值写法
+    repeating-linear-gradient(45deg,red 0 2%,transparent 2% 10%),
+    // 1值写法,2个颜色都要写出,第一个red等同于red 0
+    repeating-linear-gradient(-45deg,black,black 1%,transparent 1%,transparent 10%);
+
+</pre><br></div><hr class=line><script src=/asset/js/article.js></script><script src=/jslib/cavlib.js></script><script>(()=>{function n(){let r=cavlib("canvas1").style(),n=r.ctx;n.canvas.width=150;n.font="18px serif";n.translate(75,75);n.rect(-50,-50,100,100);n.strokeStyle="blue";n.stroke();let t=Math.sqrt(2),u=[[0,0,0,-35],[0,0,35/t,-35/t],[0,0,35,0],[0,0,35/t,35/t],[0,0,0,35],[0,0,-35/t,35/t],[0,0,-35,0],[0,0,-35/t,-35/t]];n.strokeStyle="black";for(var i=0,f=u.length;i<f;i++)n.beginPath(),r.lineArrow(u[i]);n.beginPath();n.fillText("0deg",-20,-55);n.fillText("45",50/t,-50/t);n.fillText("90",55,5);n.fillText("180deg",-10,65)}function t(){let f=cavlib("canvas2").style(),r=f.ctx;r.canvas.width=150;r.translate(75,75);let s=50*Math.sqrt(2),n=50,e=["0~45","45~135","135~225","225~315","315-360","begin"],i=0,t=0,o=(t,u)=>{r.clearRect(-n,-n,2*n,2*n);let f=r.createLinearGradient(t,u,-t,-u);f.addColorStop(0,"red");f.addColorStop(1,"blue");r.fillStyle=f;r.fillRect(-n,-n,2*n,2*n);r.beginPath();r.clearRect(-20,n+10,n,15);r.fillText(e[i],-20,n+20)},u=()=>{let r=0,f=0;if(i==0?(r=-t,f=n,t++,t>n&&(i++,t=0)):i==1?(r=-n,f=n-t,t++,t>2*n&&(i++,t=0)):i==2?(r=t-n,f=-n,t++,t>2*n&&(i++,t=0)):i==3?(r=n,f=t-n,t++,t>2*n&&(i++,t=0)):i==4&&(r=n-t,f=n,t++,t>n&&(i++,t=0)),o(r,f),i==5){setTimeout(()=>{i=0,window.requestAnimationFrame(u)},2e3);return}window.requestAnimationFrame(u)};window.requestAnimationFrame(u)}function i(){let o=cavlib("canvas3").style(),n=o.ctx;n.font="18px serif";let f=50,t=25,e=200,i=70,r=n.createLinearGradient(f,t+i/2,f+e,t+i/2);r.addColorStop(0,"red");r.addColorStop(.25,"yellow");r.addColorStop(.5,"blue");r.addColorStop(.75,"orange");r.addColorStop(1,"black");n.fillStyle=r;n.fillRect(f,t,e,i);n.beginPath();let s=["red","yellow","blue","orange","black"];for(var u=0;u<5;u++){let r=f+e/4*u;n.strokeStyle=n.fillStyle=s[u];o.lineArrow([r,t+i,r,t+i+30]);u<4&&(n.fillStyle="red",n.fillText(u+1,r+e/8,t+i+20))}}n();t();i()})(window)</script></div></div><script src=/asset/js/mainmenu.js></script>
