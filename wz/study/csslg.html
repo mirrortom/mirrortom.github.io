@@ -24,7 +24,7 @@
     to left top, to right top
     to left bottom, to right bottom
 
-</pre><br><p>角度表达比较自由,可以360度的指定方向.以盒模型的中心为圆心,正上方为0度.从0度开始,按顺时针旋转一周回到0(360)度,这是渐变角度值的范围.[0~360)区间的角度值,加上360度,效果一样.角度也可为负值.<p>下图的箭头指示了盒模型中的渐变方向.例如0deg,表示从盒模型下边开始渐变到上边.0度时,箭头指向上边.<div class=grids><div><canvas id=canvas1></canvas></div><div><canvas id=canvas2></canvas></div></div><br><p>那么,设置0deg时,效果等同于使用to up关键字.设置45deg时,相当于to right top.<h4>颜色</h4><p>至少2个不同颜色.颜色如果相同,则没有渐变效果.比较无聊.<div><span class="demo lg-4"></span></div><pre class=bg-gray-lt>
+</pre><br><p>角度表达比较自由,可以360度的指定方向.以盒模型的中心为圆心,正上方为0度.从0度开始,按顺时针旋转一周回到0(360)度,这是渐变角度值的范围.[0~360)区间的角度值,加上360度,效果一样.角度也可为负值.<p>下图的箭头指示了盒模型中的渐变方向.例如0deg,表示从盒模型下边开始渐变到上边.0度时,箭头指向上边.<div class=grids><div><canvas id=canvas1></canvas></div><div><canvas id=canvas2></canvas></div></div><br><p>那么,设置0deg时,效果等同于使用to top关键字.设置45deg时,相当于to right top.<h4>颜色</h4><p>至少2个不同颜色.渐变起止颜色如果相同,则没有渐变效果.<div><span class="demo lg-4"></span></div><pre class=bg-gray-lt>
 
     linear-gradient(to right,red,orange,yellow,green,skyblue,blue,purple);
 
@@ -38,7 +38,7 @@
     // 像素
     linear-gradient(to right,red 50px,yellow 80px);
 
-</pre><br><p>不设置位置参数值时(color-first,color-last),效果同设置时相同(color-first 0%,color-last 100%). 默认位置值,就是在渐变方向上,从盒模型的起点到终点,这之间的区域,都是渐变范围.<p>如果盒模型有边框,那么起点不含边框,从边框的内界限算起.<p>下图是从左到右,红色从左边框右边界线开始.边框半透明的,可见渐变效果是覆盖了边框范围.<div><span class="demo demo-2x lg-15"></span></div><p>下图例子,渐变方向从左到右.第一个颜色red,从盒模型的左边开始渐变,直到盒模型右边结束,渐变成最后一个颜色yellow.<div><span class="demo lg-5"></span></div><p>方向从左到右,设置第一个颜色的位置为50px,最后一个颜色为80px.下图可见,红色从盒模型左边开始,一直持续到50px处时,颜色开始渐变,直到80px时,变成了黄色,而后到盒模型最右边,都是黄色.<p>下图直观可见,从盒模型(从左到右)的50px到80px之间的30px区域,是渐变范围.颜色的渐变转换限制在这个区域内发生.<div><span class="demo lg-6"></span></div><h6>起止值限定范围</h6><p>那么,可以得到一个结论(双颜色情况),首颜色的位置是渐变起点,末颜色的位置是渐变终点.这两个位置限定了两色间的渐变范围.<p>多个颜色的情况<p>下图直观可得,首个颜色red到第二个颜色yellow,渐变范围是0~25px.yellow到第三个颜色black,范围是25px~50px.依次,蓝色到最后的skyblue,范围是75px~100%<div><span class="demo lg-7"></span></div><pre class=bg-gray-lt>
+</pre><br><p>位置参数默认值的等效果值是:(color1 0%, color2 100%),默认位置值,就是在渐变方向上,从盒模型的起点0%到终点100%,这之间的区域,都是渐变范围.<p>下图例子,渐变方向从左到右.第一个颜色red,从盒模型的左边开始渐变,直到盒模型右边结束,渐变成最后一个颜色yellow.<div><span class="demo lg-5"></span></div><p>方向从左到右,设置第一个颜色的位置为50px,最后一个颜色为80px.下图可见,红色从盒模型左边开始,一直持续到50px处时,颜色开始渐变,直到80px时,变成了黄色,而后到盒模型最右边,都是黄色.<p>下图直观可见,从盒模型(从左到右)的50px到80px之间的30px区域,是渐变范围.颜色的渐变转换限制在这个区域内发生.<div><span class="demo lg-6"></span></div><p>如果盒模型有边框,那么起点不含边框,从边框的内界限算起.<p>下图是从左到右,红色从左边框右边界线开始.边框半透明的,可见渐变效果是覆盖了边框范围.<div><span class="demo demo-2x lg-15"></span></div><br><h6>起止值限定范围</h6><p>那么,可以得到一个结论(双颜色情况),首颜色的位置是渐变起点,末颜色的位置是渐变终点.这两个位置限定了两色间的渐变范围.<p>多个颜色的情况<p>下图直观可得,首个颜色red到第二个颜色yellow,渐变范围是0~25px.yellow到第三个颜色black,范围是25px~50px.依次,蓝色到最后的skyblue,范围是75px~100%<div><span class="demo lg-7"></span></div><pre class=bg-gray-lt>
 
     linear-gradient(to right,red,yellow 25px,black 50px,blue 75px,skyblue);
 
@@ -48,7 +48,7 @@
     // 效果等同
     linear-gradient(to right,red,yellow);
 
-</pre><br><p>上图,在red和yellow之间设置位置值50%.从效果上看,和未设置时一样的.<p>设为30%或者70%.发现渐变区域变化了.<div><span class="demo lg-9 mg-r-10"></span> <span class="demo lg-10"></span></div><p>默认值情况,渐变会在两个颜色间均匀过渡.所以默认的颜色中点位置,是两个颜色渐变范围的中间位置.<p>例子里,red渐变到yellow,范围也是默认的从0~100%.那么,默认值中点位置就是50%.所以默认效果和设置50%一样.<p>三个颜色默认值,与等效值.<div><span class="demo lg-11 mg-r-10"></span> <span class="demo lg-12"></span></div><pre class=bg-gray-lt>
+</pre><br><p>上图,在red和yellow之间设置位置值50%.从效果上看,和未设置时一样的(默认值).<p>设为30%或者70%.发现渐变区域变化了.<div><span class="demo lg-9 mg-r-10"></span> <span class="demo lg-10"></span></div><p>默认值情况,渐变会在两个颜色间均匀过渡.所以默认的颜色中点位置,是两个颜色渐变范围的中间位置.<p>例子里,red渐变到yellow,范围也是默认的从0~100%.那么,默认值中点位置就是50%.所以默认效果和设置50%一样.<p>三个颜色默认值与等效值.<div><span class="demo lg-11 mg-r-10"></span> <span class="demo lg-12"></span></div><pre class=bg-gray-lt>
 
     linear-gradient(red,yellow,blue);
     // 效果等同
@@ -96,7 +96,7 @@
 
     // 2值写法
     repeating-linear-gradient(45deg,red 0 2%,transparent 2% 10%),
-    // 1值写法,2个颜色都要写出,第一个red等同于red 0
+    // 1值写法,2个颜色都要写出,第一个black等同于black 0
     repeating-linear-gradient(-45deg,black,black 1%,transparent 1%,transparent 10%);
 
 </pre><br></div><hr class=line><script src=/asset/js/article.js></script><script src=/jslib/cavlib.js></script><script>(()=>{function n(){let r=cavlib("canvas1").style(),n=r.ctx;n.canvas.width=150;n.font="18px serif";n.translate(75,75);n.rect(-50,-50,100,100);n.strokeStyle="blue";n.stroke();let t=Math.sqrt(2),u=[[0,0,0,-35],[0,0,35/t,-35/t],[0,0,35,0],[0,0,35/t,35/t],[0,0,0,35],[0,0,-35/t,35/t],[0,0,-35,0],[0,0,-35/t,-35/t]];n.strokeStyle="black";for(var i=0,f=u.length;i<f;i++)n.beginPath(),r.lineArrow(u[i]);n.beginPath();n.fillText("0deg",-20,-55);n.fillText("45",50/t,-50/t);n.fillText("90",55,5);n.fillText("180deg",-10,65)}function t(){let f=cavlib("canvas2").style(),r=f.ctx;r.canvas.width=150;r.translate(75,75);let s=50*Math.sqrt(2),n=50,e=["0~45","45~135","135~225","225~315","315-360","begin"],i=0,t=0,o=(t,u)=>{r.clearRect(-n,-n,2*n,2*n);let f=r.createLinearGradient(t,u,-t,-u);f.addColorStop(0,"red");f.addColorStop(1,"blue");r.fillStyle=f;r.fillRect(-n,-n,2*n,2*n);r.beginPath();r.clearRect(-20,n+10,n,15);r.fillText(e[i],-20,n+20)},u=()=>{let r=0,f=0;if(i==0?(r=-t,f=n,t++,t>n&&(i++,t=0)):i==1?(r=-n,f=n-t,t++,t>2*n&&(i++,t=0)):i==2?(r=t-n,f=-n,t++,t>2*n&&(i++,t=0)):i==3?(r=n,f=t-n,t++,t>2*n&&(i++,t=0)):i==4&&(r=n-t,f=n,t++,t>n&&(i++,t=0)),o(r,f),i==5){setTimeout(()=>{i=0,window.requestAnimationFrame(u)},2e3);return}window.requestAnimationFrame(u)};window.requestAnimationFrame(u)}function i(){let o=cavlib("canvas3").style(),n=o.ctx;n.font="18px serif";let f=50,t=25,e=200,i=70,r=n.createLinearGradient(f,t+i/2,f+e,t+i/2);r.addColorStop(0,"red");r.addColorStop(.25,"yellow");r.addColorStop(.5,"blue");r.addColorStop(.75,"orange");r.addColorStop(1,"black");n.fillStyle=r;n.fillRect(f,t,e,i);n.beginPath();let s=["red","yellow","blue","orange","black"];for(var u=0;u<5;u++){let r=f+e/4*u;n.strokeStyle=n.fillStyle=s[u];o.lineArrow([r,t+i,r,t+i+30]);u<4&&(n.fillStyle="red",n.fillText(u+1,r+e/8,t+i+20))}}n();t();i()})(window)</script></div></div><script src=/asset/js/mainmenu.js></script>
