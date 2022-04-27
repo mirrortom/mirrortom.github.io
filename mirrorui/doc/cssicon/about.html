@@ -1,11 +1,13 @@
-<div class=doc-page><h2>关于css图标</h2><p>不用图片,使用css3功能实现一些简易的常用的图标.<p>html标签用 &lt;i> 标记,加上css的:after :before伪类.原则上一个图标只用一个&lt;i><p>所有元素的box-sizing:border-box<p>一个质量很高的项目,参考搬运. <a href=https://viglino.github.io/iconicss target=_blank>https://viglino.github.io/iconicss</a> (github) <a href=https://github.com/Viglino/iconicss target=_blank>https://github.com/Viglino/iconicss</a><pre class=bg-gray-lt>
+<div class=doc-page><h2>关于css图标</h2><p>使用css3功能实现一些简易的常用的图标.<p>html标签用 &lt;i> 标记,加上css的:after :before伪类,实际有3个元素可用.<p>一个质量很高的项目,参考搬运. <a href=https://viglino.github.io/iconicss target=_blank>https://viglino.github.io/iconicss</a> (github) <a href=https://github.com/Viglino/iconicss target=_blank>https://github.com/Viglino/iconicss</a><h4>基本样式</h4><p>所有元素的box-sizing:border-box<pre class=bg-gray-lt>
 
     .ico
         // 图片默认都是块级行内元素
         display:inline-block
         pointer-events:none
-        // 垂直居中,面积 1em X 1em
+        // 垂直对齐,
         vertical-align:middle
+
+        //面积 1em X 1em
         width:1em
         height:1em
 
@@ -14,7 +16,18 @@
             content: ''
             display: inline-block
 
-</pre><br><p>制作css图标常用的一些样式规则</p><style scoped>.borderdemo{display:inline-block;width:60px;height:45px;border-width:15px;border-color:#f35325 #81bc06 #05a6f0 #ffba08;border-style:solid;background-color:#eee}.borderdemo1{display:inline-block;width:0;height:0;border:15px solid transparent}</style><p class="article-title text-sm">border<p>设置了4条边,为每一条边设置了颜色.</p><i class=borderdemo></i><pre class=bg-gray-lt>
+</pre><br><p>用法<pre class=bg-gray-lt>
+
+    // 颜色和大小使用文本颜色和大小样式类设定
+    &lt;i class="ico ico-xxx">&lt;/i>
+    &lt;i class="ico ico-xxx text-xxl">&lt;/i>
+    &lt;i class="ico ico-xxx text-danger">&lt;/i>
+
+</pre><br><h4>常用规则</h4><p>制作css图标用到的一些样式规则</p><style scoped>.borderdemo{display:inline-block;width:60px;height:45px;border-width:15px;border-color:#f35325 #81bc06 #05a6f0 #ffba08;border-style:solid;background-color:#eee}.borderdemo1{display:inline-block;width:0;height:0;border:15px solid transparent}.contentTxt{font-size:100px;border-radius:50%;border:1px solid;text-align:center}.contentTxt:before{font-style:normal;content:'i';vertical-align:bottom}</style><h5>content</h5><p>:before,:after伪类的属性,可以写入符号,可做文字类的图标.<p><i class="ico contentTxt"></i><pre class=bg-gray-lt>
+
+  content: 'i';
+
+</pre><br><h5>border</h5><p>设置了4条边,为每一条边设置了颜色.</p><i class=borderdemo></i><pre class=bg-gray-lt>
 
       width: 60px;
       height: 45px;
@@ -41,19 +54,19 @@
       border-width: 10px 10px 25px 25px;
       border-color: #f35325 #81bc06 transparent transparent;
 
-</pre><br><p class="article-title sm">border-radius<p>边框圆角效果,设置圆角border-radius:50% 50%,图案像一个游泳圈.三角形成了扇形.</p><i class=borderdemo style="border-radius:20% 20% 20% 20%"></i> <i class="borderdemo mg-l-10" style="border-radius:50% 50%"></i> <i class="borderdemo1 mg-l-10" style="border-radius:50% 50%;border-color:#f35325 #81bc06 #05a6f0 #ffba08"></i> <i class="borderdemo1 mg-l-10" style="border-radius:50% 50%;border-color:#f35325 transparent #05a6f0 transparent"></i> <i class="borderdemo1 mg-l-10" style="border-radius:50% 50%;border-color:transparent #81bc06 transparent #ffba08"></i> <p>来自MDN的解释: CSS 属性 border-radius 允许你设置元素的外边框圆角.当使用一个半径时确定一个圆形,当使用两个半径时确定一个椭圆.这个(椭)圆与边框的交集形成圆角效果.<p><a href=/wz/study/borderradius.html target=_blank>border-radius理解</a><p class="article-title sm">transform<p>旋转角度,作为一个搭配规则非常有用.比如要做一个黑白半球,把边框图案旋转45度看下效果.</p><i class=borderdemo1 style="border-color:#ccc #ccc #333 #333;border-radius:50%"></i> <i class="borderdemo1 mg-l-10" style="border-color:#ccc #ccc #333 #333;border-radius:50%;transform:rotate(45deg)"></i><pre class=bg-gray-lt>
+</pre><br><h5>border-radius</h5><p>边框圆角效果,设置圆角border-radius:50% 50%,图案像一个游泳圈.三角形成了扇形.</p><i class=borderdemo style="border-radius:20% 20% 20% 20%"></i> <i class="borderdemo mg-l-10" style="border-radius:50% 50%"></i> <i class="borderdemo1 mg-l-10" style="border-radius:50% 50%;border-color:#f35325 #81bc06 #05a6f0 #ffba08"></i> <i class="borderdemo1 mg-l-10" style="border-radius:50% 50%;border-color:#f35325 transparent #05a6f0 transparent"></i> <i class="borderdemo1 mg-l-10" style="border-radius:50% 50%;border-color:transparent #81bc06 transparent #ffba08"></i> <p>来自MDN的解释: CSS 属性 border-radius 允许你设置元素的外边框圆角.当使用一个半径时确定一个圆形,当使用两个半径时确定一个椭圆.这个(椭)圆与边框的交集形成圆角效果.<p><a href=/wz/study/borderradius.html target=_blank>border-radius理解</a><p>可以画出圆或者椭圆的效果<h5>transform</h5><p>旋转角度,作为一个搭配规则非常有用.比如要做一个黑白半球,把边框图案旋转45度看下效果.</p><i class=borderdemo1 style="border-color:#ccc #ccc #333 #333;border-radius:50%"></i> <i class="borderdemo1 mg-l-10" style="border-color:#ccc #ccc #333 #333;border-radius:50%;transform:rotate(45deg)"></i><pre class=bg-gray-lt>
 
       border-color: #ccc #ccc #333 #333;
       border-radius: 50%;
       transform: rotate(45deg)
 
-</pre><br><p>对于rotate这个旋转,是基于一个坐标系旋转.transform-origin:x y 这个规则可以设定旋转点位子.具体参考五角星图标说明.<p class="article-title sm">currentColor<p>来自MDN: currentColor 关键字代表原始的 color 属性的计算值.它允许让继承自属性或子元素的属性颜色属性以默认值不再继承<p>这个属性值可以设置, background-color: currentColor .如果图标的颜色是使用背景色的,那么这样设置后,也可以通过设置文字颜色color来改变图标颜色了.</p><i style=display:inline-block;width:1em;height:1em;background-color:currentColor></i> <i style=display:inline-block;width:1em;height:1em;color:#f00;background-color:currentColor></i><pre class=bg-gray-lt>
+</pre><br><p>对于rotate这个旋转,是基于一个坐标系旋转.transform-origin:x y 这个规则可以设定旋转点位子.具体参考五角星图标说明.<h5>currentColor</h5><p>来自MDN: currentColor 关键字代表原始的 color 属性的计算值.它允许让继承自属性或子元素的属性颜色属性以默认值不再继承<p>这个属性值可以设置, background-color: currentColor .如果图标的颜色是使用背景色的,那么这样设置后,也可以通过设置文字颜色color来改变图标颜色了.</p><i style=display:inline-block;width:1em;height:1em;background-color:currentColor></i> <i style=display:inline-block;width:1em;height:1em;color:#f00;background-color:currentColor></i><pre class=bg-gray-lt>
 
     // 背景颜色是红色,通过设置字体颜色
     color:red;
     background-color: currentColor;
 
-</pre><br><p class="article-title sm">box-shadow<p>盒子阴影,图标实现利器啊.<p>例如这个微软图标.这个图案有4个部分,每个部分颜色不同,从左上红色块开始,这是盒子实体,设置了width,heigh都是1em,是一个正方形盒子.<p>其它3块都是box-shadow实现.这个css有5个参数,依次是: x-offset阴影偏离X正方向是值 y-offset 阴影模糊半斤 阴影大小 阴影颜色.<p>默认情况下,阴影大小和实体一样大.那么要实现第2个绿色块,需要将x-offset设置为一个实体的宽度值,也就是让阴影完全显示出来,由于阴影大小默认为实体大小,所以只要修改阴影颜色为绿色即可.<p>那么第3个和第4个是怎么来的.因为阴影可以设置多个的.还是那5个参数,但可以设置多条,每一条规则间用逗号隔开.<p>利用这个规则,继续设置黄块和蓝块,调整它们的位子和颜色.最后得到微软图标.</p><i style=display:inline-block;width:1em;height:1em;background-color:#f35325></i> <i style="display:inline-block;width:1em;height:1em;background-color:#f35325;box-shadow:1em 0 0 0 #81bc06"></i> <i class=mg-l-20 style="display:inline-block;width:1em;height:1em;background-color:#f35325;box-shadow:1em 0 0 0 #81bc06,1em 1em 0 0 #ffba08"></i> <i class=mg-l-20 style="display:inline-block;width:1em;height:1em;background-color:#f35325;box-shadow:1em 0 0 0 #81bc06,1em 1em 0 0 #ffba08,0 1em 0 0 #05a6f0"></i><br><br><pre class=bg-gray-lt>
+</pre><br><h5>box-shadow</h5><p>盒子阴影,图标实现利器啊.<p>例如这个微软图标.这个图案有4个部分,每个部分颜色不同,从左上红色块开始,这是盒子实体,设置了width,heigh都是1em,是一个正方形盒子.<p>其它3块都是box-shadow实现.这个css有5个参数,依次是: x-offset阴影偏离X正方向是值 y-offset 阴影模糊半斤 阴影大小 阴影颜色.<p>默认情况下,阴影大小和实体一样大.那么要实现第2个绿色块,需要将x-offset设置为一个实体的宽度值,也就是让阴影完全显示出来,由于阴影大小默认为实体大小,所以只要修改阴影颜色为绿色即可.<p>那么第3个和第4个是怎么来的.因为阴影可以设置多个的.还是那5个参数,但可以设置多条,每一条规则间用逗号隔开.<p>利用这个规则,继续设置黄块和蓝块,调整它们的位子和颜色.最后得到微软图标.</p><i style=display:inline-block;width:1em;height:1em;background-color:#f35325></i> <i style="display:inline-block;width:1em;height:1em;background-color:#f35325;box-shadow:1em 0 0 0 #81bc06"></i> <i class=mg-l-20 style="display:inline-block;width:1em;height:1em;background-color:#f35325;box-shadow:1em 0 0 0 #81bc06,1em 1em 0 0 #ffba08"></i> <i class=mg-l-20 style="display:inline-block;width:1em;height:1em;background-color:#f35325;box-shadow:1em 0 0 0 #81bc06,1em 1em 0 0 #ffba08,0 1em 0 0 #05a6f0"></i><br><br><pre class=bg-gray-lt>
 
       display: inline-block;
       width: 1em;
@@ -61,4 +74,4 @@
       background-color: #f35325;
       box-shadow: 1em 0 0 0 #81bc06,1em 1em 0 0 #ffba08,0 1em 0 0 #05a6f0;
 
-</pre><br><p>可以认为,无限多条的box-shadow可以增加图案内容,虽然box-shadow的形状跟随实体的形状,但可以通过调整位子和颜色还有大小做出比较丰富的图案.</p><i class="mg-l-20 mg-b-20" style="display:inline-block;width:1em;height:1em;background-color:#000;box-shadow:1em 0 0 0 #f35325,1em 1em 0 0 #ffba08,0 1em 0 0 #05a6f0,-1em 1em 0 0 pink,-1em 0 0 0 #81bc06,0 1em 0 0 #05a6f0,-1em -1em 0 0 brown,0 -1em 0 0 deeppink,1em -1em 0 0 gray"></i> <p>无限多的box-shadow也可以用于堆码像素方法作图.<p>在计算机中,由于任何图案都是由像素组成的,每个像素就是一个点,这些点的颜色不同,位子不同,它们排列成一个矩阵,这个矩阵呈现的就是图案.<p>再回想这个box-shadow,如果把一个盒子实体作为一个"像素"单位,那么基于这个实体设置的无数box-shadow阴影,就可以得到无数的"像素",它们的大小/颜色和位子可设置,将这些"像素"按矩阵排列,那么自然也就是一幅图案.<p>用这个原理,做一些简易的像素画图标是可行的.</div>
+</pre><br><p>可以认为,无限多条的box-shadow可以增加图案内容,虽然box-shadow的形状跟随实体的形状,但可以通过调整位子和颜色还有大小做出比较丰富的图案.</p><i class="mg-l-20 mg-b-20" style="display:inline-block;width:1em;height:1em;background-color:#000;box-shadow:1em 0 0 0 #f35325,1em 1em 0 0 #ffba08,0 1em 0 0 #05a6f0,-1em 1em 0 0 pink,-1em 0 0 0 #81bc06,0 1em 0 0 #05a6f0,-1em -1em 0 0 brown,0 -1em 0 0 deeppink,1em -1em 0 0 gray"></i> <p>无限多的box-shadow也可以用于堆码像素方法作图.<p>在计算机中,由于任何图案都是由像素组成的,每个像素就是一个点,这些点的颜色不同,位子不同,它们排列成一个矩阵,这个矩阵呈现的就是图案.<p>再回想这个box-shadow,如果把一个盒子实体作为一个"像素"单位,那么基于这个实体设置的无数box-shadow阴影,就可以得到无数的"像素",它们的大小/颜色和位子可设置,将这些"像素"按矩阵排列,那么自然也就是一幅图案.<p>用这个原理,做一些简易的像素画图标是可行的.<h5>渐变</h5><p>css3的渐变有很强大的绘图功能,正好用来做图标.<p><a href=/wz/study/csslg.html target=_blank>线性渐变</a> | <a href=/wz/study/cssrg.html target=_blank>径向渐变</a> | <a href=/wz/study/csscg.html target=_blank>圆锥渐变</a></div>
