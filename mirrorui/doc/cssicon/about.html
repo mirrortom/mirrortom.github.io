@@ -23,7 +23,7 @@
     &lt;i class="ico ico-xxx text-xxl">&lt;/i>
     &lt;i class="ico ico-xxx text-danger">&lt;/i>
 
-</pre><br><h4>常用规则</h4><p>制作css图标用到的一些样式规则</p><style scoped>.borderdemo{display:inline-block;width:60px;height:45px;border-width:15px;border-color:#f35325 #81bc06 #05a6f0 #ffba08;border-style:solid;background-color:#eee}.borderdemo1{display:inline-block;width:0;height:0;border:15px solid transparent}.contentTxt{font-size:100px;border-radius:50%;border:1px solid;text-align:center}.contentTxt:before{font-style:normal;content:'i';vertical-align:bottom}</style><h5>content</h5><p>:before,:after伪类的属性,可以写入符号,可做文字类的图标.<p><i class="ico contentTxt"></i><pre class=bg-gray-lt>
+</pre><br><h4>常用规则</h4><p>制作css图标用到的一些样式规则</p><style scoped>.borderdemo{display:inline-block;width:60px;height:45px;border-width:15px;border-color:#f35325 #81bc06 #05a6f0 #ffba08;border-style:solid;background-color:#eee}.borderdemo1{display:inline-block;width:0;height:0;border:15px solid transparent}.contentTxt{font-size:100px;border-radius:50%;border:1px solid;text-align:center}.contentTxt:before{font-style:normal;content:'i';vertical-align:bottom}.transform-1{width:200px;height:100px;position:relative;background-color:#eee}.transform-2,.transform-3{display:inline-block;position:absolute;width:30px;height:20px;background-color:#00ff0050;left:50%;top:50%}.transform-3{background-color:#ff000050;transform:translate(-50%,-50%)}</style><h5>content</h5><p>:before,:after伪类的属性,可以写入符号,可做文字类的图标.<p><i class="ico contentTxt"></i><pre class=bg-gray-lt>
 
   content: 'i';
 
@@ -60,7 +60,14 @@
       border-radius: 50%;
       transform: rotate(45deg)
 
-</pre><br><p>对于rotate这个旋转,是基于一个坐标系旋转.transform-origin:x y 这个规则可以设定旋转点位子.具体参考五角星图标说明.<h5>currentColor</h5><p>来自MDN: currentColor 关键字代表原始的 color 属性的计算值.它允许让继承自属性或子元素的属性颜色属性以默认值不再继承<p>这个属性值可以设置, background-color: currentColor .如果图标的颜色是使用背景色的,那么这样设置后,也可以通过设置文字颜色color来改变图标颜色了.</p><i style=display:inline-block;width:1em;height:1em;background-color:currentColor></i> <i style=display:inline-block;width:1em;height:1em;color:#f00;background-color:currentColor></i><pre class=bg-gray-lt>
+</pre><br><p>rotate变换,是基于一个坐标系旋转.transform-origin:x y 这个规则可以设定旋转点位子.具体参考五角星图标说明.<p>常用的还有平移 transform:translate(left,top),可以让盒模型离开原来的位置,可以结合绝对定位使用.<div class=transform-1><span class=transform-2></span> <span class=transform-3></span></div><p>上图是平移法实现居中,分2步实现.<p>先设置left和top都是50%,此时绿色方块的左上角位于容器的中心.但没居中,需要减去方块width和height的一半.<p>用translate(-50%,-50%)正好实现.它的-50%参照的就是绿色方块的with和height.于是,省掉了计算的麻烦.<pre class=bg-gray-lt>
+
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+
+</pre><br><h5>currentColor</h5><p>来自MDN: currentColor 关键字代表原始的 color 属性的计算值.它允许让继承自属性或子元素的属性颜色属性以默认值不再继承<p>这个属性值可以设置, background-color: currentColor .如果图标的颜色是使用背景色的,那么这样设置后,也可以通过设置文字颜色color来改变图标颜色了.</p><i style=display:inline-block;width:1em;height:1em;background-color:currentColor></i> <i style=display:inline-block;width:1em;height:1em;color:#f00;background-color:currentColor></i><pre class=bg-gray-lt>
 
     // 背景颜色是红色,通过设置字体颜色
     color:red;
