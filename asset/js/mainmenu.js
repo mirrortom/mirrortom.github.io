@@ -11,9 +11,9 @@
   <div class="mainmenu-theme text-right" id="themebox">
     <a colorval="1" title="亮light"><i class="ico ico-sun"></i></a>
     <a colorval="2" title="暗dark"><i class="ico ico-moon"></i></a>
-    <a fontval="14" title="fontSize 14px">A</a>
-    <a fontval="16" title="fontSize 16px">AA</a>
-    <a fontval="20" title="fontSize 20px">AAA</a>
+    <a fontval="14" title="fontSize 14px"><i class="ico ico-font text-sm"></i></a>
+    <a fontval="16" title="fontSize 16px"><i class="ico ico-font text-md"></i></a>
+    <a fontval="20" title="fontSize 20px"><i class="ico ico-font text-lg"></i></a>
     <div style="position:fixed;right:20px;bottom:20px;display:inline-flex;flex-direction: column;align-items: center;">
         <a href="/index.html" title="首页. to Home."><i class="ico ico-home text-xxxl"></i></a>
         <a class="pd-t-15" href="javascript:scrollTo(0,0)" title="回到顶部. to page top."><i class="ico ico-anglearr up text-xxxl"></i></a>
