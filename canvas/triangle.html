@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1.0,user-scalable=no"><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><title>三角形 | canvas-demo | Mirror Space</title><link href=/mirrorui/mirrorui.css rel=stylesheet><link href=/asset/css/blog.css rel=stylesheet><div class=layout><div class=layout-part1></div><div class=layout-part2><h2>三角形</h2><p>三角形<h4>中线</h4><p>顶点与对边中点连线: 红色<p>三角形一边的中点坐标,可以使用平分线定理求出.中点坐标为两端点坐标和的一半.例如边 ab 的平分点 m<p>m.x = ( a.x + b.x ) / 2 , m.y = ( a.y + b.y ) / 2<p>3个中线交点连线得三角形: 绿色<p>重要性质: 中线的交点叫三角形重心. 中点连线叫中位线,平行于对边且长度为对边一半.</p><canvas id=canvas1></canvas><h4>垂线</h4><p>顶点与对边垂足连线: 红色<p>3个垂足连线得三角形: 绿色<p>三条垂线的交点叫垂心</p><canvas id=canvas2></canvas><h5>对边上的垂足坐标,使用向量法求出.分析过程如下:</h5><p>根据两个向量垂直性质 a(x1,y1) ⊥ b(x2,y2) ,那么有 x1 * x2 + y1 * y2 = 0<p>下图中,CH是AB边上的高,那么就有 AB ⊥ HC ,同时还有 AH ⊥ HC<p>根据向量坐标表示法写出来: 设H点的坐标是 (x , y)<pre class=bg-gray>
+<!DOCTYPE html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1.0,user-scalable=no"><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><title>三角形 | canvas-demo | Mirror Space</title><link href=/mirrorui/mirrorui.css rel=stylesheet><link href=/asset/css/blog.css rel=stylesheet><div class=layout><div class=layout-part1></div><div class=layout-part2><h2>三角形</h2><p>三角形<h4>中线</h4><p>顶点与对边中点连线: 红色<p>三角形一边的中点坐标,可以使用平分线定理求出.中点坐标为两端点坐标和的一半.例如边 ab 的平分点 m<p>m.x = ( a.x + b.x ) / 2 , m.y = ( a.y + b.y ) / 2<p>3个中线交点连线得三角形: 绿色<p>重要性质: 中线的交点叫三角形重心. 中点连线叫中位线,平行于对边且长度为对边一半.</p><canvas id=canvas1></canvas><h4>垂线</h4><p>顶点与对边垂足连线: 红色<p>3个垂足连线得三角形: 绿色<p>三条垂线的交点叫垂心</p><canvas id=canvas2></canvas><h5>对边上的垂足坐标,使用向量法求出.分析过程如下:</h5><p>根据两个向量垂直性质 a(x1,y1) ⊥ b(x2,y2) ,那么有 x1 * x2 + y1 * y2 = 0<p>下图中,CH是AB边上的高,那么就有 AB ⊥ HC ,同时还有 AH ⊥ HC<p>根据向量坐标表示法写出来: 设H点的坐标是 (x , y)<pre class=bg-gray-lt>
     // 设 H 点的坐标是 (x , y) , A 点 (a.x , a.y) B 点 (b.x , b.y) , AB , AH , HC 表示向量
     AB = (b.x - a.x , b.y - a.y)
     AH = (x - a.x , y - a.y)
@@ -11,7 +11,7 @@
 
     // 解这2个方程得出x,y值,就是垂足坐标
     
-</pre><h5>方程具体解法</h5><p>化简方程1得到 x 的表达式<pre class=bg-gray>
+</pre><h5>方程具体解法</h5><p>化简方程1得到 x 的表达式<pre class=bg-gray-lt>
     ① (b.x - a.x) * (c.x - x) + (b.y - a.y) * (c.y - y) = 0
     //
     (b.x - a.x) * (c.x - x) = - (b.y - a.y) * (c.y - y)
@@ -28,7 +28,7 @@
     // 简化表达式的 x
     x = α * M + c.x
 
-</pre><br><p>将 x 的表达式带入方程2 ,得到 y 值<pre class=bg-gray>
+</pre><br><p>将 x 的表达式带入方程2 ,得到 y 值<pre class=bg-gray-lt>
     ② (x - a.x) * (c.x - x) + (y - a.y) * (c.y - y) = 0
     
     // 带入后展开
@@ -50,12 +50,12 @@
     // 得到 y 后,再带入第一步得到的 x 的方程得到 x
     x = (b.y - a.y) * (c.y - y) / (b.x - a.x) + c.x
 
-</pre><h4>角平分线</h4><p>顶点出发平分顶角的射线: 红色<p>3个角平分线交点连线得三角形: 绿色<p>重要性质:角平分线上的点,离角两边的距离相等.角平分线交点是三角形内切圆的圆心.</p><canvas id=canvas3></canvas><h5>角平分线与对边交点坐标使用定比分点公式求出:</h5><p>AH 是角 A 的平分线, H 是与对边 BC 的交点.<p>根据角平分线的性质有: AB / AC = BH / HC<p>B , H ,C 是共线的, H 将 BC 分为 BH / HC 这样就可以使用定比分点公式:<pre class=bg-gray>
+</pre><h4>角平分线</h4><p>顶点出发平分顶角的射线: 红色<p>3个角平分线交点连线得三角形: 绿色<p>重要性质:角平分线上的点,离角两边的距离相等.角平分线交点是三角形内切圆的圆心.</p><canvas id=canvas3></canvas><h5>角平分线与对边交点坐标使用定比分点公式求出:</h5><p>AH 是角 A 的平分线, H 是与对边 BC 的交点.<p>根据角平分线的性质有: AB / AC = BH / HC<p>B , H ,C 是共线的, H 将 BC 分为 BH / HC 这样就可以使用定比分点公式:<pre class=bg-gray-lt>
 x = (x1 + λ * x2) / (1 + λ)
 
 y = (y1 + λ * y2) / (1 + λ)
 
-</pre><br><p>这个公式中 x1 , x2 , y1 , y2 是线段两个端点坐标, λ 是比例,是分线段为两段后的长度比例.<p>λ = BH / HC = AB / AC 而 AB / AC 可以使用两点间距离公式求出.这样就得到 λ 值.<p>B , C 坐标已知,故能求出 x , y<h4>中垂线</h4><p>三边中点的垂线: 红色<p>重要性质: 中垂线交点是三角形外接圆的圆心.</p><canvas id=canvas4></canvas><h5>中垂线交点坐标使用向量法求出.分析过程如下:</h5><p>图中,HD HE HF 是中垂线,那么就有 AB ⊥ HD BC ⊥ HE CA ⊥ HF 根据垂直向量性质,得到方程组.<pre class=bg-gray>
+</pre><br><p>这个公式中 x1 , x2 , y1 , y2 是线段两个端点坐标, λ 是比例,是分线段为两段后的长度比例.<p>λ = BH / HC = AB / AC 而 AB / AC 可以使用两点间距离公式求出.这样就得到 λ 值.<p>B , C 坐标已知,故能求出 x , y<h4>中垂线</h4><p>三边中点的垂线: 红色<p>重要性质: 中垂线交点是三角形外接圆的圆心.</p><canvas id=canvas4></canvas><h5>中垂线交点坐标使用向量法求出.分析过程如下:</h5><p>图中,HD HE HF 是中垂线,那么就有 AB ⊥ HD BC ⊥ HE CA ⊥ HF 根据垂直向量性质,得到方程组.<pre class=bg-gray-lt>
     AB * HD = 0 
     BC * HE = 0
     CA * HF = 0
@@ -70,7 +70,7 @@ y = (y1 + λ * y2) / (1 + λ)
 
     // 解这2个方程得出 x , y 值,就是中垂线交点坐标
 
-</pre><h5>方程具体解法</h5><pre class=bg-gray>
+</pre><h5>方程具体解法</h5><pre class=bg-gray-lt>
     // ①
     (b.x - a.x) * (d.x - x) + (b.y - a.y) * (d.y - y) = 0
     x = d.x + (d.y - y) * (b.y - a.y) / (b.x - a.x)
@@ -91,18 +91,18 @@ y = (y1 + λ * y2) / (1 + λ)
     // 解出 y , 带入上面其中一个 x 解出 x
     y = (e.x - d.x + e.y * A2 - d.y * A1) / (A2 - A1)
 
-</pre><h4>内切圆与外接圆</h4><p>内切圆圆心是角平分线交点,圆心坐标与半径可以由下列公式计算出<pre class=bg-gray>
+</pre><h4>内切圆与外接圆</h4><p>内切圆圆心是角平分线交点,圆心坐标与半径可以由下列公式计算出<pre class=bg-gray-lt>
     // r = 内切圆半径 S = 三角形面积 C = 三角形周长 
     r = 2S / C
 
     // 三角形三个顶点
-    A : (x1,x2) , B : (y1,y2) , C : (z1,z2) 
+    a : (x,y) , b : (x,y) , c : (x,y) 
     
     // 内切圆圆心坐标 (x , y)
-    x = (ax1 + by1 + cz1) / C
-    y = (ax2 + by2 + cz2) / C
+    x = (bc * a.x + ca * b.x + ab * c.x) / C
+    y = (bc * a.y + ca * b.y + ab * c.y) / C
   
-</pre><br><p>外接圆圆心是中垂线交点,这个坐标已实现计算函数,半径就是圆心到任意一个顶点的距离<p>内切圆圆心:绿色 , 外接圆圆心:黄色</p><canvas id=canvas5></canvas><h3>边直径圆</h3><p>以每条边的中点为圆心,长度为直径的圆</p><canvas id=canvas6></canvas><h3>九点圆</h3><p>三角形三边垂足,三边中点,顶点与垂心的三条连线的中点,共九点都在半径为 R / 2 (三角形外接圆半径)的圆上,圆心是外心与垂心所连线段的中点.<p>根据这个定义画出圆和点位.<h5>九点</h5><p>垂足: 红色 , 中点: 绿色 , 顶点与垂心连线中点: 黄色<p>九点圆圆心: 黑色<h5>其它点</h5><p>垂心: 蓝色 , 重心(中线交点): 灰色 , 内心(角平分线交点): 棕色 , 外心(中垂线交点): 天蓝色</p><canvas id=canvas7></canvas><h3>旁切圆</h3><p>三角形的一边及其他两边的延长线相切的圆.三角形都有3个旁切圆<p>旁心是由一个顶角的平分线和另外两个角的外角平分线角点.旁心是旁切圆的圆心</p><canvas id=canvas8></canvas><h5>旁心坐标计算</h5><pre class=bg-gray>
+</pre><br><p>外接圆圆心是中垂线交点,这个坐标已实现计算函数,半径就是圆心到任意一个顶点的距离<p>内切圆圆心:绿色 , 外接圆圆心:黄色</p><canvas id=canvas5></canvas><h3>边直径圆</h3><p>以每条边的中点为圆心,长度为直径的圆</p><canvas id=canvas6></canvas><h3>九点圆</h3><p>三角形三边垂足,三边中点,顶点与垂心的三条连线的中点,共九点都在半径为 R / 2 (三角形外接圆半径)的圆上,圆心是外心与垂心所连线段的中点.<p>根据这个定义画出圆和点位.<h5>九点</h5><p>垂足: 红色 , 中点: 绿色 , 顶点与垂心连线中点: 黄色<p>九点圆圆心: 黑色<h5>其它点</h5><p>垂心: 蓝色 , 重心(中线交点): 灰色 , 内心(角平分线交点): 棕色 , 外心(中垂线交点): 天蓝色</p><canvas id=canvas7></canvas><h3>旁切圆</h3><p>三角形的一边及其他两边的延长线相切的圆.三角形都有3个旁切圆<p>旁心是由一个顶角的平分线和另外两个角的外角平分线角点.旁心是旁切圆的圆心</p><canvas id=canvas8></canvas><h5>旁心坐标计算</h5><pre class=bg-gray-lt>
     // 三角形 ABC 三点坐标 a(x1 , y1) b(x2 , y2) c(x3 , y3)
     // a , b ,c 分别对应 ABC 三个顶角的对边
     // S 是三角形面积
