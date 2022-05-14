@@ -7,7 +7,7 @@
     .ico-face
         position: relative
         border-radius: 50%
-        border: .04em solid currentColor
+        border: @css{max(.05em,1px)} solid currentColor
     
         &:before,&:after
             position: absolute
@@ -16,19 +16,18 @@
         &:before
             top: .3em
             left: .18em
-            width: .1em
-            height: .15em
+            width: @css{max(.1em,2px)}
+            height: @css{max(.15em,3px)}
             background-color: currentColor
             box-shadow: .46em 0
 
         &:after
+            left: 50%
             top: 0
-            left: 0
-            right: 0
-            margin: auto
+            transform:translateX(-50%)
             width: .8em
             height: .8em
-            border: .04em solid transparent
+            border: @css{max(.04em,2px)} solid transparent
             border-bottom-color: currentColor
 
 </pre><script>(n=>{let s=n.cavlib("canva1").style(),t=s.ctx,u=200,e=200;t.canvas.width=u;t.canvas.height=e;t.font="18px serif";t.save();t.beginPath();t.setLineDash([3]);t.strokeStyle="gray";s.lineArrow([0,e/2,u-10,e/2]);s.lineArrow([u/2,e,u/2,10]);t.beginPath();t.arc(u/2,e/2,3,0,Math.PI*2);t.fill();t.fillText("O",u/2+5,e/2+15);t.restore();t.save();t.translate(u/2,e/2);let i=u/4;t.beginPath();t.arc(0,0,i,0,Math.PI*2);t.stroke();t.fillText("C",5,-i-5);let r=-(i-60*i/100),o=-Math.sqrt(i*i-r*r);t.beginPath();t.moveTo(o,r);t.lineTo(-o,r);t.strokeStyle="blue";t.stroke();t.fillText("A",o-15,r);t.fillText("B",-o+10,r);t.fillText("E",5,r-5);t.beginPath();t.moveTo(0,0);t.lineTo(o,r);t.strokeStyle="blue";t.stroke();let h=i/10,c=h*1.5;t.beginPath();t.ellipse(o/2,r,h,c,0,0,Math.PI*2);t.fillStyle="orange";t.fill();t.beginPath();t.ellipse(-o/2,r,h,c,0,0,Math.PI*2);t.fill();let f=i*80/100;t.beginPath();t.arc(0,f-i,3,0,Math.PI*2);t.fillStyle="red";t.fill();t.beginPath();t.moveTo(0,f-i);t.arc(0,f-i,f,Math.PI/4,Math.PI*3/4);t.closePath();t.lineWidth=1;t.strokeStyle="gray";t.stroke();t.beginPath();t.arc(0,f-i,f,Math.PI/4,Math.PI*3/4);t.lineWidth=i/25;t.strokeStyle="red";t.stroke();t.beginPath();t.arc(0,f-i,f,Math.PI/4,Math.PI*3/4,!0);t.lineWidth=1;t.strokeStyle="green";t.stroke();t.restore()})(window)</script></div>
