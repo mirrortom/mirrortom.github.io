@@ -1,16 +1,14 @@
-<div class=doc-page><h2>脸</h2><p>脸表情图标<div class=mg-20><i class="ico ico-face text-md"></i> <i class="ico ico-face text-xxxl text-primary"></i></div><pre class=bg-gray-lt>
+<div class=doc-page><h2>脸</h2><p>脸表情图标<div class=mg-20><i class="i-a-face text-md"></i> <i class="i-a-face text-xxxl text-primary"></i></div><pre class=bg-gray-lt>
 
-  &lt;i class="ico <b>ico-face</b>">&lt;/i>
+  &lt;i class="<b>i-a-face</b>">&lt;/i>
 
-</pre><br><p>face图标外层圆是i标记.眼睛:before,嘴吧:after.使用绝对定位,位置计算如下.<p>设计眼睛离容器上边30%,眼球是偏卡通的椭圆形,盒模型长宽比为 1:1.5 ,长度为容器10%. 两个眼睛的位置位于AE和BE的中点上.<p>设脸的半径为 R,那么 OE = OC - EC = R - EC = R - 2R * 30%. OA就是R,OE求出,那么AE就得出了,AE0是直角三角形.弦AB与半径OC垂直所以, AE = EB .这样得出左右眼的位置.<p>嘴是圆的一部分(1/4),圆半径为容器的40%.脸轮廓和嘴轮廓的厚度为容器的4%.嘴所在的圆与脸内相切,嘴部扇形(红色圆弧)的起点和终点位置,所对应的弦长度,大约与眼距相等.</p><canvas id=canva1></canvas><br><p><i class="ico ico-face fs100"></i><p>完整样式<pre class=bg-gray-lt>
+</pre><br><p>face图标外层圆是i标记.眼睛:before,嘴吧:after.使用绝对定位,位置计算如下.<p>设计眼睛离容器上边30%,眼球是偏卡通的椭圆形,盒模型长宽比为 1:1.5 ,长度为容器10%. 两个眼睛的位置位于AE和BE的中点上.<p>设脸的半径为 R,那么 OE = OC - EC = R - EC = R - 2R * 30%. OA就是R,OE求出,那么AE就得出了,AE0是直角三角形.弦AB与半径OC垂直所以, AE = EB .这样得出左右眼的位置.<p>嘴是圆的一部分(1/4),圆半径为容器的40%.脸轮廓和嘴轮廓的厚度为容器的4%.嘴所在的圆与脸内相切,嘴部扇形(红色圆弧)的起点和终点位置,所对应的弦长度,大约与眼距相等.</p><canvas id=canva1></canvas><br><p><i class="i-a-face fs100"></i><p>完整样式<pre class=bg-gray-lt>
 
-    .ico-face
-        position: relative
+     .i-a-face
         border-radius: 50%
         border: @css{max(.05em,1px)} solid currentColor
     
         &:before,&:after
-            position: absolute
             border-radius: 50%
 
         &:before
