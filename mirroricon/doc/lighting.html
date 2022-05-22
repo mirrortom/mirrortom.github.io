@@ -1,0 +1,46 @@
+<div class=doc-page><h2>闪电</h2><p>闪电图标,常用于提示,警示.<div class=mg-20><i class="i-a-lighting text-md"></i> <i class="i-a-lighting text-xxxl text-primary"></i></div><pre class=bg-gray-lt>
+
+  &lt;i class="<b>i-a-lighting</b>">&lt;/i>
+
+</pre><br><p>观察研究了闪电图标样子,上下和左右分别是2对平行线,中间的那个部分,就是2对平行线围城的区局,是一个平行四边形.<p>而上下两个尖角,是左右的那对平行线的延长线,但延长到哪里,无法确定.但是,上/下水平的那对平行线是确定的,它与X轴平行.<p>于是做了一个设想,将闪电图形的上下/左右4个端点连起来,那么就有了2条"对角线".垂直(AC蓝色),水平(BD红色).<p>设定推断:<ul class="list abc"><li>AC和BD的交点位于坐标系的原点,A/C/B/D是闪电图形的4个顶点.<li>M/N是Y轴上的2个点,BM/DN是平行于X轴的,所以M/N它的y坐标其实就是,B/D的y坐标.<li>那么,只要确定A/B/C/D,4个顶点坐标,就可以确定闪电形状了(有6个顶点).<li>给定AC,BD的长度,给定AC与Y轴的夹角,BD与X轴夹角,可以确定ABCD坐标.</ul><canvas id=canva1></canvas><br><p>看图可见,AC决定了闪电的高度,BD决定宽度,AC与Y轴夹角决定闪电倾斜度,BD与X轴夹角决定闪电中间部分的厚度.<p>所以采用规定这些参数来确定闪电的图形.<p>计算设定:<ul class="list abc"><li>AC: 竖轴,h<li>BD: 横轴,w<li>AC与Y轴夹角: 竖轴夹角,hyAngle [0~90)<li>BD与X轴夹角: 横轴夹角,wxAngle [0~90)</ul><br><pre class=bg-gray-lt>
+
+    // 横轴(w)端点坐标绝对值
+    wx = w / 2 * Math.cos(wxAngle);
+    wy = w /2  * Math.sin(wxAngle);
+    // 竖轴(h)端点坐标绝对值
+    hx = hlen * Math.sin(hyAngle) / 2;
+    hy = hlen * Math.cos(hyAngle) / 2;
+
+    // 由于A与C对称,所以x,y坐标绝对值相对,符号相反.
+    // 闪电图形 6个点位坐标(坐标系原点为横轴竖轴交点),从上方顶点,顺时针到左下顶点.
+      A: [hx, -hy]
+      M: [0, -wy]
+      B: [wx, -wy]
+      C: [-hx, hy]
+      N: [0, wy]
+      D: [-wx, wy]
+
+</pre><br><p>画布150X150,几组参数画出的样子.</p><canvas id=canva2></canvas><p>w=30 , h=150 , wxAngle=60, yhAngle=0</p><canvas id=canva3></canvas><p>w=30 , h=150 , wxAngle=0, yhAngle=60</p><canvas id=canva4></canvas><p>w=30 , h=150 , wxAngle=0, yhAngle=0</p><canvas id=canva5></canvas><p>w=30 , h=150 , wxAngle=45, yhAngle=45</p><canvas id=canva6></canvas><p>w=30 , h=150 , wxAngle=60, yhAngle=60</p><canvas id=canva7></canvas><p>w=150 , h=150 , wxAngle=30, yhAngle=10<p>可见,参数设置不当,会产生很多歪瓜裂枣.</p><canvas id=canva8></canvas><p>w=75 , h=150 , wxAngle=18, yhAngle=18 (图标使用: 竖横轴比例2:1,倾斜18度)<p>css使用clip-path:polygon()实现.由于盒模型坐标系原点在左上角,polygon()参数用百分比,所以需要转换.<p>先坐标转换: 坐标系原点从中心点转移到左上角,用平移变换. p1.x = p.x - Z1.x, p1.y = p.y - Z1.y<p>再将坐标值转为百分比: x / 画布width, y / 画布height<pre class=bg-gray-lt>
+
+    // 图标大小 1em X 1em
+    // 图形参数 w=.5em h=1em wxAngle=18 hyAngle=18
+    // clip-path:polygon()坐标. 6个点,上方开始,顺时针方向
+          65.5% 2.4%,
+          50.0% 42.3%,
+          73.8% 42.3%,
+          34.5% 97.6%,
+          50.0% 57.7%,
+          26.2% 57.7%
+
+</pre><br><p><i class="i-a-lighting fs100"></i><p>完整样式<pre class=bg-gray-lt>
+
+    .i-a-lighting
+        &:before
+            top: 0
+            left: 0
+            width: 1em
+            height: 1em
+            background-color: currentColor
+            clip-path: polygon(65.5% 2.4%,50.0% 42.3%,73.8% 42.3%,34.5% 97.6%,50.0% 57.7%,26.2% 57.7%)
+
+</pre><script>(n=>{function i(){let f=n.cavlib("canva1").style(),i=f.ctx,u=200,e=200;i.canvas.width=i.canvas.height=u;i.font="18px serial";f.xyAxis();i.strokeStyle="red";i.translate(u/2,e/2);let o=u/2,s=e,h=Math.PI/10,c=Math.PI/10;i.strokeStyle="green";let r=t(i,0,0,o,s,h,c);i.fillStyle="#d9ad3c8a";i.fill();i.beginPath();i.fillStyle="brown";i.fillText("M",r[1][0]+10,r[1][1]-5);i.fillText("N",r[4][0]-25,r[4][1]+20);i.fillStyle="blue";i.fillText("A",r[0][0]+10,r[0][1]+10);i.fillText("C",r[3][0]-15,r[3][1]);i.fillStyle="red";i.fillText("B",r[2][0]+10,r[2][1]+10);i.fillText("D",r[5][0]-15,r[5][1]+10);i.beginPath();i.moveTo(r[0][0],r[0][1]);i.lineTo(r[3][0],r[3][1]);i.strokeStyle="blue";i.stroke();i.beginPath();i.moveTo(r[2][0],r[2][1]);i.lineTo(r[5][0],r[5][1]);i.strokeStyle="red";i.stroke()}function r(){let r=150,f=150,u=[{cavid:"canva2",w:30,h:150,wxAngle:Math.PI/3,hyAngle:0},{cavid:"canva3",w:30,h:150,wxAngle:0,hyAngle:Math.PI/3},{cavid:"canva4",w:30,h:150,wxAngle:0,hyAngle:0},{cavid:"canva5",w:30,h:150,wxAngle:Math.PI/4,hyAngle:Math.PI/4},{cavid:"canva6",w:30,h:150,wxAngle:Math.PI/3,hyAngle:Math.PI/3},{cavid:"canva7",w:150,h:150,wxAngle:Math.PI/6,hyAngle:Math.PI/18},{cavid:"canva8",w:75,h:150,wxAngle:Math.PI/10,hyAngle:Math.PI/10}];for(var i=0,e=u.length;i<e;i++){let e=u[i],s=n.cavlib(e.cavid).style(),o=s.ctx;o.canvas.width=o.canvas.height=r;s.xyAxis();t(o,r/2,f/2,e.w,e.h,e.wxAngle,e.hyAngle);o.fillStyle="orange";o.fill()}}function t(n,t,i,r,u,f,e){let c=r*Math.cos(f)/2,o=r*Math.sin(f)/2,l=u*Math.sin(e)/2,a=u*Math.cos(e)/2,s=[[l,-a],[0,-o],[c,-o],[-l,a],[0,o],[-c,o]];n.save();n.translate(t,i);n.beginPath();for(var h=0,v=s.length;h<v;h++){let t=s[h];n.lineTo(t[0],t[1])}return n.closePath(),n.stroke(),n.restore(),s}i();r()})(window)</script></div>
