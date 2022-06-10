@@ -46,7 +46,7 @@
     // 10px,30px,60px,3个渐变分界线
     repeating-radial-gradient(red,10px,yellow,30px,skyblue,60px,black);
 
-</pre><br><h4>几点记录</h4><p>使用 circle 关键字时,半径值用百分比无效. circle 30%(无效)<p>如果渐变范围设定为n(如50px),首个颜色位置也设定为n,那么其它颜色就没有渐变的地方了,图案只显示首个颜色(50px范围)和最后一个颜色(盒模型剩余范围)<h4>示例</h4><p>依然是使用突变/叠加/重复做出图案.<h6>色环</h6><div><span class="demo rg-14"></span></div><pre class=bg-gray-lt>
+</pre><br><h4>几点记录</h4><p>使用 circle 关键字时,半径值用百分比无效. circle 30%(无效)<p>如果渐变范围设定为n(如50px),首个颜色位置也设定为n,那么其它颜色就没有渐变的地方了,图案只显示首个颜色(50px范围)和最后一个颜色(盒模型剩余范围)<p>渐变范围可以设定一个具体值,然后使用百分比就比较方便.例如,一个盒模型 100px X 100px,要在10等分处渐变,那么可以将范围设为100px,再设置10%为渐变位置值.显而易见的,用百分比的好处是,改变了盒模型大小,渐变效果会按比例变化.虽然有默认范围最远角,但这个值含糊,而显示的设定一个具体值的范围比较好!尤其是需要精确计算比例时.<h4>示例</h4><p>依然是使用突变/叠加/重复做出图案.<h6>色环</h6><div><span class="demo rg-14"></span></div><pre class=bg-gray-lt>
 
     radial-gradient(ellipse farthest-side,red 5%,green 5% 15%,blue 15% 30%,pink 30% 50%,orange 50% 70%,purple 70% 90%,wheat 90%);
 
