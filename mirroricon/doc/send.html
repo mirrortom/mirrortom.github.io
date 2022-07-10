@@ -1,0 +1,15 @@
+<div class=doc-page><h2>发送</h2><p>发送,邮件发送图标<div class=mg-20><i class="i-f-send text-md"></i> <i class="i-f-send text-xxxl text-primary"></i></div><pre class=bg-gray-lt>
+
+  &lt;i class="<b>i-f-send</b>">&lt;/i>
+
+</pre><br><p>研究了一下这个图标,由4个顶点(ABCD)组成,可以用一个矩形为参考系,生成图标.<p>绿色矩形中,图形的ABD3个点位于矩形上,B和D就是矩形的顶点,A点是矩形上边的中点.<p>C点需要确定,观察得出,C点是矩形中线高的一点,它将中线分为2部分,那么就有一个比例 AC:高.</p><canvas id=canva1></canvas><p>这样,要确定这个图形,给定矩形的高和宽(w,h),以及AC长度就可以了.<p>经过调整,最后确定的参数为: w : h = 0.45em : 0.9em , AC = h * 85%<p>polygon的点位,从尖顶点(A)开始,顺时针方向依次是: 50% 0, 100% 100%, 50% 85%, 0% 100%</p><br><p><i class="i-f-send fs100"></i><p>完整样式<pre class=bg-gray-lt>
+
+    .i-f-send
+        &:before
+            width: .45em
+            height: .9em
+            clip-path: polygon(50% 0,100% 100%,50% 85%,0% 100%)
+            background-color:currentColor
+            transform:rotate(45deg)
+
+</pre><script>(n=>{function t(){let e=n.cavlib("canva1").style(),t=e.ctx,o=160,s=160;t.canvas.width=t.canvas.height=o;t.font="18px serial";e.xyAxis();let r=s*.9,u=r/2,h=r*.15;t.translate(o/2,s/2);t.beginPath();t.rect(-u/2,-r/2,u,r);t.strokeStyle="green";t.stroke();let i=[{x:0,y:-r/2},{x:u/2,y:r/2},{x:0,y:r/2-h},{x:-u/2,y:r/2}];t.beginPath();for(var f=0,c=i.length;f<c;f++)t.lineTo(i[f].x,i[f].y);t.closePath();t.strokeStyle="skyblue";t.stroke();t.beginPath();t.fillStyle="blue";t.fillText("A",i[0].x+10,i[0].y+10);t.fillText("B",i[1].x+10,i[1].y);t.fillText("C",i[2].x,i[2].y);t.fillText("D",i[3].x-20,i[3].y)}t()})(window)</script></div>
