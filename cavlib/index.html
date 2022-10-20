@@ -1,7 +1,11 @@
-<!DOCTYPE html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1.0,user-scalable=no"><link href=/mirrorui/mirrorui.css rel=stylesheet><title>jslib-doc | Mirror Space</title><style>.page{display:grid;grid-template-columns:210px auto}.menu-box{position:sticky;top:0;width:94%;max-height:100vh;overflow-x:hidden;overflow-y:auto}.doc-part-box{margin:50px auto}</style><div class=page><div class=menu-box><m-sidemenu class=sidemenu-box id=main_menubox><ul class=sidemenu-group><li><span class=sidemenu-label>About<i class=sidemenu-arrdown></i></span><li><a class=sidemenu-item href=#about>关于</a><li><a class=sidemenu-item href=#cavlib>cavlib</a></ul><ul class=sidemenu-group><li><span class=sidemenu-label>直线<i class=sidemenu-arrdown></i></span><li><a class=sidemenu-item href=#dist>2点距离</a></ul></m-sidemenu></div><div class="content pd-15"><div id=about><h2>关于cavlib</h2><p>canvas绘画的库,模仿jQuery语法风格.</div><div class=doc-part-box id=cavlib><h2>全局对象</h2><p>内部对象canvalib,是一个类数组对象.也是模仿jQuery的,里面包含canvas元素引用和ctx(2D)绘画对象和库提供的工具方法.<pre class=bg-gray-lt>
+<!DOCTYPE html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1.0,user-scalable=no"><link href=/mirrorui/mirrorui.css rel=stylesheet><title>cavlib-doc | Mirror Space</title><style>.page{display:grid;grid-template-columns:210px auto}.menu-box{position:sticky;top:0;width:94%;max-height:100vh;overflow-x:hidden;overflow-y:auto}.doc-part-box{margin:50px auto}</style><body><script src=cavlib.js></script><div class=page><div class=menu-box><m-sidemenu class=sidemenu-box id=main_menubox><ul class=sidemenu-group><li><span class=sidemenu-label>About<i class=sidemenu-arrdown></i></span><li><a class=sidemenu-item href=#about>关于</a><li><a class=sidemenu-item href=#cavlib>cavlib</a></ul><ul class=sidemenu-group><li><span class=sidemenu-label>坐标系<i class=sidemenu-arrdown></i></span><li><a class=sidemenu-item href=#xyAxis>xyAxis</a><li><a class=sidemenu-item href=#lineArrow>lineArrow</a></ul></m-sidemenu></div><div class="content pd-15"><div id=about><h2>关于cavlib</h2><p>canvas绘画的库,模仿jQuery语法风格.</div><div class=doc-part-box id=cavlib><h2>全局对象</h2><p>内部对象canvalib,是一个类数组对象.也是模仿jQuery的,里面包含canvas元素引用和ctx(2D)绘画对象和库提供的工具方法.<pre class=bg-gray-lt>
 
-    // 类数组对象,存放用id选取的canvas元素和2D绘画对象. 
-    function canvalib(canvasId){}
+    // 类数组对象,存放用id选取的canvas元素和2D绘画对象.
+    // 返回this,可以链式调用 
+    function canvalib(canvasId){
+             ...
+             return this;
+    }
 
     // 属性
     this.canvas
@@ -13,13 +17,13 @@
     }
 
     // 引用对象 外部调用这个函数使用cavlib对象.
-    window.cavlib = factory
+    window.cavlib = factory;
      
-</pre><br><p class=article-title>cavlib对象实例方法<pre class=bg-gray-lt>
+</pre><br><p class=article-title>style实例方法<p>调用工厂函数实例化后,可以调用style给画布设置样式风格<pre class=bg-gray-lt>
 
     // 给canva元素设置style
-    // 0:灰色背景 1:无背景
-    this.style(num = 0)
+    // 0:灰色背景,默认值 其它值:未实现
+    window.cavlib('canvasDomId').style(num = 0);
  
 </pre><br><p class=article-title>扩展cavlib对象实例方法<pre class=bg-gray-lt>
 
@@ -27,4 +31,12 @@
     // json 一个方法名和函数值的json对像.方法名要用""号包起来.
     cavlib.extend(json)
 
-</pre></div></div></div><script src=/jslib/jslib.js></script><script src=cavlib.js></script><script src=/mirrorui/mirrorui.js></script><script>$("#main_menubox")[0].create()</script>
+</pre><br></div><div class=doc-part-box id=xyAxis><h2>xyAxis</h2><p>在画布上绘制直角坐标系辅助线.省略所有参数时,坐标轴以画布中心为原点,长度为画布长/高<pre class=bg-gray-lt>
+
+    this.xyAxis(style = 0, oX = 0, oY = 0, oXLen = 0, oYLen = 0, oXLen1 = 0, oYLen1 = 0)
+
+</pre><ul class="list square"><li>style : number 风格<ul class="list cir"><li>0 : 原点在中心,轴长等于画布长,虚线<li>1 : 同0,实线<li>2或大于2 : 自定义原点位置和轴长,偶数时虚线,奇数时实线</ul><li>oX : number 原点x坐标<li>oY : number 原点y坐标<li>oXLen : number x正轴长度<li>oYLen : number y正轴长度<li>oXLen1 : number x负轴长度<li>oYLen1 : number y负轴长度</ul><canvas id=canvxyAxis></canvas></div><div class=doc-part-box id=lineArrow><h2>lineArrow</h2><p>连接2个或者以上的点,结束时画上箭头.箭头底边与线段最后一段垂直<pre class=bg-gray-lt>
+
+    this.lineArrow(points, side = 12, height = 10, fill = true)
+
+</pre><ul class="list square"><li>points : Array(number) 点坐标数组: x1,y1,x2,y2,....<li>side : number 箭头底边长<li>height : number 箭头高<li>fill : boolean true(实心)false(空心)</ul><canvas id=canvlineArrow></canvas></div><script>(n=>{let t=n.cavlib("canvlineArrow").style();t.lineArrow([20,20,200,20]);t.lineArrow([20,40,200,40],12,10,!1);t.lineArrow([50,50,100,100,120,60]);t.lineArrow([10,130,30,130,30,110,50,110]);let i=n.cavlib("canvxyAxis").style();i.xyAxis();i.xyAxis(3,10,140,50,50,0,0);i.xyAxis(4,220,120,50,30,20,20)})(window)</script></div></div><script src=/jslib/jslib.js></script><script src=/mirrorui/mirrorui.js></script><script>$("#main_menubox")[0].create()</script>
