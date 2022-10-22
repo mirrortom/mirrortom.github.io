@@ -1,0 +1,4 @@
+<div class=doc-page><h2>CanvasRenderingContext2D</h2><p>canvas 2d的绘制对象,绘制的相关方法与属性在此对象上.以下代码获取此对象.此所谓绘画"上下文对象"<p>2d对象的绘画效果表现在其所在的dom上.<pre class="bg-gray pd-tb-10">
+  var canvas = document.querySelector('canvasDomId');
+  var context = canvas.getContext('2d');
+</pre><br><h4>canvas画布</h4><p>坐标顶点位于左上角0,0处.向右向下为正方向.这于数学中的直角坐标系不同.<p>默认的width是300px,height为150像素.</p><canvas id=canvas1></canvas></div><script>(n=>{function t(){let t=n.cavlib("canvas1");ctx=t.ctx;ctx.moveTo(0,0);ctx.lineTo(150,0);ctx.moveTo(0,0);ctx.lineTo(0,150);ctx.font="18px serial";ctx.fillText("(0,0)",10,20);ctx.fillText("x",140,20);ctx.fillText("y",10,146);ctx.moveTo(0,130);ctx.lineTo(150,130);ctx.fillText("width",54,145);ctx.moveTo(130,0);ctx.lineTo(130,150);ctx.rotate(Math.PI/2);ctx.fillText("height",35,-135);ctx.stroke()}t()})(window)</script>
