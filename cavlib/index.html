@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1.0,user-scalable=no"><link href=/mirrorui/mirrorui.css rel=stylesheet><title>cavlib-doc | Mirror Space</title><style>.page{display:grid;grid-template-columns:210px auto}.menu-box{position:sticky;top:0;width:94%;max-height:100vh;overflow-x:hidden;overflow-y:auto}.doc-part-box{margin:50px auto}</style><body><script src=cavlib.js></script><div class=page><div class="menu-box pd-l-10 pd-b-30"><m-docmenu id=main_menubox><ul class=docmenu-group><li><span class=docmenu-title><i class=docmenu-open></i>About</span><li><a class=docmenu-item href=#about>关于</a><li><a class=docmenu-item href=#cavlib>cavlib</a></ul><ul class=docmenu-group><li><span class=docmenu-title><i class=docmenu-open></i>坐标系</span><li><a class=docmenu-item href=#xyAxis>xyAxis</a><li><a class=docmenu-item href=#lineArrow>lineArrow</a><li><a class=docmenu-item href=#p2Rect>p2Rect</a><li><a class=docmenu-item href=#pointVH>pointVH</a><li><a class=docmenu-item href=#pointTag>pointTag</a><li><a class=docmenu-item href=#pointChar>pointChar</a></ul></m-docmenu></div><div class="content pd-15"><div id=about><h2>关于cavlib</h2><p>canvas绘画的库,模仿jQuery语法风格.</div><div class=doc-part-box id=cavlib><h2>全局对象</h2><p>内部对象canvalib,是一个类数组对象.也是模仿jQuery的,里面包含canvas元素引用和ctx(2D)绘画对象和库提供的工具方法.<pre class=bg-gray-lt>
+<!DOCTYPE html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1.0,user-scalable=no"><link href=/mirrorui/mirrorui.css rel=stylesheet><title>cavlib-doc | Mirror Space</title><style>.page{display:grid;grid-template-columns:210px auto}.menu-box{position:sticky;top:0;width:94%;max-height:100vh;overflow-x:hidden;overflow-y:auto}.doc-part-box{margin:50px auto}</style><body><script src=cavlib.js></script><div class=page><div class="menu-box pd-l-10 pd-b-30"><m-docmenu id=main_menubox><ul class=docmenu-group><li><span class=docmenu-title><i class=docmenu-open></i>About</span><li><a class=docmenu-item href=#about>关于</a><li><a class=docmenu-item href=#cavlib>cavlib</a></ul><ul class=docmenu-group><li><span class=docmenu-title><i class=docmenu-open></i>坐标系</span><li><a class=docmenu-item href=#aid_about>概述</a><li><a class=docmenu-item href=#xyAxis>xyAxis</a><li><a class=docmenu-item href=#lineArrow>lineArrow</a><li><a class=docmenu-item href=#p2Rect>p2Rect</a><li><a class=docmenu-item href=#pointVH>pointVH</a><li><a class=docmenu-item href=#pointTag>pointTag</a><li><a class=docmenu-item href=#pointChar>pointChar</a></ul><ul class=docmenu-group><li><span class=docmenu-title><i class=docmenu-open></i>形状</span><li><a class=docmenu-item href=#shape_line>直线</a><li><a class=docmenu-item href=#shape_fillArea>填充</a></ul><ul class=docmenu-group><li><span class=docmenu-title><i class=docmenu-open></i>计算</span><li><ul class=docmenu-group><li><span class=docmenu-title><i class=docmenu-open></i>直线</span><li><a class=docmenu-item href=#line_about>概述</a><li><a class=docmenu-item href=#line_k>getK</a><li><a class=docmenu-item href=#line_dist>dist</a></ul></ul></m-docmenu></div><div class="content pd-15"><div id=about><h2>关于cavlib</h2><p>canvas绘画的库,模仿jQuery语法风格.</div><div class=doc-part-box id=cavlib><h2>全局对象</h2><p>内部对象canvalib,是一个类数组对象.也是模仿jQuery的,里面包含canvas元素引用和ctx(2D)绘画对象和库提供的工具方法.<pre class=bg-gray-lt>
 
     // 类数组对象,存放用id选取的canvas元素和2D绘画对象.
     // 返回this,可以链式调用 
@@ -31,7 +31,14 @@
     // json 一个方法名和函数值的json对像.方法名要用""号包起来.
     cavlib.extend(json)
 
-</pre><br></div><div class=doc-part-box id=xyAxis><h2>xyAxis</h2><p>在画布上绘制直角坐标系辅助线.省略所有参数时,坐标轴以画布中心为原点,长度为画布长/高<pre class=bg-gray-lt>
+</pre><br></div><div class=doc-part-box id=aid_about><h2>Axis</h2><p>将画布视为直角坐标系时,一些坐标系相关方法.皆为实例方法.<pre class=bg-gray-lt>
+
+    this
+    // 画坐标系
+    this.xyAxis();
+    ...
+
+</pre></div><div class=doc-part-box id=xyAxis><h2>xyAxis</h2><p>在画布上绘制直角坐标系辅助线.省略所有参数时,坐标轴以画布中心为原点,长度为画布长/高<pre class=bg-gray-lt>
 
     this.xyAxis(style = 0, oX = 0, oY = 0, oXLen = 0, oYLen = 0, oXLen1 = 0, oYLen1 = 0)
 
@@ -41,18 +48,41 @@
 
 </pre><ul class="list square"><li>points : Array(number) 点坐标数组: x1,y1,x2,y2,....<li>side : number 箭头底边长<li>height : number 箭头高<li>fill : boolean true(实心)false(空心)</ul><canvas id=canv_lineArrow></canvas></div><div class=doc-part-box id=p2Rect><h2>p2Rect</h2><p>根据对角线上2点画出矩形<pre class=bg-gray-lt>
 
-    this.p2Rect(x1, y1, x2, y2, style = 0)
+    this.p2Rect(x1, y1, x2, y2, style = 0, color = 'black')
 
-</pre><ul class="list square"><li>x1 : number 点x坐标<li>y1 : number 点x坐标<li>x2 : number 对角点x坐标<li>y2 : number 对角点y坐标<li>style : number 风格: 0偶数时虚线,1实线</ul><canvas id=canv_p2Rect></canvas></div><div class=doc-part-box id=pointVH><h2>pointVH</h2><p>画坐标系中的一点到x/y轴的垂直和水平连线<pre class=bg-gray-lt>
+</pre><ul class="list square"><li>x1 : number 点x坐标<li>y1 : number 点x坐标<li>x2 : number 对角点x坐标<li>y2 : number 对角点y坐标<li>style : number 风格: 0偶数时虚线,1实线<li>color : string 线条颜色.(strokeStyle)</ul><canvas id=canv_p2Rect></canvas></div><div class=doc-part-box id=pointVH><h2>pointVH</h2><p>画坐标系中的一点到x/y轴的垂直和水平连线<pre class=bg-gray-lt>
 
-    this.p2Rect(x, y, style = 0, oX = 0, oY = 0)
+    this.p2Rect(x, y, style = 0, color = 'black', oX = 0, oY = 0)
 
-</pre><ul class="list square"><li>x : number 点x坐标<li>y : number 点x坐标<li>style : number 风格: 0(原点在中心,虚线),1(同0,实线) 其它:指定原点,偶数虚线奇数实线<li>oX : number 原点x坐标<li>oY : number 原点y坐标</ul><canvas id=canv_pointVH></canvas></div><div class=doc-part-box id=pointTag><h2>pointTag</h2><p>标记一个点,用于放大显示<pre class=bg-gray-lt>
+</pre><ul class="list square"><li>x : number 点x坐标(在以oX,oY为原点的坐标系)<li>y : number 点x坐标<li>style : number 风格: 0(原点在中心,虚线),1(同0,实线) 其它:指定原点,偶数虚线奇数实线<li>color : string 线条颜色.(strokeStyle)<li>oX : number 原点x坐标<li>oY : number 原点y坐标</ul><canvas id=canv_pointVH></canvas></div><div class=doc-part-box id=pointTag><h2>pointTag</h2><p>标记一个点,用于放大显示<pre class=bg-gray-lt>
 
-    this.pointTag(x, y, style = 0, cir = 3, color = 'black')
+    this.pointTag(x, y, color = 'black', style = 0, cir = 3)
 
-</pre><ul class="list square"><li>x : number 点x坐标<li>y : number 点x坐标<li>style : number 风格: 0(圆点),1(正方形)<li>cir : number 圆半径/正方形半边长<li>color : string 填充颜色fillStyle</ul><canvas id=canv_pointTag></canvas></div><div class=doc-part-box id=pointChar><h2>pointChar</h2><p>标记一个点,用于放大显示<pre class=bg-gray-lt>
+</pre><ul class="list square"><li>x : number 点x坐标<li>y : number 点x坐标<li>color : string 填充颜色fillStyle<li>style : number 风格: 0(圆点),1(正方形)<li>cir : number 圆半径/正方形半边长</ul><canvas id=canv_pointTag></canvas></div><div class=doc-part-box id=pointChar><h2>pointChar</h2><p>标记一个点,用于放大显示<pre class=bg-gray-lt>
 
-    this.pointChar(x, y, char, deg = 0, cir = 20, color = 'black')
+    this.pointChar(x, y, char, deg = 0, color = 'black', cir = 20)
 
-</pre><ul class="list square"><li>x : number 点x坐标<li>y : number 点x坐标<li>char : string 字母<li>deg : number 极角(0~359). 点为圆心,字母标记在圆周的一个点上.X轴正方向为0度,顺时针.<li>cir : number 极径. 字母到点半径.<li>color : string 填充颜色fillStyle</ul><canvas id=canv_pointChar></canvas></div><script>(n=>{let t=n.cavlib("canv_lineArrow").style();t.lineArrow([20,20,200,20]);t.lineArrow([20,40,200,40],12,10,!1);t.lineArrow([50,50,100,100,120,60]);t.lineArrow([10,130,30,130,30,110,50,110]);let i=n.cavlib("canv_xyAxis").style();i.xyAxis();i.xyAxis(3,10,140,50,50,0,0);i.xyAxis(4,220,120,50,30,20,20)})(window);(n=>{let t=n.cavlib("canv_p2Rect").style(),a=t.ctx,u=50,f=40,e=160,o=85,s=20,h=60,c=260,l=135;t.p2Rect(u,f,e,o);t.p2Rect(s,h,c,l,1);let r=[[u,f],[e,o],[s,h],[c,l]];for(var i=0;i<r.length;i++)t.pointTag(r[i][0],r[i][1],0,3,"blue")})(window);(n=>{let t=n.cavlib("canv_pointVH").style(),s=t.ctx,u=20,f=60,e=120,o=-35;t.xyAxis();t.pointVH(u,f);t.pointVH(e,o,1);let r=[[u,f],[e,o]];for(var i=0;i<r.length;i++)t.pointTag(r[i][0]+t.canvas.width/2,r[i][1]+t.canvas.height/2,0,3,"red")})(window);(n=>{let t=n.cavlib("canv_pointTag").style(),e=t.ctx,i=20,r=60,u=120,f=35;t.xyAxis();t.pointTag(i,r);t.pointTag(i+20,r+20,0,4);t.pointTag(u,f,1,2,"red");t.pointTag(u+30,f+20,1,5,"green")})(window);(n=>{let t=n.cavlib("canv_pointChar").style(),e=t.ctx;e.font="18px serial";let i=30,r=60,u=220,f=45;t.xyAxis();t.pointTag(i,r);t.pointChar(i,r,"A");t.pointTag(i+20,r+30);t.pointChar(i+20,r+30,"A1",135,20,"green");t.pointTag(u,f,1,2);t.pointChar(u,f,"B",90,30,"red")})(window)</script></div></div><script src=/jslib/jslib.js></script><script src=/mirrorui/mirrorui.js></script><script>$("#main_menubox")[0].create()</script>
+</pre><ul class="list square"><li>x : number 点x坐标<li>y : number 点x坐标<li>char : string 字母<li>deg : number 极角(0~359). 点为圆心,字母标记在圆周的一个点上.X轴正方向为0度,顺时针.<li>color : string 填充颜色fillStyle<li>cir : number 极径. 字母到点半径.</ul><canvas id=canv_pointChar></canvas></div><script>(n=>{let t=n.cavlib("canv_lineArrow").style();t.lineArrow([20,20,200,20]);t.lineArrow([20,40,200,40],12,10,!1);t.lineArrow([50,50,100,100,120,60]);t.lineArrow([10,130,30,130,30,110,50,110]);let i=n.cavlib("canv_xyAxis").style();i.xyAxis();i.xyAxis(3,10,140,50,50,0,0);i.xyAxis(4,220,120,50,30,20,20)})(window);(n=>{let i=n.cavlib("canv_p2Rect").style(),a=i.ctx,u=50,f=40,e=160,o=85,s=20,h=60,c=260,l=135;i.p2Rect(u,f,e,o);i.p2Rect(s,h,c,l,1);let r=[[u,f],[e,o],[s,h],[c,l]];for(var t=0;t<r.length;t++)i.pointTag(r[t][0],r[t][1],t,"blue")})(window);(n=>{let t=n.cavlib("canv_pointVH").style(),r=t.ctx;r.font="16px arial";t.xyAxis();r.save();r.translate(t.canvas.width/2,t.canvas.height/2);let u=[[20,60,"black","A"],[120,-35,"green","B"],[-100,40,"blue","C"]];for(var i=0;i<u.length;i++){let n=u[i];t.pointVH(n[0],n[1],i+2,n[2]);t.pointTag(n[0],n[1],n[2]);t.pointChar(n[0],n[1],n[3],n[0]>0?0:180)}})(window);(n=>{let t=n.cavlib("canv_pointTag").style(),e=t.ctx,i=20,r=60,u=120,f=35;t.xyAxis();t.pointTag(i,r);t.pointTag(i+20,r+20,"green",0,4);t.pointTag(u,f,"red");t.pointTag(u+130,f+20,"blue",1,5)})(window);(n=>{let t=n.cavlib("canv_pointChar").style(),e=t.ctx;e.font="18px serial";let i=30,r=60,u=220,f=45;t.xyAxis();t.pointTag(i,r);t.pointChar(i,r,"A");t.pointTag(i+20,r+30);t.pointChar(i+20,r+30,"A1",135,"green");t.pointTag(u,f,1,2);t.pointChar(u,f,"B",90,"red",30)})(window)</script><div class=doc-part-box id=shape_line><h2>line</h2><p>画经过两点的线段<pre class=bg-gray-lt>
+
+    this.line(x1, y1, x2, y2, color = 'black', lineWidth = 1)
+
+</pre><ul class="list square"><li>x1 : number 点1的x坐标<li>y1 : number 点1的y坐标<li>x2 : number 点2的x坐标<li>y2 : number 点2的y坐标<li>color : string 线条颜色<li>lineWidth : number 线条厚度</ul><canvas id=canv_shape_line></canvas></div><div class=doc-part-box id=shape_fillArea><h2>fillArea</h2><p>填充路径区域<pre class=bg-gray-lt>
+
+    this.fillArea(points, color = 'black', rule = 0)
+
+</pre><ul class="list square"><li>points : Array(Array(number)) 构成路径区域的坐标点数组,每个元素是含2个坐标值的数组[[x,y],[x1,y1],]<li>color : string 填充颜色<li>rule : number 0=nonzero(非零环绕规则,默认),1=evenodd(奇偶环绕规则)</ul><canvas id=canv_shape_fillArea></canvas></div><script>(n=>{let i=n.cavlib("canv_shape_line").style(),u=i.ctx,r=[[20,20,240,20,"blue"],[20,50,280,120,"red"],[20,120,240,40,"green"],[290,20,290,140,"orange"]];for(var t=0;t<r.length;t++){let n=r[t];i.line(n[0],n[1],n[2],n[3],n[4])}})(window);(n=>{let t=n.cavlib("canv_shape_fillArea").style(),i=t.ctx;t.fillArea([[20,20],[40,20],[30,60]]);t.fillArea([[20,60],[40,60],[70,100],[30,100]],"green");t.fillArea([[120,60],[140,60],[170,100],[230,140],[90,120]],"red")})(window)</script><div class=doc-part-box id=line_about><h2>line{}</h2><p>cavlib的静态对象line,计算一些直线相关的数据.<pre class=bg-gray-lt>
+
+    cavlib.line;
+    // 两点间距离
+    cavlib.line.dist();
+    ...
+
+</pre></div><div class=doc-part-box id=line_k><h2>getK</h2><p>获取两个点所在直线的斜率.如果与 X 轴平行,返回 0 ,与 Y 轴平行返回 null.<pre class=bg-gray-lt>
+
+    line.getK(p1, p2, p2x, p2y)
+
+</pre><ul class="list square"><li>p1 : {x:number,y:number} 点1对象{x,y}或点1的x坐标<li>p2 : {x:number,y:number} 点2对象{x,y}或点1的y坐标<li>p2x : number 点2的x坐标<li>p2y : number 点2的y坐标</ul><canvas id=canv_line_k></canvas></div><div class=doc-part-box id=line_dist><h2>dist</h2><p>获取两点间距离<pre class=bg-gray-lt>
+
+    line.dist(p1, p2, p2x, p2y)
+
+</pre><ul class="list square"><li>p1 : {x:number,y:number} 点1对象{x,y}或点1的x坐标<li>p2 : {x:number,y:number} 点2对象{x,y}或点1的y坐标<li>p2x : number 点2的x坐标<li>p2y : number 点2的y坐标</ul><canvas id=canv_line_dist></canvas></div><script>(n=>{let f=n.cavlib.line,t=n.cavlib("canv_line_k").style(),h=t.ctx;h.font="16px serial";t.xyAxis();let i={x:20,y:20},e={x:200,y:20},o={x:250,y:20},r={x:250,y:130},s={x:220,y:20},u={x:30,y:130};t.line(i.x,i.y,e.x,e.y,"red");t.line(o.x,o.y,r.x,r.y,"blue");t.line(s.x,s.y,u.x,u.y,"green");t.pointChar(i.x,i.y,"k= "+f.getK(i,e),90);t.pointChar(r.x,r.y,"k= "+f.getK(o,r),90,10);t.pointChar(u.x+100,u.y,"k= "+f.getK(s,u),270)})(window);(n=>{let f=n.cavlib.line,t=n.cavlib("canv_line_dist").style(),h=t.ctx;h.font="16px serial";t.xyAxis();let e={x:20,y:20},i={x:200,y:20},o={x:50,y:50},r={x:250,y:50},s={x:20,y:130},u={x:130,y:130};t.line(e.x,e.y,i.x,i.y,"red");t.line(o.x,o.y,r.x,r.y,"blue");t.line(s.x,s.y,u.x,u.y,"green");t.pointChar(i.x,i.y,"len= "+f.dist(e,i),90);t.pointChar(r.x,r.y,"len= "+f.dist(o,r),90);t.pointChar(u.x,u.y,"len= "+f.dist(s,u),0,60)})(window)</script></div></div><script src=/jslib/jslib.js></script><script src=/mirrorui/mirrorui.js></script><script>$("#main_menubox")[0].create()</script>

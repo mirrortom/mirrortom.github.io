@@ -1,0 +1,8 @@
+<h2>两点距离</h2><p>已知两点坐标a(x, y) b(x, y), 求两点距离 dist=?<p>用2点间距离公式,距离是用两点坐标值计算出来的.<p>用到毕氏定理,直角三角形2直角边的平方和等于斜边平方.<pre class=bg-gray-lt>
+
+  dist = Math.sqrt[ (a.x - b.x)^2 + (a.y - b.y)^2 ]
+
+</pre><p class=article-title>情况1,线段AB和坐标轴不平行不垂直<div><div><canvas id=canv1></canvas></div><div><pre class=bg-gray-lt>
+  过A点作X轴平行线,过B点作Y轴平行线,相较于C点.
+  since ΔABC是直角三角形, hence |AC|^2 + |BC|^2 = |AB|^2 
+</pre></div></div><hr class=line><script>(()=>{let i=cavlib("canv1").style(),r=i.ctx;r.font="16px serial";i.xyAxis();r.save();r.translate(r.canvas.width/2,r.canvas.height/2);let n={x:-80,y:40,color:"green"},t={x:120,y:-50,color:"orange"};i.pointTag(n.x,n.y,n.color);i.pointChar(n.x,n.y,"A",180,n.color);i.pointChar(0,n.y,"Ax",130);i.pointChar(n.x,0,"Ay",270,"black",10);i.pointVH(n.x,n.y,4,n.color);i.pointTag(t.x,t.y,t.color);i.pointChar(t.x,t.y,"B",0,t.color);i.pointChar(0,t.y,"Bx",180);i.pointChar(t.x,0,"By",180);i.pointVH(t.x,t.y,4,t.color);i.line(n.x,n.y,t.x,t.y,"blue");i.pointTag(t.x,n.y,"red");i.pointChar(t.x,n.y,"C",90,"red");i.pointVH(t.x,n.y,5,"red");i.fillArea([[n.x,n.y],[t.x,t.y],[t.x,n.y]],"#aabbcc66")})()</script>
