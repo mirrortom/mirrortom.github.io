@@ -1,8 +1,103 @@
-<h2>两点距离</h2><p>已知两点坐标a(x, y) b(x, y), 求两点距离 dist=?<p>用2点间距离公式,距离是用两点坐标值计算出来的.<p>用到毕氏定理,直角三角形2直角边的平方和等于斜边平方.<pre class=bg-gray-lt>
+<h2>两点距离</h2><p>已知两点坐标a(x, y) b(x, y), 求两点距离 dist=?<p>使用2点间距离公式,根据2点坐标求距离<pre class=bg-gray-lt>
 
   dist = Math.sqrt[ (a.x - b.x)^2 + (a.y - b.y)^2 ]
 
-</pre><p class=article-title>情况1,线段AB和坐标轴不平行不垂直<div><div><canvas id=canv1></canvas></div><div><pre class=bg-gray-lt>
+</pre><br><p>用到毕氏定理,直角三角形2直角边的平方和等于斜边平方.<p>以下将A/B点位于坐标系不同象限的情况进行验证.<p class=article-title>A,B 在同一个象限<p>A,B在同一个象限时,坐标值的符号是相同的.例如x坐标,要么都是+,要么都是-<div class=layout-hw><div><canvas id=canv1></canvas></div><div class=mg-l-10><pre class=bg-gray-lt>
   过A点作X轴平行线,过B点作Y轴平行线,相较于C点.
-  since ΔABC是直角三角形, hence |AC|^2 + |BC|^2 = |AB|^2 
-</pre></div></div><hr class=line><script>(()=>{let i=cavlib("canv1").style(),r=i.ctx;r.font="16px serial";i.xyAxis();r.save();r.translate(r.canvas.width/2,r.canvas.height/2);let n={x:-80,y:40,color:"green"},t={x:120,y:-50,color:"orange"};i.pointTag(n.x,n.y,n.color);i.pointChar(n.x,n.y,"A",180,n.color);i.pointChar(0,n.y,"Ax",130);i.pointChar(n.x,0,"Ay",270,"black",10);i.pointVH(n.x,n.y,4,n.color);i.pointTag(t.x,t.y,t.color);i.pointChar(t.x,t.y,"B",0,t.color);i.pointChar(0,t.y,"Bx",180);i.pointChar(t.x,0,"By",180);i.pointVH(t.x,t.y,4,t.color);i.line(n.x,n.y,t.x,t.y,"blue");i.pointTag(t.x,n.y,"red");i.pointChar(t.x,n.y,"C",90,"red");i.pointVH(t.x,n.y,5,"red");i.fillArea([[n.x,n.y],[t.x,t.y],[t.x,n.y]],"#aabbcc66")})()</script>
+
+  since ΔABC是直角三角形
+
+  hence AC^2 + BC^2 = AB^2
+
+  since AC = |b.x| - |a.x|
+        BC = |b.y| - |a.y|
+
+  hence AB^2 = (|b.x| - |a.x|)^2 + (|b.y| - |a.y|)^2
+  
+  since a.x＞0 , a.y＞0 , b.x＞0 , b.y＞0
+
+  hence |a.x|=a.x , |a.y|=a.y , |b.x|=b.x , |b.y|=b.y
+        AB^2 = (b.x - a.x)^2 + (b.y - a.y)^2
+
+</pre></div></div><div class="layout-hw mg-t-20"><div><canvas id=canv2></canvas></div><div class=mg-l-10><pre class=bg-gray-lt>
+
+  since AC = |b.x| - |a.x|
+        BC = |a.y| - |b.y|
+        a.x＞0 , a.y＞0 , b.x＞0 , b.y＞0
+
+  hence AB^2 = (b.x - a.x)^2 + (a.y - b.y)^2
+
+  since (a.y - b.y)^2 = (b.y - a.y)^2
+
+  hence AB^2 = (b.x - a.x)^2 + (b.y - a.y)^2
+
+</pre></div></div><div class="layout-hw mg-tb-20"><div><canvas id=canv3></canvas></div><div class=mg-l-10><pre class=bg-gray-lt>
+
+  since AC = |a.x| - |b.x|
+        BC = |b.y| - |a.y|
+        a.x＜0 , a.y＞0 , b.x＜0 , b.y＞0
+
+  hence AB^2 = (-a.x - [-b.x])^2 + (b.y - a.y)^2
+        AB^2 = (b.x - a.x)^2 + (b.y - a.y)^2
+
+</pre></div></div><p>So A,B在同一个象限时,线段AB为斜边的直角三角形,它的2个直角边长度分别是由AB的(x和y)坐标值的绝对值相减得到.3,4象限情况同1,2.<p class=article-title>A,B 在不同象限<p>不同象限时,A,B坐标值相反,或者x相反,或者y相反.<div class="layout-hw mg-b-20"><div><canvas id=canv4></canvas></div><div class=mg-l-10><pre class=bg-gray-lt>
+
+  since AC = |a.x| + |b.x|
+        BC = |a.y| + |b.y|
+        a.x＜0 , a.y＜0 , b.x＞0 , b.y＞0
+
+  hence AB^2 = (-a.x + b.x)^2 + (-a.y + b.y)^2
+        AB^2 = (b.x - a.x)^2 + (b.y - a.y)^2
+
+</pre></div></div><p>So A,B在1,3象限,△ABC的直角边是由AB的坐标值的绝对值相加得到的.这和在同一象限时不同,但由于坐标值符号相反,所以得到了同样结果.<div class="layout-hw mg-b-20"><div><canvas id=canv5></canvas></div><div class=mg-l-10><pre class=bg-gray-lt>
+
+  since AC = |a.x| + |b.x|
+        BC = |b.y| - |a.y|
+        a.x＜0 , a.y＞0 , b.x＞0 , b.y＞0
+
+  hence AB^2 = (-a.x + b.x)^2 + (a.y - b.y)^2
+        AB^2 = (b.x - a.x)^2 + (b.y - a.y)^2
+
+</pre></div></div><p>So A,B在1,2象限,△ABC的水平直角边由AB的x坐标值绝对值相加得到,垂直边由y坐标值绝对值相减得到.但由于符号原因,也得到了其它象限情况时的结果.<p>在2,4象限类似于1,3.在3,4象限类似1,2.<p class=article-title>A,B 垂直或者平行坐标轴<div class="layout-hw mg-b-20"><div><canvas id=canv6></canvas></div><div class=mg-l-10><pre class=bg-gray-lt>
+
+  // 不同象限 1,2
+  since AB = |a.x| + |b.x|
+        a.x＜0 , b.x＞0
+
+  hence AB = -a.x + b.x
+           = b.x - a.x
+
+  // 同象限 1
+  since AB = |b.x| - |a.x|
+        a.x＞0 , b.x＞0
+
+  hence AB = b.x - a.x
+
+</pre></div></div><div class="layout-hw mg-b-20"><div><canvas id=canv7></canvas></div><div class=mg-l-10><pre class=bg-gray-lt>
+
+  // 不同象限 1,4
+  since AB = |a.y| + |b.y|
+        a.y＜0 , b.y＞0
+
+  hence AB = -a.y + b.y
+           = b.y - a.y
+
+  // 同象限 1
+  since AB = |b.y| - |a.y|
+        a.y＞0 , b.y＞0
+
+  hence AB = b.y - a.y
+
+</pre></div></div><p>So A,B平行于坐标轴时,AB长度直接可以得出.就是AB的x/y坐标值的绝对值相加减,AB处于不同象限时,由于符号的原因,最终都可以表示为x/y坐标值相减.<p class=article-title>验证结果<p>坐标系是自洽和严密系统,无论A/B在什么位置,AB的长度都可以表示为坐标值之差(平行垂直情况),或者x坐标之差加y坐标之差的和开方(有斜率但不为0时).<p>最后都统一为2点距离公式: sqrt{(a.x-b.x)^2 + (a.y-b.y)^2} .程序实现时,可以将平行垂直情况分开,减少无效计算.<pre class=bg-gray-lt>
+
+    // 水平线
+    if (a.y == b.y) {
+        return Math.abs(a.x - b.x);
+    }
+    // 垂直线
+    if (a.x == b.x) {
+        return Math.abs(a.y - b.y);
+    }
+    return Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2));
+
+</pre><hr class=line><script>(()=>{let i=cavlib("canv1").style(),r=i.ctx;r.font="16px serial";let u=60,f=120;i.xyAxis(2,u,f);r.save();r.translate(u,f);let n={x:40,y:-20,color:"green"},t={x:150,y:-70,color:"orange"};i.pointTag(n.x,n.y,n.color);i.pointChar(n.x,n.y,"A",270,n.color);i.pointChar(0,n.y,"a.x",180);i.pointChar(n.x,0,"a.y",90);i.pointVH(n.x,n.y,4,n.color);i.pointTag(t.x,t.y,t.color);i.pointChar(t.x,t.y,"B",0,t.color);i.pointChar(0,t.y,"b.x",180);i.pointChar(t.x,0,"b.y",90);i.pointVH(t.x,t.y,4,t.color);i.line(n.x,n.y,t.x,t.y,"blue");i.line(n.x,n.y,t.x,n.y,"red");i.pointTag(t.x,n.y,"red");i.pointChar(t.x,n.y,"C",0,"red");i.fillArea([[n.x,n.y],[t.x,t.y],[t.x,n.y]],"#aabbcc66")})();(()=>{let i=cavlib("canv2").style(),r=i.ctx;r.font="16px serial";let u=60,f=120;i.xyAxis(2,u,f);r.save();r.translate(u,f);let n={x:40,y:-70,color:"green"},t={x:150,y:-20,color:"orange"};i.pointTag(n.x,n.y,n.color);i.pointChar(n.x,n.y,"A",270,n.color);i.pointChar(0,n.y,"a.x",180);i.pointChar(n.x,0,"a.y",90);i.pointVH(n.x,n.y,4,n.color);i.pointTag(t.x,t.y,t.color);i.pointChar(t.x,t.y,"B",0,t.color);i.pointChar(0,t.y,"b.x",180);i.pointChar(t.x,0,"b.y",90);i.pointVH(t.x,t.y,4,t.color);i.line(n.x,n.y,t.x,t.y,"blue");i.line(n.x,n.y,t.x,n.y,"red");i.pointTag(t.x,n.y,"red");i.pointChar(t.x,n.y,"C",0,"red");i.fillArea([[n.x,n.y],[t.x,t.y],[t.x,n.y]],"#aabbcc66")})();(()=>{let i=cavlib("canv3").style(),r=i.ctx;r.font="16px serial";let u=240,f=120;i.xyAxis(2,u,f);r.save();r.translate(u,f);let n={x:-150,y:-20,color:"green"},t={x:-40,y:-70,color:"orange"};i.pointTag(n.x,n.y,n.color);i.pointChar(n.x,n.y,"A",270,n.color);i.pointChar(0,n.y,"a.x");i.pointChar(n.x,0,"a.y",90);i.pointVH(n.x,n.y,4,n.color);i.pointTag(t.x,t.y,t.color);i.pointChar(t.x,t.y,"B",270,t.color);i.pointChar(0,t.y,"b.x");i.pointChar(t.x,0,"b.y",90);i.pointVH(t.x,t.y,4,t.color);i.line(n.x,n.y,t.x,t.y,"blue");i.pointTag(t.x,n.y,"red");i.pointChar(t.x,n.y,"C",315,"red");i.fillArea([[n.x,n.y],[t.x,t.y],[t.x,n.y]],"#aabbcc66")})();(()=>{let i=cavlib("canv4").style(),r=i.ctx;r.font="16px serial";let u=r.canvas.width/2,f=r.canvas.height/2;i.xyAxis();r.save();r.translate(u,f);let n={x:-60,y:40,color:"green"},t={x:80,y:-40,color:"orange"};i.pointTag(n.x,n.y,n.color);i.pointChar(n.x,n.y,"A",180,n.color);i.pointChar(0,n.y,"a.x",45);i.pointChar(n.x,0,"a.y",270);i.pointVH(n.x,n.y,4,n.color);i.pointTag(t.x,t.y,t.color);i.pointChar(t.x,t.y,"B",270,t.color);i.pointChar(0,t.y,"b.x",180);i.pointChar(t.x,0,"b.y",315);i.pointVH(t.x,t.y,4,t.color);i.line(n.x,n.y,t.x,t.y,"blue");i.line(0,n.y,t.x,n.y,"red");i.line(t.x,0,t.x,n.y,"red");i.pointTag(t.x,n.y,"red");i.pointChar(t.x,n.y,"C",0,"red");i.fillArea([[n.x,n.y],[t.x,t.y],[t.x,n.y]],"#aabbcc66")})();(()=>{let i=cavlib("canv5").style(),r=i.ctx;r.font="16px serial";let u=r.canvas.width/2,f=100;i.xyAxis(4,u,f);r.save();r.translate(u,f);let n={x:-60,y:-20,color:"green"},t={x:80,y:-80,color:"orange"};i.pointTag(n.x,n.y,n.color);i.pointChar(n.x,n.y,"A",180,n.color);i.pointChar(0,n.y,"a.x",135);i.pointChar(n.x,0,"a.y",90);i.pointVH(n.x,n.y,4,n.color);i.pointTag(t.x,t.y,t.color);i.pointChar(t.x,t.y,"B",0,t.color);i.pointChar(0,t.y,"b.x",180);i.pointChar(t.x,0,"b.y",90);i.pointVH(t.x,t.y,4,t.color);i.line(n.x,n.y,t.x,t.y,"blue");i.line(0,n.y,t.x,n.y,"red");i.pointTag(t.x,n.y,"red");i.pointChar(t.x,n.y,"C",0,"red");i.fillArea([[n.x,n.y],[t.x,t.y],[t.x,n.y]],"#aabbcc66")})();(()=>{let n=cavlib("canv6").style(),r=n.ctx;r.font="16px serial";let u=r.canvas.width/2,f=r.canvas.height/2;n.xyAxis();n.xyAxis(4,60,100);r.save();r.translate(u,f);let t={x:-60,y:-40,color:"green"},i={x:80,y:-40,color:"orange"};n.pointTag(t.x,t.y,t.color);n.pointChar(t.x,t.y,"A",180,t.color);n.pointChar(0,t.y,"a.x",135);n.pointChar(t.x,0,"a.y",90);n.pointVH(t.x,t.y,4,t.color);n.pointTag(i.x,i.y,i.color);n.pointChar(i.x,i.y,"B",0,i.color);n.pointChar(0,i.y,"b.x",315);n.pointChar(i.x,0,"b.y",90);n.pointVH(i.x,i.y,4,i.color);n.line(t.x,t.y,i.x,i.y,"blue")})();(()=>{let n=cavlib("canv7").style(),r=n.ctx;r.font="16px serial";let u=r.canvas.width/2,f=r.canvas.height/2;n.xyAxis();n.xyAxis(4,60,130);r.save();r.translate(u,f);let t={x:80,y:40,color:"green"},i={x:80,y:-40,color:"orange"};n.pointTag(t.x,t.y,t.color);n.pointChar(t.x,t.y,"A",0,t.color);n.pointChar(0,t.y,"a.x",180);n.pointChar(t.x,0,"a.y",135);n.pointVH(t.x,t.y,4,t.color);n.pointTag(i.x,i.y,i.color);n.pointChar(i.x,i.y,"B",0,i.color);n.pointChar(0,i.y,"b.x",315);n.pointChar(i.x,0,"b.y",315);n.pointVH(i.x,i.y,4,i.color);n.line(t.x,t.y,i.x,i.y,"blue")})()</script>
