@@ -52,13 +52,13 @@
 
 </pre><ul class="list square"><li>x1 : number 点x坐标<li>y1 : number 点x坐标<li>x2 : number 对角点x坐标<li>y2 : number 对角点y坐标<li>style : number 风格: 0偶数时虚线,1实线<li>color : string 线条颜色.(strokeStyle)</ul><canvas id=canv_p2Rect></canvas></div><div class=doc-part-box id=pointVH><h2>pointVH</h2><p>画坐标系中的一点到x/y轴的垂直和水平连线<pre class=bg-gray-lt>
 
-    this.p2Rect(x, y, style = 0, color = 'black', oX = 0, oY = 0)
+    this.pointVH(x, y, style = 0, color = 'black', oX = 0, oY = 0)
 
 </pre><ul class="list square"><li>x : number 点x坐标(在以oX,oY为原点的坐标系)<li>y : number 点x坐标<li>style : number 风格: 0(原点在中心,虚线),1(同0,实线) 其它:指定原点,偶数虚线奇数实线<li>color : string 线条颜色.(strokeStyle)<li>oX : number 原点x坐标<li>oY : number 原点y坐标</ul><canvas id=canv_pointVH></canvas></div><div class=doc-part-box id=pointTag><h2>pointTag</h2><p>标记一个点,用于放大显示<pre class=bg-gray-lt>
 
     this.pointTag(x, y, color = 'black', style = 0, cir = 3)
 
-</pre><ul class="list square"><li>x : number 点x坐标<li>y : number 点x坐标<li>color : string 填充颜色fillStyle<li>style : number 风格: 0(圆点),1(正方形)<li>cir : number 圆半径/正方形半边长</ul><canvas id=canv_pointTag></canvas></div><div class=doc-part-box id=pointChar><h2>pointChar</h2><p>标记一个点,用于放大显示<pre class=bg-gray-lt>
+</pre><ul class="list square"><li>x : number 点x坐标<li>y : number 点x坐标<li>color : string 填充颜色fillStyle<li>style : number 风格: 0(圆点),1(正方形)<li>cir : number 圆半径/正方形半边长</ul><canvas id=canv_pointTag></canvas></div><div class=doc-part-box id=pointChar><h2>pointChar</h2><p>给一个点标记字母<pre class=bg-gray-lt>
 
     this.pointChar(x, y, char, deg = 0, color = 'black', cir = 20)
 
@@ -77,7 +77,7 @@
     cavlib.line.dist();
     ...
 
-</pre></div><div class=doc-part-box id=line_k><h2>getK</h2><p>获取两个点所在直线的斜率.如果与 X 轴平行,返回 0 ,与 Y 轴平行返回 null.<pre class=bg-gray-lt>
+</pre><p>需要注意的是,点的坐标值都是平面直角坐标系里的.这和canvas的坐标系不同,canvas向下和向右坐标值是正值,而平面直角坐标系向上和向右是正值,也就是说,Y坐标的值相反!所以,传入参数时,如果是canvas坐标值,那么Y值要传-Y.</p><canvas id=canv_line_about></canvas></div><div class=doc-part-box id=line_k><h2>getK</h2><p>获取两个点所在直线的斜率.如果与 X 轴平行,返回 0 ,与 Y 轴平行返回 null.<p>注意Y坐标值,canvas坐标要传入Y坐标的相反值.<pre class=bg-gray-lt>
 
     line.getK(p1, p2, p2x, p2y)
 
@@ -85,4 +85,4 @@
 
     line.dist(p1, p2, p2x, p2y)
 
-</pre><ul class="list square"><li>p1 : {x:number,y:number} 点1对象{x,y}或点1的x坐标<li>p2 : {x:number,y:number} 点2对象{x,y}或点1的y坐标<li>p2x : number 点2的x坐标<li>p2y : number 点2的y坐标</ul><canvas id=canv_line_dist></canvas></div><script>(n=>{let f=n.cavlib.line,t=n.cavlib("canv_line_k").style(),h=t.ctx;h.font="16px serial";t.xyAxis();let i={x:20,y:20},e={x:200,y:20},o={x:250,y:20},r={x:250,y:130},s={x:220,y:20},u={x:30,y:130};t.line(i.x,i.y,e.x,e.y,"red");t.line(o.x,o.y,r.x,r.y,"blue");t.line(s.x,s.y,u.x,u.y,"green");t.pointChar(i.x,i.y,"k= "+f.getK(i,e),90);t.pointChar(r.x,r.y,"k= "+f.getK(o,r),90,10);t.pointChar(u.x+100,u.y,"k= "+f.getK(s,u),270)})(window);(n=>{let e=n.cavlib.line,t=n.cavlib("canv_line_dist").style(),l=t.ctx;l.font="16px serial";t.xyAxis();let o={x:20,y:20},i={x:200,y:20},s={x:50,y:100},r={x:250,y:50},u={x:20,y:130},h={x:130,y:130},c={x:30,y:40},f={x:230,y:130};t.line(o.x,o.y,i.x,i.y,"red");t.line(s.x,s.y,r.x,r.y,"blue");t.line(u.x,u.y,h.x,h.y,"green");t.line(c.x,c.y,f.x,f.y,"gold");t.pointChar(i.x,i.y,"d= "+e.dist(o,i));t.pointChar(r.x,r.y,"d= "+e.dist(s,r).toFixed(2),90);t.pointChar(u.x,u.y,"d= "+e.dist(u,h),315);t.pointChar(f.x,f.y,"d= "+e.dist(c,f).toFixed(2),270)})(window)</script></div></div><script src=/jslib/jslib.js></script><script src=/mirrorui/mirrorui.js></script><script>$("#main_menubox")[0].create()</script>
+</pre><ul class="list square"><li>p1 : {x:number,y:number} 点1对象{x,y}或点1的x坐标<li>p2 : {x:number,y:number} 点2对象{x,y}或点1的y坐标<li>p2x : number 点2的x坐标<li>p2y : number 点2的y坐标</ul><canvas id=canv_line_dist></canvas></div><script>(n=>{let i=n.cavlib("canv_line_about").style(),r=i.ctx;r.font="16px serial";i.xyAxis();r.translate(i.canvas.width/2,i.canvas.height/2);let t={x:100,y:30};i.pointTag(t.x,t.y,"orangered");i.pointVH(t.x,t.y,4,"blue");i.pointChar(t.x,t.y,`Canvas: A(${t.x},${t.y})`,135,"black",30);i.pointChar(t.x,t.y,`数学: A(${t.x},-${t.y})`,240,"red",60)})(window);(n=>{let s=n.cavlib.line,t=n.cavlib("canv_line_k").style(),h=t.ctx;h.font="16px serial";t.xyAxis();h.translate(t.canvas.width/2,t.canvas.height/2);let i={x:-120,y:-30},f={x:120,y:-30},e={x:130,y:-60},r={x:130,y:60},u={x:-90,y:50},o={x:60,y:-20};t.line(i.x,i.y,f.x,f.y,"red");t.line(e.x,e.y,r.x,r.y,"blue");t.line(u.x,u.y,o.x,o.y,"green");t.pointChar(i.x,i.y,"k= "+s.getK(i.x,-i.y,f.x,-f.y),90);t.pointChar(r.x,r.y,"k= "+s.getK(e.x,-e.y,r.x,-r.y),180,"black",30);t.pointChar(u.x,u.y,"k= "+s.getK(u.x,-u.y,o.x,-o.y).toFixed(4),90)})(window);(n=>{let e=n.cavlib.line,t=n.cavlib("canv_line_dist").style(),l=t.ctx;l.font="16px serial";t.xyAxis();let o={x:20,y:20},i={x:200,y:20},s={x:50,y:100},r={x:250,y:50},u={x:20,y:130},h={x:130,y:130},c={x:30,y:40},f={x:230,y:130};t.line(o.x,o.y,i.x,i.y,"red");t.line(s.x,s.y,r.x,r.y,"blue");t.line(u.x,u.y,h.x,h.y,"green");t.line(c.x,c.y,f.x,f.y,"gold");t.pointChar(i.x,i.y,"d= "+e.dist(o,i));t.pointChar(r.x,r.y,"d= "+e.dist(s,r).toFixed(2),90);t.pointChar(u.x,u.y,"d= "+e.dist(u,h),315);t.pointChar(f.x,f.y,"d= "+e.dist(c,f).toFixed(2),270)})(window)</script></div></div><script src=/jslib/jslib.js></script><script src=/mirrorui/mirrorui.js></script><script>$("#main_menubox")[0].create()</script>
