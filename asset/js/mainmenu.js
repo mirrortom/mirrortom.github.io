@@ -1,4 +1,4 @@
-(()=>{function r(n){let t="#fff",i="#333";n==2&&(t="#303030",i="#b0b0b0");document.documentElement.style.setProperty("--font-color",i);document.body.style.backgroundColor=t;window.localStorage.setItem("theme",n);let r=document.createEvent("HTMLEvents");r.initEvent("changethemehandler",!1,!1);window.dispatchEvent(r);f()}function u(n){document.documentElement.style.setProperty("--font-size",n+"px");window.localStorage.setItem("fontsize",n)}function f(){let t=`
+(()=>{function r(n){let t="#fff",i="#333";n==2&&(t="#303030",i="#b0b0b0");document.documentElement.style.setProperty("--font-color",i);document.documentElement.style.setProperty("--bg-color",t);window.localStorage.setItem("theme",n);let r=document.createEvent("HTMLEvents");r.initEvent("changethemehandler",!1,!1);window.dispatchEvent(r);f()}function u(n){document.documentElement.style.setProperty("--font-size",n+"px");window.localStorage.setItem("fontsize",n)}function f(){let t=`
 <div id="mainmenubox" class="mainmenu grids-1 grids-md-3 text-center">
   <div class="mainmenu-logo">
     <a href="/index.html"><canvas id="logo_canv" height="30"></canvas></a>
