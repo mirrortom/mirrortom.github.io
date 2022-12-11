@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1.0,user-scalable=no"><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><title>razor编译插件 | Mirror Space</title><link href=/mirrorui/mirrorui.css rel=stylesheet><link href=/mirroricon/mirroricon.css rel=stylesheet><link href=/asset/css/blog.css rel=stylesheet><div class=layout><div class=layout-part1></div><div class=layout-part2><p><small>最后更新: 2021/12/5</small> <small>建立: 2019/5/14</small><p><small>2021/12/5 改用vs2022的VSIX工程,使用RazorEngine4.5.</small><p>(github) <a href=https://github.com/mirrortom/WebFilePublishVSIX target=_blank>https://github.com/mirrortom/WebFilePublishVSIX</a><h2>概述</h2><p>2018年时想做一个使用C# razor语法写html页面工具.当时研究了asp.net的razor后没找到生成静态页面的办法,后来使用了三方的RazorEngine开源库,得以实现.<p>原理是使用RazorEngine提供的方法,将Razor页面编译成静态html.为了方便使用,做成了vs插件.支持在vs2017 ~ vs2022的Community版本上使用<h2>插件使用</h2><p>在vs2017~vs2022安装这个插件,安装方法是找到插件项目的编译目录,运行WebFilePublishVSIX.vsix这个文件.按提示安装,过程中会要求关闭vs.<p>打开或者新建一个项目,添加几个web文件,如home.js,home.css,home.cshtml"<h4>发布文件 / 发布目录 / 发布项目</h4><p>插件的三个功能,分别针对文件,目录,整个项目.可以发布项目中选中的单个或多个文件,目录.发布项目则是编译项目后,发布所有文件.<p>在项目管理窗口中,右击一个(或多个)文件,点击菜单项 "发布文件 Alt+1 Alt+1" 可以发布该文件.<p>当前正在编辑的文件可以按Alt+QQ发布.为了便于修改文件后马上发布.<p>同理,右击文件夹时,会发布文件夹中的所有文件.<p>右击项目时,点击菜单项"发布web",这时会先编译该项目,然后发布项目中所有文件.<p>发布时会判断文件类型,如果是js,css,jpg等web静态文件,则会直接复制到发布目录.cshtml文件会编译成html输出,这是插件的主要功能.<ul class="list square"><li>发布文件 (<b>Alt + 1 + 1</b>)<li>发布活动文件 (<b>Alt + q + q</b>)<li>发布目录 (<b>Alt + 2 + 2</b>)<li>发布项目 (<b>Alt + 3 + 3</b>)</ul><h2>配置文件</h2><p>发布功能由配置文件设定,文件位于项目根目录下,默认名"publish.json",每次发布动作时,会读取这个文件.<p>配置文件可以设定发布到哪个目录,允许发布文件,不允许发布文件,发布前是否清空发布目录.<p>首次发布时如果没有配置文件,插件程序会在项目根目录下生成默认的publish.json".<p>生成的publish.json文件有可能不是utf-8编码,那会导致中文乱码问题.可以另存为utf-8.<pre class=bg-gray-lt>
+<!DOCTYPE html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1.0,user-scalable=no"><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><title>razor编译插件 | Mirror Space</title><link href=/mirrorui/mirrorui.css rel=stylesheet><link href=/mirroricon/mirroricon.css rel=stylesheet><link href=/asset/css/blog.css rel=stylesheet><div class=layout><div class=layout-part1></div><div class=layout-part2><p><small>最后更新: 2022/12/7</small> <small>建立: 2019/5/14</small><p><small>2021/12/5 改用vs2022的VSIX工程,使用RazorEngine4.5.</small><p>(github) <a href=https://github.com/mirrortom/WebFilePublishVSIX target=_blank>https://github.com/mirrortom/WebFilePublishVSIX</a><h2>概述</h2><p>2018年时想做一个使用C# razor语法写html页面工具.当时研究了asp.net的razor后没找到生成静态页面的办法,后来使用了三方的RazorEngine开源库,得以实现.<p>原理是使用RazorEngine提供的方法,将Razor页面编译成静态html.为了方便使用,做成了vs插件.支持在vs2017 ~ vs2022的Community版本上使用<h2>插件使用</h2><p>在vs2017~vs2022安装这个插件,安装方法是找到插件项目的编译目录,运行WebFilePublishVSIX.vsix这个文件.按提示安装,过程中会要求关闭vs.<p>打开或者新建一个项目,添加几个web文件,如home.js,home.css,home.cshtml"<h4>发布文件 / 发布目录 / 发布项目</h4><p>插件的三个功能,分别针对文件,目录,整个项目.可以发布项目中选中的单个或多个文件,目录.发布项目则是编译项目后,发布所有文件.<p>在项目管理窗口中,右击一个(或多个)文件,点击菜单项 "发布文件 Alt+1 Alt+1" 可以发布该文件.<p>当前正在编辑的文件可以按Alt+QQ发布.为了便于修改文件后马上发布.<p>同理,右击文件夹时,会发布文件夹中的所有文件.<p>右击项目时,点击菜单项"发布web",这时会先编译该项目,然后发布项目中所有文件.<p>发布时会判断文件类型,如果是js,css,jpg等web静态文件,则会直接复制到发布目录.cshtml文件会编译成html输出,这是插件的主要功能.<ul class="list square"><li>发布文件 (<b>Alt + 1 + 1</b>)<li>发布活动文件 (<b>Alt + q + q</b>)<li>发布目录 (<b>Alt + 2 + 2</b>)<li>发布项目 (<b>Alt + 3 + 3</b>)</ul><h2>配置文件</h2><p>发布功能由配置文件设定,文件位于项目根目录下,默认名"publish.json",每次发布动作时,会读取这个文件.<p>配置文件可以设定发布到哪个目录,允许发布文件,不允许发布文件,发布前是否清空发布目录.<p>首次发布时如果没有配置文件,插件程序会在项目根目录下生成默认的publish.json".<p>生成的publish.json文件有可能不是utf-8编码,那会导致中文乱码问题.可以另存为utf-8.<pre class=bg-gray-lt>
 
   {
     // 源文件目录名(例如:src 相对路径,相对于项目根目录)
@@ -23,13 +23,13 @@
     "globleVar": null
 
 }
-  </pre><h2>RazorEngine</h2><p>razorengine开源项目文档地址 <a href=https://antaris.github.io/RazorEngine/index.html target=_blank>https://antaris.github.io/RazorEngine/index.html</a><p>项目git地址 <a href=https://github.com/Antaris/RazorEngine target=_blank>https://github.com/Antaris/RazorEngine</a><p>编译生成razor页面时,RazorEngine要使用RoslynCompiler工具编译.否则会出现编译卡死.在控制台程序中,默认的编译工具不会有问题,但做到插件中后出现卡死.这个VSIX项目最新使用了razorengine4.5版本,自带有Roslyn.<p>原因参考: <a href=https://github.com/Antaris/RazorEngine/issues/286 target=_blank>https://github.com/Antaris/RazorEngine/issues/286</a> razorengine是虚拟机环境,cshtml模板文件会当成代码在这虚拟机里编译和运行,所以模板里可以写C#程序.<p>这些程序一定引用了其它库,比如System.dll这个基础的库.那么虚拟机要加载这些库来支持程序运行.razorengine默认会加载所有的库,从运行它的程序环境中.如果是在控制台里运行razorengine,那么这个控制台程序里可能没几个库,全部加载不会有速度慢的情况.<p>但是,如果是在VSIX的运行环境里运行,那么库很多,有的库还比较大,测试时发现加载的库多达680个.这个就是为什么在VSIX里运行很慢甚至卡死的原因,issue上的解决办法是为razorengine提供指定的库,而不是全部库.这个办法有效但测试时没有成功,在指定库时报错了.第2个办法是Roslyn,就是它了,简单方便,其中的原因没研究.<h3>cshtml文件</h3><p>基本上与razor用法一样,但是可用的功能非常少.<h4>引用母版页</h4><pre class=bg-gray-lt>
+  </pre><h2>RazorEngine</h2><p>razorengine开源项目文档地址 <a href=https://antaris.github.io/RazorEngine/index.html target=_blank>https://antaris.github.io/RazorEngine/index.html</a><p>项目git地址 <a href=https://github.com/Antaris/RazorEngine target=_blank>https://github.com/Antaris/RazorEngine</a><p>编译生成razor页面时,RazorEngine要使用RoslynCompiler工具编译.否则会出现编译卡死.在控制台程序中,默认的编译工具不会有问题,但做到插件中后出现卡死.这个VSIX项目最新使用了razorengine4.5版本,自带有Roslyn.<p>原因参考: <a href=https://github.com/Antaris/RazorEngine/issues/286 target=_blank>https://github.com/Antaris/RazorEngine/issues/286</a> razorengine是虚拟机环境,cshtml模板文件会当成代码在这虚拟机里编译和运行,所以模板里可以写C#程序.<p>这些程序一定引用了其它库,比如System.dll这个基础的库.那么虚拟机要加载这些库来支持程序运行.razorengine默认会加载所有的库,从运行它的程序环境中.如果是在控制台里运行razorengine,那么这个控制台程序里可能没几个库,全部加载不会有速度慢的情况.<p>但是,如果是在VSIX的运行环境里运行,那么库很多,有的库还比较大,测试时发现加载的库多达680个.这个就是为什么在VSIX里运行很慢甚至卡死的原因,issue上的解决办法是为razorengine提供指定的库,而不是全部库.这个办法有效但测试时没有成功,在指定库时报错了.第2个办法是Roslyn,就是它了,简单方便,其中的原因没研究.<h3>cshtml文件</h3><p>与razor用法一样,母版页,片段和节功能都有.<h4>引用母版页</h4><p>子页面使用母版页,在文件开头写上这个.<pre class=bg-gray-lt>
 
         @{
             // 使用母板页.(母板页只能引用一个,并且写在页面开始处)
             Layout="/src/layout/layout.cshtml";
         }
-        </pre><h4>引用部分页</h4><pre class=bg-gray-lt>
+        </pre><h4>引用部分页</h4><p>页面引用其它页面<pre class=bg-gray-lt>
 
         &lt;div>
             // 引入了一个分部页.(可以引用多个)
@@ -37,23 +37,37 @@
             // 递归的 : a_1.part.cshtml中也支持再引用layout和Include.
         &lt;/div>
 
+        </pre><h4>引用片段</h4><p>在母版页中用占位符,子页面实现<pre class=bg-gray-lt>
+
+        &lt;div>
+            // 母版页引入片段,第一个参数是片段名字.第二个参数:false子页面可以不实现,true必须实现 (可以引用多个)
+            @RenderSection("Scripts", false)
+        &lt;/div>
+
+            // 子页面实现片段
+            @section Scripts{
+                // html片段
+            }
+
         </pre><h4>命名约定</h4><p>母版页名字约定后缀:layout.cshtml,片段页约定:part.cshtml<h4>母板页示例</h4><pre class=bg-gray-lt>
 
         &lt;!DOCTYPE html>
         &lt;html lang="en">
             &lt;head>
                 &lt;meta charset="utf-8">
-                &lt;meta http-equiv="X-UA-Compatible" content="IE=edge">
                 &lt;meta name="viewport" content="width=device-width,initial-scale=1.0">
                 &lt;link href="base.css" rel="stylesheet" />
                 &lt;title>@ViewBag.Title&lt;/title>
             &lt;/head>
             &lt;body>
+                // 这是套用该母版页的子页面的占位符
                 @RenderBody()
+                // 其它片段.在子页面中实现该片段
+                @RenderSection("Scripts", false)
             &lt;/body>
         &lt;/html>
 
-        </pre><h4>主页面示例</h4><pre class=bg-gray-lt>
+        </pre><br><p>RazorEngine编译页面时,母版,片段,部分,C#程序,这些都不是必须的.可以编译一个不带任何C#程序的纯HTML文本,不会有问题.可以只有一些C#程序,或者只有@Include()将几个文件拼成一个文件,比较自由灵活.<h4>主页面示例</h4><pre class=bg-gray-lt>
 
         @{
             // 引用母板页
