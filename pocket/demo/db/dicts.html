@@ -1,0 +1,57 @@
+<h1>选项表</h1><p>源文件: None<p>crud项目中会有一些选项数据,例如"执行状态":(已开始|进行中|失败|成功).又如"职称":(高级|中级|科员|普通).如果选项值的个数不多(例如少于20个),而且比较固定,那么将所有种类的选项放在一个数据表里统一管理.如果是像省市区那样的选项,虽然也是固定的不会经常变,但由于选项值很多,所以放在一个单独的表里比较合适.<p>这些数据是所谓的元(基础)数据,选项对应的类型是字典,表名字可以叫dicts.<table class="table border-all"><tr><td colspan=6 class=text-center>dicts<tr class=text-center><td>列名 column<td>类型 (maria|mssql)<td>可空 NULL<td>说明 comment<tr><td>id(PK)<td>CHAR(6) | char(6)<td>NOT NULL<td>唯一编号,表主键<tr><td>title<td>VARCHAR(50) | nvarchar(50)<td>NOT NULL<td>选项标题<tr><td>category<td>SMALLINT | SMALLINT<td>NOT NULL<td>选项分类.唯一标识<tr><td>comment<td>VARCHAR(50) | nvarchar(50)<td>NOT NULL<td>选项说明<tr><td>ctime<td>DATETIME(6) | datetime<td>NOT NULL<td>数据产生时间<tr><td>orderby<td>SMALLINT | SMALLINT<td>NOT NULL<td>排序编号<tr><td>status<td>TINYINT unsigned | TINYINT<td>NOT NULL<td>选项状态 可用/不可用</table><br><p class=article-title>列说明<h6>主键</h6><p>每个选项使用了一个随机编号当主键,由26小写字母和10个数字组成的6位字符串,组合总数是36^6.这个数量很大,远远超过选项个数.有的微小型项目选项个数不超过100个,长度2位就够.<h6>category</h6><p>由于所有的选项都放在一个表里,那么必须要区分每一组选项.<h6>comment</h6><p>每个选项有一个说明用途的描述信息<h6>orderby</h6><p>orderby是一个整数,用于排序.选项有顺序需求,比如常用的选项排在前面,便于快速选择.<h6>status</h6><p>选项数据是元数据,不能随便删除,所以设置可用/不可用状态,例如1=可用2=不可用<p class=article-title>sql(maria)<pre class=bg-gray-lt>
+
+    -- dicts 建表sql Maria
+    CREATE TABLE `dicts`(
+        `id` CHAR(6) NOT NULL COMMENT '唯一编号,表主键' PRIMARY KEY,
+        `title` VARCHAR(50) NOT NULL COMMENT '选项标题',
+        `category` SMALLINT NOT NULL COMMENT '选项分类.唯一标识',
+        `comment` VARCHAR(50) NOT NULL COMMENT '选项说明',
+        `ctime` DATETIME(3) NOT NULL COMMENT '数据产生时间',
+        `orderby` SMALLINT NOT NULL COMMENT '排序编号',
+        `status` TINYINT unsigned NOT NULL COMMENT '选项状态'
+    )
+
+</pre><p class=article-title>c# class<pre class=bg-gray-lt>
+
+    /// &lt;summary>
+    /// 数据表: dicts
+    /// &lt;/summary>
+    public class DictsM
+    {
+        /// &lt;summary>
+        /// 选项标题 len=6
+        /// &lt;/summary>
+        public string Id;
+
+        /// &lt;summary>
+        /// 选项标题 maxlen=50
+        /// &lt;/summary>
+        public string Title;
+
+        /// &lt;summary>
+        /// 选项分类.唯一标识
+        /// &lt;/summary>
+        public int Category;
+
+        /// &lt;summary>
+        /// 选项说明 maxlen=50
+        /// &lt;/summary>
+        public string Comment;
+
+        /// &lt;summary>
+        /// 数据产生时间
+        /// &lt;/summary>
+        public DateTime Ctime;
+
+        /// &lt;summary>
+        /// 排序编号
+        /// &lt;/summary>
+        public int Orderby;
+
+        /// &lt;summary>
+        /// 选项状态
+        /// &lt;/summary>
+        public int Status;
+    }
+
+</pre>

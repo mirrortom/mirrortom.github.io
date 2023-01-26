@@ -186,12 +186,12 @@
     // 参数是node节点 或者 DocumentFragment对象,返回 DocumentFragment实例
     $.fragment(...content)
 
-</pre></div><div class=doc-part-box id=loadhtml><h2>$('#id').load(url)</h2><p>从url加载html,然后设置到所有匹配元素的innerHTML.<p>$ 的实例方法,类似于jquery.load()的功能.这里是使用XMLHttpRequest对象的get方法实现.不能跨域.<p>如果返回失败了,丢出异常.如果成功:xhr.readyState === 4 && xhr.status === 200 则设置返回的html到容器元素里.<p>这个主要用于,ajax请求html片段页面.不使用fetch的原因是,为了兼容打包APP.使用xhr时,可以从包本地取得html片段.<pre class=bg-gray-lt>
+</pre></div><div class=doc-part-box id=loadhtml><h2>$('#id').load(url,callback)</h2><p>从url加载html,然后设置到所有匹配元素的innerHTML.<p>$ 的实例方法,类似于jquery.load()的功能.这里是使用XMLHttpRequest对象的get方法实现.不能跨域.<p>如果返回失败了,丢出异常.如果成功:xhr.readyState === 4 && xhr.status === 200 则设置返回的html到容器元素里.<p>这个主要用于,ajax请求html片段页面.不使用fetch的原因是,为了兼容打包APP.使用xhr时,可以从包本地取得html片段.<pre class=bg-gray-lt>
     // 参数是url地址
     $('#div1').load('test.html');
     // 也支持js,扩展名js
     $('#div1').load('testjs.js');
-</pre><br><p>也可以加载js,为了实现动态加载js.用url扩展名判断,例如 xx.js是js文件,hh.html是html文件.<p>如果请求的是js,那么将js放到script标记中. 再放到this.html('&lt;script>xhr.response)</div><div class=doc-part-box id=ajax><h2>ajax</h2><p class=article-title>post<p>内部使用fetch()方法实现.包装处理了参数,方便使用.<pre class=bg-gray-lt>
+</pre><br><p>也可以加载js,为了实现动态加载js.用url扩展名判断,例如 xx.js是js文件,hh.html是html文件.<p>如果请求的是js,那么将js放到script标记中. 再放到this.html('&lt;script>xhr.response)<p>callback方法在成功返回时执行</div><div class=doc-part-box id=ajax><h2>ajax</h2><p class=article-title>post<p>内部使用fetch()方法实现.包装处理了参数,方便使用.<pre class=bg-gray-lt>
 
     $.post(url, para, initCfg = null, resType = 'json')
 
