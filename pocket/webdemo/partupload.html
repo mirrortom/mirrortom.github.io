@@ -1,0 +1,8 @@
+<h1>大文件上传</h1><p>源文件: WebDemo/uploadfile.html , WebDemo/api/UploadFileApi.cs<p>从网页上传文件是常用功能,通常上传的文本/文档/照片不会很大,假如不超过1M.用FormData对象上传就好.如果文件很大时,用长连接比较合适.<p>如果在网页上上传大文件,可以使用文件分块api: Blob.slice() <a href=https://developer.mozilla.org/zh-CN/docs/Web/API/Blob/slice>https://developer.mozilla.org/zh-CN/docs/Web/API/Blob/slice</a><h6>slice()</h6><p>MDN文档: "Blob.slice()方法用于创建一个包含源 Blob的指定字节范围内的数据的新 Blob 对象"<pre class=bg-gray-lt>
+  
+  // start开始位置,默认0
+  // end结束位置,默认源文件大小
+  // contentType文档类型,用于获取后的文件块
+  var blob = instanceOfBlob.slice([start [, end [, contentType]]]};
+
+</pre><p>使用这个方法,可以从一个文件对象中获取一部分,其实和数组的slice()方法类似,就是获取整体的一部分内容.这样,通过每次获取大文件的一部分,将大文件变成多个小文件上传,就实现了大文件上传.<p>假如有个1G的文件,每次用slice()方法取1M,那么会有1024个小文件,再上传这1024个小文件.<h6>分块上传</h6><p>在uploadfile.html里,使用input type=file对象从页面取得要上传的文件.用slice()方法从文件0位置开始读取,每次1M,如果取完了,那么最后一次取得的文件块大小为0.<p>取一块后进行上传,如果上传成功,就继续递归调用,一直到上传结束<h6>接受上传</h6><p>在UploadFileApi.cs里,每次接收到1M的文件分块,最后一块时,将文件块合并到一起,还原为原始大文件.<p>与页面约定每次上传的文件块的FormData键名格式为: "partIndex|Guid" ,partIndex是文件块编号,就是页面上分块时顺序索引,首次上传时,partIndex=0,最后上传时为-1.<p>首次上传时,生成一个guid,标识一个新的大文件要上传了,并且传回页面,后续页面上传时,都要带有这个guid,以标识为同一个大文件.<p>再生成一个以guid为文件夹名字的临时目录存放文件块,当最后一块上传时,将这个目录的文件块按照名字(就是索引值)顺序合并成原来的大文件.
