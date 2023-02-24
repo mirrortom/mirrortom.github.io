@@ -1,1 +1,47 @@
-<h1>Console App</h1><p>源文件: Demo/AppConsole.cs<p>控制台app模板,采用控制台界面的app的一种设计套路<h6>功能模块</h6><p>程序大概都有开始/结束/功能交互接口这些东西,这个程序实现了一些基本功能.<ul class="list square"><li>Run开始<li>Exit退出<li>命令字典: 每个命令都是提供的功能,放在一个字典对象里<li>常用命令<ul class="list cir"><li>ls: 显示命令<li>exit: 退出程序<li>cls: 清除屏幕</ul><li>查找和执行命令: 分析从控制台输入的命令,解析并找到对应的方法执行<li>列出命令: 提供命令列表<li>清除: 就是控制台的Clear命令</ul>
+<h1>Console App</h1><p>源文件: Demo/AppConsole.cs<p>控制台app模板,采用控制台界面的app的一种设计套路<p>使用时可继承或套用此模板<h4>主要方法</h4><p>程序都有开始/结束/功能交互接口这些东西,这个程序实现了一些基本功能.<h6>Run()</h6><p>程序开始,进入主循环,打印功能列表,等待用于输入命令<h6>Exit()</h6><p>退出程序<h6>命令字典</h6><p>每个命令都是一个方法,全部放在一个字典对象里<pre class=bg-gray-lt>
+// key是命令名字,value包含命令描述和功能方法
+Dictionary&lt;string, (string desc, Action&lt;object[]> method)> Cmds;
+
+// 常用命令
+ls:   显示命令列表
+exit: 退出程序
+cls:  清除屏幕
+</pre><h6>命令方法</h6><p>命令: 就是提供的功能,类似于图形界面的菜单,web应用的url.<p>对象: 每个命令对象放在字典里,命令名字是键,值是2元组,含有:命令解释和执行方法<p>方法: 命令方法名字以Action结尾,有一个参数,无返回值.一般使用控制台程序时,输入一个命令,然后空格再加参数.<p>单线: 原则上每次运作周期只有一个命令执行.必须在一个命令执行完成后才可执行下一个.<h6>加载命令</h6><pre class=bg-gray-lt>
+// 加载所有命令到字典中
+protected virtual void CmdLoad()
+
+// 直接写法
+this.Cmds.Add("ls",("显示命令",this.ShowMenusAction));
+</pre><br><p>也可以自动查找方法,先给方法上贴上特性,然后找出所有贴有特性的方法加入到字典中.<pre class=bg-gray-lt>
+// 方法特性
+class CmdAttribute : Attribute
+{
+    // 命令名字
+    public string name { get; set; }
+    // 命令描述
+    public string desc { get; set; }
+}
+
+// 贴有特性的方法
+[Cmd(name = 0, desc = "显示命令列表")]
+ShowMenusAction(){}
+
+// load cmds from CmdAttribute 找出贴有CmdAttribute的所有方法,加入容器.
+// BindingFlags https://learn.microsoft.com/zh-cn/dotnet/api/system.reflection.bindingflags?view=net-7.0
+var methods = this.GetType().GetMethods(BindingFlags.Instance);
+foreach (var methodInfo in methods)
+{
+    if (Attribute.IsDefined(methodInfo, typeof(CmdAttribute)))
+    {
+        var attr = methodInfo.GetCustomAttribute&lt;CmdAttribute>(false);
+        if (this.Cmds.ContainsKey(attr.name))
+        {
+            throw new Exception("服务启动失败,命令name重复!");
+        }
+        this.Cmds.Add(attr.name, (attr.desc, methodInfo.CreateDelegate&lt;Action&lt;object[]>>(this)));
+    }
+}
+</pre><h6>命令路由</h6><pre class=bg-gray-lt>
+// 分析输入的命令字符串,查找执行命令
+protected virtual void CmdExec(string input)
+</pre><h4>运行过程</h4><ul class="list num"><li>Init() 程序初始化<li>CmdLoad() 命令载入<li>Run() 开始主循环<li>CmdExec() 执行功能</ul>
