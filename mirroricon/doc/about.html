@@ -1,46 +1,46 @@
 <div class=doc-page><h2>关于css图标</h2><p>使用css3功能实现一些简易的常用的图标.<p>html标签用 &lt;i> 标记,加上css的:after :before伪类,实际有3个元素可用.<p>一个质量很高的项目,参考搬运. <a href=https://viglino.github.io/iconicss target=_blank>https://viglino.github.io/iconicss</a> (github) <a href=https://github.com/Viglino/iconicss target=_blank>https://github.com/Viglino/iconicss</a><h4>公用样式</h4><p>i和:before,:after的box-sizing:border-box<pre class=bg-gray-lt>
 // 基本
 i[class^=i-]
-display: inline-block
-pointer-events: none
-width: 1em
-height: 1em
-box-sizing: border-box
+    display: inline-block
+    pointer-events: none
+    width: 1em
+    height: 1em
+    box-sizing: border-box
 
-&:before, &::after
-content: ''
-display: inline-block
-box-sizing: border-box
+    &:before, &::after
+        content: ''
+        display: inline-block
+        box-sizing: border-box
 
 // 布局定位公用样式
 // flex布局,VH居中
 i[class^=i-f]
-display: inline-flex
-justify-content: center
-align-items: center
+    display: inline-flex
+    justify-content: center
+    align-items: center
 
 // flex布局,VH居中,竖直排布
 i[class^=i-fv]
-flex-direction: column
+    flex-direction: column
 
 // 绝对定位 absolute
 i[class^=i-a]
-position: relative
+    position: relative
 
 i[class^=i-a]:before, i[class^=i-a]:after
-position: absolute
+    position: absolute
 
 // 绝对定位 absolute,VH居中
 i[class^=i-ac]:before, i[class^=i-ac]:after
-left:50%
-top:50%
-transform: translate(-50%,-50%)
+    left:50%
+    top:50%
+    transform: translate(-50%,-50%)
 </pre><br><p>样式名字规则: i-layout-iconname<p>layout: 布局和对齐方式.<ul class="list num"><li>i-f- : flex布局,水平垂直居中<li>i-fv- : flex布局,水平垂直居中,竖直排列<li>i-a- : 绝对定位<li>i-ac- : 绝对定位,水平垂直居中</ul><p>iconname: 图标样式名字<p>用法<pre class=bg-gray-lt>
 &lt;i class="i-a-home">&lt;/i>
 // 颜色和大小使用文本颜色和大小的样式类设定
 &lt;i class="i-a-home text-xxl">&lt;/i>
 &lt;i class="i-a-home text-danger">&lt;/i>
-</pre><br><p>设计时按照 100px X 100px 范本.尺寸上最小到 16px X 16px 勉强看清.实用最小尺寸20px为宜.<div class="grids-3 text-center" style=width:320px><div><p>100px</p><i class=i-a-face style=font-size:100px></i></div><div><p>64px</p><i class=i-a-face style=font-size:64px></i></div><div><p>48px</p><i class=i-a-face style=font-size:48px></i></div></div><br><div class="grids-4 text-center" style=width:320px><div><p>32px</p><i class=i-a-face style=font-size:32px></i></div><div><p>24px</p><i class=i-a-face style=font-size:24px></i></div><div><p>20px</p><i class=i-a-face style=font-size:20px></i></div><div><p>16px</p><i class=i-a-face style=font-size:16px></i></div></div><br><h4>常用规则</h4><p>制作css图标用到的一些样式规则</p><style scoped>.borderdemo{display:inline-block;width:60px;height:45px;border-width:15px;border-color:#f35325 #81bc06 #05a6f0 #ffba08;border-style:solid;background-color:#eee}.borderdemo-1{width:0;height:0;border-width:30px}.borderdemo-2{border-width:40px 30px 20px 30px}.borderdemo-3{border-width:40px 20px 20px 40px}.borderdemo-4{border-width:60px 30px 0 30px}.borderdemo-5{border-width:60px 60px 0 0}.borderdemo-6{border-width:60px 30px 0 30px;border-left-color:transparent;border-right-color:transparent}.contentTxt{display:inline-block;position:relative;width:1em;height:1em;font-size:100px;border-radius:50%;border:1px solid;text-align:center;box-shadow:inset 0 -.1em}.contentTxt:before{content:'OK!';position:absolute;display:inline-block;font-style:normal;font-size:.5em;left:50%;top:50%;transform:translate(-50%,-50%)}.transform-1{width:200px;height:100px;position:relative;background-color:#eee}.transform-2,.transform-3{display:inline-block;position:absolute;width:30px;height:20px;background-color:#00ff0050;left:50%;top:50%}.transform-3{background-color:#ff000050;transform:translate(-50%,-50%)}.clippath-1{border:1px dotted;width:70px;height:100px}.clippath-1:before{content:'';display:inline-block;width:70px;height:100px;background-color:currentColor;clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%)}.clippath-2{width:100px;height:70px;background-color:currentColor;clip-path:polygon(0 0,10% 0,10% 10%,20% 10%,20% 20%,30% 20%,30% 30%,40% 30%,40% 40%,50% 40%,50% 50%,50% 100%,0 100%)}.scale{position:relative;width:100px;height:100px;background-color:#eef}.scale:before{content:'';position:absolute;display:inline-block;left:0;right:0;top:0;bottom:0;margin:auto;background-color:currentColor}.scale-1:before{width:100px;height:100px;transform:scale(.5)}.scale-2:before{width:60px;height:60px;transform:scaleX(.5)}.scale-3:before{transform:scaleX(.5) rotate(45deg)}.scale-4:before{width:30px;transform:rotate(45deg)}.scale-5:before{transform:rotate(45deg)}.scale-6:before{transform:scaleX(.3) rotate(45deg)}.scale-7:before{transform:scaleX(.7) rotate(45deg)}</style><h5>max,min</h5><p>css也有max(v1,v2),min(v3,v4)函数,取参数里较大/小的值.<p>由于主要使用em单位,在图标较小时,比如16px X 16px, 那么.05em的大小的部位,就不到1px了,可能不会显示.这时用 max(.05em,1px) 就起作用了.让图标该部位至少为1px.<h5>content</h5><p>:before,:after伪类的属性,可以写入符号,可做文字类的图标.<p><i class=contentTxt></i><pre class=bg-gray-lt>
+</pre><br><p>设计时按照 100px X 100px 范本.尺寸上最小到 20px X 20px 勉强看清.实用最小尺寸20px为宜.<div class="grids-3 text-center" style=width:320px><div><p>100px</p><i class=i-a-face style=font-size:100px></i></div><div><p>64px</p><i class=i-a-face style=font-size:64px></i></div><div><p>48px</p><i class=i-a-face style=font-size:48px></i></div></div><br><div class="grids-4 text-center" style=width:320px><div><p>32px</p><i class=i-a-face style=font-size:32px></i></div><div><p>24px</p><i class=i-a-face style=font-size:24px></i></div><div><p>20px</p><i class=i-a-face style=font-size:20px></i></div><div><p>16px</p><i class=i-a-face style=font-size:16px></i></div></div><br><h4>常用规则</h4><p>制作css图标用到的一些样式规则</p><style scoped>.borderdemo{display:inline-block;width:60px;height:45px;border-width:15px;border-color:#f35325 #81bc06 #05a6f0 #ffba08;border-style:solid;background-color:#eee}.borderdemo-1{width:0;height:0;border-width:30px}.borderdemo-2{border-width:40px 30px 20px 30px}.borderdemo-3{border-width:40px 20px 20px 40px}.borderdemo-4{border-width:60px 30px 0 30px}.borderdemo-5{border-width:60px 60px 0 0}.borderdemo-6{border-width:60px 30px 0 30px;border-left-color:transparent;border-right-color:transparent}.contentTxt{display:inline-block;position:relative;width:1em;height:1em;font-size:100px;border-radius:50%;border:1px solid;text-align:center;box-shadow:inset 0 -.1em}.contentTxt:before{content:'OK!';position:absolute;display:inline-block;font-style:normal;font-size:.5em;left:50%;top:50%;transform:translate(-50%,-50%)}.transform-1{width:200px;height:100px;position:relative;background-color:#eee}.transform-2,.transform-3{display:inline-block;position:absolute;width:30px;height:20px;background-color:#00ff0050;left:50%;top:50%}.transform-3{background-color:#ff000050;transform:translate(-50%,-50%)}.clippath-1{border:1px dotted;width:70px;height:100px}.clippath-1:before{content:'';display:inline-block;width:70px;height:100px;background-color:currentColor;clip-path:polygon(50% 0,100% 50%,50% 100%,0 50%)}.clippath-2{width:100px;height:70px;background-color:currentColor;clip-path:polygon(0 0,10% 0,10% 10%,20% 10%,20% 20%,30% 20%,30% 30%,40% 30%,40% 40%,50% 40%,50% 50%,50% 100%,0 100%)}.scale{position:relative;width:100px;height:100px;background-color:#eef}.scale:before{content:'';position:absolute;display:inline-block;left:0;right:0;top:0;bottom:0;margin:auto;background-color:currentColor}.scale-1:before{width:100px;height:100px;transform:scale(.5)}.scale-2:before{width:60px;height:60px;transform:scaleX(.5)}.scale-3:before{transform:scaleX(.5) rotate(45deg)}.scale-4:before{width:30px;transform:rotate(45deg)}.scale-5:before{transform:rotate(45deg)}.scale-6:before{transform:scaleX(.3) rotate(45deg)}.scale-7:before{transform:scaleX(.7) rotate(45deg)}</style><h5>max,min</h5><p>css也有max(v1,v2),min(v3,v4)函数,取参数里较大/小的值.<p>由于主要使用em单位,在图标较小时,比如16px X 16px, 那么.05em的大小的部位,就不到1px了,可能不会显示.这时用 max(.05em,1px) 就起作用了.让图标该部位至少为1px.<h5>content</h5><p>:before,:after伪类的属性,可以写入符号,可做文字类的图标.<p><i class=contentTxt></i><pre class=bg-gray-lt>
 content: 'OK!';
 </pre><br><h5>border</h5><p>设置了4条边,为每一条边设置了颜色.</p><i class=borderdemo></i><pre class=bg-gray-lt>
 width: 60px;
@@ -50,8 +50,8 @@ border-color:#f35325 #81bc06 #05a6f0 #ffba08;
 border-style:solid;
 </pre><br><p>如果把盒子高度宽度设置为0,border不变,那么看起来就像4个三角形拼接成一个正方形.或者认为4个边框挤在一起了.<div class="borderdemo borderdemo-1"></div><p>如果以盒模型的4边为为这4个三角形的底边,那么底边上的高就是该边的border-width值.<p>例如: border-top-width:30px,那么上边为底顶点朝下的三角形高就是30px.顶点的水平位置受左右两边影响,如果border-left/right-width相同,那么就是等腰三角形.<p>为每个边设置不同的width值,可以形成不同的三角形.比如等边,等腰等.<div class=grids><div class="borderdemo borderdemo-1 borderdemo-2"></div><div class="borderdemo borderdemo-1 borderdemo-3"></div></div><br><p>将1边或者2边设为0,或者none<div class=grids><div class="borderdemo borderdemo-1 borderdemo-4"></div><div class="borderdemo borderdemo-1 borderdemo-5"></div></div><br><p>如果将2边设置为0,那么不能同时是上/下或者左/右两边.可想而知,上/下两边的三角形的高度之和,其实是盒模型(width,height为0情况)的高度,如果这2边框高度也为0,那么盒模型高度为0,于是不会显示.左右2边同理.<p>只需要上边的三角形,不需要下边和左右2边,那么可以将下边设为none,左右2边的颜色透明.<div class="borderdemo borderdemo-1 borderdemo-6"></div><br><h5>border-radius</h5><p>边框圆角效果,设置圆角border-radius:50% 50%,图案像一个游泳圈.三角形成了扇形.</p><i class=borderdemo style="border-radius:20% 20% 20% 20%"></i> <i class="borderdemo mg-l-10" style="border-radius:50% 50%"></i> <i class="borderdemo1 mg-l-10" style="border-radius:50% 50%;border-color:#f35325 #81bc06 #05a6f0 #ffba08"></i> <i class="borderdemo1 mg-l-10" style="border-radius:50% 50%;border-color:#f35325 transparent #05a6f0 transparent"></i> <i class="borderdemo1 mg-l-10" style="border-radius:50% 50%;border-color:transparent #81bc06 transparent #ffba08"></i> <p>来自MDN的解释: CSS 属性 border-radius 允许你设置元素的外边框圆角.当使用一个半径时确定一个圆形,当使用两个半径时确定一个椭圆.这个(椭)圆与边框的交集形成圆角效果.<p><a href=/wz/study/borderradius.html target=_blank>border-radius理解</a><p>可以画出圆或者椭圆的效果<h5>transform</h5><p>旋转角度,作为一个搭配规则非常有用.比如要做一个黑白半球,把边框图案旋转45度看下效果.</p><i class=borderdemo1 style="border-color:#ccc #ccc #333 #333;border-radius:50%"></i> <i class="borderdemo1 mg-l-10" style="border-color:#ccc #ccc #333 #333;border-radius:50%;transform:rotate(45deg)"></i><pre class=bg-gray-lt>
 border-color: #ccc #ccc #333 #333;
-  border-radius: 50%;
-  transform: rotate(45deg)
+border-radius: 50%;
+transform: rotate(45deg)
 </pre><br><p>rotate变换,是基于一个坐标系旋转.transform-origin:x y 这个规则可以设定旋转点位子.具体参考五角星图标说明.<p>常用的还有平移 transform:translate(left,top),可以让盒模型离开原来的位置,可以结合绝对定位使用.<div class=transform-1><span class=transform-2></span> <span class=transform-3></span></div><p>上图是平移法实现居中,分2步实现.<p>先设置left和top都是50%,此时绿色方块的左上角位于容器的中心.但没居中,需要减去方块width和height的一半.<p>用translate(-50%,-50%)正好实现.它的-50%参照的就是绿色方块的with和height.于是,省掉了计算的麻烦.<pre class=bg-gray-lt>
 position: absolute;
 left: 50%;

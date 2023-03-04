@@ -28,11 +28,11 @@ hy = hlen * Math.cos(hyAngle) / 2;
   26.2% 57.7%
 </pre><br><p><i class="i-a-lighting fs100"></i><p>完整样式<pre class=bg-gray-lt>
 .i-a-lighting
-&:before
-    top: 0
-    left: 0
-    width: 1em
-    height: 1em
-    background-color: currentColor
-    clip-path: polygon(65.5% 2.4%,50.0% 42.3%,73.8% 42.3%,34.5% 97.6%,50.0% 57.7%,26.2% 57.7%)
+    &:before
+        top: 0
+        left: 0
+        width: 1em
+        height: 1em
+        background-color: currentColor
+        clip-path: polygon(65.5% 2.4%,50.0% 42.3%,73.8% 42.3%,34.5% 97.6%,50.0% 57.7%,26.2% 57.7%)
 </pre><script>(n=>{function i(){let f=n.cavlib("canva1").style(),i=f.ctx,u=200,e=200;i.canvas.width=i.canvas.height=u;i.font="18px serial";f.xyAxis();i.strokeStyle="red";i.translate(u/2,e/2);let o=u/2,s=e,h=Math.PI/10,c=Math.PI/10;i.strokeStyle="green";let r=t(i,0,0,o,s,h,c);i.fillStyle="#d9ad3c8a";i.fill();i.beginPath();i.fillStyle="brown";i.fillText("M",r[1][0]+10,r[1][1]-5);i.fillText("N",r[4][0]-25,r[4][1]+20);i.fillStyle="blue";i.fillText("A",r[0][0]+10,r[0][1]+10);i.fillText("C",r[3][0]-15,r[3][1]);i.fillStyle="red";i.fillText("B",r[2][0]+10,r[2][1]+10);i.fillText("D",r[5][0]-15,r[5][1]+10);i.beginPath();i.moveTo(r[0][0],r[0][1]);i.lineTo(r[3][0],r[3][1]);i.strokeStyle="blue";i.stroke();i.beginPath();i.moveTo(r[2][0],r[2][1]);i.lineTo(r[5][0],r[5][1]);i.strokeStyle="red";i.stroke()}function r(){let r=150,f=150,u=[{cavid:"canva2",w:30,h:150,wxAngle:Math.PI/3,hyAngle:0},{cavid:"canva3",w:30,h:150,wxAngle:0,hyAngle:Math.PI/3},{cavid:"canva4",w:30,h:150,wxAngle:0,hyAngle:0},{cavid:"canva5",w:30,h:150,wxAngle:Math.PI/4,hyAngle:Math.PI/4},{cavid:"canva6",w:30,h:150,wxAngle:Math.PI/3,hyAngle:Math.PI/3},{cavid:"canva7",w:150,h:150,wxAngle:Math.PI/6,hyAngle:Math.PI/18},{cavid:"canva8",w:75,h:150,wxAngle:Math.PI/10,hyAngle:Math.PI/10}];for(var i=0,e=u.length;i<e;i++){let e=u[i],s=n.cavlib(e.cavid).style(),o=s.ctx;o.canvas.width=o.canvas.height=r;s.xyAxis();t(o,r/2,f/2,e.w,e.h,e.wxAngle,e.hyAngle);o.fillStyle="orange";o.fill()}}function t(n,t,i,r,u,f,e){let c=r*Math.cos(f)/2,o=r*Math.sin(f)/2,l=u*Math.sin(e)/2,a=u*Math.cos(e)/2,s=[[l,-a],[0,-o],[c,-o],[-l,a],[0,o],[-c,o]];n.save();n.translate(t,i);n.beginPath();for(var h=0,v=s.length;h<v;h++){let t=s[h];n.lineTo(t[0],t[1])}return n.closePath(),n.stroke(),n.restore(),s}i();r()})(window)</script></div>

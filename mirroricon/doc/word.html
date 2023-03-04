@@ -25,25 +25,25 @@
 // (60*25%,50*100%) = (15px, 50px)
 </pre><br><p><i class="i-a-word fs100"></i><p>完整样式<pre class=bg-gray-lt>
 .i-a-word
-&:before
-    top: .1em
-    left: .05em
-    width: .54em
-    // width * 5/6
-    height: .45em
-    background-color: currentColor
-    clip-path: polygon(0% 0%,25% 100%,41% 100%,
-                      50% 32%,59% 100%,75% 100%,
-                      100% 0%,84% 0%,67% 68%,
-                      58% 0%,42% 0%,33% 68%,
-                      16% 0%)
+    &:before
+        top: .1em
+        left: .05em
+        width: .54em
+        // width * 5/6
+        height: .45em
+        background-color: currentColor
+        clip-path: polygon(0% 0%,25% 100%,41% 100%,
+                          50% 32%,59% 100%,75% 100%,
+                          100% 0%,84% 0%,67% 68%,
+                          58% 0%,42% 0%,33% 68%,
+                          16% 0%)
 
-&:after
-    top: 0
-    left: 0
-    width: .3em
-    height: .08em
-    box-shadow: .6em 0.10em,.6em 0.28em,.6em 0.46em,
-                .1em 0.64em,.35em 0.64em,.6em 0.64em,
-                .1em 0.82em,.35em 0.82em,.6em 0.82em
+    &:after
+        top: 0
+        left: 0
+        width: .3em
+        height: .08em
+        box-shadow: .6em 0.10em,.6em 0.28em,.6em 0.46em,
+                    .1em 0.64em,.35em 0.64em,.6em 0.64em,
+                    .1em 0.82em,.35em 0.82em,.6em 0.82em
 </pre><script>(n=>{function t(){var r,o;let s=n.cavlib("canva1").style(),t=s.ctx,h=300;t.canvas.width=t.canvas.height=h;t.font="18px serial";s.xyAxis();t.translate(h/2,150);t.strokeStyle="green";let u=240,f=200;t.beginPath();t.rect(-u/2,-f/2,u,f);t.stroke();let i=10,e=[[0,0],[25,100],[25+i,100],[50,2*i],[75-i,100],[75,100],[100,0],[100-i,0],[75-i/2,100-2*i],[50+i/2,0],[50-i/2,0],[25+i/2,100-2*i],[i,0]];for(t.save(),t.translate(-u/2,-f/2),t.beginPath(),r=0,o=e.length;r<o;r++){let n=e[r];t.lineTo(u*n[0]/100,f*n[1]/100)}for(t.strokeStyle="red",t.closePath(),t.stroke(),t.fillStyle="skyblue",t.fill(),t.restore(),t.save(),t.fillStyle="blue",t.translate(-u/2,-f/2),r=0,o=e.length;r<o;r++){let n=e[r];t.fillText(r+1,u*n[0]/100-10,f*n[1]/100)}t.restore()}t()})(window)</script></div>

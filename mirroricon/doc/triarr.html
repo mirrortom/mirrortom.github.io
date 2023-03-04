@@ -12,19 +12,19 @@ width: 0;
   border-bottom: none;
 </pre><br><p>方向向下(bottom)的三角形箭头,需要的是top边框,并且要去掉bottom边框,这是个规律.据此画出其它3个方向的.<p>但是,只画一个方向的,其它3个方向的旋转90度得到,更加方便.<p><i class="triarrdemo top text-black-lt"></i> <i class="triarrdemo left text-black-lt"></i> <i class="triarrdemo right text-black-lt"></i><p>由于边长是 L,高是 sin60 * L,所以三角形所在的盒模型是一个长方形.需要对齐位置.<p>最后,三角形使用:before,图标容器使用flex布局,居中对齐.免去居中计算位置的麻烦.<div class=grids style=font-size:0><div class=bg-warning-lt><i class="triarrdemo top margin-tb text-black-lt"></i></div><i class=mg-lr-20></i><div class=bg-warning-lt><i class="triarrdemo left margin-lr text-black-lt"></i></div></div><br><p><i class="i-f-triarr fs100"></i> <i class="i-f-triarr down fs100"></i> <i class="i-f-triarr left fs100"></i> <i class="i-f-triarr right fs100"></i><p>完整样式<pre class=bg-gray-lt>
 .i-f-triarr
-&:before
-    width: 0
-    height: 0
-    border: .5em solid transparent
-    border-bottom: .866em solid currentColor
-    border-top: none
+    &:before
+        width: 0
+        height: 0
+        border: .5em solid transparent
+        border-bottom: .866em solid currentColor
+        border-top: none
 
-&.down:before
-    transform: rotate(180deg)
+    &.down:before
+        transform: rotate(180deg)
 
-&.left:before
-    transform: rotate(-90deg)
+    &.left:before
+        transform: rotate(-90deg)
 
-&.right:before
-    transform: rotate(90deg)
+    &.right:before
+        transform: rotate(90deg)
 </pre></div>

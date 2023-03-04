@@ -2,24 +2,24 @@
 &lt;i class="<b>ico ico-map</b>">&lt;/i>
 </pre><br><p>地图图标的外形看起来是一个圆加上一个尖角.很像一种算角度的工具,那种带有刻度的圆环,环外面有个可以滑动的尖角.<p>开始研究时认为是一种菱形或者正方形的内接圆,加上相切的两边的那个顶角组成.<p>下图菱形的内切圆(蓝色)和下方顶角两边(红色)组成的形状.<div class=grids><div><canvas id=canva1></canvas></div><div class=mg-l-15><canvas id=canva2></canvas></div></div><br><p>后来发现,一个等边三角形内接圆和一个角组成的图形更接近.<p>内接圆(蓝色)和三角形KAH组成的图形.外侧大三角形是等边三角形.<p>为方便分析,下图等边三角形一边与X轴平行,与此边平行的中线(KH),位于X轴上,坐标原点是该中线中点(E).</p><canvas id=canva3></canvas><br><p>那么,在css实现时,就是一个圆(蓝色)和一个三角形(KAH)的拼合形状.<p>需要计算的有,圆半径(OK),三角形的底(KH)和高(AE),圆的圆心和三角形的底的距离(OE).<p>先确定图标高度,图标的高度是从C点到A点,而CA就是外侧三角形的高.这个高度不能超过1em,即图标的高.<p>所以, CA <= 1em<p>由于等边三角形特点,内接圆的圆心正好位于高的2/3处(从顶角到底边方向).而且,切点正是3边的中点.<p>故: OK = OC = CA * 1/3<p>在三角形OKE里,角OKE为30度,故: KE = OK * cos30 ,而KH是中线,E是中点,故: KH = 2 * KE<p>而 OE = OK * sin30 = OK * 1/2 ,OK = OJ. 故: OE = EJ, E是OJ中点.<p>由于 AE= EJ + AJ,而: OE = EJ, 又 OC = OJ = AJ是三等分,且 OC = OK.最后得出:<p>AE = EJ + AJ = OE + OC = EC = CA / 2<p>还有三角形KAH的top定位值,从图的C点到A点容易看出: top = 圆top + OC + OE = 圆top + AE<p>调整后,高度取了.84em,图标上下留出0.08em空间.<p><i class="i-a-map fs100"></i><p>完整样式<pre class=bg-gray-lt>
 .i-a-map
-&:before,&:after
-    left: 50%
-    transform: translateX(-50%)
+    &:before,&:after
+        left: 50%
+        transform: translateX(-50%)
 
-&:before
-    top: .08em
-    // 2 * h / 3
-    width: .56em
-    height: .56em
-    border-radius: 50%
-    background-image: radial-gradient(transparent 18%,currentColor 20%)
+    &:before
+        top: .08em
+        // 2 * h / 3
+        width: .56em
+        height: .56em
+        border-radius: 50%
+        background-image: radial-gradient(transparent 18%,currentColor 20%)
 
-&:after
-    // .08 + h / 2
-    top: .5em
-    border-style: solid
-    border-color: currentColor transparent transparent
-    // 高: h/2 ,底(半): cos30*h/3
-    border-width: .42em .242em 0
-    border-bottom: none
+    &:after
+        // .08 + h / 2
+        top: .5em
+        border-style: solid
+        border-color: currentColor transparent transparent
+        // 高: h/2 ,底(半): cos30*h/3
+        border-width: .42em .242em 0
+        border-bottom: none
 </pre><br><script>(n=>{function t(){let o=n.cavlib("canva1").style(),t=o.ctx,s=80,h=150;t.canvas.width=s;t.canvas.height=h;t.font="18px serial";o.xyAxis();t.translate(s/2,h/2);let i=60,f=2*i,r=[[0,-f/2],[i/2,0],[0,f/2],[-i/2,0]];t.beginPath();for(var u=0;u<r.length;u++)t.lineTo(r[u][0],r[u][1]);t.closePath();t.stroke();let e=i/Math.sqrt(5);t.beginPath();t.arc(0,0,e,0,Math.PI*2);t.strokeStyle="blue";t.stroke();let c=Math.atan(i/f),l=Math.cos(c)*e,a=Math.sin(c)*e;t.beginPath();t.moveTo(-l,a);t.lineTo(r[2][0],r[2][1]);t.lineTo(l,a);t.strokeStyle="red";t.stroke()}function i(){let o=n.cavlib("canva2").style(),t=o.ctx,u=150;t.canvas.width=u;t.canvas.height=u;t.font="18px serial";o.xyAxis();t.translate(u/2,u/2);let i=120,r=[[0,-i/2],[i/2,0],[0,i/2],[-i/2,0]];t.beginPath();for(var f=0;f<r.length;f++)t.lineTo(r[f][0],r[f][1]);t.closePath();t.stroke();let h=i/Math.sqrt(2)/2;t.beginPath();t.arc(0,0,h,0,Math.PI*2);t.strokeStyle="blue";t.stroke();let e=i/4,s=e;t.beginPath();t.moveTo(-e,s);t.lineTo(r[2][0],r[2][1]);t.lineTo(e,s);t.strokeStyle="red";t.stroke()}function r(){let s=n.cavlib("canva3").style(),t=s.ctx,h=200;t.canvas.width=t.canvas.height=h;t.font="18px serial";s.xyAxis();t.translate(h/2,100);let i=150,r=i/Math.cos(Math.PI/6),u=[[r/2,-i/2],[-r/2,-i/2],[0,i/2]],o=0,f=-i/6,c=i/3;t.beginPath();for(var e=0,l=u.length;e<l;e++)t.lineTo(u[e][0],u[e][1]);t.closePath();t.stroke();t.beginPath();t.arc(o,f,6,0,Math.PI*2);t.fillStyle="red";t.fill();t.beginPath();t.arc(o,f,c,0,Math.PI*2);t.strokeStyle="blue";t.stroke();t.beginPath();t.moveTo(r/4,0);t.lineTo(o,f);t.lineTo(-r/4,0);t.strokeStyle="green";t.stroke();t.beginPath();t.fillStyle="blue";t.fillText("O",5,f);t.fillText("A",u[2][0]+5,u[2][1]+5);t.fillText("C",5,u[0][1]-5);t.fillStyle="green";t.fillText("H",r/4+5,18);t.fillText("k",-r/4-15,18);t.fillText("E",5,-2);t.fillText("J",5,c-5)}t();i();r()})(window)</script></div>

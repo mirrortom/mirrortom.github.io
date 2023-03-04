@@ -22,23 +22,23 @@
 // (60*45%,60*50%) = (27px, 30px)
 </pre><br><p><i class="i-a-excel fs100"></i><p>完整样式<pre class=bg-gray-lt>
 .i-a-excel
-&:before
-    top: .1em
-    left: .1em
-    width: .45em
-    height: .45em
-    background-color: currentColor
-    clip-path: polygon(0% 0%,35% 50%,0% 100%,
-                      30% 100%,50% 65%,70% 100%,
-                      100% 100%,65% 50%,100% 0%,
-                      70% 0%,50% 35%,30% 0%)
+    &:before
+        top: .1em
+        left: .1em
+        width: .45em
+        height: .45em
+        background-color: currentColor
+        clip-path: polygon(0% 0%,35% 50%,0% 100%,
+                          30% 100%,50% 65%,70% 100%,
+                          100% 100%,65% 50%,100% 0%,
+                          70% 0%,50% 35%,30% 0%)
 
-&:after
-    top: 0
-    left: 0
-    width: .2em
-    height: .1em
-    box-shadow: .7em 0.08em,.7em 0.26em,.7em 0.44em,
-                .1em 0.62em,.4em 0.62em,.7em 0.62em,
-                .1em 0.80em,.4em 0.80em,.7em 0.80em
+    &:after
+        top: 0
+        left: 0
+        width: .2em
+        height: .1em
+        box-shadow: .7em 0.08em,.7em 0.26em,.7em 0.44em,
+                    .1em 0.62em,.4em 0.62em,.7em 0.62em,
+                    .1em 0.80em,.4em 0.80em,.7em 0.80em
 </pre><script>(n=>{function t(){var i,o;let s=n.cavlib("canva1").style(),t=s.ctx,h=300;t.canvas.width=t.canvas.height=h;t.font="18px serial";s.xyAxis();t.translate(h/2,150);t.strokeStyle="green";let u=200,f=200;t.beginPath();t.rect(-u/2,-f/2,u,f);t.stroke();let r=16,e=[[0,0],[50-r/2,50],[0,100],[r,100],[50,50+r/2],[100-r,100],[100,100],[50+r/2,50],[100,0],[100-r,0],[50,50-r/2],[r,0]];for(t.save(),t.translate(-u/2,-f/2),t.beginPath(),i=0,o=e.length;i<o;i++){let n=e[i];t.lineTo(u*n[0]/100,f*n[1]/100)}for(t.strokeStyle="blue",t.closePath(),t.stroke(),t.fillStyle="green",t.fill(),t.restore(),t.save(),t.fillStyle="blue",t.translate(-u/2,-f/2),i=0,o=e.length;i<o;i++){let n=e[i];t.fillText(i+1,u*n[0]/100-10,f*n[1]/100)}t.restore()}t()})(window)</script></div>
