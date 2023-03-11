@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1.0,user-scalable=no"><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><title>razor服务 | Mirror Space</title><link href=/mirrorui/mirrorui.css rel=stylesheet><link href=/mirroricon/mirroricon.css rel=stylesheet><link href=/asset/css/blog.css rel=stylesheet><div class=layout><div class=layout-part1></div><div class="layout-part2 layout-doc"><div id=page_content><h1 class=text-center>RazorService</h1><p><small>更新:2023/3/4 建立: 2023/2/20</small><p>(github) <a href=https://github.com/mirrortom/razorservice target=_blank>https://github.com/mirrortom/razorservice</a><h2>参考项目</h2><p>RazorEngineCore <a href=https://github.com/adoconnection/RazorEngineCore target=_blank>https://github.com/adoconnection/RazorEngineCore</a><p>参考项目RazorEngineCore,是一个.netcore版本的实现.基于新版本.NET 6.0,使用的基础库是:<ul class="list cir"><li><b>Microsoft.AspNetCore.Razor.Language</b> Razor语言处理,生成Razor C#代码<li><b>Microsoft.CodeAnalysis.CSharp</b> Roslyn编译工具,编译c#代码</ul><h2>概述</h2><p>razor是asp.net提供的一项功能,可以在html中写入c#程序,成为一个扩展名是cshtml或者razor的文件,在浏览时,服务端解析razor文件并发回最终的html文档.<p>在asp.net项目以外,例如控制台程序中,也可以使用这种功能,使用第3方实现的库.比较早出现的,功能也比较全面的库是 <a href=https://github.com/Antaris/RazorEngine target=_blank>https://github.com/Antaris/RazorEngine</a> ,在.net framework时代就已经有了.Asp.net的Razor基本功能,这个库都实现了.<h2>Razor执行过程</h2><p>通过学习RazorEngineCore项目,了解到Razor功能的实现过程,可以分为4个阶段:<ul class="list num"><li><b>Razor源码</b> : 一般是含有c#代码的html文本,也可以是其它格式的源码文件,只要其中的c#代码是合法的Razor语法.<li><b>C#源码</b> : Microsoft.AspNetCore.Razor.Language库的相关API将读取Razor源码,将其转化为C#代码,一个Razor源文件会处理成为一个C#类源文件.<li><b>Dll程序集</b> : Microsoft.CodeAnalysis.CSharp库的相关API将读取C#源码,编译成一个Dll文件,得到的是一个含有该C#类的程序集.<li><b>html文本</b> : 调用这个程序集的方法就得到了最终的html文本.</ul><h6>生成cs源码相关的类</h6><ul class="list cir"><li><b>RazorSourceDocument</b><li><b>RazorProjectEngine</b><li><b>RazorCodeDocument</b><li><b>RazorCSharpDocument</b></ul><pre class=bg-gray-lt>
+<!DOCTYPE html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1.0,user-scalable=no"><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><title>razor服务 | Mirror Space</title><link href=/mirrorui/mirrorui.css rel=stylesheet><link href=/mirroricon/mirroricon.css rel=stylesheet><link href=/asset/css/blog.css rel=stylesheet><div class=layout><div class=layout-part1></div><div class="layout-part2 layout-doc"><div id=page_content><h1 class=text-center>RazorService</h1><p><small>更新:2023/3/11 建立: 2023/2/20</small><p>(github) <a href=https://github.com/mirrortom/razorservice target=_blank>https://github.com/mirrortom/razorservice</a><h2>参考项目</h2><p>RazorEngineCore <a href=https://github.com/adoconnection/RazorEngineCore target=_blank>https://github.com/adoconnection/RazorEngineCore</a><p>参考项目RazorEngineCore,是一个.netcore版本的实现.基于新版本.NET 6.0,使用的基础库是:<ul class="list cir"><li><b>Microsoft.AspNetCore.Razor.Language</b> Razor语言处理,生成Razor C#代码<li><b>Microsoft.CodeAnalysis.CSharp</b> Roslyn编译工具,编译c#代码</ul><h2>概述</h2><p>razor是asp.net提供的一项功能,可以在html中写入c#程序,成为一个扩展名是cshtml或者razor的文件,在浏览时,服务端解析razor文件并发回最终的html文档.<p>在asp.net项目以外,例如控制台程序中,也可以使用这种功能,使用第3方实现的库.比较早出现的,功能也比较全面的库是 <a href=https://github.com/Antaris/RazorEngine target=_blank>https://github.com/Antaris/RazorEngine</a> ,在.net framework时代就已经有了.Asp.net的Razor基本功能,这个库都实现了.<h2>Razor执行过程</h2><p>通过学习RazorEngineCore项目,了解到Razor功能的实现过程,可以分为4个阶段:<ul class="list num"><li><b>Razor源码</b> : 一般是含有c#代码的html文本,也可以是其它格式的源码文件,只要其中的c#代码是合法的Razor语法.<li><b>C#源码</b> : Microsoft.AspNetCore.Razor.Language库的相关API将读取Razor源码,将其转化为C#代码,一个Razor源文件会处理成为一个C#类源文件.<li><b>Dll程序集</b> : Microsoft.CodeAnalysis.CSharp库的相关API将读取C#源码,编译成一个Dll文件,得到的是一个含有该C#类的程序集.<li><b>html文本</b> : 调用这个程序集的方法就得到了最终的html文本.</ul><h6>生成cs源码相关的类</h6><ul class="list cir"><li><b>RazorSourceDocument</b><li><b>RazorProjectEngine</b><li><b>RazorCodeDocument</b><li><b>RazorCSharpDocument</b></ul><pre class=bg-gray-lt>
 // Step1,将razor源代码包装为RazorSourceDocument对象.
 // 使用RazorSourceDocument.Create(content,fileName)静态方法
 // content是razor源代码,文件名字可以随机
@@ -53,8 +53,8 @@ var assembly = Assembly.Load(assemblyBytes);
 var type = assembly.GetType("RazorService.Template");
 var instance = Activator.CreateInstance(type) as TemplateBase;
 instance.ExecuteAsync();
-</pre><p>程序集里的类和方法是Template.ExecuteAsync() 这和生成的CS代码相关.<h2>Razor生成的CS代码</h2><p>Razor将源码生成为CS代码示例如下<pre class=bg-gray-lt>
-// razor语法代码
+</pre><p>程序集里的类和方法是Template.ExecuteAsync() 这和生成的CS代码相关.<h2>Razor生成的CS代码</h2><p>Razor源代码生成为CS代码示例如下<pre class=bg-gray-lt>
+// razor语法源代码
 string razortxt="&lt;div>@DateTime.Now.ToString()&lt;/div>";
 
 // 生成的cs代码
@@ -100,7 +100,7 @@ public abstract class TemplateBase
     public string Body { get; set; } = string.Empty;
     // 字典数据
     public dynamic ViewBag { get; set; } = new ExpandoObject();
-    // 数据实体类
+    // 数据实体类 使用dynamic可以支持强类型和动态类型
     public dynamic Model { get; set; } = null;
     // 节定义
     public void DefineSection(string key, Action action)
@@ -110,7 +110,28 @@ public abstract class TemplateBase
     public string Include(string path)
     ...
 }
-</pre><p>目前RazorServicer项目实现了这几个基本功能,用于基本的html文本生成和其它模板生成.<h2>RazorService程序</h2><h6>类设计</h6><ul class="list square"><li><b>RazorServe</b> 主要的运行处理方法<li><b>RazorHelp</b> 编译和生成<li><b>TemplateBase</b> Template基类<li><b>RazorCache</b> 缓存处理<li>Cfg 配置类<li>Helper 其它辅助方法</ul><h4>运行过程</h4><h6>1. 读取Razor源码</h6><p>从调用RazorService.Run(path)开始,读取Razor源文件.重载RunTxt(content),读取Razor文本.<p>对于文件路径参数,默认cshtml扩展名,可以只写文件名字,将从指定的razor目录搜索文件.也可以是全路径名字,没找到文件将报错.<h6>2. 生成cs源码</h6><p>将从内存缓存查找,再从文件缓存目录查找,否则生成新的cs源码.首次生成的cs源码会加入缓存.<h6>3. 生成dll</h6><p>同上,从缓存查找,否则编译新的dll程序集.编译是最费时间的步骤,所以要建立缓存.<h6>4. 执行得到结果</h6><p>使用反射取得类和方法执行,得到文本结果.如果模板是单一的,没有使用layout和include或者section,那么只需要执行一次就得到结果了.这是最简单的情况,一个razor页生成一个Template类.<p>如果主模板使用了layout/Include和section,那么,layout和include引用的页面就会再次生成,这些模板其实也是一个独立的razor文件,所以会生成对应的Template类.最后,主模板引用到的所有其它页都生成后,将结果拼装到最终的输出页面,就是layout页面.<p>所谓的layout/include的实现,其实就是多个Template类的执行结果的组合而已.<h4>更多方法</h4><p>@Html.Raw(),这个在Asp.Net MVC中经常用到,用于在页面上原样输出html标记.<p>使用了简单的实现办法,添加一个类HtmlExt,包含Raw()方法,然后在模板基类里加入这个类的引用,这样就实现了.<pre class=bg-gray-lt>
+</pre><p>目前RazorServicer项目实现了这几个基本功能,用于基本的html文本生成和其它使用razor语法的文本生成.<h2>RazorService程序</h2><h6>类设计</h6><ul class="list square"><li><b>RazorServe</b> 主要的运行处理方法,Run() , RunTxt()<li>RazorCfg 配置类,所有配置从这里设定和执行<li><b>RazorCompile</b> 源文件解析和编译<li>RazorCache 缓存服务<li><b>TemplateBase</b> Template基类<li>Helper 给TemplateBase扩展辅助方法,比如@Html.Raw()</ul><h4>运行过程</h4><h6>1. 读取Razor源码</h6><p>从调用RazorServe.Run(path)开始,读取Razor源文件.重载RunTxt(content),读取Razor文本.<p>对于文件路径参数,默认cshtml扩展名,可以只写文件名字,将从程序运行目录和指定的razor目录搜索文件.也可以是全路径名字,没找到文件将报错.<pre class=bg-gray-lt>
+RazorCfg.AddSearchDirs("razorFiles");
+RazorCfg.StartTimer();
+// razor文件路径
+string main = "main";
+// 实体类
+PersonEntity model = new()
+{
+    Id = 1,
+    Name = "mirror",
+    Description = "software worker",
+    Money = 10
+};
+// 实体类2
+dynamic model2=new ExpandoObject();
+model2.Id = 1001;
+model2.Name = "anne";
+model2.Description = "data engineer";
+model2.Money = 50;
+// 结果
+string html = RazorServe.Run(main, model);
+</pre><h6>2. 生成cs源码</h6><p>将从内存缓存查找,再从文件缓存目录查找,否则生成新的cs源码.首次生成的cs源码会加入缓存.<h6>3. 生成dll</h6><p>同上,从缓存查找,否则编译新的dll程序集.编译是最费时间的步骤,所以要建立缓存.<h6>4. 执行得到结果</h6><p>使用反射取得类和方法执行,得到文本结果.如果模板是单一的,没有使用layout和include或者section,那么只需要执行一次就得到结果了.这是最简单的情况,一个razor页生成一个Template类.<p>如果主模板使用了layout/Include和section,那么,layout和include引用的页面就会再次生成,这些模板其实也是一个独立的razor文件,所以会生成对应的Template类.最后,主模板引用到的所有其它页都生成后,将结果拼装到最终的输出页面,就是layout页面.<p>所谓的layout/include的实现,其实就是多个Template类的执行结果的组合而已.<h4>更多方法</h4><p>@Html.Raw(),这个在Asp.Net MVC中经常用到,用于在页面上原样输出html标记.<p>使用了简单的实现办法,添加一个类HtmlExt,包含Raw()方法,然后在模板基类里加入这个类的引用,这样就实现了.<pre class=bg-gray-lt>
 public abstract class TemplateBase
 {
     public readonly HtmlExt Html = new();
@@ -123,4 +144,20 @@ public class HtmlExt
         return HttpUtility.HtmlEncode(htmlTxt);
     }
 }
+</pre><h4>主要配置</h4><pre class=bg-gray-lt>
+// 设置razor文件的查询目录. 默认程序运行目录
+RazorCfg.AddSearchDirs("razorFilesDir1","razorFilesDir2"...);
+
+// 设置缓存文件目录. 默认运行目录下的RazorTemplateCache目录
+RazorCfg.CacheDir = "RazorTemplateCache";
+
+// 内存缓存过期分钟数. 默认120分钟
+RazorCfg.DeadMinutes= 120;
+
+// 文件缓存过期天数. 默认10天,超时不访问将删除
+RazorCfg.DeadDays = 10;
+
+// 清理文件缓存的定时器.开启/关闭.默认是关闭的,不清理文件缓存.
+RazorCfg.StartTimer();
+RazorCfg.StopTimer();
 </pre><br><hr class=line><br></div><div class=nav-page-inside><h6 class=text-center>本文内容</h6><div class=layout-v id=navOfInPage></div></div></div></div><script src=/asset/js/mainmenu.js></script><script src=/asset/js/navinpage.js></script>
