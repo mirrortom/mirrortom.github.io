@@ -1,25 +1,18 @@
-<div class=doc-page><h2>列表</h2><p># 使用ul,ol标记,加list类. &lt;ul class="list"> &lt;ol class="list"><p class=text-in>根据原有的ul,ol的样式,稍微调整了li的padding上下.在嵌套时的padding左.另外,加了数值和字母序列<div class=grids><ul class="list pd-lr-50"><li>主食<ul class=list><li>面包<li>米饭<li>馒头<li>玉米</ul><li>饮料<ul class=list><li>咖啡<li>白酒<li>可乐<li>果汁</ul></ul><ol class="list bg-gray-lt pd-lr-50"><li>水果<ol class="list cir primary"><li>香蕉<li>苹果<li>柚子<li>葡萄</ol><li>蔬菜<ol class="list cir success"><li>白菜<li>黄瓜<li>萝卜<li>莴笋</ol></ol><ol class="list num bg-warning-lt pd-lr-50"><li>畜<ol class="list square danger"><li>猪肉<li>牛肉<li>羊肉<li>鹿肉</ol><li>禽<ol class="list square info"><li>鸡肉<li>鹌鹑<li>鸭肉<li>鹅肉</ol></ol><ol class="list num bg-info-lt pd-lr-50"><li>餐具<ol class="list num"><li>碗<li>盘<li>筷<li>勺</ol><li>会员<ol class="list num"><li>普通<li>大户<li>资深<li>贵宾</ol></ol><ol class="list abc bg-success-lt pd-lr-50"><li>优惠<ol class="list abc"><li>50免5<li>会员<ol class="list abc"><li>普通,大户8折<li>资深7.5折<li>贵宾7折</ol></ol><li>优惠券<ol class="list abc"><li>酒10元<li>肉10元<li>免5元</ol></ol></div><br><p># 数值编号,字母编号样式<p class=text-in>嵌套的序列使用了css的 "counter-reset" "counter-increment" "counters()" 这三个属性和方法<pre class=bg-gray-lt>
-  // 方块 , 圆
-  &lt;ul class="list <strong>square</strong>">
-  &lt;ul class="list <strong>cir</strong>">
+﻿<div class=doc-page><h2>列表</h2><p>使用ul,ol标记,加list类.<p>根据原有的ul,ol的样式,稍微调整了li的上下padding.在嵌套时的padding-left.另外,加了数值和字母序列<p># 无序列表,包含4种风格,支持颜色主题<pre>
+&lt;ul class="<b>list</b>">
 
-  // 主题色
-  &lt;ul class="list <strong>primary</strong>">
+// 形状 方块,圆,三角形
+&lt;ul class="list <b>disc</b>">
+&lt;ul class="list <b>square</b>">
+&lt;ul class="list <b>cir</b>">
+&lt;ul class="list <b>triangle</b>">
+</pre><ul class="list cir pd-lr-10 mg-b-10"><li>面包<ul class="list square yellow"><li>白面包<li>黑面包</ul><li>米饭<ul class="list disc green"><li>大米<li>香米</ul><li>馒头<ul class="list triangle orange"><li>白面馒头<li>黄米窝头</ul></ul><p># 有序列表,3种风格,可选是否计算嵌套.不支持颜色主题.<pre>
+ &lt;ol class="list">
 
-  // 数值 , 字母
-  &lt;ul class="list <strong>num</strong>">
-  &lt;ul class="list <strong>abc</strong>">
-  
-  // 嵌套
-  &lt;li>
-    优惠券
-    &lt;ol class="list abc">
-      &lt;li>酒10元&lt;/li>
-      &lt;li>肉10元&lt;/li>
-      &lt;li>免5元&lt;/li>
-    &lt;/ol>
-  &lt;/li>
-
-  <b>注意:</b>嵌套的ul,ol,也要加上 class="list num|abc" 样式
-
-</pre></div>
+// 数值,大写字母,中文
+&lt;ol class="list <strong>num</strong>">
+&lt;ol class="list <strong>abc</strong>">
+&lt;ol class="list <strong>zh</strong>">
+// 要计算嵌套,在风格样式后加上s
+&lt;ol class="list <strong>nums</strong>">
+</pre><p class=text-sky-5>不计算嵌套,每个list都从新开始计数,可以多种风格一起使用<ol class="list num pd-lr-10 mg-b-10"><li>猪肉<ol class="list num"><li>猪排<li>猪脚</ol><li>牛肉<ol class="list abc"><li>牛排<li>牛肚</ol><li>羊肉<ol class="list zh"><li>羊排<li>羊腿</ol></ol><p class=text-sky-5>计算嵌套,从最外层的list开始计数,只能用同一风格,嵌套的list不必再加风格类<ol class="list nums pd-lr-10 mg-b-10"><li class=text-sky-5>VIP会员全部消费7折<li>普通会员9.5折<ol class=list><li>资深,8折<li>贵宾7.5折<ol class=list><li> 随机优惠券<ol class=list><li>5圆<li>20圆<li>50圆</ol></ol></ol></ol><p># 主题颜色作用在形状上.编号无效,如需要可以设置字体颜色</div>

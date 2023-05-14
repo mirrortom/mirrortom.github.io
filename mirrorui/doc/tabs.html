@@ -1,26 +1,18 @@
-<div class=doc-page><h2>标签页</h2><p>容器组件,选择标签卡,显示对应页面.<p>这次改成了自定义组件,删减了添加选项卡相关功能,简洁了样式,主要用于展示内容.<pre class=bg-gray-lt>
+﻿<div class=doc-page><h2>标签页</h2><p>容器组件,选择标签卡,显示对应页面.<p>自定义组件,删减了添加选项卡相关功能,简洁了样式,主要用于展示内容.<pre>
+&lt;m-tabs>&lt;/m-tabs>
+</pre><br><div class="bd bdr pd-20 mg-b-10"><m-tabs id=mytabs height=240px><div class=tabs-header><span class=tabs-label>苏轼</span> <span class=tabs-label>陆游</span> <span class=tabs-label>李清照</span> <span class=tabs-label>毛泽东</span></div><div class=tabs-content><div class=tabs-panel><h5>饮湖上初晴后雨二首·其二</h5><p>水光潋滟晴方好<p>山色空蒙雨亦奇<p>欲把西湖比西子<p>淡妆浓抹总相宜</div><div class=tabs-panel><h5>卜算子 咏梅</h5><p>驿外断桥边,寂寞开无主<p>已是黄昏独自愁,更著风和雨<p>无意苦争春,一任群芳妒<p>零落成泥碾作尘,只有香如故</div><div class=tabs-panel><h5>一剪梅 红藕香残玉蕈秋</h5><p>红藕香残玉蕈秋,轻解罗裳,独上兰舟<p>云中谁寄锦书来,雁字回时,月满西楼<p>花自飘零水自流,一种相思,两处闲愁<p>此情无计可消除,才下眉头,却上心头</div><div class=tabs-panel><h5>浪淘沙 北戴河</h5><p>大雨落幽燕,白浪滔天,秦皇岛外打鱼船<p>一片汪洋都不见,知向谁边<p>往事越千年,魏武挥鞭,东临碣石有遗篇<p>萧瑟秋风今又是,换了人间</div></div></m-tabs></div><p># 标签方位<p class=text-in>设置样式类实现标签栏的位置和样式.<pre>
+// 标签栏位置
+&lt;m-tabs class="<b>left | right | bottom</b>" >&lt;/m-tabs>
 
-  &lt;m-tabs>&lt;/m-tabs>
-
-</pre><br><m-tabs id=mytabs height=240px><div class=tabs-header><span class=tabs-label>苏轼</span> <span class=tabs-label>陆游</span> <span class=tabs-label>李清照</span> <span class=tabs-label>毛泽东</span></div><div class=tabs-content><div class=tabs-panel><h5>饮湖上初晴后雨二首·其二</h5><p>水光潋滟晴方好<p>山色空蒙雨亦奇<p>欲把西湖比西子<p>淡妆浓抹总相宜</div><div class=tabs-panel><h5>卜算子 咏梅</h5><p>驿外断桥边,寂寞开无主<p>已是黄昏独自愁,更著风和雨<p>无意苦争春,一任群芳妒<p>零落成泥碾作尘,只有香如故</div><div class=tabs-panel><h5>一剪梅 红藕香残玉蕈秋</h5><p>红藕香残玉蕈秋,轻解罗裳,独上兰舟<p>云中谁寄锦书来,雁字回时,月满西楼<p>花自飘零水自流,一种相思,两处闲愁<p>此情无计可消除,才下眉头,却上心头</div><div class=tabs-panel><h5>浪淘沙 北戴河</h5><p>大雨落幽燕,白浪滔天,秦皇岛外打鱼船<p>一片汪洋都不见,知向谁边<p>往事越千年,魏武挥鞭,东临碣石有遗篇<p>萧瑟秋风今又是,换了人间</div></div></m-tabs><br><p># 标签方位和样式<p class=text-in>设置样式类实现标签栏的位置和样式.<pre class=bg-gray-lt>
+// 标签铺满整栏
+&lt;m-tabs class="<b>full</b>" >&lt;/m-tabs>
   
-  // 标签栏位置
-  &lt;m-tabs class="<b>left | right | bottom</b>" >&lt;/m-tabs>
-
-  // 标签铺满整栏
-  &lt;m-tabs class="<b>full</b>" >&lt;/m-tabs>
-  
-  // 主题色
-  &lt;m-tabs class="<b>primary | danger ...</b>" >&lt;/m-tabs>
-
-</pre><br><div><m-btn id=tabsdemo_none class=mg-5>初始</m-btn><m-btn id=tabsdemo_left class=mg-5>左侧</m-btn><m-btn id=tabsdemo_right class=mg-5>右侧</m-btn><m-btn id=tabsdemo_bottom class=mg-5>底部</m-btn><m-btn id=tabsdemo_full class=mg-5>标签均分整栏</m-btn><m-btn id=tabsdemo_theme themeindex=0 class=mg-5>主题色</m-btn></div><m-tabs id=mytabs2 height=200px><div class=tabs-header><span class=tabs-label>卓文君</span> <span class=tabs-label>上官婉儿</span> <span class=tabs-label>韩愈</span> <span class=tabs-label>秦观</span></div><div class=tabs-content><div class=tabs-panel><h5>白头吟</h5><p>皑如山上雪 皎若云间月 闻君有两意 故来相决绝,今日斗酒会 明旦沟水头 躞蹀御沟上 沟水东西流<p>凄凄复凄凄 嫁娶不须啼 愿得一心人 白头不相离,竹竿何袅袅 鱼尾何簁簁 男儿重意气 何用钱刀为</div><div class=tabs-panel><h5>彩书怨</h5><p>叶下洞庭初 思君万里余 露浓香被冷 月落锦屏虚<p>欲奏江南曲 贪封蓟北书 书中无别意 惟怅久离居</div><div class=tabs-panel><h5>春雪</h5><p>新年都未有芳华<p>二月初惊见草芽<p>白雪却嫌春色晚<p>故穿庭树作飞花</div><div class=tabs-panel><h5>鹊桥仙 纤云弄巧</h5><p>纤云弄巧 飞星传恨 银汉迢迢暗度 金风玉露一相逢 便胜却人间无数<p>柔情似水 佳期如梦 忍顾鹊桥归路 两情若是久长时 又岂在朝朝暮暮</div></div></m-tabs><br><p># dom属性<p class=text-in>height,css合法的height值.在m-tabs上设置容器高度,默认320px.内容超过高度时,出现竖直滚动条.<pre class=bg-gray-lt>
-
-  // 高度设置为200px
-  &lt;m-tabs height="200px" >&lt;/m-tabs>
-
-</pre><br><p># 方法<p class=text-in>激活标签,index:标签索引.<pre class=bg-gray-lt>
-
-  // 激活第一个标签
-  tabs.<b>activeTab(0)</b>
-
-</pre><script>(()=>{$("#mytabs")[0].activeTab(0),$("#mytabs2")[0].activeTab(0),$("#tabsdemo_none")[0].onclick=()=>{$("#mytabs2").removeClass("left","right","bottom","full","primary","success","danger","info","warning")},$("#tabsdemo_left,#tabsdemo_right,#tabsdemo_bottom").each(n=>{n.onclick=()=>{let t=$(n).prop("id").substr(9);$("#mytabs2").removeClass("left","right","bottom");$("#mytabs2").addClass(t)}}),$("#tabsdemo_full")[0].onclick=()=>{$("#mytabs2").hasClass("full")?$("#mytabs2").removeClass("full"):$("#mytabs2").addClass("full")},$("#tabsdemo_theme")[0].onclick=()=>{let t=["primary","success","danger","info","warning"],n=parseInt($("#tabsdemo_theme").prop("themeIndex"));t.forEach(n=>{$("#mytabs2").removeClass(n)});n+1>=t.length&&(n=-1);$("#mytabs2").addClass(t[n+1]);$("#tabsdemo_theme").prop("themeIndex",n+1)}})()</script></div>
+// 主题色
+&lt;m-tabs class="<b>red</b>" >&lt;/m-tabs>
+</pre><div class=mg-tb-20><m-btn id=tabsdemo_none class=mg-5>初始</m-btn><m-btn id=tabsdemo_left class="mg-5 bg-green-5">左侧</m-btn><m-btn id=tabsdemo_right class="mg-5 bg-green-4">右侧</m-btn><m-btn id=tabsdemo_bottom class="mg-5 bg-green-4">底部</m-btn><m-btn id=tabsdemo_full class="mg-5 bg-green-4">标签均分整栏</m-btn><m-btn id=tabsdemo_theme themeindex=0 class=mg-5>主题色</m-btn></div><div class="bd bdr pd-20"><m-tabs id=mytabs2 height=200px><div class=tabs-header><span class=tabs-label>卓文君</span> <span class=tabs-label>上官婉儿</span> <span class=tabs-label>韩愈</span> <span class=tabs-label>秦观</span></div><div class=tabs-content><div class=tabs-panel><h5>白头吟</h5><p>皑如山上雪 皎若云间月 闻君有两意 故来相决绝,今日斗酒会 明旦沟水头 躞蹀御沟上 沟水东西流<p>凄凄复凄凄 嫁娶不须啼 愿得一心人 白头不相离,竹竿何袅袅 鱼尾何簁簁 男儿重意气 何用钱刀为</div><div class=tabs-panel><h5>彩书怨</h5><p>叶下洞庭初 思君万里余 露浓香被冷 月落锦屏虚<p>欲奏江南曲 贪封蓟北书 书中无别意 惟怅久离居</div><div class=tabs-panel><h5>春雪</h5><p>新年都未有芳华<p>二月初惊见草芽<p>白雪却嫌春色晚<p>故穿庭树作飞花</div><div class=tabs-panel><h5>鹊桥仙 纤云弄巧</h5><p>纤云弄巧 飞星传恨 银汉迢迢暗度 金风玉露一相逢 便胜却人间无数<p>柔情似水 佳期如梦 忍顾鹊桥归路 两情若是久长时 又岂在朝朝暮暮</div></div></m-tabs></div><br><p># dom属性<p class=text-in>height,css合法的height值.在m-tabs上设置容器高度,默认320px.内容超过高度时,出现竖直滚动条.<pre>
+// height: 高度设置
+&lt;m-tabs height="200px" >&lt;/m-tabs>
+</pre><br><p># 方法<p class=text-in>激活标签,index:标签索引.<pre>
+// 激活第一个标签
+tabs.<b>activeTab(0)</b>
+</pre><script>(n=>{$("#mytabs")[0].activeTab(0),$("#mytabs2")[0].activeTab(0),$("#tabsdemo_none")[0].onclick=()=>{$("#mytabs2").removeClass("left","right","bottom","full","red","orange","yellow","green","sky","blue","purple","pink")},$("#tabsdemo_left,#tabsdemo_right,#tabsdemo_bottom").each(n=>{n.onclick=()=>{let t=$(n).prop("id").substr(9);$("#mytabs2").removeClass("left","right","bottom");$("#mytabs2").addClass(t)}}),$("#tabsdemo_full")[0].onclick=()=>{$("#mytabs2").hasClass("full")?$("#mytabs2").removeClass("full"):$("#mytabs2").addClass("full")},$("#tabsdemo_theme")[0].onclick=()=>{let i=n.themecolors,t=parseInt($("#tabsdemo_theme").prop("themeIndex"));if(i.forEach(n=>{$("#mytabs2").removeClass(n)}),t>=i.length){t=0;$("#tabsdemo_theme").prop("themeIndex",0).html("主题色");return}let r=i[t];$("#mytabs2").addClass(r);$("#tabsdemo_theme").prop("themeIndex",t+1).html("彩色"+r)}})(window)</script></div>

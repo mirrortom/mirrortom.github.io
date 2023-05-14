@@ -1,25 +1,23 @@
-<div class=doc-page><h2>范围滑块</h2><p>自定义滑动组件,比较常用的组件.<pre class=bg-gray-lt>
+﻿<div class=doc-page><h2>范围滑块</h2><p>自定义滑动组件,比较常用的组件.<div><m-range></m-range><m-range class=sky min=0 max=100 val=30></m-range></div><pre>
+&lt;m-range>&lt;/m-range>
+&lt;m-range id="range1" width="320" min="0" max="100" val="0">&lt;/m-range>
 
-  &lt;m-range id="range1" width="600" min="0" max="100" val="0">&lt;/m-range>
-  // dom属性,都可选
-  width: 滑动条的长度
-  min: 范围边界小值
-  max: 范围边界大值
-  val: 初始值
-          
-</pre><br><p># 绑定了鼠标事件和触摸事件,按住滑块按钮拖动改变滑块的值.<p>事件绑定在容器元素上,没用绑定在滑块按钮上,为了实现当鼠标不在按钮上时,也能触发滑动事件.</p><br><pre class=bg-gray-lt>
+// dom属性,都可选
+width: 滑动条的长度(320px)
+min: 范围边界小值(0)
+max: 范围边界大值(100)
+val: 初始值(0)
+</pre><br><p># 事件<p class=text-in>绑定了鼠标事件和触摸事件,按住滑块按钮拖动改变滑块的值.<p class=text-in>事件绑定在容器元素上,没用绑定在滑块按钮上,为了实现当鼠标不在按钮上时,也能触发滑动事件.<pre>
+// 绑定滑动事件,这个例子中,获取滑块的值,在canvas里绘制小方块的个数
+let crag1 = document.getElementById('range1');
 
-  // 绑定滑动事件,这个例子中,获取滑块的值,在canvas里绘制小方块的个数
-  let crag1 = document.getElementById('range1');
+// val: 当前滑块的值
+crag1.<b>onChange</b> = (val)=>{
+}
+</pre><br><p># 属性<p class=text-in>设置或者获取滑块位置<p class=text-in>滑条的变化是通过修改左边框的厚度实现,滑块在滑条中一直贴着左边框,被动的向右边移动.<pre>
+// num: 要设置的值,在[min,max]之间的值
+crag1.<b>Value</b> = num;
 
-  // val: 当前滑块的值
-  crag1.<strong>onChange</strong> = (val)=>{
-
-  }
-
-</pre><br><p># 设置滑块位置<pre class=bg-gray-lt>
-
-  // num: 要设置的值,在[min,max]之间的值
-  crag1.<strong>Value</strong> = num;
-
-</pre><br><m-range id=range1 width=600 min=0 max=100 val=0></m-range><br><br><canvas id=canvasrange1 style=background-color:#eee></canvas></div><script>(()=>{function h(t,r){for(var u=0,f=n.length;u<f;u++)if(t==n[u]&&r==i[u])return!0;return!1}function c(n){let t=parseInt(n/u),i=n%f;return[t,i]}function l(n,t,i,r,u){n.beginPath();n.fillRect(t,i,r,u)}function a(n,t){let i=Math.random()*(t-n);return Math.floor(i)+n}let t=document.getElementById("canvasrange1"),r=t.getContext("2d");t.width=t.height=256;r.fillStyle="orange";let e=16,o=16,u=16,f=16,n=[],i=[],s=document.getElementById("range1");s.onChange=s=>{let y=s;n.length=i.length=0;for(let t=0;t<y;t++){let r=a(0,256),t=c(r);h(t[0],t[1])||(n.push(t[0]),i.push(t[1]))}r.clearRect(0,0,t.width,t.height);for(var v=0,p=n.length;v<p;v++){let t=n[v],s=i[v];l(r,t*e,s*o,f,u)}}})()</script>
+// 获取
+let val=crag1.<b>Value</b>;
+</pre><br><m-range id=range1 class=blue width=600 min=0 max=100 val=0></m-range><br><br><canvas id=canvasrange1 class=bd></canvas></div><script>(()=>{function h(t,r){for(var u=0,f=n.length;u<f;u++)if(t==n[u]&&r==i[u])return!0;return!1}function c(n){let t=parseInt(n/u),i=n%f;return[t,i]}function l(n,t,i,r,u,f){n.beginPath();n.fillStyle="skyblue";n.fillRect(t,i,r,u);n.fillStyle="white";n.fillText(f,t+(f<10?r/3:r/5),i+2*u/3)}function a(n,t){let i=Math.random()*(t-n);return Math.floor(i)+n}let t=document.getElementById("canvasrange1"),r=t.getContext("2d");t.width=t.height=256;let e=16,o=16,u=16,f=16,n=[],i=[],s=document.getElementById("range1");s.onChange=s=>{let y=s;n.length=i.length=0;for(let t=0;t<y;t++){let u=a(0,256),r=c(u);if(h(r[0],r[1])){t--;continue}n.push(r[0]);i.push(r[1])}r.clearRect(0,0,t.width,t.height);for(var v=0,p=n.length;v<p;v++){let t=n[v],s=i[v];l(r,t*e,s*o,f,u,v)}}})()</script>

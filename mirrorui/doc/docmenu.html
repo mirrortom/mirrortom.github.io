@@ -1,64 +1,58 @@
-<div class=doc-page><h2>文档菜单</h2><p># 使用自定义标记 <strong>&lt;m-docmenu></strong><p class=text-in>用于文档页面,位于左侧的菜单,模仿了MSDN的文档菜单,简洁风格.可以嵌套.<p class=text-in>一个菜单组是一个ul列表,其中的li为菜单项容器.里面的a是菜单项,每个ul内第1个span是组标题.li里可以嵌套菜单组.<p class=text-in>菜单项可以是超链接 a ,点击后跳转页面.也可以做成一个按钮,点击后执行一个方法.</p><m-docmenu class=mg-5 id=docmenudemo1 style=width:200px><ul class=docmenu-group><li><span class=docmenu-title><i class=docmenu-open></i>文档菜单</span><li><a class=docmenu-item>菜单一(点击)</a><li><a class=docmenu-item>菜单二</a><li><a class=docmenu-item>菜单三</a><li><ul class=docmenu-group><li><span class=docmenu-title><i class=docmenu-open></i>文档菜单子级1</span><li><a class=docmenu-item>菜单1.1</a><li><a class=docmenu-item>菜单1.2</a></ul></ul></m-docmenu><br><pre class=bg-gray-lt>
-
-    // 单个菜单组DOM结构
+﻿<div class=doc-page><h2>文档菜单</h2><p># 使用自定义标记 <b>&lt;m-docmenu></b><p class=text-in>用于文档页面,位于左侧的菜单,模仿了MSDN的文档菜单,简洁风格.可以嵌套.<p class=text-in>一个菜单组是一个ul列表,其中的li为菜单项容器.里面的a是菜单项,每个ul内第1个span是组标题.li里可以嵌套菜单组.<p class=text-in>菜单项可以是超链接 a ,点击后跳转页面.也可以做成一个按钮,点击后执行一个方法.</p><m-docmenu class=mg-5 id=docmenudemo1 style=width:200px><ul class=docmenu-group><li><span class=docmenu-title><i class=docmenu-open></i>文档菜单</span><li><a class=docmenu-item>菜单一(点击)</a><li><a class=docmenu-item>菜单二</a><li><a class=docmenu-item>菜单三</a><li><ul class=docmenu-group><li><span class=docmenu-title><i class=docmenu-open></i>文档菜单子级1</span><li><a class=docmenu-item>菜单1.1</a><li><a class=docmenu-item>菜单1.2</a></ul></ul></m-docmenu><br><pre>
+// 单个菜单组DOM结构
+&lt;ul class="docmenu-group">
+  &lt;li>
+    &lt;span class="docmenu-title">&lt;i class="docmenu-open">&lt;/i>文档菜单&lt;/span>
+  &lt;/li>
+  &lt;li>&lt;a class="docmenu-item">菜单一&lt;/a>&lt;/li>
+  &lt;li>&lt;a class="docmenu-item">菜单二&lt;/a>&lt;/li>
+  &lt;li>
     &lt;ul class="docmenu-group">
       &lt;li>
-        &lt;span class="docmenu-title">&lt;i class="docmenu-open">&lt;/i>文档菜单&lt;/span>
+        &lt;span class="docmenu-title">&lt;i class="docmenu-open">&lt;/i>文档菜单子级1&lt;/span>
       &lt;/li>
-      &lt;li>&lt;a class="docmenu-item">菜单一&lt;/a>&lt;/li>
-      &lt;li>&lt;a class="docmenu-item">菜单二&lt;/a>&lt;/li>
-      &lt;li>
-        &lt;ul class="docmenu-group">
-          &lt;li>
-            &lt;span class="docmenu-title">&lt;i class="docmenu-open">&lt;/i>文档菜单子级1&lt;/span>
-          &lt;/li>
-          &lt;li>&lt;a class="docmenu-item">菜单1.1&lt;/a>&lt;/li>
-          &lt;li>&lt;a class="docmenu-item">菜单1.2&lt;/a>&lt;/li>
-        &lt;/ul>
-      &lt;/li>
+      &lt;li>&lt;a class="docmenu-item">菜单1.1&lt;/a>&lt;/li>
+      &lt;li>&lt;a class="docmenu-item">菜单1.2&lt;/a>&lt;/li>
     &lt;/ul>
+  &lt;/li>
+&lt;/ul>
 
-    // 调用create()方法,初始化菜单
-    let docmenu1 = document.getElementById('main_menubox');
-    docmenu1.<strong>create()</strong>;
-
-</pre><br><p># 方法 <strong>create(json, menuItemClickE, menuItemSet)</strong><p class=text-in>生成菜单项,绑定事件,设置属性.传入菜单数据json对象,动态生成菜单项.<p class=text-in>json: 菜单数据<p class=text-in>menuItemClickE : 菜单项点击事件<p class=text-in>menuItemSet : 菜单项设置<p><m-btn id=createdocmenu1>生成菜单</m-btn></p><m-docmenu id=docmenujsondeom1 class=bg-gray-dk style=width:200px></m-docmenu><br><pre class=bg-gray-lt>
-
-    // json结构: 一个数组,元素是一个对象.{title:'菜单组标题',menus:[{菜单项1},{菜单项2},..,{}]}
-    // menus里可以嵌套子菜单组,如果菜单项是一个包含menus属性的对象,那么视为子菜单组
-    // 菜单项可以是对象或者字符串或者其它类型,需要传入menuItemSet方法自定义菜单项
-       [
-          {
-              title: '组标题',
-              menus: [{菜单项1},{菜单项2},
-                       {
-                        title: '子菜单组标题',<b>menus</b>:[]]
-                       }
-                     ]
-          },
-          ...
-       ]
+// 调用create()方法,初始化菜单
+let docmenu1 = document.getElementById('main_menubox');
+docmenu1.<b>create()</b>;
+</pre><br><p># 方法 <b>create(json, menuItemClickE, menuItemSet)</b><p class=text-in>生成菜单项,绑定事件,设置属性.传入菜单数据json对象,动态生成菜单项.<p class=text-in>json: 菜单数据<p class=text-in>menuItemClickE : 菜单项点击事件<p class=text-in>menuItemSet : 菜单项设置<p><m-btn id=createdocmenu1>生成菜单</m-btn></p><m-docmenu id=docmenujsondeom1 class=bg-gray-dk style=width:200px></m-docmenu><br><pre>
+// json结构: 一个数组,元素是一个对象.{title:'菜单组标题',menus:[{菜单项1},{菜单项2},..,{}]}
+// menus里可以嵌套子菜单组,如果菜单项是一个包含menus属性的对象,那么视为子菜单组
+// 菜单项可以是对象或者字符串或者其它类型,需要传入menuItemSet方法自定义菜单项
+    [
+      {
+          title: '组标题',
+          menus: [{菜单项1},{菜单项2},
+                    {
+                    title: '子菜单组标题',<b>menus</b>:[]]
+                    }
+                  ]
+      },
+      ...
+    ]
   
-    // <strong>menuItemClickE(menuItem, index)</strong>: 点击菜单后执行的方法.menuItem是被点击的菜单dom对象,index是菜单索引
-    // <strong>menuItemSet(menuItem,data)</strong>: 自定义菜单项.menuItem是菜单dom对象,实际是一个a标记,可以设置一些属性.data就是菜单项在json里的源对象.
-    // 所有参数都可以省略.如果不需要使用数据生成菜单项.只绑定事件,不需要的参数传(null,click,set)
-    
-</pre><br><p># 方法 <strong>activeItem(itemIndex)</strong><p class=text-in>指定一个激活的菜单,itemIndex 是菜单索引<p># 方法 <strong>openGroups(index=-1)</strong><p class=text-in>打开菜单组,index=-1(全部打开)<p># 方法 <strong>closeGroups(index=-1)</strong><p class=text-in>关闭菜单组,index=-1(全部关闭)<p>菜单和菜单组的索引编号是顺序排列下来,从0开始.如果有嵌套,只是简单累加.<pre class=bg-gray-lt>
-    
-    // 激活第三个菜单
-    document.getElementById('docmenudemo1').<strong>activeItem(2)</strong>;
+// <b>menuItemClickE(menuItem, index)</b>: 点击菜单后执行的方法.menuItem是被点击的菜单dom对象,index是菜单索引
+// <b>menuItemSet(menuItem,data)</b>: 自定义菜单项.menuItem是菜单dom对象,实际是一个a标记,可以设置一些属性.data就是菜单项在json里的源对象.
+// 所有参数都可以省略.如果不需要使用数据生成菜单项.只绑定事件,不需要的参数传(null,click,set)
+</pre><br><p># 方法 <b>activeItem(itemIndex)</b><p class=text-in>指定一个激活的菜单,itemIndex 是菜单索引<p># 方法 <b>openGroups(index=-1)</b><p class=text-in>打开菜单组,index=-1(全部打开)<p># 方法 <b>closeGroups(index=-1)</b><p class=text-in>关闭菜单组,index=-1(全部关闭)<p>菜单和菜单组的索引编号是顺序排列下来,从0开始.如果有嵌套,只是简单累加.<pre>
+// 激活第三个菜单
+document.getElementById('docmenudemo1').<b>activeItem(2)</b>;
 
-    // 关闭所有菜单组
-    closeGroups();
-    // 打开所有菜单组
-    openGroups();
+// 关闭所有菜单组
+closeGroups();
+// 打开所有菜单组
+openGroups();
 
-    // 菜单和索引是累加计数,线性的.
-    菜单组1(0)
-        菜单1.1(0)
-        菜单1.2(1)
-      菜单组1.3(1)
-        菜单1.3.1(2)
-        菜单1.3.2(3)
-
+// 菜单和索引是累加计数,线性的.
+菜单组1(0)
+    菜单1.1(0)
+    菜单1.2(1)
+  菜单组1.3(1)
+    菜单1.3.1(2)
+    菜单1.3.2(3)
 </pre><br><script>(()=>{let n=document.getElementById("docmenudemo1");n.create();n.activeItem(2);n.create(null,(n,t)=>{window.ns.msgbox.alert(n.innerText+"index:"+t)});document.getElementById("createdocmenu1").onclick=()=>{let n=document.getElementById("docmenujsondeom1");n.innerHTML="";n.create([{title:"文档菜单组1",menus:["菜单1.1","菜单1.2","菜单1.3",{title:"菜单组1.4",menus:["1.4-1","1.4-2","1.4-3"]}]},{title:"文档菜单组2",menus:["菜单2.1","菜单2.2","菜单2.3",{title:"菜单组2.4",menus:["2.4-1","2.4-2","2.4-3",{title:"2.5",menus:["2.5-1","2.5-2","2.5-3","2.5-4"]},{title:"2.6",menus:["2.6-1","2.6-2","2.6-3","2.6-4","2.6-5"]}]}]}],(n,t)=>{window.ns.msgbox.alert(`menuId : ${n.getAttribute("menuId")}, menuIndex : ${t}`)},(n,t)=>{$(n).text(t)});n.openGroups(0);n.openGroups(1)}})()</script></div>
