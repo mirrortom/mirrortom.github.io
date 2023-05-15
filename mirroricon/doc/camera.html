@@ -1,6 +1,6 @@
-<div class=doc-page><h2>照相机</h2><p>照相机图标,常见数码相机.<div class=mg-20><i class="i-a-camera text-md"></i> <i class="i-a-camera text-xxxl text-primary"></i></div><pre class=bg-gray-lt>
+﻿<div class=doc-page><h2>照相机</h2><p>照相机图标,常见数码相机.<div class=mg-20><i class="i-a-camera text-md"></i> <i class="i-a-camera text-3xl text-sky-5"></i></div><pre>
 &lt;i class="<b>i-a-camera</b>">&lt;/i>
-</pre><br><p>相机图标设计3个部分,中间的镜头圈圈,上方的快门按钮,右上角的闪光灯.图标展示相机正面.<p>机身比例4:3,用图标容器i,宽高1em:0.75em.图标高度不再是1em了,为了占地1emX1em,设置了上下margin.<p>中间镜头所在的矩形是:before,高度为0.375em(机身的50%),宽度同机身.镜头圈圈是:before的径向渐变,圆心点位于40%位置,是2个圆形,外侧圆直径同矩形高度,内侧为外侧的70%.top定位在机身中间55%.<p>快门按钮是:after的bottom边框,宽为0.4em(机身长度40%),高度为0.15em(机身高度的20%),边框形状为梯形,上底为0.2em(下底的50%).left定位在机身左起15%的位置.top定位在机身上方,贴着机身上边.<p>闪光灯是图标容器的一个径向渐变,中心点位于机身的右上角(85%,15%),直径为.08em(机身宽度的8%)</p><canvas id=canva1></canvas><br><p><i class="i-a-camera fs100"></i><p>完整样式<pre class=bg-gray-lt>
+</pre><br><p>相机图标设计3个部分,中间的镜头圈圈,上方的快门按钮,右上角的闪光灯.图标展示相机正面.<p>机身比例4:3,用图标容器i,宽高1em:0.75em.图标高度不再是1em了,为了占地1emX1em,设置了上下margin.<p>中间镜头所在的矩形是:before,高度为0.375em(机身的50%),宽度同机身.镜头圈圈是:before的径向渐变,圆心点位于40%位置,是2个圆形,外侧圆直径同矩形高度,内侧为外侧的70%.top定位在机身中间55%.<p>快门按钮是:after的bottom边框,宽为0.4em(机身长度40%),高度为0.15em(机身高度的20%),边框形状为梯形,上底为0.2em(下底的50%).left定位在机身左起15%的位置.top定位在机身上方,贴着机身上边.<p>闪光灯是图标容器的一个径向渐变,中心点位于机身的右上角(85%,15%),直径为.08em(机身宽度的8%)</p><canvas id=canva1></canvas><br><p><i class="i-a-camera fs100"></i><p>完整样式<pre>
 .i-a-camera[class^=i-]
     height: .75em
     margin: .2em 0 .05em
