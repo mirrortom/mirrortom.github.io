@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1.0,user-scalable=no"><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><title>razor服务 | Mirror Space</title><link href=/mirrorui/mirrorui.css rel=stylesheet><link href=/mirroricon/mirroricon.css rel=stylesheet><link href=/asset/css/blog.css rel=stylesheet><div class=layout><div class=layout-part1></div><div class="layout-part2 layout-doc"><div id=page_content><h1 class=text-center>RazorService</h1><p><small>更新:2023/5/15 建立: 2023/2/20</small><p>(github) <a href=https://github.com/mirrortom/razorservice target=_blank>https://github.com/mirrortom/razorservice</a><h2>参考项目</h2><p>RazorEngineCore <a href=https://github.com/adoconnection/RazorEngineCore target=_blank>https://github.com/adoconnection/RazorEngineCore</a><p>参考项目RazorEngineCore,是一个.netcore版本的实现.基于新版本.NET 6.0,使用的基础库是:<ul class="list cir"><li><b>Microsoft.AspNetCore.Razor.Language</b> Razor语言处理,生成Razor C#代码<li><b>Microsoft.CodeAnalysis.CSharp</b> Roslyn编译工具,编译c#代码</ul><h2>概述</h2><p>razor是asp.net提供的一项功能,可以在html中写入c#程序,成为一个扩展名是cshtml或者razor的文件,在浏览时,服务端解析razor文件并发回最终的html文档.<p>在asp.net项目以外,例如控制台程序中,也可以使用这种功能,使用第3方实现的库.比较早出现的,功能也比较全面的库是 <a href=https://github.com/Antaris/RazorEngine target=_blank>https://github.com/Antaris/RazorEngine</a> ,在.net framework时代就已经有了.Asp.net的Razor基本功能,这个库都实现了.<h2>Razor执行过程</h2><p>通过学习RazorEngineCore项目,了解到Razor功能的实现过程,可以分为4个阶段:<ul class="list num"><li><b>Razor源码</b> : 一般是含有c#代码的html文本,也可以是其它格式的源码文件,只要其中的c#代码是合法的Razor语法.<li><b>C#源码</b> : Microsoft.AspNetCore.Razor.Language库的相关API将读取Razor源码,将其转化为C#代码,一个Razor源文件会处理成为一个C#类源文件.<li><b>Dll程序集</b> : Microsoft.CodeAnalysis.CSharp库的相关API将读取C#源码,编译成一个Dll文件,得到的是一个含有该C#类的程序集.<li><b>html文本</b> : 调用这个程序集的方法就得到了最终的html文本.</ul><h6>生成cs源码相关的类</h6><ul class="list cir"><li><b>RazorSourceDocument</b><li><b>RazorProjectEngine</b><li><b>RazorCodeDocument</b><li><b>RazorCSharpDocument</b></ul><pre>
+﻿<!DOCTYPE html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1.0,user-scalable=no"><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><title>razor服务 | Mirror Space</title><link href=/mirrorui/mirrorui.css rel=stylesheet><link href=/mirroricon/mirroricon.css rel=stylesheet><link href=/asset/css/blog.css rel=stylesheet><div class=layout><div class=layout-part1></div><div class="layout-part2 layout-doc"><div id=page_content><h1 class=text-center>RazorService</h1><p><small>更新:2023/5/29 建立: 2023/2/20</small><p>(github) <a href=https://github.com/mirrortom/razorservice target=_blank>https://github.com/mirrortom/razorservice</a><h2>参考项目</h2><p>RazorEngineCore <a href=https://github.com/adoconnection/RazorEngineCore target=_blank>https://github.com/adoconnection/RazorEngineCore</a><p>参考项目RazorEngineCore,是一个.netcore版本的实现.基于新版本.NET 6.0,使用的基础库是:<ul class="list cir"><li><b>Microsoft.AspNetCore.Razor.Language</b> Razor语言处理,生成Razor C#代码<li><b>Microsoft.CodeAnalysis.CSharp</b> Roslyn编译工具,编译c#代码</ul><h2>概述</h2><p>razor是asp.net提供的一项功能,可以在html中写入c#程序,成为一个扩展名是cshtml或者razor的文件,在浏览时,服务端解析razor文件并发回最终的html文档.<p>在asp.net项目以外,例如控制台程序中,也可以使用这种功能,使用第3方实现的库.比较早出现的,功能也比较全面的库是 <a href=https://github.com/Antaris/RazorEngine target=_blank>https://github.com/Antaris/RazorEngine</a> ,在.net framework时代就已经有了.Asp.net的Razor基本功能,这个库都实现了.<h2>Razor执行过程</h2><p>通过学习RazorEngineCore项目,了解到Razor功能的实现过程,可以分为4个阶段:<ul class="list num"><li><b>Razor源码</b> : 一般是含有c#代码的html文本,也可以是其它格式的源码文件,只要其中的c#代码是合法的Razor语法.<li><b>C#源码</b> : Microsoft.AspNetCore.Razor.Language库的相关API将读取Razor源码,将其转化为C#代码,一个Razor源文件会处理成为一个C#类源文件.<li><b>Dll程序集</b> : Microsoft.CodeAnalysis.CSharp库的相关API将读取C#源码,编译成一个Dll文件,得到的是一个含有该C#类的程序集.<li><b>html文本</b> : 调用这个程序集的方法就得到了最终的html文本.</ul><h6>生成cs源码相关的类</h6><ul class="list cir"><li><b>RazorSourceDocument</b><li><b>RazorProjectEngine</b><li><b>RazorCodeDocument</b><li><b>RazorCSharpDocument</b></ul><pre>
 // Step1,将razor源代码包装为RazorSourceDocument对象.
 // 使用RazorSourceDocument.Create(content,fileName)静态方法
 // content是razor源代码,文件名字可以随机
@@ -89,6 +89,17 @@ public abstract class TemplateBase
     {
         buffer.Append(obj);
     }
+
+    public void BeginWriteAttribute(string name, string prefix, int prefixOffset, string suffix, int suffixOffset, int attributeValuesCount)
+    {
+        buffer.Append(prefix);
+        buffer.Append(suffix);
+    }
+
+    public void EndWriteAttribute()
+    {
+
+    }
 }
 </pre><h2>Razor功能</h2><p>Asp.NET里的Razor提供的主要功能,是编译使用<a href="https://learn.microsoft.com/zh-cn/aspnet/core/mvc/views/razor?source=recommendations&view=aspnetcore-7.0" target=_blank>Razor语法</a>编写的文本文件,生成html文档.<p>Razor语法支持的指令并不完全一样,这和使用Razor语法的场景有关.早期的Asp.Net MVC和现在的ASP.NET Core Blazor支持的Razor指令大不相同.这个也就是说,可以根据需求自定义需要的功能.<p>使用最多的Razor功能,母版页@Layout="layout.cshtml",节@section{},引用页@include(),数据实体@model 如果要实现这些基本功能,那么基类中要实现对应的方法和属性.<pre>
 // TemplateBase基类,抽象类用于被Template继承
@@ -160,10 +171,10 @@ RazorCfg.DeadDays = 10;
 // 清理文件缓存的定时器.开启/关闭.默认是关闭的,不清理文件缓存.
 RazorCfg.StartTimer();
 RazorCfg.StopTimer();
-</pre><br><h4>异常情况</h4><p>如果cshtml文档中,有包含空属性值的标记,那么razor文档执行会失败,错误显示razor并没有将这情况视为普通HTML标记,而是编译成了cs代码.<pre>
+</pre><br><h4>排错情况</h4><p>如果razor文档中,有包含空属性值的标记,那么编译出的razor源码,不会将这情况视为普通HTML标记直接输出,而是编译成如下代码.<pre>
 // 例如html标记有一个属性class,但值是空字符串""
 &lt;br class="" />
-// 那么编译后却成了cs代码.
+// 编译如下
 BeginWriteAttribute("class", " class=\"", 132, "\"", 137, 0);
 EndWriteAttribute();
-</pre><hr class=line><br></div><div class=nav-page-inside><h6 class=text-center>本文内容</h6><div class=layout-v id=navOfInPage></div></div></div></div><script src=/asset/js/mainmenu.js></script><script src=/asset/js/navinpage.js></script>
+</pre><p>这个问题折腾了2天,还发了issue,最后发现编译成这样没有问题.这两个方法也是razor工具集里的正常方法.<a href="https://learn.microsoft.com/zh-cn/dotnet/api/microsoft.aspnetcore.mvc.razor.razorpagebase.beginwriteattribute?view=aspnetcore-7.0" target=_blank>https://learn.microsoft.com/zh-cn/dotnet/api/microsoft.aspnetcore.mvc.razor.razorpagebase.beginwriteattribute?view=aspnetcore-7.0</a><p>那么,和WriteLiteral()还有Write()方法一样,这两个方法也是razor的TemplateBase基类需要提供的方法.这个问题的原因就在于没有实现这2个方法,而以前也没有测试过razor对空属性值的这种编译规则,所以想当然的以为是语法编译错了^_^.<p>根本原因还是对razor编译法则的基础了解不够,只是生搬硬套了参考项目的代码.相信这种情况只是一个开始,随着使用的增多,应该还会有类似的没被测试到的编译规则.<hr class=line><br></div><div class=nav-page-inside><h6 class=text-center>本文内容</h6><div class=layout-v id=navOfInPage></div></div></div></div><script src=/asset/js/mainmenu.js></script><script src=/asset/js/navinpage.js></script>
