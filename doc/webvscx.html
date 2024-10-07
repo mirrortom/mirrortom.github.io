@@ -1,0 +1,21 @@
+﻿<!DOCTYPE html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1.0,user-scalable=no"><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><title>razor编译插件vscode版本 | Mirror Space</title><link href=/mirrorui/mirrorui.css rel=stylesheet><link href=/mirroricon/mirroricon.css rel=stylesheet><link href=/asset/css/blog.css rel=stylesheet><div class=layout><div class=layout-part1></div><div class="layout-part2 layout-doc"><div id=page_content><p><small>最后更新: 2024/07/03</small> <small>建立: 2024/07/02</small><p>(github) <a href=https://github.com/mirrortom/webFilePublishVSCX target=_blank>https://github.com/mirrortom/webFilePublishVSCX</a><h2>概述</h2><p>插件是wenpublish插件的vscode版本,使用发服务和vs版本是同一个服务.已有的vs插件功能都有,另外新增加了文件合并和stylus编译功能.<p>使用vscode做前端项目,比如js/node/ts/html/css还有一些脚本语言是比较合适的,主要是感觉vs启动比较慢,还有这些类型的语言不需要编译,而vs还是用于服务端比较好.<p>用nodejs/ts开发vscode的插件,和用c#开发vs插件,感觉vscode的插件根容易一些,项目复杂度远远低于vs插件.<h2>使用</h2><p>alt+1,1 发布选中文件(只能使用鼠标右键,因为没有找到获取选中文件的API)<p>alt+2,2 发布选中目录(只能使用鼠标右键,因为没有找到获取选中文件的API)<p>alt+3,3 发布整个工作区,只支持第一个工作区<p>alt+4,4 合并文件,整个工作区范围内,根据配置文件<p>alt+5,5 编译stylus,整个工作区范围内,根据配置文件<p>ctrl+s 按保存时,会执行文件合并和stylus编译,根据文件的扩展名,还有配置文件设置.<h2>功能</h2><p>编译razor文件和vs版本插件一样<p>合并文件,将多个文件合并到一个文件,一般用于js<p>编译stylus成css<h2>配置文件</h2><p>配置文件在vs版本上增加了bundle和stylus节点,用于文件合并和编译stylus.<pre>
+...
+"bundle": [
+    {
+        "outputFile": "src/asset/js/index.js",
+        "inputFiles": [
+            "src/asset/js/1.part.js",
+            "src/asset/js/2.part.js",
+            "src/asset/js/3.part.js",
+            "src/asset/js/4.part.js",
+            "src/asset/js/5.part.js"
+        ]
+    }
+],
+"stylus":[
+    {
+        outputFile:"index.css",
+        inputFile:"index.styl"
+    }
+]
+</pre><h2>常用的vscode插件</h2><p>vs下的Bundle&Mini插件,还有web compile插件可以提供网页端js/css/html的所有功能.在vscode下的插件更加丰富了.<p>如果没有找到,由于nodejs丰富的库,还可以自己写.比如由于没有找到BundleMini和web Compile的vscode版本,发现可以使用stylus的jsapi实现编译.<p>Chinese (Simplified) (简体中文) Language Pack for Visual Studio Code. 这个是vscode汉化界面插件.<p>Markdown All in One. 可以预览编译的MD文件</div><div class=nav-page-inside><h6 class=text-center>本文内容</h6><div class=layout-v id=navOfInPage></div></div></div></div><script src=/asset/js/mainmenu.js></script><script src=/asset/js/navinpage.js></script>

@@ -1,0 +1,90 @@
+﻿<h1>DBMO</h1><p>源文件: Lib/dbm/DBMO.cs<p>使用ADO.NET接口实现数据表的CRUD操作.目前支持的数据库:SqlServer,Pssql,sqlite,maria,oracle.<h4>ADO.NET的主要接口</h4><table class=table><tr><th>接口<th>说明<th>sql/oracle/maria/pssql/sqlite对应实现<tr><td>DbConnection<td>连接对象<td>SqlConnection / OracleConnection / MySqlConnection / NpgsqlConnection / SqliteConnection<tr><td>DbCommand<td>sql命令对象<td>SqlCommand / OracleCommand / MySqlCommand / NpgsqlCommand / SqliteCommand<tr><td>DbParameter<td>sql参数对象<td>SqlParameter / OracleParameter / MySqlParameter / NpgsqlParameter / SqliteParameter<tr><td>DbType<td>sql参数类型对象<td>SqlDbType / OracleDbType / MySqlDbType / NpgsqlDbType / SqliteType<tr><td>DbTransaction<td>事务对象<td>SqlTransaction / OracleTransaction / MySqlTransaction / NpgsqlTransaction / SqliteTransaction</table><p>使用这些接口可以实现,连接数据库,执行sql命令,参数化查询,事务和存储过程等常用数据库操作.(sqlite没有存储过程)<h4>dbmo封装</h4><p>为了便于使用,建立dbmo基类,封装了上面的接口,实现3步操作完成数据表的CRUD.<pre>
+// 1.实例化操作对象.以sqlserver为例.
+var db = new SQLServer();
+// 2.执行sql,获取结果
+var data = db.ExecuteQuery(sql,p1,p2,p3,...);
+// 3.使用结果
+if(data!=null)
+...
+</pre><h4>方法</h4><p>ExecuteQuery() 执行查询,返回结果集.有6个重载,支持数组参数/实体参数/字典参数,支持返回的结果集合类型有字典/实体.<p>ExecuteScalar() 执行查询,返回单个结果值object类型.有3个重载,支持参数类型同上.<p>ExecuteNoQuery() 执行非查询,返回影响行数.有3个重载,支持参数类型同上.<p>Insert() 执行插入语句,返回受影响行数.sql语句不需要写values部分,会自动补全.有3个重载,支持参数类型同上<p>Update() 执行更新语句,返回受影响行数.sql语句不需要写set部分,会自动补全.有3个重载,支持参数类型同上<p>ExecuteProcedure() 执行过程,返回影响行数.参数有过程名字,入参字典,出参类型字典,出参值引用字典.<h4>示例</h4><h6>查询</h6><pre>
+// 查询取得结果集合
+string sql = "select top(@len) id,name,money from mytest";
+var db = new SQLServer();// 使用了默认连接字符串,否则要传入连接字符串
+var data = db.ExecuteQuery(sql,2,1);// 实际只有@len=2这个参数,后面的1是为了判定到数组参数这个重载上.
+if(data!=null)
+{
+// 结果集合是一个字典数组,键是sql语句字段名字.
+// 结果第1行记录的id值
+  data[0][id]; 
+}
+
+// 当参数很多时,可以使用字典或者实例包装参数,然后传入
+string sql = "select @a+@b+@c+@d as sum";
+// 参数名字是字典里的键,不能有@前导符号
+var paraDict = new Dictionary&lt;string, object>
+{
+    { "a", 1 },
+    { "b", 2 },
+    { "c", 3 },
+    { "d", 4 }
+};
+// 执行结果
+var data = db.ExecuteQuery(sql,paraDict)// 使用了字典参数重载
+data[0]["sum"] // 10
+
+// ExecuteScalar() 和查询一样,就是结果只有单个值.
+</pre><h6>更新和插入</h6><pre>
+// 典型的插入语句
+string insert="insert into table1(c1,c2,c3) values(@v1,@v2,@v3)";
+var db = new SQLServer();
+var re = db.ExecuteNoQuery(insert,v1,v2,v3);
+// 如果插入成功,re==1
+
+// 使用Insert()方法简化sql语句
+string insert="insert into table1(c1,c2,c3)";// 不需要写values部分,程序会补齐
+var db = new SQLServer();
+var re = db.Insert(insert,v1,v2,v3);
+
+// 正常的update语句
+string update="update table1 set col1='v1',col2='v2' where id=1";
+// 使用Update()语句和Insert()一样可以简化sql
+string update="update table1(col1,col2) where id=1";// 不需要写set部分,程序会补齐
+var db = new SQLServer();
+var re = db.Update(update,v1,v2,v3);
+</pre><h6>事务</h6><pre>
+// 使用事务,多个操作需要全部成功时.
+var db = new SQLServer();
+// 1.开始事务
+db.BeginTransaction();
+// 2.在事务中执行一个或者多个语句
+var re=db.Insert();
+if(re!=1){
+  // 如果发现出错了,回滚事务
+  db.RollBackTransaction();
+  return;
+}
+// 3.提交事务
+var isOk=db.CommitTransaction();
+</pre><h6>存储过程</h6><pre>
+// 执行存储过程
+SQLServer db = new();
+// 输入参数
+Dictionary&lt;string, object> inputPara = new()
+{
+    { "@a", 2 },
+    { "@b", 3 }
+};
+// 输出参数类型.这里的类型本来是具体库的类型枚举值,比如SqlServer是SqlDbType枚举,oracle是OracleDbType枚举.
+// 为了统一化,这里都强转成了int值来传入.程序会再转为具体的枚举.
+Dictionary&lt;string, int> outPutTypePara = new()
+{
+    { "abplus", (int)System.Data.SqlDbType.Int },
+    { "abride", (int)System.Data.SqlDbType.Int }
+};
+// 执行过程得到结果,在outPutValue字典里.键就是输出参数类型字典的键.
+var re = db.ExecuteProcedure("testproc", inputPara, outPutTypePara
+, out Dictionary&lt;string, object> outPutValue);
+
+// 如果没有输出参数或者输入参数可以这样传.out参数传丢弃运算符即可
+db.ExecuteProcedure("testproc",null,null,out _)
+</pre>

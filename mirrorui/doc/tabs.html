@@ -1,5 +1,25 @@
-﻿<div class=doc-page><h2>标签页</h2><p>容器组件,选择标签卡,显示对应页面.<p>自定义组件,删减了添加选项卡相关功能,简洁了样式,主要用于展示内容.<pre>
+﻿<div class=doc-page><h2>标签页</h2><p>容器组件,选择标签卡,显示对应页面.标签卡和页面由索引位置关联.<p>自定义组件,删减了添加选项卡相关功能,简洁了样式,主要用于展示内容.<pre>
 &lt;m-tabs>&lt;/m-tabs>
+
+// 内部分为标签块和内容块2部分
+// 标签框
+&lt;div class="tabs-header">
+  &lt;span class="tabs-label active">苏轼&lt;/span>
+  ...
+&lt;/div>
+
+// 内容框
+&lt;div class="tabs-content">
+  &lt;div class="tabs-panel active">
+    &lt;h5>饮湖上初晴后雨二首·其二&lt;/h5>
+    &lt;p>水光潋滟晴方好&lt;/p>
+  &lt;/div>
+  ...
+&lt;/div>
+
+// 可以在第一个标签和对应的内容加上active样式,默认显示
+class="tabs-label active"
+class="tabs-panel active"
 </pre><br><div class="bd bdr pd-20 mg-b-10"><m-tabs id=mytabs height=240px><div class=tabs-header><span class=tabs-label>苏轼</span> <span class=tabs-label>陆游</span> <span class=tabs-label>李清照</span> <span class=tabs-label>毛泽东</span></div><div class=tabs-content><div class=tabs-panel><h5>饮湖上初晴后雨二首·其二</h5><p>水光潋滟晴方好<p>山色空蒙雨亦奇<p>欲把西湖比西子<p>淡妆浓抹总相宜</div><div class=tabs-panel><h5>卜算子 咏梅</h5><p>驿外断桥边,寂寞开无主<p>已是黄昏独自愁,更著风和雨<p>无意苦争春,一任群芳妒<p>零落成泥碾作尘,只有香如故</div><div class=tabs-panel><h5>一剪梅 红藕香残玉蕈秋</h5><p>红藕香残玉蕈秋,轻解罗裳,独上兰舟<p>云中谁寄锦书来,雁字回时,月满西楼<p>花自飘零水自流,一种相思,两处闲愁<p>此情无计可消除,才下眉头,却上心头</div><div class=tabs-panel><h5>浪淘沙 北戴河</h5><p>大雨落幽燕,白浪滔天,秦皇岛外打鱼船<p>一片汪洋都不见,知向谁边<p>往事越千年,魏武挥鞭,东临碣石有遗篇<p>萧瑟秋风今又是,换了人间</div></div></m-tabs></div><p># 标签方位<p class=text-in>设置样式类实现标签栏的位置和样式.<pre>
 // 标签栏位置
 &lt;m-tabs class="<b>left | right | bottom</b>" >&lt;/m-tabs>

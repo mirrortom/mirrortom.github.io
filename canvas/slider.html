@@ -1,91 +1,81 @@
-<!DOCTYPE html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1.0,user-scalable=no"><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><title>图片切换 | canvas-demo | Mirror Space</title><link href=/mirrorui/mirrorui.css rel=stylesheet><link href=/mirroricon/mirroricon.css rel=stylesheet><link href=/asset/css/blog.css rel=stylesheet><div class=layout><div class=layout-part1></div><div class=layout-part2><h2>图片切换Slider</h2><p>用canvas做图片切换,用到 <a href=doc/drawimage.html>drawImage()</a> 这个API.<p>将图片用各种办法画到canvas上,在每种画法之间切换.图片画到canvas上是宽度等比缩放的.<p>html结构是一个容器DIV,里面有多个IMG,需要给容器一个高度.<p>图片img在第一个子div里,是隐藏的.动态添加图片时要加到这个容器里.<pre class=bg-gray-lt>
+﻿<!DOCTYPE html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1.0,user-scalable=no"><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><title>图片切换 | canvas-demo | Mirror Space</title><link href=/mirrorui/mirrorui.css rel=stylesheet><link href=/mirroricon/mirroricon.css rel=stylesheet><link href=/asset/css/blog.css rel=stylesheet><div class=layout><div class=layout-part1></div><div class=layout-part2><h2>图片切换Slider</h2><p>用canvas做图片切换,用到 <a href=doc/drawimage.html>drawImage()</a> 这个API.<p>切换的本质是将图片用各种办法画到canvas上,在每种画法之间切换.图片画到canvas上是基于宽度等比缩放的,高度的超出部分将截断.<p>html结构是一个容器DIV,里面有多个IMG,容器的长宽比例要设置为图片的长宽比.<p>图片是隐藏的,在容器中存放,一组图片的比例需要一致.支持动态添加图片.<pre>
+&lt;div class="slider" id="sliderBox">
+  &lt;img src="slider1.jpg" class="d-none"/>
+  &lt;img src="slider2.jpg" class="d-none"/>
+  &lt;img src="slider3.jpg" class="d-none"/>
+  &lt;img src="slider4.jpg" class="d-none"/>
+  &lt;img src="slider5.jpg" class="d-none"/>
+  &lt;img src="slider6.jpg" class="d-none"/>
+  // 会加入canvas对象,图片就是画在这个对象上的.
+&lt;/div>
+</pre><br><p>类和主要方法<pre>
+// slider对象
+let slid = {};
 
-    &lt;div class="slider" id="sliderBox" style="width:380px;height:260px">
-      // 图片在这个div里,div不可见.
-      &lt;div class="slider-imgs d-none">
-        &lt;img src="slider1.jpg" />
-        &lt;img src="slider2.jpg" />
-        &lt;img src="slider3.jpg" />
-        &lt;img src="slider4.jpg" />
-        &lt;img src="slider5.jpg" />
-        &lt;img src="slider6.jpg" />
-      &lt;/div>
-      // 会加入canvas对象,图片就是画在这个对象上的.
-    &lt;/div>
+slid.boxId = boxId;// 图片容器divId
+slid.whScale = 1 / 1;// 容器长宽比例,设置为图片比例
+slid.ctx = null;// canvas绘画
+// 图片数组
+slid.imgs = null;
+// 当前动画显示的图片
+slid.imgIndex = -1;
+// 每个动画的时间间隔
+slid.skipTime = 2000;
+// 动画函数数组,函数加入数组的顺序决定动画顺序
+slid.aniArr = null;
+slid.aniIndex = 0;
 
-</pre><br><p>类和主要方法<pre class=bg-gray-lt>
+// 等待加载图片完成后开始动画: 定时检查图片是否加载完成,加载中时,画面显示loading.加载完成后开始动画
+slid.loadImgAndStart = (...index) => {}
+
+// 开始动画: 不会等待图片加载完成
+slid.start = (...index) => {}
+
+// 每个动画是一个函数,新增动画时,添加一个函数.然后在 aniArr 数组中加入这个函数.
+function newAniFun(slider){}
   
-  // slider对象
-  let slid = {};
-
-  // canvas 2d绘画
-  slid.ctx = null;
-  // 图片容器div
-  slid.box = null;
-  // 图片数组
-  slid.imgs = null;
-  // 当前动画显示的图片
-  slid.imgIndex = -1;
-  // 每个动画的时间间隔
-  slid.skipTime = 2000;
-  // 动画函数数组,函数加入数组的顺序决定动画顺序
-  slid.aniArr = null;
-  slid.aniIndex = 0;
-  // 动画速度
-  slid.speed=1;
-
-  // 等待加载图片完成后开始动画: 定时检查图片是否加载完成,加载中时,画面显示loading.加载完成后开始动画
-  slid.loadImgAndStart = (...index) => {}
-
-  // 开始动画: 不会等待图片加载完成
-  slid.start = (...index) => {}
-
-  // 每个动画是一个函数,新增动画时,添加一个函数.然后在 aniArr 数组中加入这个函数.
-  function newAniFun(slider){}
-  
-  // 当前已有的动画,函数加入数组的顺序决定动画顺序
-  slid.aniArr = [block, middleCir, left, top, leftZoom, rotate, fade];
-
-</pre><br><pre class=bg-gray-lt>
-
-    // 动画函数示例: 图片从中心扩大显示
-    function middleCir(sld) {
-      let ctx = sld.ctx;
-      let img = sld.nextImg();
-      let r = 0, w = sld.w, h = sld.h, imgW = img.width, imgH = img.height;
-      let scale = w / imgW, imgHScale = imgH * scale;
+// 当前已有的动画,函数加入数组的顺序决定动画顺序
+slid.aniArr = [bothInMiddle, stripe, middleOpen, block, middleCir, left, top, leftZoom, rotate, fade, middleCirScan];
+</pre><br><pre>
+  // 动画函数示例模板: 图片从中心扩大显示
+  function middleCir(sld) {
+    // 1.成员
+    let ctx = sld.ctx;
+    let img = sld.nextImg();
+    let r = 0, w = sld.w, h = sld.h, imgW = img.width, imgH = img.height;
+    let scale = w / imgW, imgHScale = imgH * scale;
        
-      // 动画函数
-      let step = (timestamp) => {
-        // 结束动画条件
-        if (r > Math.max(w, h) * 0.707) {
-          // 调用下一个动画
+    // 2.动画函数
+    let step = (timestamp) => {
+      // 结束动画条件
+      if (r > Math.max(w, h) * 0.707) {
+        // 调用下一个动画
 <strong>sld.next()</strong>;
-          return;
-        }
-        ctx.save();
-        ctx.clearRect(0, 0, w, h);
-        ctx.beginPath();
-        ctx.arc(w / 2, h / 2, r, 0, Math.PI * 2);
-        ctx.clip();
-        ctx.drawImage(img, 0, 0, w, imgHScale);
-        ctx.restore();
-        r++;
-        window.requestAnimationFrame(step);
+        return;
       }
-
-      // 使用requestAnimationFrame()开始动画
+      ctx.save();
+      ctx.clearRect(0, 0, w, h);
+      ctx.beginPath();
+      ctx.arc(w / 2, h / 2, r, 0, Math.PI * 2);
+      ctx.clip();
+      ctx.drawImage(img, 0, 0, w, imgHScale);
+      ctx.restore();
+      r++;
       window.requestAnimationFrame(step);
     }
 
-</pre><br><pre class=bg-gray-lt>
-
-    let slid = slider('sliderBox');
+    // 3.使用requestAnimationFrame()开始动画
+    window.requestAnimationFrame(step);
+  }
+</pre><br><pre>
+// 使用方法,传入容器id,图片长宽比例.
+let slid = slider('sliderBox',whScale);
     
-    // 定时检查所有图片加载完成后开始动画. id: 装img的div容器Id
-    slid.loadImgAndStart();
+// 定时检查容器中所有img加载完成后开始动画.
+// index:动画数组下标,可指定动画顺序.
+// 例如:0,1,2,2 表示依次执行0,1,2下标的3个动画,动画2会执行两次
+slid.loadImgAndStart(...index);
     
-    // 不检查加载情况,直接开始动画
-    slid.start();
-
-</pre><div class=mg-tb-30><div class=grids><div class="grid-12 grid-md-6"><div id=sliderBox class=mg-10 style="width:380px;height:260px;outline:5px dotted #f00"><img src=/asset/img/slider/slider1.jpg class=d-none> <img src=/asset/img/slider/slider2.jpg class=d-none> <img src=/asset/img/slider/slider3.jpg class=d-none> <img src=/asset/img/slider/slider4.jpg class=d-none> <img src=/asset/img/slider/slider5.jpg class=d-none> <img src=/asset/img/slider/slider6.jpg class=d-none> <img src=/asset/img/slider/slider7.jpg class=d-none> <img src=/asset/img/slider/slider8.jpg class=d-none></div></div><div class="grid-12 grid-md-6"><div class=mg-10 style="width:380px;outline:5px dotted #008000"><img src="" width=380 id=showimg style=display:block></div></div></div><br><br></div><script>(()=>{function n(n){document.getElementById("showimg").src=n.src}function t(n){let t={};t.boxId=n;t.ctx=null;t.imgs=null;t.imgIndex=-1;t.skipTime=2e3;t.aniArr=null;t.aniIndex=0;let a=document.getElementById(t.boxId);t.w=a.offsetWidth;t.h=a.offsetHeight;t.imgs=a.querySelectorAll("img");let v=document.createElement("canvas");return v.width=t.w,v.height=t.h,t.ctx=v.getContext("2d"),a.append(v),i(t),t.aniArr=[l,r,u,f,e,o,s,h,c],t.nextImg=()=>(t.imgIndex++,t.imgIndex>=t.imgs.length&&(t.imgIndex=0),t.imgs[t.imgIndex]),t.next=()=>{setTimeout(()=>{t.aniIndex++,t.aniIndex>=t.aniArr.length&&(t.aniIndex=0),t.aniArr[t.aniIndex](t)},t.skipTime)},t.loadImgAndStart=(...n)=>{let i=r=>{if(r<=0){t.ctx.beginPath();t.ctx.fillText("images loading falid!",t.w/3,t.h/2);return}t.imgs.length==0&&(t.imgs=document.getElementById(t.boxId).querySelectorAll("img"),setTimeout(()=>{i(r-1)},10));for(var u=0,f=t.imgs.length;u<f;u++)if(!t.imgs[u].complete){setTimeout(()=>{i(r-1)},10);return}t.start(...n)};i(500)},t.start=(...n)=>{if(!n||n.length==0){t.aniArr[0](t);return}let r=[];for(var i=0,u=n.length;i<u;i++){let u=n[i];r[i]=u<0||u>=t.aniArr.length?t.aniArr[i]:t.aniArr[u]}t.aniArr=r;t.aniArr[0](t)},t}function i(n){let t=n.ctx;t.save();t.beginPath();t.rect(0,0,n.w,n.h);t.fillStyle="#f1f1f1";t.fill();t.beginPath();t.font="600 30px arial";t.fillStyle="#34343480";t.textAlign="center";t.fillText("images Loading...",n.w/2,n.h/2);t.restore()}function r(t){let y=t.ctx,r=t.nextImg(),i=0,u=0,f=t.w,b=t.h,e=r.width,o=r.height,p=f/e,w=o*p,s=f/16,h=w/16,c=e/16,l=o/16,a=0;n(r);let v=()=>{if(a>255){t.next();return}i>15&&(i=0,u++);y.drawImage(r,i*c,u*l,c,l,i*s,u*h,s,h);i++;a++;window.requestAnimationFrame(v)};window.requestAnimationFrame(v)}function u(t){let i=t.ctx,r=t.nextImg(),f=0,u=t.w,e=t.h,s=r.width,h=r.height,c=u/s,l=h*c;n(r);let o=()=>{if(f>Math.max(u,e)*.707){t.next();return}i.save();i.beginPath();i.arc(u/2,e/2,f,0,Math.PI*2);i.clip();i.drawImage(r,0,0,u,l);i.restore();f++;window.requestAnimationFrame(o)};window.requestAnimationFrame(o)}function f(t){let e=t.ctx,i=t.nextImg(),r=t.w,l=t.h,o=i.width,s=i.height,h=r/o,c=s*h,u=-r;n(i);let f=()=>{if(u>0){t.next();return}e.drawImage(i,u,0,r,c);u++;window.requestAnimationFrame(f)};window.requestAnimationFrame(f)}function e(t){let e=t.ctx,i=t.nextImg(),u=t.w,o=t.h,s=i.width,h=i.height,c=u/s,l=h*c,r=-o;n(i);let f=()=>{if(r>0){t.next();return}e.drawImage(i,0,r,u,l);r++;window.requestAnimationFrame(f)};window.requestAnimationFrame(f)}function o(t){let i=t.ctx,r=t.nextImg(),f=t.w,l=t.h,o=r.width,s=r.height,h=f/o,c=s*h,u=1;n(r);let e=()=>{if(u>200){t.next();return}i.save();i.scale(u/200,u/200);i.drawImage(r,0,0,f,c);i.restore();u++;window.requestAnimationFrame(e)};window.requestAnimationFrame(e)}function s(t){let i=t.ctx,r=t.nextImg(),u=t.w,e=t.h,s=r.width,h=r.height,c=u/s,l=h*c,f=0;n(r);i.save();i.translate(u/2,e/2);let o=()=>{if(f>360){i.restore();t.next();return}i.save();i.rotate(f*Math.PI/180);i.drawImage(r,-u/2,-e/2,u,l);i.restore();f++;window.requestAnimationFrame(o)};window.requestAnimationFrame(o)}function h(t){let r=t.ctx,u=t.nextImg(),f=t.w,l=t.h,o=u.width,s=u.height,h=f/o,c=s*h,i=0;n(u);let e=()=>{if(i>1){t.next();return}r.save();r.globalAlpha=i;r.drawImage(u,0,0,f,c);r.restore();i+=i<.25?.002:i<.5?.005:i<.75?.01:.02;window.requestAnimationFrame(e)};window.requestAnimationFrame(e)}function c(t){let i=t.ctx,u=t.nextImg(),r=t.w,f=t.h,s=u.width,h=u.height,c=r/s,l=h*c,e=0,a=Math.max(r,f)*.707;n(u);let o=()=>{if(e>360){t.next();return}i.save();i.beginPath();i.moveTo(r/2,f/2);i.arc(r/2,f/2,a,0,e*Math.PI/180);i.clip();i.drawImage(u,0,0,r,l);i.restore();e++;window.requestAnimationFrame(o)};window.requestAnimationFrame(o)}function l(t){let i=t.ctx,r=t.nextImg(),u=t.w,a=t.h,s=r.width,h=r.height,c=u/s,e=h*c,l=u/2,f=0;n(r);let o=()=>{if(f>u){t.next();return}i.save();i.beginPath();i.rect(l-f/2,0,f,e);i.clip();i.drawImage(r,0,0,u,e);i.restore();f++;window.requestAnimationFrame(o)};window.requestAnimationFrame(o)}let a=t("sliderBox");a.loadImgAndStart()})()</script></div></div><script src=/asset/js/mainmenu.js></script>
+// 不检查加载情况,直接开始动画
+slid.start(...index);
+</pre><br><p>以下图片比例都不一样,容器使用1:1默认比例,不符合该比例的图片,效果有差异.<div class="layout-h f-v-center mg-tb-20"><div id=sliderBox style="width:320px;outline:5px dotted #f00"><img src=/asset/img/slider/slider1.jpg class=d-none> <img src=/asset/img/slider/slider2.jpg class=d-none> <img src=/asset/img/slider/slider3.jpg class=d-none> <img src=/asset/img/slider/slider4.jpg class=d-none> <img src=/asset/img/slider/slider5.jpg class=d-none> <img src=/asset/img/slider/slider6.jpg class=d-none> <img src=/asset/img/slider/slider7.jpg class=d-none> <img src=/asset/img/slider/slider8.jpg class=d-none></div><div class=mg-l-30 style="outline:5px dotted #008000"><img src="" height=320 id=showimg style=display:block></div></div><script>(()=>{function n(n){document.getElementById("showimg").src=n.src}function t(n,t){let y={};y.boxId=n;y.whScale=t||1;y.ctx=null;y.imgs=null;y.imgIndex=-1;y.skipTime=2e3;y.aniArr=null;y.aniIndex=0;let w=document.getElementById(y.boxId);y.w=w.offsetWidth;y.h=y.w/y.whScale;y.imgs=w.querySelectorAll("img");let p=document.createElement("canvas");return p.width=y.w,p.height=y.h,y.ctx=p.getContext("2d"),w.append(p),i(y),y.aniArr=[v,a,l,r,u,f,e,o,s,h,c],y.nextImg=()=>(y.imgIndex++,y.imgIndex>=y.imgs.length&&(y.imgIndex=0),y.imgs[y.imgIndex]),y.next=()=>{setTimeout(()=>{y.aniIndex++,y.aniIndex>=y.aniArr.length&&(y.aniIndex=0),y.aniArr[y.aniIndex](y)},y.skipTime)},y.loadImgAndStart=(...n)=>{let t=i=>{if(i<=0){y.ctx.beginPath();y.ctx.fillText("images loading falid!",y.w/3,y.h/2);return}y.imgs.length==0&&(y.imgs=document.getElementById(y.boxId).querySelectorAll("img"),setTimeout(()=>{t(i-1)},10));for(var r=0,u=y.imgs.length;r<u;r++)if(!y.imgs[r].complete){setTimeout(()=>{t(i-1)},10);return}y.start(...n)};t(500)},y.start=(...n)=>{if(!n||n.length==0){y.aniArr[0](y);return}let i=[];for(var t=0,r=n.length;t<r;t++){let r=n[t];i[t]=r<0||r>=y.aniArr.length?y.aniArr[t]:y.aniArr[r]}y.aniArr=i;y.aniArr[0](y)},y}function i(n){let t=n.ctx;t.save();t.beginPath();t.rect(0,0,n.w,n.h);t.fillStyle="#f1f1f1";t.fill();t.beginPath();t.font="600 30px arial";t.fillStyle="#34343480";t.textAlign="center";t.fillText("images Loading...",n.w/2,n.h/2);t.restore()}function r(t){let y=t.ctx,r=t.nextImg(),i=0,u=0,f=t.w,b=t.h,e=r.width,o=r.height,p=f/e,w=o*p,s=f/16,h=w/16,c=e/16,l=o/16,a=0;n(r);let v=()=>{if(a>255){t.next();return}i>15&&(i=0,u++);y.drawImage(r,i*c,u*l,c,l,i*s,u*h,s,h);i++;a++;window.requestAnimationFrame(v)};window.requestAnimationFrame(v)}function u(t){let i=t.ctx,r=t.nextImg(),f=0,u=t.w,e=t.h,s=r.width,h=r.height,c=u/s,l=h*c;n(r);let o=()=>{if(f>Math.max(u,e)*.707){t.next();return}i.save();i.beginPath();i.arc(u/2,e/2,f,0,Math.PI*2);i.clip();i.drawImage(r,0,0,u,l);i.restore();f++;window.requestAnimationFrame(o)};window.requestAnimationFrame(o)}function f(t){let e=t.ctx,i=t.nextImg(),r=t.w,l=t.h,o=i.width,s=i.height,h=r/o,c=s*h,u=-r;n(i);let f=()=>{if(u>0){t.next();return}e.drawImage(i,u,0,r,c);u++;window.requestAnimationFrame(f)};window.requestAnimationFrame(f)}function e(t){let e=t.ctx,i=t.nextImg(),u=t.w,o=t.h,s=i.width,h=i.height,c=u/s,l=h*c,r=-o;n(i);let f=()=>{if(r>0){t.next();return}e.drawImage(i,0,r,u,l);r++;window.requestAnimationFrame(f)};window.requestAnimationFrame(f)}function o(t){let i=t.ctx,r=t.nextImg(),f=t.w,l=t.h,o=r.width,s=r.height,h=f/o,c=s*h,u=1;n(r);let e=()=>{if(u>200){t.next();return}i.save();i.scale(u/200,u/200);i.drawImage(r,0,0,f,c);i.restore();u++;window.requestAnimationFrame(e)};window.requestAnimationFrame(e)}function s(t){let i=t.ctx,r=t.nextImg(),u=t.w,e=t.h,s=r.width,h=r.height,c=u/s,l=h*c,f=0;n(r);i.save();i.translate(u/2,e/2);let o=()=>{if(f>360){i.restore();t.next();return}i.save();i.rotate(f*Math.PI/180);i.drawImage(r,-u/2,-e/2,u,l);i.restore();f++;window.requestAnimationFrame(o)};window.requestAnimationFrame(o)}function h(t){let r=t.ctx,u=t.nextImg(),f=t.w,l=t.h,o=u.width,s=u.height,h=f/o,c=s*h,i=0;n(u);let e=()=>{if(i>1){t.next();return}r.save();r.globalAlpha=i;r.drawImage(u,0,0,f,c);r.restore();i+=i<.25?.002:i<.5?.005:i<.75?.01:.02;window.requestAnimationFrame(e)};window.requestAnimationFrame(e)}function c(t){let i=t.ctx,u=t.nextImg(),r=t.w,f=t.h,s=u.width,h=u.height,c=r/s,l=h*c,e=0,a=Math.max(r,f)*.707;n(u);let o=()=>{if(e>360){t.next();return}i.save();i.beginPath();i.moveTo(r/2,f/2);i.arc(r/2,f/2,a,0,e*Math.PI/180);i.clip();i.drawImage(u,0,0,r,l);i.restore();e++;window.requestAnimationFrame(o)};window.requestAnimationFrame(o)}function l(t){let i=t.ctx,r=t.nextImg(),u=t.w,o=t.h,s=r.width,h=r.height,c=u/s,l=h*c,a=u/2,f=0;n(r);let e=()=>{if(f>u+5){t.next();return}i.save();i.beginPath();i.rect(a-f/2,0,f,o);i.clip();i.drawImage(r,0,0,u,l);i.restore();f++;window.requestAnimationFrame(e)};window.requestAnimationFrame(e)}function a(t){let i=t.ctx,u=t.nextImg(),e=t.w,v=t.h,c=u.width,l=u.height,a=e/c,o=l*a,f=e/16,s=o,r=0;n(u);let h=()=>{if(r>s+5){t.next();return}i.save();i.beginPath();for(var n=0;n<8;n++)i.rect(2*n*f,0,f,r),i.rect((2*n+1)*f,s-r,f,r);i.clip();i.drawImage(u,0,0,e,o);i.restore();r++;window.requestAnimationFrame(h)};window.requestAnimationFrame(h)}function v(t){let i=t.ctx,f=t.nextImg(),r=t.w,e=t.h,s=f.width,h=f.height,c=r/s,l=h*c,a=r/2,u=0;n(f);let o=()=>{if(u>r/2+5){t.next();return}i.save();i.beginPath();i.rect(0,0,u,e);i.rect(r-u,0,u,e);i.clip();i.drawImage(f,0,0,r,l);i.restore();u++;window.requestAnimationFrame(o)};window.requestAnimationFrame(o)}let y=t("sliderBox");y.loadImgAndStart()})()</script></div></div><script src=/asset/js/mainmenu.js></script>
