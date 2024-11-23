@@ -1,6 +1,6 @@
-﻿<div class=doc-page><h2>侧边菜单</h2><p># 使用自定义标记 <b>&lt;m-sidemenu></b><p class=text-in>位于页面左侧的主菜单,用于管理系统的主菜单.只有1级菜单.<p class=text-in>最外层是nav容器,包含ul列表,每个ul是一组菜单.ul里的li为菜单项容器.里面的a是菜单项,每个ul内第1个span是组标题.<p class=text-in>菜单项可以是超链接 a ,点击后跳转页面.也可以做成一个按钮,点击后执行一个方法.<div class=grids id=sidemenutestbox><div class="grid-12 grid-md-6"><m-sidemenu class="bg-primary mg-5" id=sidemenudemo2 style=width:200px><ul class=sidemenu-group><li><span class=sidemenu-label>绑定事件<i class=sidemenu-arrdown></i></span><li><a class=sidemenu-item>菜单一(点击)</a><li><a class=sidemenu-item>菜单二</a><li><span class=sidemenu-split></span><li><a class=sidemenu-item>菜单三</a><li><a class=sidemenu-item>菜单四</a></ul></m-sidemenu></div><div class="grid-12 grid-md-6"><m-sidemenu class="bg-gray-lt mg-5" id=sidemenudemo1 style=width:200px><ul class=sidemenu-group><li><span class=sidemenu-label>超长度<i class=sidemenu-arrdown></i></span><li><a class=sidemenu-item>菜单一</a><li><a class=sidemenu-item>菜单二</a><li><span class=sidemenu-split></span><li><a class=sidemenu-item>菜单三</a><li><a class=sidemenu-item>菜单四(如果菜单内容超过宽度,显示省略号)</a></ul></m-sidemenu></div></div><br><pre>
+﻿<div class=doc-page><h2>侧边菜单</h2><p># 使用自定义标记 <b>&lt;m-sidemenu></b><p class=text-in>位于页面左侧的主菜单,用于管理系统的主菜单.只有1级菜单.<p class=text-in>最外层是nav容器,包含ul列表,每个ul是一组菜单.ul里的li为菜单项容器.里面的a是菜单项,每个ul内第1个span是组标题.<p class=text-in>菜单项可以是超链接 a ,点击后跳转页面.也可以做成一个按钮,点击后执行一个方法.<div class=grids id=sidemenutestbox><div class="grid-12 grid-md-6"><m-sidemenu class="blue mg-5" id=sidemenudemo2 style=width:200px><ul class=sidemenu-group><li><span class=sidemenu-label>绑定事件<i class=sidemenu-arrdown></i></span><li><a class=sidemenu-item>菜单一(点击)</a><li><a class=sidemenu-item>菜单二</a><li><span class=sidemenu-split></span><li><a class="sidemenu-item active">菜单三</a><li><a class=sidemenu-item>菜单四</a></ul></m-sidemenu></div><div class="grid-12 grid-md-6"><m-sidemenu class=mg-5 id=sidemenudemo1 style=width:200px><ul class=sidemenu-group><li><span class=sidemenu-label>超长度<i class=sidemenu-arrdown></i></span><li><a class=sidemenu-item>菜单一</a><li><a class=sidemenu-item>菜单二</a><li><span class=sidemenu-split></span><li><a class=sidemenu-item>菜单三</a><li><a class=sidemenu-item>菜单四(如果菜单内容超过宽度,显示省略号)</a></ul></m-sidemenu></div></div><br><pre>
 // DOM结构
-&lt;<b>m-sidemenu</b> class="sidemenu" id="main_menubox">
+&lt;<b>m-sidemenu</b> class="sky sidemenu" id="main_menubox">
   // 一组菜单
   &lt;ul class="sidemenu-group">
     &lt;li>
@@ -17,7 +17,7 @@
 // 调用create()方法,初始化菜单
 let sidemenu1 = document.getElementById('main_menubox');
 sidemenu1.<b>create()</b>;
-</pre><br><p># 方法 <b>create(json, itemClickE)</b><p class=text-in>生成菜单项,绑定事件.可以传入json对象,动态生成菜单项.<p><m-btn id=createsidemenu1>生成菜单</m-btn></p><m-sidemenu id=sidemenujsondeom1 class=bg-gray-lt style=width:200px></m-sidemenu><br><pre>
+</pre><br><p># 方法 <b>create(json, itemClickE)</b><p class=text-in>生成菜单项,绑定事件.可以传入json对象,动态生成菜单项.<p><m-btn id=createsidemenu1>生成菜单</m-btn></p><m-sidemenu id=sidemenujsondeom1 class=sky style=width:200px></m-sidemenu><br><pre>
   // josn结构: 菜单数据是一个数组,除了 <b>title</b> 外,其它都可以省略
   let menuJson =
     [
@@ -35,7 +35,7 @@ sidemenu1.<b>create()</b>;
             // 菜单项dom的属性
             props: { href: '#url', name: 'name' },
             // 菜单项dom的样式
-            styles: ['link','primary']
+            styles: ['class1','class2']
           },
           // 如果需要分割线
           { title: '-' }
