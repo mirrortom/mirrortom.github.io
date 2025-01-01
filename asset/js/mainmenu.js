@@ -1,4 +1,4 @@
-﻿(()=>{function r(n){let t="theme-dark",i=document.documentElement;n=="light"?i.classList.contains(t)&&i.classList.remove(t):n=="dark"&&(i.classList.contains(t)||i.classList.add(t));window.localStorage.setItem("theme",n);let r=new Event("changethemehandler");window.dispatchEvent(r);f()}function u(n){document.body.classList.remove("text-md","text-lg","text-base");document.body.classList.add(n);window.localStorage.setItem("fontsize",n)}function f(){let n=`
+﻿(()=>{function r(n){let t="theme-dark",i=document.documentElement;n=="light"?i.classList.contains(t)&&i.classList.remove(t):n=="dark"&&(i.classList.contains(t)||i.classList.add(t));window.localStorage.setItem("theme",n);let r=new Event("changethemehandler");window.dispatchEvent(r);f()}function u(n){document.documentElement.style.fontSize=n*10+"px";window.localStorage.setItem("fontsize",n)}function f(){let n=`
 <div id="mainmenubox" class="mainmenu-box">
   <a  class="layout-v f-v-center" href="/index.html"><canvas id="logo_canv"></canvas></a>
   <div class="layout-h pd-lr-30">
@@ -7,9 +7,9 @@
     <a class="mainmenu-link pd-lr-20" href="/about.html"><h5>About</h5></a>
   </div>
   <div id="themebox" class="mainmenu-theme layout-h f-v-center pd-l-15">
-    <a class="pd-r-5" fontval="text-base" title="font 14px"><i class="i-ac-font text-base"></i></a>
-    <a class="pd-lr-5" fontval="text-md" title="font 16px"><i class="i-ac-font text-md"></i></a>
-    <a class="pd-lr-5" fontval="text-lg" title="font 20px"><i class="i-ac-font text-lg"></i></a>
+    <a class="pd-r-5" fontval="1" title="font 100%"><i class="i-ac-font text-base"></i></a>
+    <a class="pd-lr-5" fontval="1.2" title="font 120%"><i class="i-ac-font text-md"></i></a>
+    <a class="pd-lr-5" fontval="1.35" title="font 135%"><i class="i-ac-font text-lg"></i></a>
     <a class="pd-lr-20 text-red-6" themeval="light" title="亮light"><i class="i-a-sun"></i></a>
     <a class="text-gray-7" themeval="dark" title="暗dark"><i class="i-moon"></i></a>
   </div>

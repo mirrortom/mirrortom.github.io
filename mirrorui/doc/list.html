@@ -7,7 +7,7 @@
 &lt;ul class="list <b>cir</b>">
 &lt;ul class="list <b>triangle</b>">
 &lt;ul class="list <b>star</b>">
-</pre><div class=mg-tb-15><span class=btn-group id=btngroup1><m-btn para=disc>圆点(默认) ●</m-btn><m-btn para=square>方块 ■</m-btn><m-btn para=cir>圆心 ○</m-btn><m-btn para=triangle>三角形 ▲</m-btn><m-btn para=star>五角星 ★</m-btn></span></div><ul class="list pd-lr-10 mg-b-10 mg-l-10" id=list1><li>图案标记列表支持5种图<li>圆点,默认<li>空心圆<li>正方形<li>三角形<li>五角星<li>支持主题颜色</ul><h4>有序列表</h4><p>4种风格,可选是否计算嵌套.不支持颜色主题.<pre>
+</pre><div class=mg-tb-15><span class=btn-group id=btngroup1><m-btn para=disc>圆点</m-btn><m-btn para=square>方块 ■</m-btn><m-btn para=cir>圆心 ○</m-btn><m-btn para=triangle>三角形 ▲</m-btn><m-btn para=star>五角星 ★</m-btn></span></div><ul class="list disc pd-lr-10 mg-b-10 mg-l-10" id=list1><li>图案标记列表支持5种图<li>圆点,默认<li>空心圆<li>正方形<li>三角形<li>五角星<li>支持主题颜色</ul><h4>有序列表</h4><p>4种风格,可选是否计算嵌套.不支持颜色主题.<pre>
  &lt;ol class="list">
 
 // 数值,大写字母,小写字母,中文
@@ -17,4 +17,4 @@
 &lt;ol class="list <strong>zh</strong>">
 // 要计算嵌套,在风格样式后加上s
 &lt;ol class="list <strong>nums</strong>">
-</pre><p class=text-sky-5>不计算嵌套,每个list都从新开始计数,可以多种风格一起使用<ol class="list num pd-lr-10 mg-b-10"><li>支持4种风格<li>字母<ol class="list abc"><li>AAAAAAAAAAAA<li>BBBBBBBBBBBB<li>CCC</ol><li>中文<ol class="list zh"><li>一二三<li>四五六</ol><li>小写<ol class="list abcl"><li>cccccccccccc<li>dddddddddddd</ol></ol><p class=text-sky-5>计算嵌套(样式名字后面带上s),从最外层的list开始计数,只能用同一风格,嵌套的list不必再加风格类<ol class="list nums pd-lr-10 mg-b-10"><li>VIP会员全部消费7折<li>普通会员9.5折<ol class=list><li>资深,8折<li>贵宾7.5折<ol class=list><li> 随机优惠券<ol class=list><li>5圆<li>20圆<li>50圆</ol></ol></ol></ol><p># 主题颜色适用在形状上.编号无效.</div><script>(()=>{$("#btngroup1 m-btn").each(n=>{n.onclick=()=>{let t=$(n).prop("para");$("#list1").removeClass("disc","square","cir","triangle","star").addClass(t)}})})()</script>
+</pre><p class=text-sky-5>不计算嵌套,每个list都从新开始计数,可以多种风格一起使用<ol class="list num pd-lr-10 mg-b-10"><li>支持4种风格<li>字母<ol class="list abc"><li>AAAAAAAAAAAA<li>BBBBBBBBBBBB<li>CCC</ol><li>中文<ol class="list zh"><li>一二三<li>四五六</ol><li>小写<ol class="list abc-l text-gray-5"><li>cccccccccccc<li>dddddddddddd</ol></ol><p class=text-sky-5>计算嵌套(样式名字后面带上s),从最外层的list开始计数,只能用同一风格,嵌套的list不必再加风格类<ol class="list nums pd-lr-10 mg-b-10"><li>VIP会员全部消费7折<li>普通会员9.5折<ol class=list><li>资深,8折<li>贵宾7.5折<ol class=list><li> 随机优惠券<ol class=list><li>5圆<li>20圆<li>50圆</ol></ol></ol></ol><p># 主题颜色适用在形状上.编号无效.</div><script>(()=>{$("#btngroup1 m-btn").each(n=>{n.onclick=()=>{let t=$(n).prop("para");$("#list1").removeClass("disc","square","cir","triangle","star").addClass(t)}})})()</script>
