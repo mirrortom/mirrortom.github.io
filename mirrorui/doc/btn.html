@@ -1,21 +1,17 @@
-﻿<div class=doc-page><h2>按钮</h2><p># 使用自定义标记 <b>&lt;m-btn></b> .也可以使用a,span,button标记添加 .btn 样式.<div class=mg-tb-10><m-btn>normal</m-btn><m-btn class="link mg-lr-10">链接式 link</m-btn><m-btn class="disabled mg-lr-10">禁用 disabled</m-btn><m-btn class="cir mg-lr-10">圆角 cir</m-btn><m-btn class=loading>等待中 loading</m-btn></div><pre>
+﻿<div class=doc-page><h2>按钮</h2><p>使用自定义标记 <b>&lt;m-btn></b> .也可以使用a,span,button标记添加 .btn 样式.<div class=mg-tb-10><m-btn>Normal</m-btn><m-btn class="link mg-lr-10">链接式 link</m-btn><m-btn class="disabled mg-lr-10">禁用 disabled</m-btn><m-btn class=loading>等待中 loading</m-btn></div><pre>
 &lt;m-btn>normal&lt;/m-btn>
 
 &lt;m-btn class="<b>link</b>">链接式&lt;/m-btn>
 
 &lt;m-btn class="<b>disabled</b>">禁用&lt;/m-btn>
 
-&lt;m-btn class="<b>cir</b>">圆角&lt;/m-btn>
-
 &lt;m-btn class="<b>loading</b>">等待中&lt;/m-btn>
-</pre><br><p># 彩色主题.<p><m-btn class="red-r mg-r-5">red-r</m-btn><m-btn class="green-r mg-r-5">login</m-btn><m-btn class=yellow-r>print</m-btn><p><m-btn class="red mg-r-5">red</m-btn><m-btn class="green mg-r-5">login</m-btn><m-btn class=yellow>print</m-btn><pre>
+</pre><h4>方法</h4><p>定义了添加和删除等待状态的方法.如果按钮处于等待状态,说明任务进行中,忽略之.这种场景用于避免按钮频繁点击.<p><b class=txt-sky-4>btn1.isLoading()</b> 如果按钮处于等待状态(含有loading样式类),返回true.否则添加loading样式,返回false.<pre>
+// 含样式loading时,返回true
+btn1.isLoading()
+</pre><m-btn id=btnloadtest1 class="btn mg-r-10 teal">点击等待</m-btn><p class=mg-t-10><b class=txt-sky-4>btn1.clsLoading(time)</b> 取消按钮等待状态(去掉loading样式类).可选参数:经过time毫秒后取消.<pre>
+// time毫秒,可选
+btn1.clsLoading(time)
+</pre><m-btn id=btnloadtest2 class="btn sky">2秒后消除等待</m-btn><h4>主题</h4><p>彩色线框式按钮,使用[color]-r样式</p><m-btn class="red-r mg-lr-5">red-r</m-btn><m-btn class="green-r mg-lr-5">login</m-btn><m-btn class="yellow-r mg-lr-5">print</m-btn><pre>
 &lt;m-btn class="<b>red-r</b>">alert&lt;/m-btn>
-</pre><p># 添加工具样式,调整字体大小,或变成块级<p><m-btn class=text-xl>text-xl</m-btn><p><m-btn class=d-block>d-block</m-btn><p># 方法<p class=text-in>定义了添加和删除等待状态的方法.如果按钮处于等待状态,说明任务进行中,忽略之.这种场景用于避免按钮频繁点击.<p><m-btn id=btnloadtest1 class="btn mg-r-10">点击等待</m-btn><m-btn id=btnloadtest2 class=btn>2秒后消除等待</m-btn><pre>
-let btn1 = document.querySelector('#btnloadtest1');
-
-// 如果按钮处于等待状态(含有loading样式类),返回true.否则添加loading样式,返回false.
-btn1.<b>isLoading()</b>
-
-// 取消按钮等待状态(去掉loading样式类).可选参数:经过time毫秒后取消.
-btn1.<b>clsLoading(time)</b>
-</pre><script>(()=>{let n=document.querySelector("#btnloadtest1"),t=document.querySelector("#btnloadtest2");n.onclick=()=>{n.isLoading()&&n.clsLoading()};t.onclick=()=>{t.isLoading()==!1&&t.clsLoading(2e3)}})()</script></div>
+</pre><p class=mg-t-10>添加工具样式,调整字体大小,变成块级,圆角<div class="grid gap-row-10 mg-t-10"><div><m-btn class="cir-10 orange">圆角</m-btn></div><div><m-btn class="txt-2xl red-r">2xl码</m-btn></div><div><m-btn class="block sky txt-center spacing-1em txt-white-1">块级</m-btn></div></div><script>(()=>{let n=document.querySelector("#btnloadtest1"),t=document.querySelector("#btnloadtest2");n.onclick=()=>{n.isLoading()&&n.clsLoading()};t.onclick=()=>{t.isLoading()==!1&&t.clsLoading(2e3)}})()</script></div>

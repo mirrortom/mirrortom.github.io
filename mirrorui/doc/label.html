@@ -1,17 +1,9 @@
-﻿<div class=doc-page><h2>标签</h2><p>默认标签背景颜色继承父级,可以自定义标签背景色,文字色,也可以使用主题背景色<div class=mg-tb-10><span class=label>默认标签</span> <span class="label cir">圆角</span></div><p>添加背景字体工具样式定义标签主题<div id=labelbox class="layout-h mg-tb-10"></div><div id=labelnumbox class="layout-h mg-tb-10"></div><pre class=bg-gray-lt>
-&lt;span class="<strong>label</strong>">默认标签&lt;/span>
-
-// 圆角
-&lt;span class="label <strong>cir</strong>">圆角 class="label cir"&lt;/span>
-
-.label
-    display: inline-flex
-    align-items: center
-    justify-content: center
-    border: 1px solid $border-color(gray-2)
-    padding:2px .5em;
-    border-radius:$cir-angle(4px)
-// 圆角
-.label.cir
-    border-radius: 1em;  
-</pre></div><script>(n=>{var t;let r=n.themecolors,i="";for(t=0;t<r.length;t++){let n=r[t],u=t%2==0?"cir":"";i+=`<span class="label ${u} text-white-1 bg-${n}-5 mg-lr-5">tag</span>`}for($("#labelbox").html(i),i="",t=0;t<10;t++)i+=`<span class="label cir text-white-1 bg-sky-5 mg-lr-5">${t}</span>`;$("#labelnumbox").html(i)})(window)</script>
+﻿<div class=doc-page><h2>标签</h2><p>用于关键词,简短标语.用于显目提示.一般是在背景色/文字色/边框是做设计.<h4>例子</h4><h6>边框</h6><p>使用span元素,行内flex布局,主轴/交叉轴居中,边框1.用了5个工具样式,虽然写起来比事先定制一个标签class然后引用,要麻烦的太多,但是灵活性好.而实际情况总是会变化,预定义的标签可能不适用,这也是来自tailwind的思想,预定义的样式,总是那个样子,不灵活,修改难,所以不如现场组合,如果需要修改,调整组合即可.<div class=mg-tb-10><span class="inline-flex j-center a-center pd-3 bd-1 bd-gray-4 mg-lr-15">标签</span> <span class="inline-flex j-center a-center pd-3 bd-1 bd-gray-4 mg-lr-15">UI设计</span> <span class="inline-flex j-center a-center pd-3 bd-1 bd-gray-4 cir-1em mg-lr-15">界面</span> <span class="inline-flex j-center a-center w-3em h-3em bd-1 bd-gray-4 cir-50p mg-lr-15">编程</span></div><pre>
+&lt;span class="inline-flex j-center a-center pd-3 bd-1 bd-gray-4 mg-lr-15">标签&lt;/span>
+&lt;span class="inline-flex j-center a-center pd-3 bd-1 bd-gray-4 cir-1em mg-lr-15">界面&lt;/span>
+&lt;span class="inline-flex j-center a-center w-3em h-3em bd-1 bd-gray-4 cir-50p mg-lr-15">编程&lt;/span>
+</pre><h6>文字色</h6><p>文字颜色和大小标签<div class="grid grid-col j-start a-center gap-col-15"><span class="inline-flex j-center a-center txt-yellow-6 mg-lr-15">历史</span> <span class="inline-flex j-center a-center bd-1 bd-gray-4 txt-red-6 mg-lr-15">文化</span> <span class="inline-flex j-center a-center txt-gray-6 txt-xl txt-b-6 mg-lr-15">City</span> <span class="inline-flex j-center a-center txt-sky-6 txt-xl mg-lr-15">科学</span></div><pre>
+&lt;span class="inline-flex j-center txt-gray-6 txt-xl a-center txt-b-6 mg-lr-15">City&lt;/span>
+</pre><h6>背景色</h6><div class="grid grid-col j-start a-center gap-col-15"><span class="inline-flex j-center a-center txt-white-1 bg-rose-5 mg-lr-15">明星</span> <span class="inline-flex j-center a-center txt-yellow-2 bg-gray-5 txt-lg mg-lr-15">电影</span> <span class="inline-flex j-center a-center txt-gray-6 bg-yellow-5 txt-xl cir-5 mg-lr-15">好莱坞</span></div><pre>
+&lt;span class="inline-flex j-center a-center txt-gray-6 bg-yellow-5 txt-xl cir-5 mg-lr-15">好莱坞&lt;/span>
+</pre></div>

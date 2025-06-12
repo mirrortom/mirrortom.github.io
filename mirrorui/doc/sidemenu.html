@@ -1,4 +1,4 @@
-﻿<div class=doc-page><h2>侧边菜单</h2><p># 使用自定义标记 <b>&lt;m-sidemenu></b><p class=text-in>位于页面左侧的主菜单,用于管理系统的主菜单.只有1级菜单.<p class=text-in>最外层是nav容器,包含ul列表,每个ul是一组菜单.ul里的li为菜单项容器.里面的a是菜单项,每个ul内第1个span是组标题.<p class=text-in>菜单项可以是超链接 a ,点击后跳转页面.也可以做成一个按钮,点击后执行一个方法.<div class=grids id=sidemenutestbox><div class="grid-12 grid-md-6"><m-sidemenu class="blue mg-5" id=sidemenudemo2 style=width:200px><ul class=sidemenu-group><li><span class=sidemenu-label>绑定事件<i class=sidemenu-arrdown></i></span><li><a class=sidemenu-item>菜单一(点击)</a><li><a class=sidemenu-item>菜单二</a><li><span class=sidemenu-split></span><li><a class="sidemenu-item active">菜单三</a><li><a class=sidemenu-item>菜单四</a></ul></m-sidemenu></div><div class="grid-12 grid-md-6"><m-sidemenu class=mg-5 id=sidemenudemo1 style=width:200px><ul class=sidemenu-group><li><span class=sidemenu-label>超长度<i class=sidemenu-arrdown></i></span><li><a class=sidemenu-item>菜单一</a><li><a class=sidemenu-item>菜单二</a><li><span class=sidemenu-split></span><li><a class=sidemenu-item>菜单三</a><li><a class=sidemenu-item>菜单四(如果菜单内容超过宽度,显示省略号)</a></ul></m-sidemenu></div></div><br><pre>
+﻿<div class=doc-page><h2>侧边菜单</h2><p>使用自定义标记 <b>&lt;m-sidemenu></b><p>位于页面左侧的主菜单,用于管理系统的主菜单.只有1级菜单.<p>最外层是nav容器,包含ul列表,每个ul是一组菜单.ul里的li为菜单项容器.里面的a是菜单项,每个ul内第1个span是组标题.<p>菜单项可以是超链接 a ,点击后跳转页面.也可以做成一个按钮,点击后执行一个方法.<div class="grid grid-cols-2" id=sidemenutestbox><div><m-sidemenu class="blue mg-5 w-200" id=sidemenudemo2><ul class=sidemenu-group><li><span class=sidemenu-label>绑定事件<i class=sidemenu-arrdown></i></span><li><a class=sidemenu-item>菜单一(点击)</a><li><a class=sidemenu-item>菜单二</a><li><span class=sidemenu-split></span><li><a class="sidemenu-item active">菜单三</a><li><a class=sidemenu-item>菜单四</a></ul></m-sidemenu></div><div><m-sidemenu class="mg-5 w-200" id=sidemenudemo1><ul class=sidemenu-group><li><span class=sidemenu-label>超长度<i class=sidemenu-arrdown></i></span><li><a class=sidemenu-item>菜单一</a><li><a class=sidemenu-item>菜单二</a><li><span class=sidemenu-split></span><li><a class=sidemenu-item>菜单三</a><li><a class=sidemenu-item>菜单四(如果菜单内容超过宽度,显示省略号)</a></ul></m-sidemenu></div></div><pre>
 // DOM结构
 &lt;<b>m-sidemenu</b> class="sky sidemenu" id="main_menubox">
   // 一组菜单
@@ -17,13 +17,13 @@
 // 调用create()方法,初始化菜单
 let sidemenu1 = document.getElementById('main_menubox');
 sidemenu1.<b>create()</b>;
-</pre><br><p># 方法 <b>create(json, itemClickE)</b><p class=text-in>生成菜单项,绑定事件.可以传入json对象,动态生成菜单项.<p><m-btn id=createsidemenu1>生成菜单</m-btn></p><m-sidemenu id=sidemenujsondeom1 class=sky style=width:200px></m-sidemenu><br><pre>
+</pre><h4>方法</h4><p><b class=txt-sky-4>create(json, itemClickE)</b> 生成菜单项,绑定事件.可以传入json对象,动态生成菜单项.</p><m-btn id=createsidemenu1 class=mg-t-10>生成菜单</m-btn><m-sidemenu id=sidemenujsondeom1 class="sky w-200"></m-sidemenu><pre>
   // josn结构: 菜单数据是一个数组,除了 <b>title</b> 外,其它都可以省略
   let menuJson =
     [
       // 每个元素是一个对象
       {
-        <b>title</b>: '菜单组标题',
+  <b>title</b>: '菜单组标题',
         // 菜单组标题的属性和样式
         props: { k: 'v', k1: 'v1' },
         styles: ['class1','class2'],
@@ -31,7 +31,7 @@ sidemenu1.<b>create()</b>;
         // 每组菜单项是一个数组
         menus: [
           {
-            <b>title</b>: '菜单标题',
+  <b>title</b>: '菜单标题',
             // 菜单项dom的属性
             props: { href: '#url', name: 'name' },
             // 菜单项dom的样式
@@ -43,9 +43,10 @@ sidemenu1.<b>create()</b>;
       }
     ]
   
-  // <b>itemClickE(item, index)</b>: 点击菜单后执行的方法.item是被点击的菜单dom对象,index是菜单索引
-  // 这两个参数都可以省略.如果不需要使用数据生成菜单项.只绑定事件,不需要第1个参数,传(null,fun)
-</pre><br><p># 方法 <b>activeItem(itemIndex)</b><p class=text-in>指定一个激活的菜单,itemIndex 是菜单索引<pre>
+// itemClickE(item, index)
+//点击菜单后执行的方法.item是被点击的菜单dom对象,index是菜单索引
+// 这两个参数都可以省略.如果不需要使用数据生成菜单项.只绑定事件,不需要第1个参数,传(null,fun)
+</pre><p class=mg-t-10><b class=txt-sky-4>activeItem(itemIndex)</b> 指定一个激活的菜单,itemIndex 是菜单索引<pre>
 // 激活第三个菜单
 document.getElementById('sidemenudemo1').<b>activeItem(2)</b>;
-</pre><br><script>(()=>{document.getElementById("sidemenudemo1").create(),document.getElementById("sidemenudemo1").activeItem(2),document.getElementById("sidemenudemo2").create(null,(n,t)=>{window.ns.msgbox.alert(n.innerText+"index:"+t)}),document.getElementById("createsidemenu1").onclick=()=>{document.getElementById("sidemenujsondeom1").create([{title:"动态菜单1",props:{gid:"g1"},styles:["bg-danger-lt"],menus:[{title:"菜单A",props:{val:"aaa",menuId:"001",title:"第一个菜单"}},{title:"菜单B",props:{val:"bbb",menuId:"002"}},{title:"-"},{title:"菜单C一个比较长的名字,用于查询数据库",props:{val:"ccc",menuId:"003",title:"菜单C一个比较长的名字, 用于查询数据库"}},{title:"菜单D",props:{val:"ddd",menuId:"004"}},]},{title:"动态菜单2",styles:["bg-danger-lt"],menus:[{title:"菜单A1"},{title:"菜单B1"},{title:"-"},{title:"菜单C1"},{title:"菜单D1"},]}],(n,t)=>{window.ns.msgbox.alert(`menuId : ${n.getAttribute("menuId")}, menuIndex : ${t}`)})}})()</script></div>
+</pre><script>(()=>{document.getElementById("sidemenudemo1").create(),document.getElementById("sidemenudemo1").activeItem(2),document.getElementById("sidemenudemo2").create(null,(n,t)=>{window.ns.msgbox.alert(n.innerText+"index:"+t)}),document.getElementById("createsidemenu1").onclick=()=>{document.getElementById("sidemenujsondeom1").create([{title:"动态菜单1",props:{gid:"g1"},styles:["bg-danger-lt"],menus:[{title:"菜单A",props:{val:"aaa",menuId:"001",title:"第一个菜单"}},{title:"菜单B",props:{val:"bbb",menuId:"002"}},{title:"-"},{title:"菜单C一个比较长的名字,用于查询数据库",props:{val:"ccc",menuId:"003",title:"菜单C一个比较长的名字, 用于查询数据库"}},{title:"菜单D",props:{val:"ddd",menuId:"004"}},]},{title:"动态菜单2",styles:["bg-danger-lt"],menus:[{title:"菜单A1"},{title:"菜单B1"},{title:"-"},{title:"菜单C1"},{title:"菜单D1"},]}],(n,t)=>{window.ns.msgbox.alert(`menuId : ${n.getAttribute("menuId")}, menuIndex : ${t}`)})}})()</script></div>
