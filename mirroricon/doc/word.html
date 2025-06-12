@@ -1,4 +1,4 @@
-﻿<div class=doc-page><h2>word</h2><p>office word图标<div class=mg-20><i class="i-a-word text-md"></i> <i class="i-a-word text-3xl text-sky-5"></i></div><pre>
+﻿<div class=doc-page><h2>word</h2><p>office word图标<div class=mg-20><i class="i-a-word txt-md"></i> <i class="i-a-word txt-4rem txt-sky-5"></i></div><pre>
 &lt;i class="<b>i-a-word</b>">&lt;/i>
 </pre><br><p>图标设计是模仿word文件的图标.左上方一个W,右边和下方被文字围绕.<p>图标整体位于容器中间,上下左右留出0.1em的空白.<p>文字围绕使用:after的box-shadow实现,这个容易.长度为0.3em,W右侧3排阴影,下方2条长阴影是由3个阴影叠在一起的.总共9个阴影.<p>W开始用字体实现,但浏览器最小字体显示为10px,如果是16px的图标,那么W会占据整个图标位置.后来改用clip-path实现了.</p><canvas id=canva1></canvas><br><p>将W看作是多边形,从左上角开始(1),从外围到内围,最后到左上角的右边(13),结束.这13个点围起来的形状就是W.<p>观察了W字体比例,选择width:height = 6:5 的矩形作为W的参考框架,线的厚度为矩形的16%, 13个点的坐标,和矩形的关系数据如下:<pre>
 // 1. 以矩形为坐标系,以左上角(1)点为坐标系(0,0)点,下为y轴正方向,右为x轴正方向. 

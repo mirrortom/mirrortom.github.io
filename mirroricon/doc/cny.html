@@ -1,4 +1,4 @@
-﻿<div class=doc-page><h2>人民币</h2><p>人民币,钱<div class=mg-20><i class="i-fv-cny text-md"></i> <i class="i-fv-cny text-3xl text-sky-5"></i></div><pre>
+﻿<div class=doc-page><h2>人民币</h2><p>人民币,钱<div class=mg-20><i class="i-fv-cny txt-md"></i> <i class="i-fv-cny txt-4rem txt-sky-5"></i></div><pre>
 &lt;i class="<b>i-fv-cny</b>">&lt;/i>
 </pre><br><p>参考了字符￥的样子,选了横线为单条的符号,可以看成上下2部分.上部为尖角加横线(红色),下部为竖线(绿色).<p>设计高度 h = 0.8em ,尖角开口为60度,尖角高度(CH)为 h*5/8 = 0.5em,那么下部竖线高度为 0.8 - 0.5 = 0.3em.</p><canvas id=canva1></canvas><br><p>上半部分尖角用渐变实现,横线用box-shadow内阴影实现.<p>已知高度h,上半高度CH,尖角开口60度. 需要计算的有,图标宽度 2*CO ,渐变距离CG<p>CO = CH * tan30 , CG = CH * sin30 = CH / 2<p>线条宽度为.08em,最小1px.图标使用flex布局,让上下2部分,水平垂直居中.<p><i class="i-fv-cny fs100"></i><p>完整样式<pre>
 .i-fv-cny

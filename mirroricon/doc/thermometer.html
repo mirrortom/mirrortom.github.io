@@ -1,4 +1,4 @@
-﻿<div class=doc-page><h2>温度计</h2><p>温度计,测量仪<div class=mg-20><i class="i-a-thermometer text-lg"></i> <i class="i-a-thermometer text-3xl text-sky-5"></i></div><pre>
+﻿<div class=doc-page><h2>温度计</h2><p>温度计,测量仪<div class=mg-20><i class="i-a-thermometer txt-lg"></i> <i class="i-a-thermometer txt-4rem txt-sky-5"></i></div><pre>
 &lt;i class="<b>i-a-thermometer</b>">&lt;/i>
 </pre><br><p>观察了一些温度计,一般有3部分,水银球,柱子,刻度.图标也显示这3个部分.<p>柱子和球水平居中,柱子离上边10%,球离下边8%.柱子下方和球上方有一点重叠.<p>柱子高度0.6em,宽度0.1em(最小4px),使用:before.左上/右上角圆角.柱子底部起有水银位,这个其实是border-bottom实现的.<p>球半径0.12em(最小3px),用容器元素的径向渐变画出,圆心位置在(50%,80%)处,球体半径0.12em,这样球下方离底部还有8%的距离.<p>刻度线是:after的box-shadow实现,宽度0.1em(最小2px),围绕在柱子两侧,阴影离柱子的水平距离是0.05em(刻度线宽的1/2),阴影竖直间隔0.1em.左右两边刻度在垂直位置上错开0.05em,表示两种单位的刻度.</p><br><p><i class="i-a-thermometer fs100"></i><p>完整样式<pre>
 .i-a-thermometer

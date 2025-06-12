@@ -1,4 +1,4 @@
-﻿<div class=doc-page><h2>搜索</h2><p>搜索图标,放大镜的样子.<div class=mg-20><i class="i-a-search text-md"></i> <i class="i-a-search text-3xl text-sky-5"></i></div><pre>
+﻿<div class=doc-page><h2>搜索</h2><p>搜索图标,放大镜的样子.<div class=mg-20><i class="i-a-search txt-md"></i> <i class="i-a-search txt-4rem txt-sky-5"></i></div><pre>
 &lt;i class="<b>i-a-search</b>">&lt;/i>
 </pre><br><p>圆圈表示放大镜(:before),直线表示支架(:after),支架是旋转45度后得到.这两个部分位于图标方块(边长为 L )的对角线上,所以,圆圈的直径加上支架的长度不会超过对角线长度.(L * 1.414)<p>经过调试后,圆圈直径确定为 0.6L ,top:5%,left:5% ,支架长度 0.5L,top:55%,left:55%.这个位置刚好与圈衔接上.<p>圈和支架总长度 (0.6+0.5)L = 1.1L.支架旋转45度后,末端与图标右下角还有一点距离.由图可见,总长度加上留出的边距依然小于对角线长度1.414L.</p><canvas id=canva1></canvas><br><p>图标的圈与支架结合处,使用了圆角,但看起来不明显.<p><i class="i-a-search fs100"></i><p>完整样式<pre>
 .i-a-search

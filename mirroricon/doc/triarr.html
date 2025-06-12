@@ -1,8 +1,8 @@
-﻿<div class=doc-page><h2>三角箭头</h2><p>三角形箭头图标,是等边三角形,箭头分上下左右.<div class=mg-20><i class="i-f-triarr text-xl"></i> <i class="i-f-triarr down text-red-5 text-xl"></i> <i class="i-f-triarr left text-orange-5 text-xl"></i> <i class="i-f-triarr right text-sky-5 text-xl"></i></div><pre>
+﻿<div class=doc-page><h2>三角箭头</h2><p>三角形箭头图标,是等边三角形,箭头分上下左右.<div class=mg-20><i class="i-f-triarr txt-xl"></i> <i class="i-f-triarr down txt-red-5 txt-xl"></i> <i class="i-f-triarr left txt-orange-5 txt-xl"></i> <i class="i-f-triarr right txt-sky-5 txt-xl"></i></div><pre>
 &lt;i class="<b>i-f-triarr</b>">&lt;/i>
   &lt;i class="i-f-triarr down">&lt;/i>
   &lt;i class="i-f-triarr left">&lt;/i>
-  &lt;i class="i-f-triarr right text-info">&lt;/i>
+  &lt;i class="i-f-triarr right txt-info">&lt;/i>
 </pre><br><style scoped>.triarrdemo{display:inline-block;font-size:100px;width:0;height:0;border:50px solid transparent}.triarrdemo.bottom{border-top:calc(.866*1em) solid;border-bottom:0;border-left-color:#00ff90;border-right-color:#00ff90}.triarrdemo.top{border-bottom:calc(.866*100px) solid;border-top:0;border-left-color:#00ff90;border-right-color:#00ff90}.triarrdemo.left{border-right:calc(.866*100px) solid;border-left:0;border-top-color:#00ff90;border-bottom-color:#00ff90}.triarrdemo.right{border-left:calc(.866*100px) solid;border-right:0;border-top-color:#00ff90;border-bottom-color:#00ff90}.triarrdemo.margin-lr{margin:0 calc((100px - .866*100px)/2)}.triarrdemo.margin-tb{margin:calc((100px - .866*100px)/2) 0}</style><p>自然是边框法做三角形,要求是等边三角形,需要计算边框长度.假设边长是 L,先做一个底边水平,底边对应顶角朝下的三角形.<p>等边三角形的高h,与边长L的关系 h = sin60 * L<p>根据边框法做三角形规律,要做出这个等边三角形,border-left和border-right的厚度是 L/2,而border-top的厚度是 h.下边框则不需要了,none.<p><i class="triarrdemo bottom"></i><pre>
 width: 0;
   height: 0;
@@ -10,7 +10,7 @@ width: 0;
   // 上边框厚度就是三角形的高,下边框去掉
   border-top: calc(0.866 * 100px) solid;
   border-bottom: none;
-</pre><br><p>方向向下(bottom)的三角形箭头,需要的是top边框,并且要去掉bottom边框,这是个规律.据此画出其它3个方向的.<p>但是,只画一个方向的,其它3个方向的旋转90度得到,更加方便.<p><i class="triarrdemo top text-black-lt"></i> <i class="triarrdemo left text-black-lt"></i> <i class="triarrdemo right text-black-lt"></i><p>由于边长是 L,高是 sin60 * L,所以三角形所在的盒模型是一个长方形.需要对齐位置.<p>最后,三角形使用:before,图标容器使用flex布局,居中对齐.免去居中计算位置的麻烦.<div class=grids style=font-size:0><div class=bg-warning-lt><i class="triarrdemo top margin-tb text-black-lt"></i></div><i class=mg-lr-20></i><div class=bg-warning-lt><i class="triarrdemo left margin-lr text-black-lt"></i></div></div><br><p><i class="i-f-triarr fs100"></i> <i class="i-f-triarr down fs100"></i> <i class="i-f-triarr left fs100"></i> <i class="i-f-triarr right fs100"></i><p>完整样式<pre>
+</pre><br><p>方向向下(bottom)的三角形箭头,需要的是top边框,并且要去掉bottom边框,这是个规律.据此画出其它3个方向的.<p>但是,只画一个方向的,其它3个方向的旋转90度得到,更加方便.<p><i class="triarrdemo top"></i> <i class="triarrdemo left"></i> <i class="triarrdemo right"></i><p>由于边长是 L,高是 sin60 * L,所以三角形所在的盒模型是一个长方形.需要对齐位置.<p>最后,三角形使用:before,图标容器使用flex布局,居中对齐.免去居中计算位置的麻烦.<div class=grids style=font-size:0><div class=bg-orange-4><i class="triarrdemo top margin-tb"></i></div><i class=mg-lr-20></i><div class=bg-orange-4><i class="triarrdemo left margin-lr"></i></div></div><br><p><i class="i-f-triarr fs100"></i> <i class="i-f-triarr down fs100"></i> <i class="i-f-triarr left fs100"></i> <i class="i-f-triarr right fs100"></i><p>完整样式<pre>
 .i-f-triarr
     &:before
         width: 0
