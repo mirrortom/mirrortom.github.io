@@ -4,8 +4,8 @@
   // 颜色和大小添加工具样式实现
   &lt;i class="i-moon txt-xl">&lt;/i>
 
-  &lt;i class="i-moon txt-danger">&lt;/i>
-</pre><br><style scoped>.moondemo{display:inline-block;border-radius:50%;width:1em;height:1em}</style><p>月牙可以看成是一个圆的一部分,所以先做一个圆.这个用border-radius:50%实现.就是圆角边框.<p><i class="moondemo txt-xxl bg-gray"></i><pre>
+  &lt;i class="i-moon txt-red-5">&lt;/i>
+</pre><br><style scoped>.moondemo{display:inline-block;border-radius:50%;width:1em;height:1em}</style><p>月牙可以看成是一个圆的一部分,所以先做一个圆.这个用border-radius:50%实现.就是圆角边框.<p><i class="moondemo txt-xxl bg-gray-3"></i><pre>
 display: inline-block;
   border-radius: 50%;
   width: 1em;
@@ -14,11 +14,11 @@ display: inline-block;
 box-shadow: 0 0;
   box-shadow: 10px 0;
   box-shadow: 10px 5px;
-</pre><br><p>由于阴影在元素面积外,而阴影不占元素面积,所以月牙部分是在图标范围外的.这比较不妥.<p>可以改换内阴影inset,与阴影在元素面积外相反,内阴影在元素面积内.这样,月牙就在元素体积内.<p><i style="box-shadow:0 0" class="moondemo txt-xxl bg-gray"></i> <i style="box-shadow:inset -10px 0" class="moondemo txt-xxl bg-gray"></i> <i style="box-shadow:inset -15px 0" class="moondemo txt-xxl bg-gray mg-l-20"></i> <i style="box-shadow:inset -10px -5px" class="moondemo txt-xxl bg-gray mg-l-20"></i> <i style="box-shadow:inset -10px -10px" class="moondemo txt-xxl bg-gray mg-l-20"></i><pre>
+</pre><br><p>由于阴影在元素面积外,而阴影不占元素面积,所以月牙部分是在图标范围外的.这比较不妥.<p>可以改换内阴影inset,与阴影在元素面积外相反,内阴影在元素面积内.这样,月牙就在元素体积内.<p><i style="box-shadow:0 0" class="moondemo txt-xl bg-gray-3"></i> <i style="box-shadow:inset -10px 0" class="moondemo txt-xxl bg-gray-3"></i> <i style="box-shadow:inset -15px 0" class="moondemo txt-xxl bg-gray-3 mg-l-20"></i> <i style="box-shadow:inset -10px -5px" class="moondemo txt-xxl bg-gray-3 mg-l-20"></i> <i style="box-shadow:inset -10px -10px" class="moondemo txt-xxl bg-gray-3 mg-l-20"></i><pre>
 box-shadow: 0 0;
   box-shadow: inset -10px 0;
   box-shadow: inset -10px -5px;
-</pre><br><p>阴影的颜色跟随color属性,大小用em单位.添加工具样式就可以改大小和颜色.完整css规则.<p><i class="ico ico-moon txt-sm"></i> <i class="ico ico-moon txt-md"></i> <i class="ico ico-moon txt-xl"></i> <i class="ico ico-moon txt-xxl"></i></p><br><p><i class="i-moon fs100"></i><p>完整样式<pre>
+</pre><br><p>阴影的颜色跟随color属性,大小用em单位.添加工具样式就可以改大小和颜色.完整css规则.<p><i class="ico ico-moon txt-sm"></i> <i class="ico ico-moon txt-md"></i> <i class="ico ico-moon txt-xl"></i> <i class="ico ico-moon txt-2xl"></i></p><br><p><i class="i-moon fs100"></i><p>完整样式<pre>
 .i-moon
     border-radius: 50%
     box-shadow: inset -.4em -.1em
