@@ -1,28 +1,25 @@
-<!DOCTYPE html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1.0,user-scalable=no"><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><title>文件转BASE64 | Mirror Space</title><link href=/mirrorui/mirrorui.css rel=stylesheet><link href=/mirroricon/mirroricon.css rel=stylesheet><link href=/asset/css/blog.css rel=stylesheet><div class=layout><div class=layout-part1></div><div class=layout-part2><div class=mg-20><div class=msgpanel><h4>文件转换BASE64</h4><p>使用<b>FileReader</b>这个对象可以将文件转为base64编码</div><br><pre class=bg-gray-lt>
+﻿<!DOCTYPE html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1.0"><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><title>文件转BASE64 | Mirror Space</title><link href=/asset/css/blogArticle.css rel=stylesheet><div class=layout><div class=layout-part1></div><div class="layout-part2 layout-article"><div class=wz-page><div class=txt-center><h1>文件转BASE64</h1><span class=txt-gray-5>作者: </span><span>mirror</span> <span class="mg-l-10 txt-gray-5">日期:</span><span></span></div><hr class="bd-none bd-t-1 bd-t-gray-4 mg-t-10"><div id=page_content><p><small>last update 2025/06/17</small><p>使用js的<b>FileReader</b>这个对象可以将文件转为base64编码<pre>
+// 从input控件取得文件对象
+var file = document.getElementById('input').files[0];
+<b>// 第一步:新建一个这对象</b>
+let reader = new FileReader();
 
-  // 从input控件取得文件对象
-  var file = document.getElementById('input').files[0];
-  <b>// 第一步:新建一个这对象</b>
-  let reader = new FileReader();
-
-  if (file)
-  {
-    // <b>第二步:对象载入INPUT里的文件</b>
-    reader.readAsDataURL(file);
-    // <b class=text-danger>关键处:必须在图片加载完成事件中处理.</b>
-    reader.addEventListener("load", function ()
-    {
-      // console.log('选择的图片已经载入...');
-      $('#previmg').prop('src', reader.result);
-      // <b class=text-danger>对象加载完文件后,result属性就会有值.值就是base64字符串</b>
-      reader.result;
-    }, false);
-  }
-
-</pre><br><p>选择一个文件,点击转换得到base64编码字符串.不要选太大的文件,500K以下否则可能卡死</p><m-file id=fileinput tag=选择文件></m-file><div class=mg-tb-10><a class="btn success" onclick=filetobase64()>开始转换</a> <a class=btn onclick=clearinputfile()>清空</a> <span id=trunerrmsgbox class=text-danger></span></div><div><label class=form-label>转换结果base64编码</label><textarea id=filebase64box class=textarea></textarea></div><p class=article-title>字符串转换<p>浏览器window对象提供了Base64编码和解码方法.(旧版本的没有)<pre class=bg-gray-lt>
-    // 编码
-    window.btoa('hello world'); // aGVsbG8gd29ybGQ=
-    // 解码
-    window.atob('aGVsbG8gd29ybGQ='); // hello world
-
-</pre></div><hr class=line><script src=/mirrorui/mirrorui.js></script><script src=/jslib/jslib.js></script><script>function filetobase64(){var n,i,t;if($("#trunerrmsgbox").html(""),n=document.getElementById("fileinput").files[0],!n){$("#trunerrmsgbox").html("文件错误,请选择文件!");return}if(i=n.size/1048576,i>2){$("#trunerrmsgbox").html("已选文件超过"+Math.ceil(i)+"M,为方便示例,请选择小于2M的文件!");return}t=new FileReader;n&&(t.readAsDataURL(n),t.addEventListener("load",function(){$("#filebase64box").val(t.result)},!1))}function clearinputfile(){$("#trunerrmsgbox").html("");$("#filebase64box").val("");$("#fileinput")[0].reset()}</script></div></div><script src=/asset/js/mainmenu.js></script>
+if (file)
+{
+// <b>第二步:对象载入INPUT里的文件</b>
+reader.readAsDataURL(file);
+// <b class=text-danger>关键处:必须在图片加载完成事件中处理.</b>
+reader.addEventListener("load", function ()
+{
+    // console.log('选择的图片已经载入...');
+    $('#previmg').prop('src', reader.result);
+    // <b class=text-danger>对象加载完文件后,result属性就会有值.值就是base64字符串</b>
+    reader.result;
+}, false);
+}
+</pre><h4>转换测试</h4><p>选择一个文件,点击转换得到base64编码字符串.不要选太大的文件,500K以下否则可能卡死</p><input type=file id=fileinput tag=选择文件><div class=mg-tb-10><a class="btn bg-rose-5" onclick=filetobase64()>开始转换</a> <a class=btn onclick=clearinputfile()>清空</a> <span id=trunerrmsgbox class=txt-red-5></span></div><div class=txt-right><span class="bg-yellow-4 pd-5">转换结果base64编码</span></div><textarea id=filebase64box class="w-100p h-150"></textarea><h4>字符串转换</h4><p>浏览器window对象提供了Base64编码和解码方法.(旧版本的没有)<pre>
+// 编码
+window.btoa('hello world'); // aGVsbG8gd29ybGQ=
+// 解码
+window.atob('aGVsbG8gd29ybGQ='); // hello world
+</pre><script src=/jslib/jslib.js></script><script>function filetobase64(){var n,i,t;if($("#trunerrmsgbox").html(""),n=document.getElementById("fileinput").files[0],!n){$("#trunerrmsgbox").html("文件错误,请选择文件!");return}if(i=n.size/1048576,i>2){$("#trunerrmsgbox").html("已选文件超过"+Math.ceil(i)+"M,为方便示例,请选择小于2M的文件!");return}t=new FileReader;n&&(t.readAsDataURL(n),t.addEventListener("load",function(){$("#filebase64box").val(t.result)},!1))}function clearinputfile(){$("#trunerrmsgbox").html("");$("#filebase64box").val("");$("#fileinput")[0].reset()}</script></div></div><div class=nav-page-inside><h6 class=txt-center>本文内容</h6><div class="flex flex-col" id=navOfInPage></div></div></div><div class="bd-t-1 bd-t-gray-3 txt-center mg-b-10">End Line</div></div><script src=/asset/js/mainmenu.js></script><script src=/asset/js/navinpage.js></script>

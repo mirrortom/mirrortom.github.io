@@ -1,3 +1,3 @@
-<div class=doc-page><h2>imageSmoothingEnabled</h2><p>一个Boolean 类型的值,表示图片是否平滑.默认值为true<pre class="bg-gray-lt pd-tb-10">
+﻿<div class=doc-page><h2>imageSmoothingEnabled</h2><p>一个Boolean 类型的值,表示图片是否平滑.默认值为true<pre class="bg-gray-lt pd-tb-10">
   ctx.imageSmoothingEnabled = true
 </pre><br><h4>测验</h4><p>图片大小为100X97.上图使用默认设置,下图设置为false.绘画时皆以300X150画出<p>可见,平滑处理过的(默认值)看不到明显的马赛克.而不做平滑处理的,马赛克较明显</p><canvas id=canvas1></canvas><canvas id=canvas2></canvas><p>图片放大时,会出现像素方块,这是正常的现象,未破坏原有像素.默认值没有明显的方块,是经过处理的,这种处理会导至原有像素破坏<p>当不希望破坏原有像素时,可使用此属性.那么是什么情况下还会希望出现方块呢?如果做像素处理时,自然是不能让原像素破坏的.</div><script>function test1(){let i=cavlib("canvas1").style(),r=i.ctx,u=cavlib("canvas2"),t=u.ctx;var n=new Image;n.src="/asset/img/dogp.jpg";n.onload=function(){r.drawImage(n,5,5,300,150);t.imageSmoothingEnabled=!1;t.drawImage(n,5,5,300,150)}}test1()</script>

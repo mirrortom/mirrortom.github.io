@@ -1,30 +1,30 @@
-<!DOCTYPE html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1.0,user-scalable=no"><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><title>rocks使用 | Mirror Space</title><link href=/mirrorui/mirrorui.css rel=stylesheet><link href=/mirroricon/mirroricon.css rel=stylesheet><link href=/asset/css/blog.css rel=stylesheet><div class=layout><div class=layout-part1></div><div class=layout-part2><div class=wz-page><p>rocksdb是一个KV数据库,基于leveldb改进而来.本身是C++语言编写,有java封装<p>c#版本的封装git <a target=_blank href=https://github.com/warrenfalk/rocksdb-sharp></a>https://github.com/warrenfalk/rocksdb-sharp<h3>安装</h3><p>在vs2017中,新建.netcore控制台程序.然后添加两个nuget包: <b>RocksDbSharp</b>  <b>RocksDbNative</b><h3>使用</h3><h4>打开数据库</h4><pre class=bg-gray>
-            DbOptions dbop = new DbOptions()
-                .SetCreateIfMissing()
-                .SetEnableWriteThreadAdaptiveYield(true);
-            RocksDb db = RocksDb.Open(dbop, "数据库路径");
-        </pre><p>SetCreateIfMissing 如果路径上没有找到数据库,则会自动生成<p>一个程序可以有一个RocksDb db 的引用,如果在程序中多次Open()操作,可能会引起文件使用中异常.对于多线程的web服务端程序,更要注意<h4>添加</h4><pre class=bg-gray>
-            db.Put(key,value);
-        </pre><p>key,value是字符串,也可以是字节数组(byte[]).Put方法有多个重载.<h4>删除</h4><pre class=bg-gray>
-            db.Remove(key)
-        </pre><p>删除键为key的数据<h4>查询</h4><pre class=bg-gray>
-            db.Get(key)
-        </pre><p>返回key的值<h4>遍历</h4><pre class=bg-gray>
-            Iterator iter = db.NewIterator();
-            iter.Seek(string.Empty);
-            while (iter.Valid())
-            {
-                Console.WriteLine(Convert.ToBase64String(iter.StringKey()));
-                iter.Next();
-            }
-        </pre><p>Iterator 建立一个遍历器.使用它可以查询DB中的所有键值对.<p>Seek 像是一个搜索要求,如果搜索所有,那么写空表示无要求.有很多重载,可以做匹配搜索<p>Valid: 搜索到最后一个后,返回false.<p>Next: 遍历器指向下一个<h4>搜索</h4><p>遍历中的Seek方法传入一个参数能起到搜索效果.例如 Seek('user') 传入'user'参数后,查询到的key都是user开头的.<p>这个方法比较有用,在关系数据库中,一类数据总是建一张表来存放,例如用户数据,就会建立一个叫user的表.那么中KV数据库中<p>没有表的概念,可以使用加前缀的方法替代.例如所有的用户数据的Key,都加上'user_'前缀,然后使用Seek('user')就能得到所有用户数据<p>前缀参数也可以是byte[],如果对字节了解,那么定义好多字节类型的前缀,分别表示不同的意义.如果设计合理,做成一个封装,会比较便利.<h3>性能测试</h3><p>循环写入1KW次的KV对,K为32字节,V为K.时间63680毫秒.(ssd,i74710)<pre class=bg-gray>
-            for (int i = 0; i &lt; 10000000; i++)
-            {
-                rand.NextBytes(b);
-                db.Put(b, b);
-            }
-        </pre><h3>键按顺序存储</h3><p>假如存放KV时,如下<pre class=bg-gray>
-            db.Put("2", "34");
-            db.Put("1", "12334");
-            db.Put("9", "asdf");
-        </pre><p>然后遍历取出来时,顺序是1,2,9.说明rocksdb在存储时做过排序</div><hr class=line><script src=/asset/js/article.js></script></div></div><script src=/asset/js/mainmenu.js></script>
+﻿<!DOCTYPE html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1.0"><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><title>rocksdb基本示例 | Mirror Space</title><link href=/asset/css/blogArticle.css rel=stylesheet><div class=layout><div class=layout-part1></div><div class="layout-part2 layout-article"><div class=wz-page><div class=txt-center><h1>rocksdb基本示例</h1><span class=txt-gray-5>作者: </span><span>mirror</span> <span class="mg-l-10 txt-gray-5">日期: </span><span>2019/7/9</span></div><hr class="bd-none bd-t-1 bd-t-gray-4 mg-t-10"><div id=page_content><p>rocksdb是一个KV数据库,基于leveldb改进而来.本身是C++语言编写,有java封装<p>c#版本的封装git <a target=_blank href=https://github.com/warrenfalk/rocksdb-sharp></a>https://github.com/warrenfalk/rocksdb-sharp<h3>安装</h3><p>在vs2017中,新建.netcore控制台程序.然后添加两个nuget包: <b>RocksDbSharp</b> <b>RocksDbNative</b><h3>使用</h3><h4>打开数据库</h4><pre>
+DbOptions dbop = new DbOptions()
+    .SetCreateIfMissing()
+    .SetEnableWriteThreadAdaptiveYield(true);
+RocksDb db = RocksDb.Open(dbop, "数据库路径");
+</pre><p>SetCreateIfMissing 如果路径上没有找到数据库,则会自动生成<p>一个程序可以有一个RocksDb db 的引用,如果在程序中多次Open()操作,可能会引起文件使用中异常.对于多线程的web服务端程序,更要注意<h4>添加</h4><pre>
+db.Put(key,value);
+</pre><p>key,value是字符串,也可以是字节数组(byte[]).Put方法有多个重载.<h4>删除</h4><pre>
+db.Remove(key)
+</pre><p>删除键为key的数据<h4>查询</h4><pre>
+db.Get(key)
+</pre><p>返回key的值<h4>遍历</h4><pre>
+Iterator iter = db.NewIterator();
+iter.Seek(string.Empty);
+while (iter.Valid())
+{
+    Console.WriteLine(Convert.ToBase64String(iter.StringKey()));
+    iter.Next();
+}
+</pre><p>Iterator 建立一个遍历器.使用它可以查询DB中的所有键值对.<p>Seek 像是一个搜索要求,如果搜索所有,那么写空表示无要求.有很多重载,可以做匹配搜索<p>Valid: 搜索到最后一个后,返回false.<p>Next: 遍历器指向下一个<h4>搜索</h4><p>遍历中的Seek方法传入一个参数能起到搜索效果.例如 Seek('user') 传入'user'参数后,查询到的key都是user开头的.<p>这个方法比较有用,在关系数据库中,一类数据总是建一张表来存放,例如用户数据,就会建立一个叫user的表.那么中KV数据库中<p>没有表的概念,可以使用加前缀的方法替代.例如所有的用户数据的Key,都加上'user_'前缀,然后使用Seek('user')就能得到所有用户数据<p>前缀参数也可以是byte[],如果对字节了解,那么定义好多字节类型的前缀,分别表示不同的意义.如果设计合理,做成一个封装,会比较便利.<h3>性能测试</h3><p>循环写入1KW次的KV对,K为32字节,V为K.时间63680毫秒.(ssd,i74710)<pre>
+for (int i = 0; i &lt; 10000000; i++)
+{
+    rand.NextBytes(b);
+    db.Put(b, b);
+}
+</pre><h3>键按顺序存储</h3><p>假如存放KV时,如下<pre>
+db.Put("2", "34");
+db.Put("1", "12334");
+db.Put("9", "asdf");
+</pre><p>然后遍历取出来时,顺序是1,2,9.说明rocksdb在存储时做过排序</div></div><div class=nav-page-inside><h6 class=txt-center>本文内容</h6><div class="flex flex-col" id=navOfInPage></div></div></div><div class="bd-t-1 bd-t-gray-3 txt-center mg-b-10">End Line</div></div><script src=/asset/js/mainmenu.js></script><script src=/asset/js/navinpage.js></script>

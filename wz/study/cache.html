@@ -1,5 +1,4 @@
-﻿<!DOCTYPE html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1.0,user-scalable=no"><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><title>MemoryCache | Mirror Space</title><link href=/mirrorui/mirrorui.css rel=stylesheet><link href=/mirroricon/mirroricon.css rel=stylesheet><link href=/asset/css/blog.css rel=stylesheet><div class=layout><div class=layout-part1></div><div class=layout-part2><div class=wz-page><small>最后更新日期2024/10/04</small> <h3>简介</h3><p>使用MemoryCache 类实现缓存功能<p>文档地址: <a href="https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.extensions.caching.memory.memorycache?view=dotnet-plat-ext-3.1" target=_blank>https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.extensions.caching.memory.memorycache?view=dotnet-plat-ext-3.1</a><p>内存中缓存(文章): <a href="https://docs.microsoft.com/zh-cn/aspnet/core/performance/caching/memory?view=aspnetcore-3.1" target=_blank>https://docs.microsoft.com/zh-cn/aspnet/core/performance/caching/memory?view=aspnetcore-3.1</a><h3>测试使用</h3><p>以下是在.net8.0的控制台程序中的测试.<p>先加入nuget包引用:<pre>Microsoft.Extensions.Caching.Memory</pre><p>代码中加入命名空间:<pre>using Microsoft.Extensions.Caching.Memory;</pre><p>新建实例<pre>
-// 配置对象
+﻿<!DOCTYPE html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1.0"><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><title>IMemoryCache | Mirror Space</title><link href=/asset/css/blogArticle.css rel=stylesheet><div class=layout><div class=layout-part1></div><div class="layout-part2 layout-article"><div class=wz-page><div class=txt-center><h1>IMemoryCache</h1><span class=txt-gray-5>作者: </span><span>mirror</span> <span class="mg-l-10 txt-gray-5">日期: </span><span>2020/2/13</span></div><hr class="bd-none bd-t-1 bd-t-gray-4 mg-t-10"><div id=page_content><small>最后更新日期2024/10/04</small> <h3>简介</h3><p>使用MemoryCache 类实现缓存功能<p>文档地址: <a href="https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.extensions.caching.memory.memorycache?view=dotnet-plat-ext-3.1" target=_blank>https://docs.microsoft.com/zh-cn/dotnet/api/microsoft.extensions.caching.memory.memorycache?view=dotnet-plat-ext-3.1</a><p>内存中缓存(文章): <a href="https://docs.microsoft.com/zh-cn/aspnet/core/performance/caching/memory?view=aspnetcore-3.1" target=_blank>https://docs.microsoft.com/zh-cn/aspnet/core/performance/caching/memory?view=aspnetcore-3.1</a><h3>测试使用</h3><p>以下是在.net8.0的控制台程序中的测试.<p>先加入nuget包引用:<pre>Microsoft.Extensions.Caching.Memory</pre><p>代码中加入命名空间:<pre>using Microsoft.Extensions.Caching.Memory;</pre><p>新建实例<pre>// 配置对象
 MemoryCacheOptions op = new MemoryCacheOptions();
 
 // new
@@ -7,8 +6,7 @@ MemoryCache cache = new MemoryCache(op);
 
 // 缓存数量属性
 cache.Count; // 0
-</pre><br><p>和其它缓存用法一样,添加KV对.<pre>
-// Set方法 添加一个key为id的kv对
+</pre><br><p>和其它缓存用法一样,添加KV对.<pre>// Set方法 添加一个key为id的kv对
 cache.Set("id","mirror");
 
 // Get方法 根据键取值. 如果知道值的类型,可以使用泛型重载
@@ -16,15 +14,13 @@ string v = cache.Get&lt;string>("id"); // mirror
 
 // 如果key不存在,得到null值
 cache.Get("Idid"); // null
-</pre><br><p>设置过期时间<pre class=bg-gray>
-// 相对过期时间,从Set开始设置好开始到60秒时间内可以取得id的值,60秒后取值为null
+</pre><br><p>设置过期时间<pre class=bg-gray>// 相对过期时间,从Set开始设置好开始到60秒时间内可以取得id的值,60秒后取值为null
 cache.Set("id", "mirror", TimeSpan.FromSeconds(60));
 
 // 绝对过期时间,设置一个具体时间点,到时间就过期.
 DateTimeOffset maxDate = DateTimeOffset.Parse("2024/12/31 23:59:59");
 cache.Set("id", "mirror", maxDate);
-</pre><br><p>其它k,v类型<pre>
-// 键是字节,值是个数组
+</pre><br><p>其它k,v类型<pre>// 键是字节,值是个数组
 byte[] k = new byte[] { 1, 2, 3 };
 int[] v = new int[5] { 1, 3, 5, 7, 11 };
 
@@ -33,8 +29,7 @@ cache.Set&lt;int[]>(k, v);
 
 // 得到第3个值
 int val = cache.Get&lt;int[2]>(k); // 5
-  </pre><br><p>删除键<pre>
-// Remove()
+  </pre><br><p>删除键<pre>// Remove()
 cache.Remove("id");
 cache.Get("id"); // null
 
@@ -42,4 +37,4 @@ cache.Get("id"); // null
 DateTimeOffset maxDate = DateTimeOffset.Parse("1900/01/01 23:59:59");
 cache.Set("id", "mirror", maxDate);
 cache.Get("id"); // null
-</pre><h3>一些应用</h3><p class=text-in>这个简洁的内存缓存可以用于web程序服务端,也可以用于桌面程序,存放一些比较耗时的使用也频繁的操作结果,比如来自数据库的选项数据.</div><hr class=line><script src=/asset/js/article.js></script></div></div><script src=/asset/js/mainmenu.js></script>
+</pre><h3>一些应用</h3><p class=text-in>这个简洁的内存缓存可以用于web程序服务端,也可以用于桌面程序,存放一些比较耗时的使用也频繁的操作结果,比如来自数据库的选项数据.</div></div><div class=nav-page-inside><h6 class=txt-center>本文内容</h6><div class="flex flex-col" id=navOfInPage></div></div></div><div class="bd-t-1 bd-t-gray-3 txt-center mg-b-10">End Line</div></div><script src=/asset/js/mainmenu.js></script><script src=/asset/js/navinpage.js></script>

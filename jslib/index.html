@@ -1,19 +1,17 @@
-﻿<!DOCTYPE html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1.0,user-scalable=no"><link href=/mirrorui/mirrorui.css rel=stylesheet><title>jslib-doc | Mirror Space</title><style>.page{display:grid;grid-template-columns:210px auto}.menu-box{position:sticky;top:0;width:94%;max-height:100vh;overflow-x:hidden;overflow-y:auto}.doc-part-box{margin:50px auto}pre{overflow-x:auto;max-width:100%;padding:20px;background-color:#e5e7eb}</style><div class=page><div class=menu-box><m-sidemenu class=sidemenu-box id=main_menubox><ul class=sidemenu-group><li><span class=sidemenu-label>About<i class=sidemenu-arrdown></i></span><li><a class=sidemenu-item href=#about>关于</a><li><a class=sidemenu-item href=#jslib>jslib</a></ul><ul class=sidemenu-group><li><span class=sidemenu-label>dom操作<i class=sidemenu-arrdown></i></span><li><a class=sidemenu-item href=#selectdom>选择器</a><li><a class=sidemenu-item href=#find>find</a><li><a class=sidemenu-item href=#eq>eq</a><li><a class=sidemenu-item href=#index>index</a><li><a class=sidemenu-item href=#siblings>siblings</a><li><a class=sidemenu-item href=#next>next</a><li><a class=sidemenu-item href=#nextAll>nextAll</a><li><a class=sidemenu-item href=#prev>prev</a><li><a class=sidemenu-item href=#prevAll>prevAll</a><li><a class=sidemenu-item href=#parent>parent</a><li><a class=sidemenu-item href=#prop>prop</a><li><a class=sidemenu-item href=#val>val</a><li><a class=sidemenu-item href=#removeProp>removeProp</a><li><a class=sidemenu-item href=#addClass>addClass</a><li><a class=sidemenu-item href=#removeClass>removeClass</a><li><a class=sidemenu-item href=#hasClass>hasClass</a><li><a class=sidemenu-item href=#text>text</a><li><a class=sidemenu-item href=#html>html</a><li><a class=sidemenu-item href=#append>append</a><li><a class=sidemenu-item href=#prepend>prepend</a><li><a class=sidemenu-item href=#before>before</a><li><a class=sidemenu-item href=#after>after</a><li><a class=sidemenu-item href=#remove>remove</a><li><a class=sidemenu-item href=#empty>empty</a><li><a class=sidemenu-item href=#fragment>fragment</a><li><a class=sidemenu-item href=#loadhtml>loadhtml</a><li><a class=sidemenu-item href=#event>event</a></ul><ul class=sidemenu-group><li><span class=sidemenu-label>帮助函数<i class=sidemenu-arrdown></i></span><li><a class=sidemenu-item href=#ajax>ajax</a><li><a class=sidemenu-item href=#array>array</a><li><a class=sidemenu-item href=#date>date</a><li><a class=sidemenu-item href=#formcheck>formcheck</a><li><a class=sidemenu-item href=#valid>valid</a><li><a class=sidemenu-item href=#rand>rand</a><li><a class=sidemenu-item href=#string>string</a><li><a class=sidemenu-item href=#domstring>domString</a></ul></m-sidemenu></div><div class="content pd-15"><div id=about><h2>关于jslib</h2><p>在前端框架大发展前,jQuery库是最流行的js库,最强大的功能就是dom操作.还提供好多工具函数,不必使用复杂的原生js,使用jQuery简单多了.<p>随着浏览器的进化,jQuery逐渐丢掉历史包袱,目前最新3.5版本不会再支持旧是浏览器,尤其是很老的IE.<p>新浏览器支持的js函数可以比较方便的操作dom,这种方便和jQuery的便利相差无几了.前端框架使用绑定数据到dom的数据驱动模式,不再使用dom选择器.<p>这两个情况让jQuery的使用热度降低了,不过jQuery的设计是非常值得学习的.做这个jslib库是为了学习jQuery.<p>将模仿jQuery做一个dom操作的库,api名字和操作方式都与jQuery一样,但是没有实现所有的api.<p>jslib实质上,外形是jQuery,内部实现用的新的js函数.例如:document.querySelectorAll()</div><div class=doc-part-box id=jslib><h2>全局对象</h2><p>内部对象jslib,是一个类数组对象.也是模仿jQuery的,里面包含dom引用和操作方法.有length属性,表示回当前选中的dom个数.<pre class=bg-gray-lt>
+﻿<!DOCTYPE html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1.0,user-scalable=no"><link href=/asset/css/blogarticle.css rel=stylesheet><title>jslib-doc | Mirror Space</title><style>.container{display:grid;grid-template-columns:230px auto;max-width:1200px;margin:0 auto}.menu-box{position:sticky;top:0;width:94%;max-height:100vh;overflow-x:hidden;overflow-y:auto}.doc-part-box{margin:50px auto;box-shadow:inset 0 3px #facc15}pre{overflow-x:auto;max-width:100%;padding:20px;background-color:#e5e7eb;font-size:1rem}p{text-indent:2em;margin:1em 0}</style><div class=container><div class=menu-box><m-sidemenu class=sidemenu-box id=main_menubox><ul class=sidemenu-group><li><span class=sidemenu-label>About<i class=sidemenu-arrdown></i></span><li><a class=sidemenu-item href=#about>关于</a><li><a class=sidemenu-item href=#jslib>jslib</a></ul><ul class=sidemenu-group><li><span class=sidemenu-label>dom操作<i class=sidemenu-arrdown></i></span><li><a class=sidemenu-item href=#selectdom>选择器</a><li><a class=sidemenu-item href=#find>find</a><li><a class=sidemenu-item href=#eq>eq</a><li><a class=sidemenu-item href=#index>index</a><li><a class=sidemenu-item href=#siblings>siblings</a><li><a class=sidemenu-item href=#next>next</a><li><a class=sidemenu-item href=#nextAll>nextAll</a><li><a class=sidemenu-item href=#prev>prev</a><li><a class=sidemenu-item href=#prevAll>prevAll</a><li><a class=sidemenu-item href=#parent>parent</a><li><a class=sidemenu-item href=#prop>prop</a><li><a class=sidemenu-item href=#val>val</a><li><a class=sidemenu-item href=#removeProp>removeProp</a><li><a class=sidemenu-item href=#addClass>addClass</a><li><a class=sidemenu-item href=#removeClass>removeClass</a><li><a class=sidemenu-item href=#hasClass>hasClass</a><li><a class=sidemenu-item href=#text>text</a><li><a class=sidemenu-item href=#html>html</a><li><a class=sidemenu-item href=#append>append</a><li><a class=sidemenu-item href=#prepend>prepend</a><li><a class=sidemenu-item href=#before>before</a><li><a class=sidemenu-item href=#after>after</a><li><a class=sidemenu-item href=#remove>remove</a><li><a class=sidemenu-item href=#empty>empty</a><li><a class=sidemenu-item href=#fragment>fragment</a><li><a class=sidemenu-item href=#loadhtml>loadhtml</a><li><a class=sidemenu-item href=#event>event</a></ul><ul class=sidemenu-group><li><span class=sidemenu-label>帮助函数<i class=sidemenu-arrdown></i></span><li><a class=sidemenu-item href=#ajax>ajax</a><li><a class=sidemenu-item href=#array>array</a><li><a class=sidemenu-item href=#date>date</a><li><a class=sidemenu-item href=#formcheck>formcheck</a><li><a class=sidemenu-item href=#valid>valid</a><li><a class=sidemenu-item href=#rand>rand</a><li><a class=sidemenu-item href=#string>string</a><li><a class=sidemenu-item href=#h5back>h5back</a></ul></m-sidemenu></div><div class=content><div id=about><h2>关于jslib</h2><p><span class="bg-gray-3 pd-4">last update</span>:<span class=txt-gray-5>2025/06/17</span><p>在前端框架大发展前,jQuery库是最流行的js库,最强大的功能就是dom操作.还提供好多工具函数,不必使用复杂的原生js,使用jQuery简单多了.<p>随着浏览器的进化,jQuery逐渐丢掉历史包袱,目前最新3.5版本不会再支持旧是浏览器,尤其是很老的IE.<p>新浏览器支持的js函数可以比较方便的操作dom,这种方便和jQuery的便利相差无几了.前端框架使用绑定数据到dom的数据驱动模式,不再使用dom选择器.<p>这两个情况让jQuery的使用热度降低了,不过jQuery的设计是非常值得学习的.做这个jslib库是为了学习jQuery.<p>将模仿jQuery做一个dom操作的库,api名字和操作方式都与jQuery一样,但是没有实现所有的api.<p>jslib实质上,外形是jQuery,内部实现用的新的js函数.例如:document.querySelectorAll()</div><div class=doc-part-box id=jslib><h2>JsLib</h2><p>内部对象jslib,是一个类数组对象.也是模仿jQuery的,里面包含dom引用和操作方法.有length属性,表示回当前选中的dom个数.<pre>
+// 类数组对象,存放选择器选中的dom元素,还有操作方法,模仿jQuery对象
+function jslib(selector){}
 
-    // 类数组对象,存放选择器选中的dom元素,还有操作方法,模仿jQuery对象
-    function jslib(selector){}
+// 工厂函数,实例化这个对象.
+function factory(selector){
+    return new jslib(selector);
+}
 
-    // 工厂函数,实例化这个对象.
-    function factory(selector){
-        return new jslib(selector);
-    }
-
-    // 引用对象 模仿jQuery使用 "$".外部调用这个函数使用jslib对象.
-    window.jslib = factory
-    if(!window.$)
-        window.$ = factory
-
-</pre><p class=article-title>jslib对象实例方法<pre class=bg-gray-lt>
+// 引用对象 模仿jQuery使用 "$".外部调用这个函数使用jslib对象.
+window.jslib = factory
+if(!window.$)
+    window.$ = factory
+</pre><h4>jslib对象实例方法</h4><pre>
     // 向jslib类数组添加元素
     $().push(dom)
 
@@ -26,17 +24,15 @@
 
     // 遍历jslib类数组元素.
     $().each(fn)
-</pre><p class=article-title>获取dom对象<pre class=bg-gray-lt>
-    // 从匹配的dom元素中获取dom对象,使用索引
-    // 取出第二个div
-    let div = $('div')[1]
-
-</pre><br><p class=article-title>扩展jslib对象实例方法<pre class=bg-gray-lt>
-    // 为jslib对象添加实例方法 prototype上的方法.
-    // json 一个方法名和函数值的json对像.方法名要用""号包起来.
-    $.extend(json)
-
-</pre><br></div><div class=doc-part-box id=selectdom><h2>dom选择</h2><p>$(<b>selector</b>),支持字符串和dom对象<pre>
+</pre><h4>获取dom对象</h4><pre>
+// 从匹配的dom元素中获取dom对象,使用索引
+// 取出第二个div
+let div = $('div')[1]
+</pre><br><h4>扩展jslib对象实例方法</h4><pre>
+// 为jslib对象添加实例方法 prototype上的方法.
+// json 一个方法名和函数值的json对像.方法名要用""号包起来.
+$.extend(json)
+</pre></div><div class=doc-part-box id=selectdom><h2>dom选择</h2><p>$(<b>selector</b>),支持字符串和dom对象<pre>
 // 1.字符串css选择器,里面实现是 <b>document.querySelectorAll()</b> 方法,支持css选择器
 $('#id') , $('.class') , $('div') , $('.class .xx') , ...
 
@@ -179,128 +175,112 @@ let fn=()=>{};
 $('#id').addEvent('keyup',fn)
 </pre><h2>removeEvent</h2><p>删除事件,内部使用removeEventListener()方法.name是事件名字,fn是要删除的方法.<pre>
 $('#id').removeEvent('keyup',fn)
-</pre></div><div class=doc-part-box id=ajax><h2>ajax</h2><p class=article-title>post<p>内部使用fetch()方法实现.包装处理了参数,方便使用.<pre class=bg-gray-lt>
-
-    $.post(url, para, initCfg = null, resType = 'json')
-
-</pre><ul class="list square"><li>url : string 请求地址url<li>para : FormData|json|string json对象或FormData对象或者字符串,如果是json对象,会转化成FormData对象.para会设置到initCfg.body属性.<li>initCfg : json fetch请求配置对象.例如传headers:{'Auth':'xxx'}用来验证<li>resType : string 返回值类型 默认"json",是json对象,可选"html",是文本内容<li>return : Promise 返回值类型,fetch().then()返回的Promise对象</ul><p>post请求,.then()链式调用方式.方法发送fetch请求后,调用then()处理,如果res.ok==ok,默认返回json结果.<p>当res.ok为false时,丢出异常,异常信息是res.text()的文本信息.<p>后面需要继续调用.then()来处理结果,也可以调用.catch()处理异常<p>外部调用后可以继续使用then(),catch().<pre class=bg-gray-lt>
+</pre></div><div class=doc-part-box id=ajax><h2>ajax</h2><h4>post</h4><p>内部使用fetch()方法实现.包装处理了参数,方便使用.<pre>
+$.post(url, para, initCfg = null, resType = 'json')
+</pre><div class=mg-tb-10><p><span class=txt-sky-4>url</span> : string 请求地址url<p><span class=txt-sky-4>para</span> : FormData|json|string json对象或FormData对象或者字符串,如果是json对象,会转化成FormData对象.para会设置到initCfg.body属性.<p><span class=txt-sky-4>initCfg</span> : json fetch请求配置对象.例如传headers:{'Auth':'xxx'}用来验证<p><span class=txt-sky-4>resType</span> : string 返回值类型 默认"json",是json对象,可选"html",是文本内容<p><span class=txt-sky-4>return</span> : Promise 返回值类型,fetch().then()返回的Promise对象</div><p>post请求,.then()链式调用方式.方法发送fetch请求后,调用then()处理,如果res.ok==ok,默认返回json结果.<p>当res.ok为false时,丢出异常,异常信息是res.text()的文本信息.<p>后面需要继续调用.then()来处理结果,也可以调用.catch()处理异常<p>外部调用后可以继续使用then(),catch().<pre>
+let para = { p1:'',p2:'' };
+$.post('http://url', para)
+  // 这个data值: resType != 'json' ? res.text() : res.json();
+  .then((data) => {
+    console.log(data);
+  })
+  .catch((err) => {
+    console.log('服务器异常')
+  })
+</pre><br><h4>get</h4><pre>
+$.get(url, para, initCfg = null, resType = 'html')
+</pre><div class=mg-tb-10><p><span class=txt-sky-4>url</span> : string 请求地址url<p><span class=txt-sky-4>para</span> : FormData|json|string json对象或FormData对象或者字符串,会转化为url参数加到URL地址上<p><span class=txt-sky-4>initCfg</span> : json fetch请求配置对象.例如传headers:{'Auth':'xxx'}用来验证<p><span class=txt-sky-4>resType</span> : string 返回值类型 默认"json",可选"html"<p><span class=txt-sky-4>return</span> : Promise 返回值类型,fetch().then()返回的Promise对象</div><p>get请求,.then()链式调用方式.方法发送fetch请求后,调用then()处理,如果res.ok==ok,默认返回text结果.<p>当res.ok为false时,丢出异常,异常信息是res.text()的文本信息.<p>后面需要继续调用.then()来处理结果,也可以调用.catch()处理异常<pre>
+let para = { p1:'a',p2:'b' },para1="id=5"
+// para会转化为 p1=a&p2=b,然后加到url上,如果已有参数,会加到最后. http://url?p1=a&p2=b&id=5
+$.get('http://url', para)
+  // 这个html默认服务器返回的是html字符串
+  .then((html) => {
+    console.log(html);
+  })
+  .catch((err) => {
+    console.log('服务器异常')
+  })
+</pre><p class=txt-lg>await方式<p>使用await的语法,可读性更好.是同步代码的习惯,远离繁琐的回调函数.<h4>postAsync</h4><pre>
+$.postAsync(url, para, initCfg = null, resType = 'json')
+</pre><p>post请求,使用await方式.当res.ok==true时,默认返回json结果.<p>当res.ok为false时,丢出异常,异常信息是res.text()的文本信息.要获取异常,可以在try catch中使用本方法<pre>
+try {
   let para = { p1:'',p2:'' };
-  $.post('http://url', para)
-    // 这个data值: resType != 'json' ? res.text() : res.json();
-    .then((data) => {
-      console.log(data);
-    })
-    .catch((err) => {
-      console.log('服务器异常')
-    })
+  let json = await $.postAsync('http://url',para);
+  console.log(json);
+} catch (err) {
+  console.log(err);
+}
+</pre><h4>getAsync</h4><pre>
+$.getAsync(url, para, initCfg = null, resType = 'html')
+</pre><p>get请求,使用await方式.当res.ok==true时,默认返回text结果.<p>当res.ok为false时,丢出异常,异常信息是res.text()的文本信息.要获取异常,可以在try catch中使用本方法<pre>
+try {
+  let html = await $.postAsync('http://url');
+  console.log(html);
+} catch (err) {
+  console.log(err);
+}
+</pre><br><h4>fetch请求配置</h4><p>initCfg参数用于配置fetch请求,就是fetch()的第2个参数. [fetch() 接受第二个可选参数,一个可以控制不同配置的 init 对象]<p>para参数,将会设置到fetch()第2个参数里的 body 属性的值.para参数最后会转为FormData对象.<p>如果要将参数放到body,para的参数必须是字符串.或者不设置para,直接设置body属性.<pre>
+// fetch常用请求配置
+fetch(url,{
+  method: 'POST',// GET, POST
+  headers: {
+              'Auth':'',
+              'Content-Type': 'application/json'
+              // 'Content-Type': 'application/x-www-form-urlencoded',
+            },
+  body: new FormData()
+})
+</pre></div><div class=doc-part-box id=array><h2>array</h2><p>未实现</div><div class=doc-part-box id=date><h2>date</h2><p>日期时间格式化便利方法<h4>$.datefmt(date, fmtstr)</h4><p>格式化时间<p><b class=txt-sky-4>date</b><span class=mg-l-20>Date ,要格式化的Date对象</span><p><b class=txt-sky-4>fmtstr</b><span class=mg-l-20>string ,format string 格式化字符串 (默认:四位年份,24小时制: "yyyy/MM/dd HH:mm:ss")</span><p>自定义格式时,年月日时分秒代号必须是: y(年)M(月)d(日)H(时)m(分)s(秒)<p><b class=txt-sky-4>返回</b><span class=mg-l-20>string ,返回格式化时间字符串</span><pre>
+let d = new Date(2000,0,1,1,1,1);
+let dStr = $.datefmt(d);
+console.log(dStr);
+// 2000/01/01 01:01:01
 
-</pre><br><p class=article-title>get<pre class=bg-gray-lt>
-
-    $.get(url, para, initCfg = null, resType = 'html')
-
-</pre><ul class="list square"><li>url : string 请求地址url<li>para : FormData|json|string json对象或FormData对象或者字符串,会转化为url参数加到URL地址上<li>initCfg : json fetch请求配置对象.例如传headers:{'Auth':'xxx'}用来验证<li>resType : string 返回值类型 默认"json",可选"html"<li>return : Promise 返回值类型,fetch().then()返回的Promise对象</ul><p>get请求,.then()链式调用方式.方法发送fetch请求后,调用then()处理,如果res.ok==ok,默认返回text结果.<p>当res.ok为false时,丢出异常,异常信息是res.text()的文本信息.<p>后面需要继续调用.then()来处理结果,也可以调用.catch()处理异常<pre class=bg-gray-lt>
-
-  let para = { p1:'a',p2:'b' },para1="id=5"
-  // para会转化为 p1=a&p2=b,然后加到url上,如果已有参数,会加到最后. http://url?p1=a&p2=b&id=5
-  $.get('http://url', para)
-    // 这个html默认服务器返回的是html字符串
-    .then((html) => {
-      console.log(html);
-    })
-    .catch((err) => {
-      console.log('服务器异常')
-    })
-
-</pre><p class="article-title text-lg">await方式<p>使用await的语法,可读性更好.是同步代码的习惯,远离繁琐的回调函数.<p class=article-title>postAsync<pre class=bg-gray-lt>
-
-  $.postAsync(url, para, initCfg = null, resType = 'json')
-
-</pre><p>post请求,使用await方式.当res.ok==true时,默认返回json结果.<p>当res.ok为false时,丢出异常,异常信息是res.text()的文本信息.要获取异常,可以在try catch中使用本方法<pre class=bg-gray-lt>
-
-    try {
-      let para = { p1:'',p2:'' };
-      let json = await $.postAsync('http://url',para);
-      console.log(json);
-    } catch (err) {
-      console.log(err);
-    }
-
-</pre><p class=article-title>getAsync<pre class=bg-gray-lt>
-
-  $.getAsync(url, para, initCfg = null, resType = 'html')
-
-</pre><p>get请求,使用await方式.当res.ok==true时,默认返回text结果.<p>当res.ok为false时,丢出异常,异常信息是res.text()的文本信息.要获取异常,可以在try catch中使用本方法<pre class=bg-gray-lt>
-
-    try {
-      let html = await $.postAsync('http://url');
-      console.log(html);
-    } catch (err) {
-      console.log(err);
-    }
-    
-</pre><br><p class=article-title>fetch请求配置<p>initCfg参数用于配置fetch请求,就是fetch()的第2个参数. [fetch() 接受第二个可选参数,一个可以控制不同配置的 init 对象]<p>para参数,将会设置到fetch()第2个参数里的 body 属性的值.para参数最后会转为FormData对象.<p>如果要将参数放到body,para的参数必须是字符串.或者不设置para,直接设置body属性.<pre class=bg-gray-lt>
-
-    // fetch常用请求配置
-    fetch(url,{
-      method: 'POST',// GET, POST
-      headers: {
-                  'Auth':'',
-                  'Content-Type': 'application/json'
-                  // 'Content-Type': 'application/x-www-form-urlencoded',
-               },
-      body: new FormData()
-    })
-
-</pre></div><div class=doc-part-box id=array><h2>array</h2><p></div><div class=doc-part-box id=date><h2>date</h2><p>日期时间格式化便利方法<p class=article-title>$.datefmt(date, fmtstr)<p>格式化时间<p><b class=bg-gray>date</b><span class=mg-l-20>Date ,要格式化的Date对象</span><p><b class=bg-gray>fmtstr</b><span class=mg-l-20>string ,format string 格式化字符串 (默认:四位年份,24小时制: "yyyy/MM/dd HH:mm:ss")</span><p>自定义格式时,年月日时分秒代号必须是: y(年)M(月)d(日)H(时)m(分)s(秒)<p><b class=bg-gray>返回</b><span class=mg-l-20>string ,返回格式化时间字符串</span><pre class=bg-gray-lt>
-    let d = new Date(2000,0,1,1,1,1);
-    let dStr = $.datefmt(d);
-    console.log(dStr);
-    // 2000/01/01 01:01:01
-
-    let fmtstr = 'yyyy年MM月dd日 HH时mm分ss秒';
-    dStr = $.datefmt(d, fmtstr);
-    console.log(dStr);
-    // 2000年01月01日 01时01分01秒
-
-</pre><br><p class=article-title>$.dateByfmt(fmtstr)<p>将时间字符串转换为Date对象.<p><b class=bg-gray>fmtstr</b><span class=mg-l-20>Date ,时间格式的字符串</span><p>支持格式: yyyy/mm/dd yyyy-mm-dd yyyy/mm/dd hh:mm:ss 时分秒可省略自动补0,年月日必须.年份4位月日时分秒支持1位.<p><b class=bg-gray>返回</b><span class=mg-l-20>Date|null ,成功时返回Date对象,失败返回null</span><pre class=bg-gray-lt>
-    let dStr = '2000/1/1';
-    let d = $.dateByfmt(dStr, dStr);
-    console.log(d.getFullYear());
-    // 2000
-
+let fmtstr = 'yyyy年MM月dd日 HH时mm分ss秒';
+dStr = $.datefmt(d, fmtstr);
+console.log(dStr);
+// 2000年01月01日 01时01分01秒
+</pre><br><h4>$.dateByfmt(fmtstr)</h4><p>将时间字符串转换为Date对象.<p><b class=txt-sky-4>fmtstr</b><span class=mg-l-20>Date ,时间格式的字符串</span><p>支持格式: yyyy/mm/dd yyyy-mm-dd yyyy/mm/dd hh:mm:ss 时分秒可省略自动补0,年月日必须.年份4位月日时分秒支持1位.<p><b class=txt-sky-4>返回</b><span class=mg-l-20>Date|null ,成功时返回Date对象,失败返回null</span><pre>
+let dStr = '2000/1/1';
+let d = $.dateByfmt(dStr, dStr);
+console.log(d.getFullYear());
+// 2000
 </pre></div><div class=doc-part-box id=formcheck><h2>formcheck</h2><p>验证表单元素的值.支持 input,textarea,check,select<p>$.formCheck(elem)<p>提交表单前,验证值的有效性.返回 true / false<p>需要设置表单元素的vtype属性,一个或者多个,用逗号隔开.verrmsg是自定义提示语,和vtype对应,可以不设置.<p>如果验证不通过,那么表单上会变色提示.<pre>
 &lt;input class="input-text" name="title" type="text" value="" placeholder="请输入名字" <b>vtype="notnull" verrmsg="必填项"</b>>
 let isCheck = $.formCheck(input);
 // true / false
-</pre><br><p>一般情况下只需要使用$.formCheck(elem)即可.后面两个方法也可以手动操作.<p>$.formClear(elem)<p>清除表单元素的错误样式和提示语.<p>清除$.formAlert()产生的表单错误提示.</p><br><p>$.formAlert(elem,msg)<p>触发错误提示<p>生成表单元素验证出错时的错误样式和提示语: 背景变红,在其正下方生成span,显示提示语</p><br><p>vtype选项<table class=table><tr><td>选项<td>说明<tr><td>notnull<td>必要项且不能为空或空白字符<tr><td>email<td>电子邮件格式<tr><td>mobile<td>指示一个字符串是否为国内11位手机号<tr><td>abc<td>限26个英文,大小写不限.<tr><td>123<td>限0-9数字<tr><td>abc123<td>限26个英文字母(开头)和0-9整数(可选)<tr><td>abc_123<td>限26个英文字母和0-9整数(可选)和_下划线(可选),并且是字母或者下划线开头.<tr><td>url<td>限url<tr><td>ipv4<td>限ipv4<tr><td>date<td>是否为可以转换为Date对象的日期字符串,例如: "1999-02-28 12:08:33"<tr><td>maxlen<td>超长度限制.需要在表单元素上设置属性 maxlength<tr><td>minlen<td>最小长度限制.需要在表单元素上设置属性 minlength<tr><td>maxnum<td>不能超过数值限制.需要在表单元素上设置属性 maxnum<tr><td>minnum<td>不能小于数值限制.需要在表单元素上设置属性 minnum<tr><td>money<td>正整数或正1-3位小数.常用于钱.<tr><td>agree<td>必须同意,比如用户协议.必须是m-check元素</table></div><div class=doc-part-box id=valid><h2>valid</h2><p>验证相关方法<p class=article-title>$.isNotNull(str)<p>指示一个字符串是否含有内容,并且不能全部是空白字符</p><br><p class=article-title>$.isNumber(str)<p>指示一个字符串是否为数值</p><br><p class=article-title>$.isEmail(str)<p>指示一个字符串是否为email地址</p><br><p class=article-title>$.isMobile(str)<p>指示一个字符串是否为国内11位手机号<p>可匹配"(+86)013800138000",()号可以省略，+号可以省略，(+86)可以省略,11位手机号前的0可以省略;11位手机号第二位数可以是3~9中的任意一个</p><br><p class=article-title>$.isAbc(str)<p>指示一个字符串是否为26个英文字母组成,大小写不限.</p><br><p class=article-title>$.isDigit(str)<p>指示一个字符串是否为0-9整数组成</p><br><p class=article-title>$.isAbcDigit(str)<p>指示一个字符串是否为26个英文字母和0-9整数(可选)组成,但必须是字母开头.</p><br><p class=article-title>$.isAbcDigitUline(str)<p>指示一个字符串是否为26个英文字母和0-9整数(可选)和_下划线(可选)组成,并且是字母或者下划线开头.</p><br>/** <p class=article-title>$.isUrl(str)<p>指示一个字符串是否为url</p><br><p class=article-title>$.isIpv4(str)<p>指示一个字符串是否为ipv4</p><br><p class=article-title>$.isMaxLength(str, maxlen)<p>指示一个字符串长度是否超过maxlength. maxlen 最大长度</p><br><p class=article-title>$.isMinLength(str, minlen)<p>指示一个字符串长度是否小于minlength. minlen 最小长度</p><br><p class=article-title>$.isMoney(str)<p>指示一个字符串是否为1~3位小数,或者正数 (d | d.dd | d.d | d.ddd),可用于金额</p><br><p class=article-title>$.isDate(str)<p>指示一个字符串是否为日期格式</p><br></div><div class=doc-part-box id=rand><h2>rand</h2><p class=article-title>$.nextInt(intMin, intMax)<p>生成一个非负随机整数<p><b class=bg-gray>intMin</b><span class=mg-l-20>number ,起始值(>0整数,含)</span><p><b class=bg-gray>intMax</b><span class=mg-l-20>number ,intMax:结束值(大于起始值整数,不含)</span><p><b class=bg-gray>返回</b><span class=mg-l-20>number ,返回整数,范围在 [intMin ~ intMax)</span><pre class=bg-gray-lt>
-    let randNum = $.nextInt(0,100);
-    // 返回0,100间的数,不含100
+</pre><br><p>一般情况下只需要使用$.formCheck(elem)即可.后面两个方法也可以手动操作.<p>$.formClear(elem)<p>清除表单元素的错误样式和提示语.<p>清除$.formAlert()产生的表单错误提示.</p><br><p>$.formAlert(elem,msg)<p>触发错误提示<p>生成表单元素验证出错时的错误样式和提示语: 背景变红,在其正下方生成span,显示提示语</p><br><p>vtype选项<table class=table><tr><td>选项<td>说明<tr><td>notnull<td>必要项且不能为空或空白字符<tr><td>email<td>电子邮件格式<tr><td>mobile<td>指示一个字符串是否为国内11位手机号<tr><td>abc<td>限26个英文,大小写不限.<tr><td>123<td>限0-9数字<tr><td>abc123<td>限26个英文字母(开头)和0-9整数(可选)<tr><td>abc_123<td>限26个英文字母和0-9整数(可选)和_下划线(可选),并且是字母或者下划线开头.<tr><td>url<td>限url<tr><td>ipv4<td>限ipv4<tr><td>date<td>是否为可以转换为Date对象的日期字符串,例如: "1999-02-28 12:08:33"<tr><td>maxlen<td>超长度限制.需要在表单元素上设置属性 maxlength<tr><td>minlen<td>最小长度限制.需要在表单元素上设置属性 minlength<tr><td>maxnum<td>不能超过数值限制.需要在表单元素上设置属性 maxnum<tr><td>minnum<td>不能小于数值限制.需要在表单元素上设置属性 minnum<tr><td>money<td>正整数或正1-3位小数.常用于钱.<tr><td>agree<td>必须同意,比如用户协议.必须是m-check元素</table></div><div class=doc-part-box id=valid><h2>valid</h2><p>验证相关方法<h4>$.isNotNull(str)</h4><p>指示一个字符串是否含有内容,并且不能全部是空白字符<h4>$.isNumber(str)</h4><p>指示一个字符串是否为数值<h4>$.isEmail(str)</h4><p>指示一个字符串是否为email地址<h4>$.isMobile(str)</h4><p>指示一个字符串是否为国内11位手机号<p>可匹配"(+86)013800138000",()号可以省略，+号可以省略，(+86)可以省略,11位手机号前的0可以省略;11位手机号第二位数可以是3~9中的任意一个<h4>$.isAbc(str)</h4><p>指示一个字符串是否为26个英文字母组成,大小写不限.<h4>$.isDigit(str)</h4><p>指示一个字符串是否为0-9整数组成<h4>$.isAbcDigit(str)</h4><p>指示一个字符串是否为26个英文字母和0-9整数(可选)组成,但必须是字母开头.<h4>$.isAbcDigitUline(str)</h4><p>指示一个字符串是否为26个英文字母和0-9整数(可选)和_下划线(可选)组成,并且是字母或者下划线开头.<h4>$.isUrl(str)</h4><p>指示一个字符串是否为url<h4>$.isIpv4(str)</h4><p>指示一个字符串是否为ipv4<h4>$.isMaxLength(str, maxlen)</h4><p>指示一个字符串长度是否超过maxlength. maxlen 最大长度<h4>$.isMinLength(str, minlen)</h4><p>指示一个字符串长度是否小于minlength. minlen 最小长度<h4>$.isMoney(str)</h4><p>指示一个字符串是否为1~3位小数,或者正数 (d | d.dd | d.d | d.ddd),可用于金额<h4>$.isDate(str)</h4><p>指示一个字符串是否为日期格式</div><div class=doc-part-box id=rand><h2>rand</h2><h4>$.nextInt(intMin, intMax)</h4><p>生成一个非负随机整数<p><b class=txt-sky-4>intMin</b><span class=mg-l-20>number ,起始值(>0整数,含)</span><p><b class=txt-sky-4>intMax</b><span class=mg-l-20>number ,intMax:结束值(大于起始值整数,不含)</span><p><b class=txt-sky-4>返回</b><span class=mg-l-20>number ,返回整数,范围在 [intMin ~ intMax)</span><pre>
+let randNum = $.nextInt(0,100);
+// 返回0,100间的数,不含100
+</pre></div><div class=doc-part-box id=string><h2>string</h2><p>字符串相关方法<h4>$.isEmptyOrNull(str)</h4><p>字符串是否为空或者null或者全是空白字符.<p><b class=txt-sky-4>str</b><span class=mg-l-20>string ,被检查字符串</span><p><b class=txt-sky-4>返回</b><span class=mg-l-20>boolean ,true / false</span></p><br><h4>$.isNullOrWhiteSpace(str)</h4><p>字符串是否为空或者null或者全是空白字符.<p><b class=txt-sky-4>str</b><span class=mg-l-20>string ,被检查字符串</span><p><b class=txt-sky-4>返回</b><span class=mg-l-20>boolean ,true / false</span></p><br><h4>$.format(str, ...repstrs)</h4><p>格式化字符串,将字符串中的占位符替换为给定字符串{d},返回替换后字符串.例:("my name is {0} from {1}",mirror,china)<p><b class=txt-sky-4>str</b><span class=mg-l-20>string ,要格式化的字符串,包含占位符{d}</span><p><b class=txt-sky-4>...any</b><span class=mg-l-20>repstrs ,替换占位符的字符串数组</span><p><b class=txt-sky-4>返回</b><span class=mg-l-20>string ,返回替换后字符串</span><pre>
+let str = 'my name is {0} from {1}';
+let nstr=$.format(str,'mirror','china');
+console.log(nstr);
+// my name is mirror from china
+</pre><h4>$.dataBind(str, json)</h4><p>格式化字符串,根据占位符${key},到json中找到json.key,然后替换掉${key}<p>没找到的'${key}'时, ${key}替换为''(空值)<p><b class=txt-sky-4>str</b><span class=mg-l-20>string ,要格式化的字符串,包含占位符${key}</span><p><b class=txt-sky-4>json</b><span class=mg-l-20>any ,json对象,键为key</span><p><b class=txt-sky-4>返回</b><span class=mg-l-20>string ,返回替换后字符串</span><pre>
+let json={name:'mirror',from:'china'};
+let str='my name is ${name} from ${from}';
+let nstr=$.dataBind(str,json);
+console.log(nstr);
+// my name is mirror from china
 
-</pre></div><div class=doc-part-box id=string><h2>string</h2><p>字符串相关方法<p class=article-title>$.isEmptyOrNull(str)<p>字符串是否为空或者null或者全是空白字符.<p><b class=bg-gray>str</b><span class=mg-l-20>string ,被检查字符串</span><p><b class=bg-gray>返回</b><span class=mg-l-20>boolean ,true / false</span></p><br><p class=article-title>$.isNullOrWhiteSpace(str)<p>字符串是否为空或者null或者全是空白字符.<p><b class=bg-gray>str</b><span class=mg-l-20>string ,被检查字符串</span><p><b class=bg-gray>返回</b><span class=mg-l-20>boolean ,true / false</span></p><br><p class=article-title>$.format(str, ...repstrs)<p>格式化字符串,将字符串中的占位符替换为给定字符串{d},返回替换后字符串.例:("my name is {0} from {1}",mirror,china)<p><b class=bg-gray>str</b><span class=mg-l-20>string ,要格式化的字符串,包含占位符{d}</span><p><b class=bg-gray>...any</b><span class=mg-l-20>repstrs ,替换占位符的字符串数组</span><p><b class=bg-gray>返回</b><span class=mg-l-20>string ,返回替换后字符串</span><pre class=bg-gray-lt>
-    let str = 'my name is {0} from {1}';
-    let nstr=$.format(str,'mirror','china');
-    console.log(nstr);
-    // my name is mirror from china
-
-</pre><br><p class=article-title>$.dataBind(str, json)<p>格式化字符串,根据占位符${key},到json中找到json.key,然后替换掉${key}<p>没找到的'${key}'时, ${key}替换为''(空值)<p><b class=bg-gray>str</b><span class=mg-l-20>string ,要格式化的字符串,包含占位符${key}</span><p><b class=bg-gray>json</b><span class=mg-l-20>any ,json对象,键为key</span><p><b class=bg-gray>返回</b><span class=mg-l-20>string ,返回替换后字符串</span><pre class=bg-gray-lt>
-    let json={name:'mirror',from:'china'};
-    let str='my name is ${name} from ${from}';
-    let nstr=$.dataBind(str,json);
-    console.log(nstr);
-    // my name is mirror from china
-
-</pre><br><p class=article-title>$.trim(str)<p>去除字符串前后的空白字符<p><b class=bg-gray>str</b><span class=mg-l-20>string ,字符串</span><p><b class=bg-gray>返回</b><span class=mg-l-20>string ,返回新字符串</span></div><div class=doc-part-box id=domstring><h2>dom string</h2><p>生成dom元素字符串,主要用于拼接html字符串的情况,直接拼接有点啰嗦.<p class=article-title>$.dom<p>$.dom是个对象,每个属性的名字是dom的名字,例如div,span,p.值是一个函数,返回这个dom的html字符串<p>$.dom.div('innerText','class',attrjson)<p><b class=bg-gray>innerText</b><span class=mg-l-20>string ,html标记中的文本</span><p><b class=bg-gray>class</b><span class=mg-l-20>string ,样式字符串.如果不需要样式参数但有属性参数,可以省略.</span><p><b class=bg-gray>attrjson</b><span class=mg-l-20>json ,属性名值对</span><p>支持的标记有: 'div', 'span', 'a', 'p', 'table', 'tr', 'th', 'td', 'select', 'option', 'ul', 'li', 'dt', 'dd', 'h1', 'h2', 'h3', 'h4', 'h5', 'h6'<pre class=bg-gray-lt>
-    // 生成一个段落
-    $.dom.p('一个段落','article-title primary',{id:'myname'});
-    // &lt;p class="article-title primary" id="myname">一个段落&lt;/p>
-
-</pre><p>重复生成标记,在文本前加 :for,文本用 | 竖线隔开<pre class=bg-gray-lt>
-    // 生成一个列表
-    let li = $.dom.li,ul = $.dom.ul;
-    ul(li('<strong>:for</strong>第一列<strong>|</strong>第二列|第三列'), 'list square', { id: 'mylist' });
-    // &lt;ul class="list square" id="mylist">&lt;li>第一列&lt;/li>&lt;li>第二列&lt;/li>&lt;li>第三列&lt;/li>&lt;/ul>
-
-    // 省略样式参数
-    ul(li('单列'),{id:'myul'});
-
-</pre></div></div></div><script src=jslib.js></script><script src=/mirrorui/mirrorui.js></script><script>$("#main_menubox")[0].create()</script>
+</pre><h4>$.trim(str)</h4><p>去除字符串前后的空白字符<p><b class=txt-sky-4>str</b><span class=mg-l-20>string ,字符串</span><p><b class=txt-sky-4>返回</b><span class=mg-l-20>string ,返回新字符串</span></div><div class=doc-part-box id=h5back><h2>win.ns.hisBack</h2><p>h5回退组件.用于网页单页应用的回退导航.<p>使用了h5的3个API,replaceState,pushState,onpopstate.通过自定义浏览器历史记录,实现单页页面加载,回退功能.<pre>
+// 获取对象
+let back=win.ns.hisBack();
+// 基准页,栈底.页面回退终点.在单页应用加载时,执行一次.
+back.setBase();
+// 载入新页面时,执行加入历史记录.
+back.addHis();
+// 回退时,执行方法onBack(stackIndex),参数是栈索引值.
+obj.onBack = (stackIndex)=>{};
+</pre><p>这个方式的关键功能在于onpopstate事件,浏览器回退和前进时会触发这个事件.事先在pushState()方法载入新页面时,参数里放一个栈索引值,表示载入的这个页面.然后当点击了浏览器回退按钮时,这个事件触发了,在方法的参数里会拿到pushState()时放入的栈索引值,将这个值于当前页面的索引值比较,如果小于,就是回退了,于是执行页面处理方法.<p>如果修改url的hash值,也会触发onpopstate事件,这是另一种实现回退的方式.但这里是使用的H5的3个API,而不希望发生这种的,只希望在点击后退按钮时触发!所以,事件里要判断.<pre>
+// www.abc.com
+location.hash = '#pageId=' + about;
+// 修改后url
+www.abc.com#pageId=about
+// 
+win.onpopstate=function (event) {
+// 要排除掉这种触发行为.
+if (!event.state) return;
+}
+</pre><h4>单页web应用</h4><p>实现单页web应用的方式,常用的几种有:<p>覆盖式:最新的页面覆盖在上一个页面上,使用absolut定位方式,或者使用display:none隐藏上个页面,index页面始终只显示一个页面.页面的显示隐藏,可以在onback(stackIndex)方法里进行.<p>缓存式:将上个页面缓存起来,每次index显示最新的页面时,将现有的页面缓存起来.比如放到createDocumentFragment()方法建立的html文档对象里.这个对象的内容不会显示在index里,是一个独立的html文档.<p>无状态式:每次都是重新载入页面,历史记录里顺序存放页面的地址,回退时重新加载.</div></div></div><script src=jslib.js></script><script src=/mirrorui/mirrorui.js></script><script>$("#main_menubox")[0].create()</script>

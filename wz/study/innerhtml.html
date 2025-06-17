@@ -1,121 +1,114 @@
-<!DOCTYPE html><html lang=en><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1.0,user-scalable=no"><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><title>innerhtml | Mirror Space</title><link href=/mirrorui/mirrorui.css rel=stylesheet><link href=/mirroricon/mirroricon.css rel=stylesheet><link href=/asset/css/blog.css rel=stylesheet><div class=layout><div class=layout-part1></div><div class="layout-part2 layout-doc"><div id=page_content><div class=wz-page><p class=article-title>添加元素<p>innerHTML属性是个经常用到的原生属性.将html元素用字符串形式设置到父元素中,经常用于将动态拼接的html文本,显示在父容器里.<p>拼html字符串的办法已经被认为不妥,正经的办法是使用appendChild()或者createDocumentFragment().不过对于少量的html,当然也能用.<p>以前用jQuery库,对应的方法是$('#id').html(),在使用原生属性时,发现与jquery行为有所不同.<p>这可能是原生innerHTML属性在执行时,有判断过程.会判断父元素是否可以接受html文本.而jQuery已经处理过这个问题,它的html()方法分析过html字符串.<p>以下测试在谷歌浏览器80+版本,x64.<p>将div的子元素换成a标记<pre class=bg-gray>
-    &lt;div id = "div1">&lt;/div>
+﻿<!DOCTYPE html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1.0"><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><title>innerhtml误区 | Mirror Space</title><link href=/asset/css/blogArticle.css rel=stylesheet><div class=layout><div class=layout-part1></div><div class="layout-part2 layout-article"><div class=wz-page><div class=txt-center><h1>innerhtml误区</h1><span class=txt-gray-5>作者: </span><span>mirror</span> <span class="mg-l-10 txt-gray-5">日期: </span><span>2020/3/1</span></div><hr class="bd-none bd-t-1 bd-t-gray-4 mg-t-10"><div id=page_content><h4>添加元素</h4><p>innerHTML属性是个经常用到的原生属性.将html元素用字符串形式设置到父元素中,经常用于将动态拼接的html文本,显示在父容器里.<p>拼html字符串的办法已经被认为不妥,正经的办法是使用appendChild()或者createDocumentFragment().不过对于少量的html,当然也能用.<p>以前用jQuery库,对应的方法是$('#id').html(),在使用原生属性时,发现与jquery行为有所不同.<p>这可能是原生innerHTML属性在执行时,有判断过程.会判断父元素是否可以接受html文本.而jQuery已经处理过这个问题,它的html()方法分析过html字符串.<p>以下测试在谷歌浏览器80+版本,x64.<p>将div的子元素换成a标记<pre>
+&lt;div id = "div1">&lt;/div>
 
-    let div = document.getElementById('div1');
-    div.innerHTML = '&lt;a>link&lt;/a>';
+let div = document.getElementById('div1');
+div.innerHTML = '&lt;a>link&lt;/a>';
 
-    // 结果
-    &lt;div class="btn" id="div1">&lt;a>link&lt;/a>&lt;/div>
-
-</pre><br><p>这是预期的结果,div里可以放a.如果换成tr就不能成功.<pre class=bg-gray>
-    div.innerHTML = '&lt;tr>&lt;td>data&lt;/td>&lt;/tr>';
+// 结果
+&lt;div class="btn" id="div1">&lt;a>link&lt;/a>&lt;/div>
+</pre><br><p>这是预期的结果,div里可以放a.如果换成tr就不能成功.<pre>
+div.innerHTML = '&lt;tr>&lt;td>data&lt;/td>&lt;/tr>';
     
-    // 结果 没有加进去
-    &lt;div id = "div1">&lt;/div>
+// 结果 没有加进去
+&lt;div id = "div1">&lt;/div>
+</pre><br><p>tr是表格table里的子元素,如果div换成table呢<pre> 
+&lt;table id="tab1">&lt;/table>
 
-</pre><br><p>tr是表格table里的子元素,如果div换成table呢<pre class=bg-gray>
-    &lt;table id="tab1">&lt;/table>
+let tab = document.getElementById('tab1');
+tab.innerHTML = '&lt;tr>&lt;td>data&lt;/td>&lt;/tr>';
 
-    let tab = document.getElementById('tab1');
-    tab.innerHTML = '&lt;tr>&lt;td>data&lt;/td>&lt;/tr>';
+// 结果
+&lt;table id="tab1"><b>&lt;tbody></b>&lt;tr>&lt;td>data&lt;/td>&lt;/tr><b>&lt;/tbody></b>&lt;/table>
+</pre><br><p>成功了.不过不太一样,table里多了一个tbody元素,而innerHTML时并没有这个tbody.这是原生innerHTML属性自己的行为.<p>可见,innerHTML也会分析设置的html字符串,如果发现"不合法"的,会拒绝加入.<p>使用html对象而不是字符串,可以实现预期效果<pre>
+let tr = document.createElement('tr');
+tr.innerHTML = '&lt;td>data&lt;/td>';
+tab.appendChild(tr);
 
-    // 结果
-    &lt;table id="tab1"><b>&lt;tbody></b>&lt;tr>&lt;td>data&lt;/td>&lt;/tr><b>&lt;/tbody></b>&lt;/table>
-
-</pre><br><p>成功了.不过不太一样,table里多了一个tbody元素,而innerHTML时并没有这个tbody.这是原生innerHTML属性自己的行为.<p>可见,innerHTML也会分析设置的html字符串,如果发现"不合法"的,会拒绝加入.<p>使用html对象而不是字符串,可以实现预期效果<pre class=bg-gray>
-    let tr = document.createElement('tr');
-    tr.innerHTML = '&lt;td>data&lt;/td>';
-    tab.appendChild(tr);
-
-    // 结果
-    &lt;table id="tab1">&lt;tr>&lt;td>data&lt;/td>&lt;/tr>&lt;/table>
-
-</pre><br><p>建立tr元素对象,使用appendChild(tr)加到table,结果里没有tboby元素.<p>在项目中还是减少使用innerHTML,使用正规的appendChild()和createDocumentFragment()<p class=article-title>执行js<p>当innerHTML一段html里包含js时,是不会执行的.最常见的情况是,从服务器ajax一段包含html,js的页面片段,使用innerHTML设置到容器div,结果js不执行.<p>如果使用jQuery的$('#id').html() 方法,不会有这个问题.js执行了.显然,jQuery的html()方法是做了工作的.查看源码时,发现jQuery解析了html字符串.<p>innerHTML里的js不执行,可能和浏览器的机制有关.innerHTML里的js可能被当成一般的文本了,所以不执行.<p>对于一段html,js混合的文本,尝试过以下方法可以让js执行.<h5>一. 使用createContextualFragment()方法</h5><pre class=bg-gray>
-    let htmlString='&lt;div>let range = document.createRange();&lt;/div>&lt;script src="abc.js">&lt;\/script>&lt;script>console.log("hello world")&lt;\/script>';
+// 结果
+&lt;table id="tab1">&lt;tr>&lt;td>data&lt;/td>&lt;/tr>&lt;/table>
+</pre><br><p>建立tr元素对象,使用appendChild(tr)加到table,结果里没有tboby元素.<p>在项目中还是减少使用innerHTML,使用正规的appendChild()和createDocumentFragment()<h4>执行js</h4><p>当innerHTML一段html里包含js时,是不会执行的.最常见的情况是,从服务器ajax一段包含html,js的页面片段,使用innerHTML设置到容器div,结果js不执行.<p>如果使用jQuery的$('#id').html() 方法,不会有这个问题.js执行了.显然,jQuery的html()方法是做了工作的.查看源码时,发现jQuery解析了html字符串.<p>innerHTML里的js不执行,可能和浏览器的机制有关.innerHTML里的js可能被当成一般的文本了,所以不执行.<p>对于一段html,js混合的文本,尝试过以下方法可以让js执行.<h5>一. 使用createContextualFragment()方法</h5><pre>
+let htmlString='&lt;div>let range = document.createRange();&lt;/div>&lt;script src="abc.js">&lt;\/script>&lt;script>console.log("hello world")&lt;\/script>';
     
-    // 低版本浏览器不支持这个方法
-    let range = document.createRange();
-    let fragment = range.createContextualFragment(htmlString);
+// 低版本浏览器不支持这个方法
+let range = document.createRange();
+let fragment = range.createContextualFragment(htmlString);
 
-    document.body.appendChild(fragment);
+document.body.appendChild(fragment);
+</pre><p>这个方法解析htmlString,然后返回DocumentFragment对象,加到文档后,js会执行.<p>但是有一个问题,执行时没有按script标记的顺序.先执行了第二个script,后执行的abc.js<h5>二. 解析法</h5><p>使用js生成新的script标记,再添加到文档,是可以执行的.这个办法是分析htmlString,将script找出来,再重新生成一次.<p>为了让js顺序执行,可以在解析时将外联的js下载,变成内联的.具体做法,递归解析htmlString.<p>这段代码解析html字符串,返回一个文档片段对象,里面的js标记是重新生成的,对于外联会下载成内联,顺序执行.<p>代码有局限.html字符串中的script标记只能是第一子节点,不能包含在其它dom元素内,因为递归方法只遍历了子节点,没有遍历后代节点.<p>只能满足相对简单的script标记顺序执行,对于有复杂依赖的js,也不能保证顺序执行.<pre>
+// 解析html, val:html字符串 ,onReady:解析完成后的文档片段对象
+function parseHtml = (val, onReady) => {
+  let framgSource;
+  if (typeof val === 'string') {
+      let range = document.createRange();
+      framgSource = range.createContextualFragment(val);
+  } else if (val instanceof DocumentFragment) {
+      framgSource = val;
+  } else if (val.length) {
+      framgSource = document.createDocumentFragment();
+      framgSource.append(...val);
+  } else {
+      framgSource = document.createDocumentFragment();
+      framgSource.append(val);
+  }
+  // 放入fragment.(解析放入)
+  let fragment = document.createDocumentFragment();
+  _parseHtmlNodeLoad(fragment, framgSource, onReady);
+};
 
-</pre><p>这个方法解析htmlString,然后返回DocumentFragment对象,加到文档后,js会执行.<p>但是有一个问题,执行时没有按script标记的顺序.先执行了第二个script,后执行的abc.js<h5>二. 解析法</h5><p>使用js生成新的script标记,再添加到文档,是可以执行的.这个办法是分析htmlString,将script找出来,再重新生成一次.<p>为了让js顺序执行,可以在解析时将外联的js下载,变成内联的.具体做法,递归解析htmlString.<p>这段代码解析html字符串,返回一个文档片段对象,里面的js标记是重新生成的,对于外联会下载成内联,顺序执行.<p>代码有局限.html字符串中的script标记只能是第一子节点,不能包含在其它dom元素内,因为递归方法只遍历了子节点,没有遍历后代节点.<p>只能满足相对简单的script标记顺序执行,对于有复杂依赖的js,也不能保证顺序执行.<pre class=bg-gray>
-    // 解析html, val:html字符串 ,onReady:解析完成后的文档片段对象
-    function parseHtml = (val, onReady) => {
-      let framgSource;
-      if (typeof val === 'string') {
-          let range = document.createRange();
-          framgSource = range.createContextualFragment(val);
-      } else if (val instanceof DocumentFragment) {
-          framgSource = val;
-      } else if (val.length) {
-          framgSource = document.createDocumentFragment();
-          framgSource.append(...val);
-      } else {
-          framgSource = document.createDocumentFragment();
-          framgSource.append(val);
-      }
-      // 放入fragment.(解析放入)
-      let fragment = document.createDocumentFragment();
-      _parseHtmlNodeLoad(fragment, framgSource, onReady);
-    };
-
-    // 递归
-    function _parseHtmlNodeLoad = (toFragm, fromFragm, onReady) => {
-        if (fromFragm.firstChild === null) {
-            onReady(toFragm);
-            return;
-        }
-        // script元素.设置到innerhtml时不会执行,要新建一个script对象,再添加
-        if (fromFragm.firstChild.nodeName === 'SCRIPT') {
-            let newScript = document.createElement('script');
-            let src = fromFragm.firstChild.src;
-            if (src) {
-                // 外联的script,要加载下来,否则有执行顺序问题.外联的没有加载完,内联的就执行了.如果内联js依赖外联则出错.
-                // 这个办法是获取js脚本,是设置到生成的script标签中.(变成内联的了)
-                fetch(src).then(res => res.text())
-                    .then((js) => {
-                        newScript.innerHTML = js;
-                        toFragm.append(newScript);
-                        fromFragm.removeChild(fromFragm.firstChild);
-                        _parseHtmlNodeLoad(toFragm, fromFragm, onReady);
-                    });
-            } else {
-                // 内联的直接设置innerHtml
-                newScript.innerHTML = fromFragm.firstChild.innerHTML;
-                toFragm.append(newScript);
-                fromFragm.removeChild(fromFragm.firstChild);
-                _parseHtmlNodeLoad(toFragm, fromFragm, onReady);
-            }
+// 递归
+function _parseHtmlNodeLoad = (toFragm, fromFragm, onReady) => {
+    if (fromFragm.firstChild === null) {
+        onReady(toFragm);
+        return;
+    }
+    // script元素.设置到innerhtml时不会执行,要新建一个script对象,再添加
+    if (fromFragm.firstChild.nodeName === 'SCRIPT') {
+        let newScript = document.createElement('script');
+        let src = fromFragm.firstChild.src;
+        if (src) {
+            // 外联的script,要加载下来,否则有执行顺序问题.外联的没有加载完,内联的就执行了.如果内联js依赖外联则出错.
+            // 这个办法是获取js脚本,是设置到生成的script标签中.(变成内联的了)
+            fetch(src).then(res => res.text())
+                .then((js) => {
+                    newScript.innerHTML = js;
+                    toFragm.append(newScript);
+                    fromFragm.removeChild(fromFragm.firstChild);
+                    _parseHtmlNodeLoad(toFragm, fromFragm, onReady);
+                });
         } else {
-            // 其它元素
-            toFragm.append(fromFragm.firstChild);
+            // 内联的直接设置innerHtml
+            newScript.innerHTML = fromFragm.firstChild.innerHTML;
+            toFragm.append(newScript);
+            fromFragm.removeChild(fromFragm.firstChild);
             _parseHtmlNodeLoad(toFragm, fromFragm, onReady);
         }
-    };
+    } else {
+        // 其它元素
+        toFragm.append(fromFragm.firstChild);
+        _parseHtmlNodeLoad(toFragm, fromFragm, onReady);
+    }
+};
+</pre><h4>缓存文档片段</h4><p>有时需要将文档中的一部分dom缓存起来,需要时再加入文档中.<p>由于innerHTML是字符串,所以一些dom的属性不会保存.比如select元素,在缓存前选择了"two",使用innerHTML缓存在还原时,选择会变成默认的"one".<p>使用node.cloneNode(true)复制节点方法也不行,也保存不了select元素的选中状态.<p>可以使用DocumentFragment对象的append()方法,添加这个div后,div会脱离文档,缓存到文档片段对象中.在放入文档中,它的状态不变.<p>这个办法没有"加工"要缓存的元素,只是将它移动了位置.从文档对象移动到文档片段对象.<pre>
+// select 选择了two
+&lt;select>
+  &lt;option value="1">one&lt;/option>
+  &lt;option value="2">two&lt;/option>
+  &lt;option value="3">three&lt;/option>
+&lt;/select>
 
-</pre><p class=article-title>缓存文档片段<p>有时需要将文档中的一部分dom缓存起来,需要时再加入文档中.<p>由于innerHTML是字符串,所以一些dom的属性不会保存.比如select元素,在缓存前选择了"two",使用innerHTML缓存在还原时,选择会变成默认的"one".<p>使用node.cloneNode(true)复制节点方法也不行,也保存不了select元素的选中状态.<p>可以使用DocumentFragment对象的append()方法,添加这个div后,div会脱离文档,缓存到文档片段对象中.在放入文档中,它的状态不变.<p>这个办法没有"加工"要缓存的元素,只是将它移动了位置.从文档对象移动到文档片段对象.<pre class=bg-gray>
-    // select 选择了two
-    &lt;select>
-      &lt;option value="1">one&lt;/option>
-      &lt;option value="2">two&lt;/option>
-      &lt;option value="3">three&lt;/option>
-    &lt;/select>
+// 使用innerHTML,将div的所有子元素存到变量中
+let dom = div.innerHTML;
+div.innerHTML = '';
 
-    // 使用innerHTML,将div的所有子元素存到变量中
-    let dom = div.innerHTML;
-    div.innerHTML = '';
+// 还原 (选择状态会丢失)
+div.innerHTML = dom;
 
-    // 还原 (选择状态会丢失)
-    div.innerHTML = dom;
+// cloneNode(true) (复制select节点,选择状态也会丢失)
+dom = div.cloneNode(true);
+div.append(dom);
 
-    // cloneNode(true) (复制select节点,选择状态也会丢失)
-    dom = div.cloneNode(true);
-    div.append(dom);
-
-    // 使用DocumentFragment对象的append()添加到文档片段对象,再放入文档中,状态不变.
-    dom = document.createDocumentFragment();
-    dom.append(div);
-    div.append(dom);
-
-</pre></div><hr class=line><script src=/asset/js/article.js></script></div><div class=nav-page-inside><h6 class=text-center>本文内容</h6><div class=layout-v id=navOfInPage></div></div></div></div><script src=/asset/js/mainmenu.js></script><script src=/asset/js/navinpage.js></script>
+// 使用DocumentFragment对象的append()添加到文档片段对象,再放入文档中,状态不变.
+dom = document.createDocumentFragment();
+dom.append(div);
+div.append(dom);
+</pre></div></div><div class=nav-page-inside><h6 class=txt-center>本文内容</h6><div class="flex flex-col" id=navOfInPage></div></div></div><div class="bd-t-1 bd-t-gray-3 txt-center mg-b-10">End Line</div></div><script src=/asset/js/mainmenu.js></script><script src=/asset/js/navinpage.js></script>

@@ -1,3 +1,3 @@
-<div class=doc-page><h2>shadowOffsetY</h2><p>阴影在y轴偏移量,默认值为0<pre class="bg-gray pd-tb-10">
+﻿<div class=doc-page><h2>shadowOffsetY</h2><p>阴影在y轴偏移量,默认值为0<pre>
   ctx.shadowOffsetY = 0;
 </pre><br><h4>测验</h4><p>矩形阴影在Y轴偏移量,值为正时阴影在图像下方,即Y轴正方向.值为负时,阴影在图像上方,Y轴负方向<p>阴影相关属性<a class=goto onclick='mainmenugoto("shadowColor")'>shadowColor</a> <a class=goto onclick='mainmenugoto("shadowBlur")'>shadowBlur</a> <a class=goto onclick='mainmenugoto("shadowOffsetX")'>shadowOffsetX</a></p><canvas id=canvas1></canvas><p><span class=rel-1></span> (60页)</div><script>function test1(){let t=cavlib("canvas1").style(),n=t.ctx;n.shadowOffsetX=10;n.shadowColor="HSL(240,100%,30%)";n.shadowOffsetY=10;n.fillRect(0,20,50,30);n.shadowOffsetY=20;n.fillRect(100,20,50,30);n.shadowOffsetY=-10;n.fillRect(20,80,50,30);n.shadowOffsetY=-20;n.fillRect(200,100,50,30)}function randInt(n,t){let i=Math.random()*(t-n);return Math.floor(i)+n}test1()</script>
