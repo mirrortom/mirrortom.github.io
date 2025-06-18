@@ -1,17 +1,17 @@
-﻿<h2>SqlServer</h2><p>测试环境: win10 / smss2016 / localdb2014<p class=article-title>数据库~表查询<pre>
+﻿<h2>SqlServer</h2><p>测试环境: win10 / smss2016 / localdb2014<h4>查询数据库</h4><pre>
 -- 查询所有数据库
-SELECT * FROM master.sys.databases</pre><br><pre>
+SELECT * FROM master.sys.databases</pre><h4>查询表信息</h4><pre>
 -- 查询当前数据库所有表
-SELECT * FROM sys.objects where type='U'</pre><br><pre>
+SELECT * FROM sys.objects where type='U'</pre><h4>查询表的列</h4><pre>
 -- 查询表"user"的所有字段信息
 SELECT * FROM sys.columns
-WHERE object_id = (SELECT object_id FROM sys.tables WHERE type='U' AND name='user')</pre><br><pre>
+WHERE object_id = (SELECT object_id FROM sys.tables WHERE type='U' AND name='user')</pre><h4>查询表的列信息</h4><pre>
 -- 查询表"user"的字段名和类型
 SELECT c.name 列名,t.name 列类型
 FROM sys.columns c
 JOIN sys.systypes t ON t.xusertype=c.system_type_id
 WHERE c.object_id = 
-      (SELECT object_id FROM sys.tables WHERE type='U' AND name='user')</pre><br><pre>
+      (SELECT object_id FROM sys.tables WHERE type='U' AND name='user')</pre><h4>查询表的列信息2</h4><pre>
 -- 查询表"user"的字段名~类型~长度~字段说明,字段是否主键,是否自增长
 -- 注意:列类型为char时长度有参考用.如果是nchar(前面有n,可以支持中文),查出的长度要除以2.中文字符长度为2个ascii字符长度
 SELECT  
@@ -30,16 +30,16 @@ LEFT JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE pk ON pk.COLUMN_NAME=c.name AND pk
 LEFT JOIN sys.extended_properties p ON p.minor_id=c.column_id AND p.major_id=c.object_id
 WHERE c.object_id = 
     (SELECT object_id FROM sys.tables WHERE type='U' AND name='表名')
-</pre><p class=article-title>like<pre>
+</pre><h4>like</h4><pre>
 -- 参数化LIKE查询
 SELECT * FROM 表名 WHERE 列名 like '%'+@@ParaName+'%'
-</pre><br><pre>
+
 -- 在SMSS工具里执行模糊查寻时,如果查找的参数是中文,可尝试在前面加 N
 SELECT * FROM 表名 WHERE 列名 like N'%汉%'
-</pre><br><p class=article-title>in<pre>
+</pre><h4>in</h4><pre>
 -- 参数化IN查询
 SELECT * FROM 表名 WHERE 列名 IN (@@para1,@@para2,....多个参数占位符可以循环拼接)
-</pre><p class=article-title>while<pre>
+</pre><h4>while</h4><pre>
 -- while循环
 DECLARE @@i int   
 SET @@i=1   
@@ -48,7 +48,7 @@ WHILE @@i&lt;30 BEGIN
             insert into test (userid) values(@@i)
             set @@i=@@i +1
             END
-</pre><p class=article-title>if else<pre>
+</pre><h4>if else</h4><pre>
 -- 条件
 IF(1=1)
     BEGIN
@@ -58,7 +58,7 @@ ELSE
     BEGIN
         SELECT '错'
     END
-</pre><p class=article-title>case when<pre>
+</pre><h4>case when</h4><pre>
 -- case 列 when 条件 then 值 ... ELSE 值 END
 CASE col
     WHEN '1'
@@ -73,7 +73,7 @@ CASE
         THEN 0
     ELSE 1
 END
-</pre><p class=article-title>时间间隔<p>datediff文档: <a href="https://docs.microsoft.com/zh-cn/sql/t-sql/functions/datediff-transact-sql?view=sql-server-ver15" target=_blank>https://docs.microsoft.com/zh-cn/sql/t-sql/functions/datediff-transact-sql?view=sql-server-ver15</a><p>参考日期字段类型是datetime.如果是datetimeoffset,可以修改GETDATE()为SYSDATETIMEOFFSET()<pre>
+</pre><h4>时间间隔</h4><p>datediff文档: <a href="https://docs.microsoft.com/zh-cn/sql/t-sql/functions/datediff-transact-sql?view=sql-server-ver15" target=_blank>https://docs.microsoft.com/zh-cn/sql/t-sql/functions/datediff-transact-sql?view=sql-server-ver15</a><p>参考日期字段类型是datetime.如果是datetimeoffset,可以修改GETDATE()为SYSDATETIMEOFFSET()<pre>
 --查询当天
 SELECT * FROM 表 WHERE DATEDIFF(day,[参照日期字段],GETDATE())=0   
   
@@ -88,7 +88,7 @@ SELECT * FROM 表 WHERE DATEDIFF(week,[参照日期字段],GETDATE())=0
 
 --本年记录
 SELECT * FROM 表 WHERE DATEDIFF(year,[参照日期字段],GETDATE())=0
-</pre><p class=article-title>分页row_number<pre>
+</pre><h4>分页row_number</h4><pre>
 -- ROW_NUMBER分页1:分为两步.可以写在事务里.经测试,在总记录数少于三万条时,时间效率低
 SELECT count(pk) from 表 WHERE 1=1
              
@@ -100,7 +100,7 @@ SELECT * FROM
       ) A 
 WHERE A.RowNumber BETWEEN @@StartRowIndex AND @@EndRowIndex
 ORDER BY A.[CreateTime] DESC
-</pre><br><pre>
+</pre><h4>分页2</h4><pre>
 -- ROW_NUMBER分页2:分页同时计算总条数.经测试,在总记录数在三万以内时,比分两步算法时间效率高
 SELECT * FROM
     (SELECT ROW_NUMBER() OVER (ORDER BY [CreateTime] DESC) RowNumber
@@ -111,7 +111,7 @@ SELECT * FROM
       ) A 
 WHERE A.RowNumber BETWEEN @@StartRowIndex AND @@EndRowIndex
 ORDER BY A.[CreateTime] DESC
-</pre><p class=article-title>分页OFFSET<pre>
+</pre><h4>分页OFFSET</h4><pre>
 -- OFFSET分页1:分为两步,总条数和分页 使用OFFSET,SQL2012开始可用.时间效率比rownumber高一点
 SELECT count(pk) from 表 WHERE 1=1
               
@@ -121,7 +121,7 @@ FROM 表
 WHERE 1=1
 ORDER BY [CreateTime] DESC
 OFFSET @@OffSetRows ROWS FETCH NEXT @@PageSize ROWS ONLY
-</pre><br><pre>
+</pre><h4>分页OFFSET 总数</h4><pre>
 -- OFFSET分页2,同时计算总条数 
 SELECT ROW_NUMBER() OVER (ORDER BY [CreateTime] DESC) RowNumber
           ,COUNT(pk) OVER() AS ListCount
@@ -130,13 +130,13 @@ FROM 表
 WHERE 1=1
 ORDER BY [CreateTime] DESC
 OFFSET @@OffSetRows ROWS FETCH NEXT @@PageSize ROWS ONLY  
-</pre><p class=article-title>guid<pre>
+</pre><h4>guid</h4><pre>
 --生成一个GUID
 SELECT REPLACE(NEWID(), '-', '')
-</pre><p class=article-title>返回自增长id<pre>
+</pre><h4>返回自增长id</h4><pre>
 -- 返回自增主键
 INSERT INTO 表([col1]) VALUES(@@col1);SELECT SCOPE_IDENTITY()
-</pre><p class=article-title>每小组特定值<p>这是一个常用的需求,一张表中的数据,可以按一个或者多个字段分组,在每个分组数据中查出符合要求的那一条或者多条记录.<p>最简单例子:找出订单表中,每一天的金额最大的那一个订单,要列出所有字段.<p>使用开窗函数 OVER(PARTITION BY col ORDER BY col) 解决.使用group by不够方便.<p>所谓开窗函数,可以将数据分组,PARTITION BY 分组字段,ORDER BY 排序字段.<pre>
+</pre><p>每小组特定值<p>这是一个常用的需求,一张表中的数据,可以按一个或者多个字段分组,在每个分组数据中查出符合要求的那一条或者多条记录.<p>最简单例子:找出订单表中,每一天的金额最大的那一个订单,要列出所有字段.<p>使用开窗函数 OVER(PARTITION BY col ORDER BY col) 解决.使用group by不够方便.<p>所谓开窗函数,可以将数据分组,PARTITION BY 分组字段,ORDER BY 排序字段.<pre>
 -- 第一步,按每天分组订单记录,并且每个分组按金额由大到小排列.
 -- OVER函数前的,ROW_NUMBER()函数是关键,它为每组生成行号.执行结果会多出一个rowNumber字段(别名).
 SELECT col1, col2, ROW_NUMBER() OVER(PARTITION BY 每天日期 ORDER BY 金额 DESC) rowNumber
@@ -148,4 +148,4 @@ FROM
 (SELECT col1, col2, ROW_NUMBER() OVER(PARTITION BY 每天日期 ORDER BY 金额 DESC) rowNumber
 FROM 订单表) 订单表开窗函数结果集别名
 WHERE 订单表开窗函数结果集别名.rowNumber=1
-</pre><br><p>由于要列出所有字段,所以使用group by不是特别方便.
+</pre><p>由于要列出所有字段,所以使用group by不是特别方便.

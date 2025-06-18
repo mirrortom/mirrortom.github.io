@@ -1,4 +1,4 @@
-﻿<h2>MariaDB</h2><p>测试环境: win10 / heidisql11.2 / maria10.5<p class=article-title>数据库~表查询<pre>
+﻿<h2>MariaDB</h2><p>测试环境: win10 / heidisql11.2 / maria10.5<h4>查询表信息</h4><pre>
 // 查询服务器上所有数据库
 SELECT *,
     schema_name,// 数据库名字
@@ -12,8 +12,7 @@ SELECT
 	  table_comment// 表说明
 FROM information_schema.tables
 WHERE table_schema='所在数据库' AND TABLE_NAME='表名';
-</pre><br><pre>
-// 查询表"user"的字段信息
+</pre><h4>查询表的字段信息</h4><pre>
 // 长度是字符串长度,例如字母'a',和汉字'啊'都是1个长度
 SELECT
     CASE column_key WHEN 'PRI' THEN 'Y' ELSE '' END AS 是否主键,
@@ -28,7 +27,7 @@ SELECT
     column_comment 列注释
 FROM information_schema.`COLUMNS`
 WHERE TABLE_NAME='表名'
-</pre><br><p class=article-title>分页LIMIT<pre>
+</pre><h4>分页LIMIT</h4><pre>
 // 总数
 SELECT count(pk) from 表 WHERE 1=1
 
