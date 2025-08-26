@@ -1,0 +1,107 @@
+﻿<!DOCTYPE html><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1.0"><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=manifest href=/site.webmanifest><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><meta name=msapplication-TileColor content=#da532c><meta name=theme-color content=#ffffff><title>归并排序 | Mirror Space</title><link href=/asset/css/blogArticle.css rel=stylesheet><div class=layout><div class=layout-part1></div><div class="layout-part2 layout-article"><div class=wz-page><div class=txt-center><h1>归并排序 <span class="txt-lg txt-gray-6">-- 分治思想的应用</span></h1><span class=txt-gray-5>作者: </span><span>mirror</span> <span class="mg-l-10 txt-gray-5">日期: </span><span>2025/08/25</span></div><hr class="bd-none bd-t-1 bd-t-gray-4 mg-t-10"><div id=page_content><h2>理论</h2><p>归并排序是使用分治思想而实现的排序算法.Divide and Conquer.将大问题分解为小问题,将复杂问题分解为简单问题,然后解决小问题,将答案合并到一起,这就是原来大问题的答案了.这是最简单的理解了,这是一种间接解决问题的办法.<p>这个思路非常适合用在计算机问题上,因为计算机处理的问题都是大规模的问题,这种问题需要大量的计算机资源,比如CPU/内存等,一台计算机的资源有限,所以自然就能想到用分治方法,将大规模问题分解成小规模问题,以及更小规模的问题,以至于可以在一台计算机上解决,然后再合并每一个小问题的结果,这就解决了大规模问题.<p>在排序问题上,采用分治方法的做法是,将要排序的数列先分成2个数列,再分成4个数列,一直分下去,直到每个数列只有1个元素为止,这样问题就变得简单了,因为1个数的数列不涉及排序问题,或者说它本来就是有序的,已经是排序好了.这时,排序问题已经解决了,但这不是原来数列的排序结果,还需要第二部,合并(combine).将这些含1个数的数列合并,最后合并成1个数列时,就是结果了,这个数列就是排序好的.<p>这样的描述其实并不能说明分治-合并的思路是怎么实现排序的,它只是明白了这个过程的人的才能明白描述的是什么.以下具体说明,这是怎么实现的.<h2>例子</h2><p>使用分治思想对以下数列进行排序,实现由小到大排序.</p><span class="btn-group txt-lg" id=box1></span> <h4>分Divide</h4><p>按照分治思想,第一步就就分拆问题.这是一个9个数的无序数列,要分拆成更简单的数列,以至于可以很容易的排序.怎么算很容易排序呢?比如只有2个数的话,一眼就能看出谁大谁小.<p>第一次砍半分,专业是说法是2分法.为什么要2分呢,不2-8或者3-7分呢?这显然不对路子,用计算机解决问题,必须使用计算机的思路,而2分法是计算机的基本算法.<div><span class="btn-group txt-lg" id=box2></span> <span class="btn-group txt-lg mg-l-10" id=box3></span></div><p>2分后成了2个数列,每个数列4-5个数.还要继续2分,因为4个数还是不能直观看出大小.继续分成4个数列,每个含2-3个数.这里基本上比较容易了,比如最左边的数列,一眼就能看出23比19大,19排前面,23排后面.<div><span class="btn-group txt-lg" id=box4></span> <span class="btn-group txt-lg mg-l-10" id=box5></span> <span class="btn-group txt-lg mg-l-10" id=box6></span> <span class="btn-group txt-lg mg-l-10" id=box7></span></div><p>那么,这里会涉及一个问题,将这4个数列排序后,会得到4个有序数列.怎么将这4个有序数列合并到一起,得到最后排序的结果呢?<p>假如要合并左边2个数列,做法是:左1第1个数19和左2第1个数58比较,19比58小,那么19就是这2个数列中最小的数了,它不用和左2的第二个数比较,因为左2是有序数列,第2个数一定比第1个数大.同理,19也不用和左1的第二个数比较,因为左1也是有序数列.<div class=flex><table class="table small border txt-center mg-lr-10 bg-sky-5"><tr><td>19<td>23</table><table class="table small border txt-center mg-lr-10 bg-sky-5"><tr><td>58<td>61</table></div><p>左1和左2合并成1个有序数列.同理,后2个数列也这样干,再得到一个有序数列,这样又有了2个有序数列,然后再次合并,直到最后得到一个数列,这就是结果了.<table class="table small border txt-center"><tr><td>19<td>23<td>58<td>61</table><h5>分的程度</h5><p>但是,目前还不能这么做,这已经是合并的步骤了,目前是"分"这个步骤.在分的步骤研究合并,其实是为了发现一个问题,就是分的问题.要分到什么程度才可行?分的有问题,是否会影响到后续合的过程?<p>这2个问题都是确定的.分的不好,合就会有问题,合是在分的基础上进行的.<p>上面的例子,分到4个数列为止,每个数列2个元素,确实一眼能看出每一个数列的元素顺序,已经很简单了.但是,在进行合并时,就有4个元素在参与比较,这并不是最简单的情况.因为,如果每个数列只有一个元素时,那么就只有2个元素参与比较,这才是最简单的情况,2个元素只需要比较1次就得到结果了.所以,上面的拆分,做的不够好,不够彻底,因为在进行合并时,它不是最简单的情况.而分治的思想,就是要将问题分成最容易解决的小问题,显然,分的不够简单,是违背了这个思想的.<p>那么,必须将数列分成若干个只有1个元素的数列,这才是最简单情况,在这个基础上进行合并才是合乎分治思想的!<p>于是,将这个数列分成含有1个元素的数列,一共有9个.将这9个数列进行合并,最后得到排序结果.<div id=box8></div><h4>合并combine</h4><p>合并的是什么,要怎么合并,合并到什么程度?<p>根据前面的分的例子,将1个无序数列分成了9个数列,每个数列只有1个元素.那么合并的就是这9个数列.另外,这9个数列是有序的,因为数列只有1个元素,它自然是有序的,没有其它元素能和它比较大小了,它就是最小的(或者最大的).<p>每次合并2个数列,可以按相邻的数列两两合并成1个.为什么要两两合并呢,不能是两个以上合并呢?根据上面分析的合并过程看,合并时要比较每个数列的元素大小,而最简单的情况显然是2个数列,而且每个数列只有1个元素,才是最简单情况.所以一定是两两合并!很明显,分的时候使用2分法,合是时候2个合一,正好是2分法的反向操作.<p>第一次合并结果,得到5个有序数列.9列合并成5列.最后一列(47)其实没有参与合并,因为没有和它成对的数列了,所以无法两两合并.<div class=flex><table class="table small border txt-center mg-lr-10"><tr><td>19<td>23</table><table class="table small border txt-center mg-lr-10"><tr><td>58<td>61</table><table class="table small border txt-center mg-lr-10"><tr><td>34<td>105</table><table class="table small border txt-center mg-lr-10"><tr><td>18<td>42</table><table class="table small border txt-center mg-lr-10"><tr><td>47</table></div><p>第二次合并,得到3个数列.数列(47)还是没有配对的,所以这次也没参与合并.<div class=flex><table class="table small border txt-center mg-lr-10"><tr><td>19<td>23<td>58<td>61</table><table class="table small border txt-center mg-lr-10"><tr><td>18<td>34<td>42<td>105</table><table class="table small border txt-center mg-lr-10"><tr><td>47</table></div><p>第三次合并,得到2个数列.数列(47)还是没参与.<div class=flex><table class="table small border txt-center mg-lr-10"><tr><td>18<td>19<td>23<td>34<td>42<td>58<td>61<td>105</table><table class="table small border txt-center mg-lr-10"><tr><td>47</table></div><p>第四次合并,得到1个数列.这就是排序结果了.<div id=box9></div><h5>合并比较</h5><p>合并的比较算法是归并排序的关键.首先是两两合一,操作的是两个数列,而且必须是有序数列.最简单的情况是含有1个元素的序列,只有2个元素参与合并,一次比较出结果.首次合并时,就是这种情况.<p>第二次以及后续合并时,数列里的元素是1个以上了,这时参与比较的元素超过2个,不可能一次比较完成,但是比较逻辑没变化,只是比较次数增加了而已.具体如下:<div class=flex><table class="table small border txt-center mg-lr-10"><tr><td>19<td>23</table><table class="table small border txt-center mg-lr-10"><tr><td>18<td>42</table></div><p>1轮) 上面2个有序数列,后简称为左列/右列,每个里面含有2个元素.开始时,从左列元素1(19),对比右列元素1(18),结果是18小于19,于是将18放入结果数列第1位置.<table class="table small border txt-center"><tr><td>18<td>-<td>-<td>-</table><p>2轮) 左列元素1(19),对比右列元素2(42),结果将19放入结果数列第2个位置.到第2轮时,参与比较的2个元素,为什么是左列1和右列2比较呢?上1轮比较时,右列1(18)是比较结果,放入结果数列了,所以右列剩下的元素就是从第2个开始的,就是(42).<p>回想最简单的情况,2个数列都只含有1个元素时,参与比较的2个元素,是这2个数列的第1个元素.而当数列元素超过1个时,只是重复了最简单的情况.每次比较的也是数列的第1个元素,只是这第1个元素是动态的.右列1(18)比较后,放入了结果数列,那么右列原来第2个元素就成了新的第1个元素了.<table class="table small border txt-center"><tr><td>18<td>19<td>-<td>-</table><p>3轮) 左列1(19)放入了结果数列,于是左列2(23)就会成为第1个元素.此轮比较就是左列2(23)和右列2(42)比较,结果是23放入结果数列.<table class="table small border txt-center"><tr><td>18<td>19<td>23<td>-</table><p>4轮) 左列已经没有元素了,而右列还有右列2(42)这个元素.这时,已经不用也无法比较了,右列2就是最大的,放在结果数列最后一位即可.<p>何以如此?由于左列元素都放入了结果数列,说明左列所有数都比右列2小.而右列是有序数列,所以右列2之前的数,一定比右列2小,如果右列2之后还有数,那也一定要比左列所有数大,所以,将右列2(和之后)的数放在结果数列后面就可以了,不用比较了,右列2(和之后的)就是最大的.<table class="table small border txt-center"><tr><td>18<td>19<td>23<td>42</table><h5>关键是有序</h5><p>合并比较算法能成立的关键是,数列必须是有序数列.在分的时候,分成只有1个元素的数列,它自然有序,就满足了这个条件.<h2>编程实现</h2><p>根据上面的分析,需要实现2个方法.拆分方法divide(),将原始数列拆分成含有1个元素的若干数列.合并方法combine(),将数列两两合并,得到最后结果.<h4>divide()</h4><p>给定无序自然数组N[n],使用2分法分解为n个有序数列,每个数列含有1个元素.这要用递归实现.在研究时,没有使用这个方法,因为最终是要分成含1个元素的数列的,所以直接到数列N里,选择相邻的元素,生成有序数列.数列长度从1开始,N[0]和N[1]一对,N[2]和N[3],一直到元素穷尽.这样就得到了n/2对数组,如果n为奇数,最后一个数组落单,不能成对.<pre>
+function divide(var srcArray)
+{
+    // 复制原始数组备用
+    var arr = srcArray.Clone();
+    var count = arr.Length;
+    // 只有1个元素的数组是有序的,所以开始时,有序数组长度为1.
+    var len = 1;
+    // 临时数组,存放合并结果
+    var tmp = new int[count];
+    // 当有序数组长度len和原始数组的相同时,排序已经完成,这是结束条件.
+    while (len &lt; count)
+    {
+        // 扫描数组,每相邻的2个元素取出来,生成2个有序数组.
+        // 如果数组元素为偶数个,正好生成len/2对有序数组.为奇数时,最后一个会落单.
+        for (var i = 0; i &lt; arr.Length;)
+        {
+            // 左/右数组元素,在原始数组中的起点和终点位置.
+            var leftS, leftLen, rightS, rightLen;
+            // 左数组,首元素位置起点.
+            leftS = i;
+            // 左数组元素个数,第一轮就是1个.
+            leftLen = leftS + len;
+            // 右数组,首元素起点,就是左数组终点.因为选取的是相邻的元素.
+            rightS = leftLen;
+            // 右数组长度,可能会少于左的,在最后1次合并时可能会发生,当原数组个数不是2^n时.终点最大值是原数组长度.
+            rightLen = Math.Min(rightS + len, count);
+            // 左数组元素的终点已经到了原数组终点了,没有元素分配给右数组了,这时,左数组落单,无法比较.
+            if (leftLen >= count)
+            {
+                // 将左数组元素加入到结果集,开始下一轮比较
+                for (var single = leftS; single &lt; count; single++)
+                {
+                    tmp[single] = arr[single];
+                }
+                break;
+            }
+            // 构建左侧数组,右侧数组
+            var left = arr[leftS..leftLen];
+            var right = arr[rightS..rightLen];
+            // 比较两个数组,合并成有序数组
+            var sortTmp = Combine(left, right);
+            // 将结果加入临时数组,插入的起点位置,是左数组第1个元素的位置.
+            sortTmp.CopyTo(tmp, i);
+            // 下一对数组的起点位置
+            i += 2 * len;
+        }
+        // 将原始数组置换成比较后的数组,以备在此基础上进行下一轮
+        arr = tmp;
+        // 清空临时数组备用
+        tmp = new int[count];
+        // 下一轮有序数组长度
+        len *= 2;
+    }
+    return arr;
+}
+</pre><h4>combine()</h4><p>分别扫描左/右两个数组,从左/右数组的第一个元素开始比较,将结果放入结果集,同时该数组指针后移,直到其中一个数组元素穷尽,如果另一个数组还有没比较的元素,直接加入到结果集后面,比较完成.<pre>
+function combine(var left, var right)
+{
+    // 建立数组存放排序结果,长度是两个数组之和
+    var tmp = new int[left.Length + right.Length];
+
+    // 左右两个数组的当前位置.结果集当前位置
+    var l = 0, r = 0, t = 0;
+    // 循环比对2个数组的元素
+    while (true)
+    {
+        // 左侧数组索引到达边界时,将右侧数组剩余元素加入合并后的数组后面.
+        // 因为这时,右侧数组都是最大的了.比对完成,退出循环.
+        if (l >= left.Length)
+        {
+            for (var last = r; last &lt; right.Length; last++, t++)
+            {
+                tmp[t] = right[last];
+            }
+            break;
+        }
+        // 同理,右侧数组索引到达边界时,将左侧数组剩余元素加入到合并数组后面.
+        if (r >= right.Length)
+        {
+            for (int last = l; last &lt; left.Length; last++, t++)
+            {
+                tmp[t] = left[last];
+            }
+            break;
+        }
+
+        // 比较 这是比较合并的关键操作.
+        // 每次比较出一个数,将这个数所在的数组下标后移.直到一个数组里所有数都比较完毕.
+        // 从左侧第一个元素和右侧第一个元素比较,将较小的数放入结果集第1个位置.然后,该数所在数组指针后移,结果集指针后移
+        if (left[l] &lt; right[r])
+        {
+            tmp[t] = left[l];
+            l++;
+        }
+        else
+        {
+            tmp[t] = right[r];
+            r++;
+        }
+        // 结果集指针后移
+        t++;
+    }
+    // 返回结果集
+    return tmp;
+}
+</pre><script>(()=>{function t(n,t,i){let e="";for(var f=n;f<t;f++)e+='<a class="btn">'+r[f]+"<\/a>";u(i).innerHTML=e}function e(){let i="";for(var t=0;t<n;t++)i+='<a class="btn mg-lr-10">'+r[t]+"<\/a>";u("box8").innerHTML=i}function o(){let f=r.sort((n,t)=>n-t),i="";for(var t=0;t<n;t++)i+='<a class="btn">'+f[t]+"<\/a>";u("box9").innerHTML=i}let u=n=>document.getElementById(n),r=[23,19,61,58,34,105,42,18,47],n=r.length;t(0,n,"box1");let f=Math.floor(n/2);t(0,f,"box2");t(f,n,"box3");let i=Math.floor(n/4);t(0,i,"box4");t(i,2*i,"box5");t(2*i,3*i,"box6");t(3*i,n,"box7");e();o()})()</script></div></div><div class=nav-page-inside><h6 class=txt-center>本文内容</h6><div class="flex flex-col" id=navOfInPage></div></div></div><div class="bd-t-1 bd-t-gray-3 txt-center mg-b-10">End Line</div></div><script src=/asset/js/mainmenu.js></script><script src=/asset/js/navinpage.js></script>
