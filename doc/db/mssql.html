@@ -1,0 +1,10 @@
+﻿<h2>Microsoft Sql Server</h2><p>测试环境: win10 / Sql Server Express 2025<h3>概述</h3><p>微软数据库Sql Server,排名在Oracle和Mysql之后.Express版本是免费版本,支持10G左右数据库容量,开发测试和小型APP是够用的了.<h3>安装</h3><p>下载的安装程序是一个引导程序,"SQL2025-SSEI-Expr.exe",大约4兆,需要联网安装.安装之后,安装程序会保留在本机(大约800兆),日后可以执行升级安装或者卸载操作等.<p>安装完成后,再安装Sql Server Management Studio管理工具.<h3>用法</h3><p>C#程序连接字符串,需要用到工具库 "Microsoft.Data.SqlClient"<pre>
+// 连接字符串 windows认证
+connstr = "Server=localhost;Database=mydb;Trusted_Connection=True"
+
+// 连接字符串 sqlserver认证
+connstr = "Server=localhost;Database=mydb;uid=sa;pwd=123456"
+
+// 连接字符串 本机命名实例
+connstr = @"Server=localhost\sqlexpress2025;Database=mydb;uid=sa;pwd=123456"
+</pre><h3>多个实例</h3><p>一台计算机上可以安装多个SQL SERVER实例,比如免费的Sql Server Express版本,安装一个或者多个实例.默认实例只能有一个,还可以再安装多个命名实例.<p>默认实例连接字符串中服务器名称可以直接使用localhost或者本机名字,命名实例需要在服务器名称后面加上\实例名.

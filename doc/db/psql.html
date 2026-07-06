@@ -1,0 +1,79 @@
+﻿<h2>PostgreSql</h2><p>测试环境: win10 / PostgreSQL 17 / pgadmin<h3>概述</h3><p>https://www.postgresql.org/download/windows windows版本的下载地址.安装后会有windows服务.<p>这是开源数据库,排名在第4位,排在oracle,mysql,sqlserver之后.感觉数据类型的种类很丰富,但没研究太多,自带的pgadmin这个客户端用不习惯.<h3>基本命令</h3><p>要进入安装目录,在bin目录下运行,或者添加环境变量.命令程序是psql.exe,命令参数是大小写敏感的.<pre>
+// 连接到postgresql服务,默认端口5432,如果安装时修改了端口号,要在命令里指定 -p 端口号
+psql -U postgres [-h 主机名字] [-p 端口号5432]
+// 连接到默认的postgresql服务,端口5432,主机localhost,用户postgres
+psql -U postgres
+</pre><p>在psql命令客户端下,使用命令<pre>
+// 建立数据库
+CREATE DATABASE 数据库名字
+
+// 删除数据库
+DROP DATABASE 数据库名字
+
+// 查看所有数据库(反杠加小写的L)
+\l
+
+// 切换到某个数据库
+\c [数据库名字]
+
+// 查看当前数据库所有表
+\d
+
+// 查看表结构
+\d 表名字
+
+// 查看所有方案
+\dn
+
+// 查看所有用户
+\du
+
+// 打开一个命令行编辑器,比如VIM.可以写sql
+\e
+
+// 查看当前数据库连接的信息
+\conninfo
+
+// 退出psql
+\q
+</pre><h3>模式(方案)概念</h3><p>postgresql有个模式的概念,可以理解为数据库里的一个命名空间.在同一个数据库里,不同的模式里可以有同名的表.默认的模式是public,如果不指定模式,就会在public里创建表.如果要指定模式,可以在表名前加上模式名字和点号,例如: myschema.mytable.查询表的时候也要加上模式名字.如果不想每次都加上模式名字,可以设置一下搜索路径,例如: set search_path to myschema; 这样就会优先在myschema里查找表了.<p>用命令建立方案,AUTH参数可以指定这个用户是方案所有者,不是必须的.<pre>
+CREATE SCHEMA 方案名字  [AUTHORIZATION 用户名]
+</pre><p>默认模式是public,可以使用命令修改.实际上是将模式排在第一位,就是默认模式了.<pre>
+// 显示搜索路径
+SHOW search_path
+// 结果如下,后面public模式是优先在这个模式下查找
+("$user" public)
+
+// 修改默认模式,下例 模式1就改为默认的,因为排第一了.
+SET search_path TO [模式1,模式2]
+</pre><p>很明显,搜索路径的意思在于,在一个数据库下,如果查询一个emp表 select id from emp,在没有带方案前缀的情况下,postgresql系统会先找默认方案下的表emp,如果找到就执行,没找到就继续找搜索路径下的第2,3…方案,找到为止,如果都没有就报错没有这个emp表.<h3>文件位置</h3><p>查询系统表select * from pg_database,可以看到所有数据库,主要看oid这个字段.然后到pq安装目录下的PostgreSQL\14\data\base这个目录下,会有一个和oid同名的文件夹.这个就是该数据库文件了.如果删除了这个数据库,那么这个目录下与该数据库oid同名的文件夹也会消失.<h3>备份1</h3><p>使用pg_dump命令来备份数据库.这个命令会生成一个sql文件,里面包含了创建表和插入数据的sql语句.但没有建库语句.<pre>
+// 将test数据库导出到文件,用postgres账户
+pg_dump -U postgres test > e:/testDB20260101.bak
+
+// 恢复pg_dump导出的sql.注意要先建立test库,才执行这个命令.
+psql -U postgres test < e:/testpg20211903.bak
+</pre><p>这种方式还有个用途,可以将数据库从一台服务器移动到另一台服务器.如下命令,竖线管道符左边是备份,右边是恢复.意思是从host1服务器把test数据库复制到host2上的test.<pre>
+pg_dump -h host1 test | psql -h host2 test
+</pre><h3>备份2</h3><p>连续归档文件备份(基础备份+增量)<p>这个方式是postgresql官方推荐的备份方式.但是无比复杂啊!感觉相当于sqlserver的增量备份,也支持还原到指定时间点,要严格按照步骤来.<p>1.开启服务器的备份配置<p>前提是服务器运作中,进入cmd,进入psql命令环境,执行以下命令:<pre>
+// 开启备份模式
+ALTER SYSTEM SET archive_mode=on
+</pre><p>2.指定归档文件的保存目录<pre>
+// copy是cmd的复制命令,%p是归档文件,e:/pg../archivedir就是要指定的目录
+ALTER SYSTEM SET archive_command='copy "%p" "e:\\pgsqlBAK\\archivedir\\%f"'
+
+// 注意,执行后如果出现"ALTER SYSTEM",就表示设置成功.可以查看设置结果.
+// 如果发现结果不对,可以重新启动pg的win服务,再尝试查看设置结果.
+SHOW archive_mode
+SHOW archive_command
+</pre><p>3.做一个基础备份<p>既然是增量备份,那么必须有一个起点,在此起点上增量.那么适用这个命令行工具:<pre>
+// 在pg的bin目录下运行这个工具,-D指定保存目录
+pg_basebackup -U postgres -D e:/pgsqlBAK -P
+</pre><p>执行后,当前服务器上的data目录下的东西会存到这个目录下.这就是基本备份的文件了.<p>这个命令执行后,去看看archive_command的归档文件保存目录,里面会生成文件.<p>这3个命令完成后,备份设置工作就完成了.这个工作最好是在服务器安装后以后就做.<p>总结下就是改两个配置,做一个文件备份.<h3>备份还原</h3><p>这是连续归档式备份的还原例子.按以下步骤来:<p>例如有一个emp表,在18:30分做了一个update,忘了写where,那就麻烦了.于是要恢复到18:30分前的样子.<p>1.停止pg的win服务<p>2.把当前服务器的data文件夹下的所有文件move到一个其它位置(这不是必须的,就是保险兜底做法)<p>3.这时data下是空的,找到(上次做的)基础备份的文件夹,将它的所有文件复制到data下,复制完成后,找到pg_wal这个文件夹,把里面的文件都删除,因为这个是备份时的日志,恢复后会有新日志生成在这个目录下.<p>4.设定恢复条件,这是最重要的一步<p>找到服务器data目录下的postgresql.conf,用记事本打开,加入两个配置<pre>
+// 这个配置和archive_command相反,是将归档文件复制到要恢复的服务器下
+restore_command = 'copy "E:\\pgsqlBAK\\archivedir\\%f" "%p"'
+
+// 设置要恢复的时间点,这个不是必须的,默认会恢复到出问题前的最后一次事物.
+// 这个例子是需要恢复到18:30以前,写成18:29:55,后面+8是时区.格式可以是这样的.
+recovery_target_time = 'yyyy-MM-dd 18:29:55+8:00'
+// 在服务器的data目录下建立文本文件,名字叫recovery.signal,内容空.
+</pre><p>5.OK了,那就启动服务器.看看数据是否还原了.<p>总结下就是,改1个配置,加一个文件,重启.不过这也真是麻烦啊,果然主打linux平台的程序到了win下也是命令行风格.图形界面pgadmin下做一个方便的恢复与备份不好吗.不知道后面的版本有没有做.

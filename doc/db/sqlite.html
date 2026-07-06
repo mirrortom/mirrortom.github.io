@@ -1,0 +1,7 @@
+﻿<h2>SQLite</h2><p>测试环境: win10 / sqlite3 / SQLite Studio 3.4<h3>概述</h3><p>SQLite是一个轻量级的关系型数据库管理系统,它是一个嵌入式数据库,不需要安装和配置,可以直接使用.它的数据库文件是一个单一的文件,可以很方便地进行备份和迁移.SQLite支持SQL语法,并且提供了丰富的函数和特性,适合于小型应用程序和嵌入式系统.<p>管理工具比较多,SQLite Studio这个是免费的,感觉用起来还不错了.网址: https://sqlitestudio.pl<h3>用法</h3><p>打开SQLite Studio,建立或者连接已经存在的数据库,一个数据库就是一个文件,比如 mydb.sqlite3或者mydb.db,扩展名字不同表示sqlite版本不同,一般使用sqlite3版本就可以.打开或者建立数据库后,就可以建表/视图.<p>在C#程序中使用数据库如下,需要的工具库是 Microsoft.Data.Sqlite .<p>连接字符串中,Data Source指定数据库文件的路径,如果是相对路径,则是相对于当前程序的路径.如果是绝对路径,则直接指定文件的完整路径.<pre>
+// 连接字符串
+connstr = "Data Source=mydb.sqlite3"
+
+// 指定绝对路径
+connstr = "Data Source=e:/app/mydb.sqlite3"
+</pre><p>连接到数据库后,就可以执行SQL语句了,例如建表/插入/查询等.和使用sqlserver一样,不过这种数据库没有存储过程.

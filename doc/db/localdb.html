@@ -1,0 +1,32 @@
+﻿<h2>Mssql LocalDB</h2><p>测试环境: win10 / Microsoft SQL Server 2025 (17.0.1000.7)LocalDB<h3>概述</h3><p>LocalDB是Microsoft SQL Server的一种轻量级版本，专为开发人员设计。它提供了一个简单的安装和配置过程，使开发人员能够快速创建和管理本地数据库实例。LocalDB适用于开发和测试环境，特别适合那些不需要完整SQL Server功能的应用程序。<h3>安装和配置</h3><p>如果安装了vs2026社区版,那么MSSQL2025版本的LocalDB就已经安装了.如果没有,可以下载localdb的安装包进行安装.<h3>基本命令</h3><p>sqllocaldb.exe 是命令名字,在cmd里使用sqllocaldb即可.注意,最好是在管理员权限的cmd或者powershell里运行这个命令.<pre>
+// 查看本机安装的LocalDB版本
+sqllocaldb v
+
+// 查看本机LocalDB实例
+sqllocaldb i
+
+// 查看实例的详细信息
+sqllocaldb i 实例名字
+
+// 创建一个新的LocalDB实例
+sqllocaldb create 实例名字
+
+// 启动LocalDB实例
+sqllocaldb start 实例名字
+
+// 停止LocalDB实例
+sqllocaldb stop 实例名字
+
+// 删除LocalDB实例
+sqllocaldb delete 实例名字
+
+// 连接到LocalDB实例
+sqllocaldb connect 实例名字
+</pre><h3>共享实例名</h3><p>LocalDB实例可以共享一个公共名称,这样多个用户或应用程序可以连接到同一个实例.要创建一个共享实例,可以使用以下命令:<pre>
+// 给默认实例起一个共享名字
+// "MSSQLLocalDB"是默认实例的名字,"mylocaldb"是给它起的共享名字,可以根据需要修改.
+sqllocaldb h "MSSQLLocalDB" "mylocaldb"
+</pre><p>共享实例简单的可以认为是给一个localdb实例起了一个别名,其他用户或者程序通过这个别名使用该实例.为什么要这样多此一举呢?这有个方便之处是,起一个方便好记的别名后,其它程序和用户都可以通过这个名字使用了.<h3>连接字符串</h3><pre>
+// "(localdb)\" 是固定的前缀,后面 ".\mylocaldb" 是实例名字
+server=(localdb)\.\mylocaldb;uid=sa;pwd=123456;Initial Catalog=test
+</pre><p>为什么是 ".\mylocaldb" 而不是 "mylocaldb"? 因为在连接字符串里,LocalDB实例的名字需要以 ".\" 开头来表示这是一个本地实例.如果直接写 "mylocaldb",系统可能会误认为这是一个远程服务器的名字,而不是本地的LocalDB实例.<h3>sa用户问题</h3><p>如果sa用户登录不了,可能是因为localdb数据库没有这个账号,可以用windows系统认证登录后,添加这个sa账户,并且给与db_owner权限.<h3>localdb服务</h3><p>没有服务,LocalDB实例是以用户模式运行的,它不依赖于SQL Server服务.当你启动一个LocalDB实例时,它会在后台创建一个独立的进程来运行该实例.这个进程会在需要时自动启动,并在不需要时自动停止.因此,你不需要担心LocalDB实例的服务管理问题.

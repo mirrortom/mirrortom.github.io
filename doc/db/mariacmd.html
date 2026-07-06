@@ -1,0 +1,19 @@
+﻿<h2>mariadb 命令</h2><p>测试环境: win10 / mariadb10.5 / heidisql11.2<h3>概述</h3><p>网址: https://mariadb.com ,下载windows版本的,安装时还可以选HeidiSql客户端,安装完成后有个叫 MariaDB 的windows服务.<p>是mysql的替代版,自从mysql被oracle收购后,mariadb就是它的继任者了,开源软件.使用时感觉和mysql没区别.<h3>基本命令</h3><p>在cmd或者powershell里运行.切换到mariadb的安装目录,进入到bin目录下执行命令.<pre>
+// 连接到mariadb服务,默认端口3306,如果安装时修改了端口号,要在命令里指定 -P 端口号
+Mariadb -uroot -p123456
+
+// 显示所有数据库
+show databases
+
+// 切换到某个数据库
+ues [数据库名字]
+
+// 建立数据库
+create database [数据库名字]
+
+// 删除数据库<b>(!要谨慎操作,没有提示反悔机会的)</b>
+drop database [数据库名字]
+
+// 显示表
+show tables
+</pre>

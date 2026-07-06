@@ -1,4 +1,4 @@
-﻿<h2>MariaDB</h2><p>测试环境: win10 / heidisql11.2 / maria10.5<h4>查询表信息</h4><pre>
+﻿<h2>MariaDB</h2><p>测试环境: win10 / heidisql11.2 / maria10.5<h3>查询表信息</h3><pre>
 // 查询服务器上所有数据库
 SELECT *,
     schema_name,// 数据库名字
@@ -12,7 +12,7 @@ SELECT
 	  table_comment// 表说明
 FROM information_schema.tables
 WHERE table_schema='所在数据库' AND TABLE_NAME='表名';
-</pre><h4>查询表的字段信息</h4><pre>
+</pre><h3>查询表的字段信息</h3><pre>
 // 长度是字符串长度,例如字母'a',和汉字'啊'都是1个长度
 SELECT
     CASE column_key WHEN 'PRI' THEN 'Y' ELSE '' END AS 是否主键,
@@ -27,7 +27,7 @@ SELECT
     column_comment 列注释
 FROM information_schema.`COLUMNS`
 WHERE TABLE_NAME='表名'
-</pre><h4>分页LIMIT</h4><pre>
+</pre><h3>分页LIMIT</h3><pre>
 // 总数
 SELECT count(pk) from 表 WHERE 1=1
 
@@ -37,4 +37,37 @@ FROM 表
 WHERE 1=1
 ORDER BY [CreateTime] DESC
 LIMIT @@OffSetRows, @@PageSize
+</pre><h3>存储过程</h3><pre>
+-- 修改默认的语句分隔符为 '//'
+delimiter //
+-- 存储过程说明:改变一个记录的钱数,根据ID.成功返回1,否则0
+--  这个过程的名字是 addmoney
+CREATE PROCEDURE addmoney
+(
+	-- 参数变量不能用@打头,和mssql不同
+	$money decimal,
+	$id CHAR(32),
+	-- out表示输出参数.前面没有默认是 in,表示输入参数
+	OUT $result INT
+)
+BEGIN
+UPDATE emp SET money=$money WHERE id=$id;
+IF ROW_COUNT()=1 THEN
+	SET $result=1;
+ELSE
+	SET $result=0;
+END IF;
+END
+-- 注意这个结束的//符号,表示语句全部完成
+//
+-- 最后吧这个分隔符改成默认的;号,否则就乱了套了,注意del和;间有个空格
+delimiter ;
+</pre><p>为什么修改分隔符? 由于存储过程里可能有多个语句,所以需要改变一下语句分隔符,默认是;(分号),改成//或者其它符号都行,只要不和存储过程里的语句冲突就行了.<p>执行过程<pre>
+--SET设置变量,名字要@打头,后面直接设置值
+SET @money1=101;
+SET @id='0500B3028A444B68924114F7BD7D196E';
+
+-- call调用的时候,变量参数名字不与提供的变量名字对应,是按顺序对应的
+CALL addmoney(@money1,@id,@result);
+SELECT @result;
 </pre>

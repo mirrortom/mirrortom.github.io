@@ -1,0 +1,9 @@
+﻿<h2>Oracle</h2><p>测试环境: win10 / Oracle Database Express Edition 21c (Oracle XE 21c)<h3>概述</h3><p>世界排名第一的数据库,XE版本为免费版,有windows版本.<h3>安装</h3><p>下载XE21c的windows版本然后安装,大约10分钟安装完成了.<h3>客户端sqlplus</h3><p>安装完成后,工具目录会自动加入到环境变量.可以使用sqlplus命令行工具测试连接.<pre>
+// 使用sqlplus连接时,用户名(system)密码(123456)
+system/123456@localhost:1521/XE
+</pre><p>sys和system是两个内置的数据库账户,权限很大.密码123456是在安装时设定的.上面那句话的意思是:system是用户名,斜杠后面是密码,@符号后面是数据库所在的计算机名字,本机可以使用localhost或者127.0.0.1或者计算机名字,冒号后面是端口,默认是1521,斜杠后面是sid名字,可以理解为实例名字.<h3>客户端sqldeveloper</h3><p>Oracle官方提供的图形化管理工具,功能强大,类似于sql server的MSSM.这个工具下载后不需要安装,只是解压缩就可以了,然后找到里面的exe文件打开.在界面上点击新建连接,然后输入账号密码(sqlplus)的那个就可以.<p>连接时遇到的问题是,数据库服务/监听程序/账号/密码/sid都正确,但就是连接失败,在找了很多资料后,发现是时区设置错误导致连接不能成功,这个问题以前没有遇到过啊.看来java语言的软件主要在linux端使用,在windows上遇到问题也比较正常了,解决就好.<p>具体做法是找到sqldeveloper的安装目录,再进入sqldeveloper目录下的bin目录,找到sqldeveloper.conf这个文件,这就是时区文件了,在最后面加上一行:<pre>
+AddVMOption -Duser.timezone=GMT+8
+</pre><p>由于中国是统一使用东8区时间,所以值GMT+8.这个设置在sqldev界面上没找到,只好直接改了配置文件.GMT是格林威治时间的意思.<h3>程序连接</h3><p>C#程序连接字符串,需要用到工具库 "Oracle.ManagedDataAccess.Core",这也会有很多问题,依然是windows平台支持不够好导致的.比如Oracle.ManagedDataAccess库的.net framework版本和现在的.net core版本就不同,还有oracle版本问题,新的工具库连接旧的数据库也会出现问题.<pre>
+// 连接字符串,用户名(system)密码(123456)
+connstr = "Data Source=oracletest;user id=system;password=123456";
+</pre>
